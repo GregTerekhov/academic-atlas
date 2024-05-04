@@ -29,6 +29,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,
+
     "plugins": [
       {
         "name": "next"
