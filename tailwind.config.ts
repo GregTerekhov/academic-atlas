@@ -1,20 +1,64 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
+
+const hocusFunction = plugin(function ({ addVariant }) {
+  addVariant('hocus', ['&:hover', '&:focus']);
+});
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './layout/**/*.{js,ts,jsx,tsx,mdx}',
+    './template/**/*.{js,ts,jsx,tsx,mdx}',
+    './ui/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      sm: '375px',
+      md: '768px',
+      lg: '1440px',
+    },
+    container: {
+      center: true,
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontSize: {
+        xs: '12px',
+        sm: '14px',
+        base: '16px',
+        medium: '18px',
+        lg: '20px',
+        xl: '22px',
+        '2xl': '24px',
+        '3xl': '32px',
+        '4xl': '36px',
+        '5xl': '40px',
+        '6xl': '48px',
+        giant: '55px',
+        monstrous: '60px',
       },
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        whiteBase: '#fefefe',
+        darkBase: '#1b1b1b',
+        greyBase: '#3e3e3e',
+        accentPrimary: {
+          DEFAULT: '#f8a401',
+          darker: '#d12600',
+        },
+        accentSecondary: {
+          DEFAULT: '#2091f9',
+          darker: '#1b254c',
+        },
+      },
+      // backgroundImage: {
+      //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      //   'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      // },
     },
   },
-  plugins: [],
+  plugins: [hocusFunction],
 };
 export default config;
