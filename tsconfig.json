@@ -18,17 +18,18 @@
     "exactOptionalPropertyTypes": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "useUnknownInCatchVariables": true,
     // "noFallthroughCasesInSwitch": true,
 
     //Modules
-    "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,
+    "baseUrl": ".",
 
     "plugins": [
       {
@@ -36,7 +37,12 @@
       }
     ],
     "paths": {
-      "@/components/*": ["components/*"]
+      "components/*": ["components/*"],
+      "helpers/*": ["helpers/*"],
+      "layout/*": ["layout/*"],
+      "public/*": ["public/*"],
+      "template/*": ["template/*"],
+      "ui/*": ["ui/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

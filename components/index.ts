@@ -1,0 +1,14 @@
+export { default as AboutService } from './home/about';
+export { default as Benefits } from './home/benefits';
+export { default as Breadcrumbs } from './breadcrumbs';
+export { default as Cost } from './home/cost';
+export { default as FAQItem } from './FAQ/fag-item';
+export { default as FAQList } from './FAQ/fag-list';
+export { default as Feedback } from './home/feedback';
+export { default as Hero } from './home/hero';
+export { default as MobileMenu } from './mobile-menu';
+export { default as Performers } from './home/performers';
+export { default as PriceCalculator } from './product-price-calculator';
+export { default as Promotions } from './home/promotions';
+export { default as ScrollController } from './scroll-controller';
+export { default as Services } from './home/services';
