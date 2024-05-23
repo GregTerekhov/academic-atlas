@@ -42,6 +42,7 @@
       "layout/*": ["layout/*"],
       "public/*": ["public/*"],
       "template/*": ["template/*"],
+      "types/*": ["types/*"],
       "ui/*": ["ui/*"]
     }
   },
