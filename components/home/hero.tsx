@@ -1,3 +1,5 @@
+import { ButtonType } from 'types';
+
 import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 
@@ -5,7 +7,7 @@ export default function Hero() {
   return (
     <SectionTemplate>
       <p>Герой</p>
-      <PrimaryButtonUI />
+      <PrimaryButtonUI type={ButtonType.Button} />
     </SectionTemplate>
   );
 }
