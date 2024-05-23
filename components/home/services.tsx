@@ -1,7 +1,13 @@
+import { SectionTemplate } from 'template';
+import { GridItem } from '..';
+
 export default function Services() {
   return (
-    <section>
+    <SectionTemplate>
       <p>Наші послуги</p>
-    </section>
+      <ul>
+        <GridItem />
+      </ul>
+    </SectionTemplate>
   );
 }

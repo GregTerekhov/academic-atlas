@@ -1,7 +1,11 @@
+import { SectionTemplate } from 'template';
+import { PrimaryButtonUI } from 'ui';
+
 export default function Hero() {
   return (
-    <section>
+    <SectionTemplate>
       <p>Герой</p>
-    </section>
+      <PrimaryButtonUI />
+    </SectionTemplate>
   );
 }

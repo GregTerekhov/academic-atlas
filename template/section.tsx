@@ -1,7 +1,12 @@
-export default function Section() {
+export default function Section({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <>
-      <p>Section</p>
-    </>
+    <section>
+      <h2 className='text-5xl'>Section</h2>
+      {children}
+    </section>
   );
 }

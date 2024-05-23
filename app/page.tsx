@@ -9,6 +9,7 @@ import {
   Hero,
   Performers,
   Promotions,
+  ScrollController,
   Services,
 } from 'components';
 
@@ -24,6 +25,7 @@ export default function Home() {
         <Benefits />
         <Promotions />
         <Feedback />
+        <ScrollController />
       </Container>
     </main>
   );

@@ -5,9 +5,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 import { Footer, Header } from 'layout';
-import { ScrollController } from 'components';
 
-const philosopher = Philosopher({ subsets: ['latin'], weight: ['400', '700'] });
+const philosopher = Philosopher({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  fallback: ['system-ui', 'arial'],
+});
 
 export const metadata: Metadata = {
   title: 'Academic Atlas',
@@ -25,7 +28,7 @@ export default function RootLayout({
       <body className={philosopher.className}>
         <Header />
         {children}
-        <ScrollController />
+
         <Footer />
       </body>
     </html>
