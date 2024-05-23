@@ -1,7 +1,11 @@
+import { SectionTemplate } from 'template';
+import { PrimaryButtonUI } from 'ui';
+
 export default function Performers() {
   return (
-    <section>
+    <SectionTemplate>
       <p>Для виконавців</p>
-    </section>
+      <PrimaryButtonUI />
+    </SectionTemplate>
   );
 }

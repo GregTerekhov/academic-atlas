@@ -1,9 +1,5 @@
 import type { Config } from 'tailwindcss';
-import plugin from 'tailwindcss/plugin';
-
-const hocusFunction = plugin(function ({ addVariant }) {
-  addVariant('hocus', ['&:hover', '&:focus']);
-});
+import { headerStyles, hocusFunction } from './helpers';
 
 const config: Config = {
   content: [
@@ -43,7 +39,10 @@ const config: Config = {
         current: 'currentColor',
         whiteBase: '#fefefe',
         darkBase: '#1b1b1b',
-        greyBase: '#3e3e3e',
+        disabled: {
+          foreground: '#959595',
+          background: '#2f2f2f',
+        },
         accentPrimary: {
           DEFAULT: '#f8a401',
           darker: '#d12600',
@@ -54,11 +53,16 @@ const config: Config = {
         },
       },
       // backgroundImage: {
+      // 'hero': ,
+      // 'price': ,
+      // 'promotions': ,
+      // 'performers': ,
+
       //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       //   'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       // },
     },
   },
-  plugins: [hocusFunction],
+  plugins: [hocusFunction, headerStyles],
 };
 export default config;

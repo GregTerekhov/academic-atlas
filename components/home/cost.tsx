@@ -1,7 +1,11 @@
+import { SectionTemplate } from 'template';
+import { PrimaryButtonUI } from 'ui';
+
 export default function Cost() {
   return (
-    <section>
+    <SectionTemplate>
       <p>Розрахувати вартість</p>
-    </section>
+      <PrimaryButtonUI />
+    </SectionTemplate>
   );
 }
