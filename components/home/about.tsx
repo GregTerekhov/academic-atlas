@@ -1,7 +1,9 @@
+import { SectionTemplate } from 'template';
+
 export default function AboutService() {
   return (
-    <section>
+    <SectionTemplate>
       <p>Як працює сервіс</p>
-    </section>
+    </SectionTemplate>
   );
 }

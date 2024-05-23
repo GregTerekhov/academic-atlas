@@ -1,7 +1,9 @@
+import { SectionTemplate } from 'template';
+
 export default function Benefits() {
   return (
-    <section>
+    <SectionTemplate>
       <p>Наші переваги</p>
-    </section>
+    </SectionTemplate>
   );
 }

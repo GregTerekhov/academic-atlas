@@ -1,7 +1,11 @@
+import { SectionTemplate } from 'template';
+import { CarouselUI } from 'ui';
+
 export default function Feedback() {
   return (
-    <section>
+    <SectionTemplate>
       <p>Відгуки наших клієнтів</p>
-    </section>
+      <CarouselUI />
+    </SectionTemplate>
   );
 }
