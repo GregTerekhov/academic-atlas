@@ -1,12 +1,15 @@
+import { ButtonType } from 'types';
+
 interface IPrimaryButtonProps {
+  type: ButtonType;
   children?: React.ReactNode;
 }
 
-export default function PrimaryButton({ children }: IPrimaryButtonProps) {
+export default function PrimaryButton({ type, children }: IPrimaryButtonProps) {
   return (
     <>
       <p>PrimaryButton</p>
-      {children}
+      <button type={type}>{children}</button>
     </>
   );
 }

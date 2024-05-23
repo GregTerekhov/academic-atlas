@@ -1,3 +1,5 @@
+import { ButtonType } from 'types';
+
 import { Container } from 'layout';
 import { GridItem } from 'components';
 import { PopoverUI, PrimaryButtonUI } from 'ui';
@@ -11,7 +13,7 @@ export default function Partnership() {
           <GridItem />
         </ul>
         <PopoverUI />
-        <PrimaryButtonUI />
+        <PrimaryButtonUI type={ButtonType.Button} />
       </Container>
     </main>
   );

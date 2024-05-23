@@ -1,3 +1,4 @@
+import { Container } from 'layout';
 import { SvgIconUI } from 'ui';
 
 export default function MobileMenu({
@@ -9,9 +10,11 @@ export default function MobileMenu({
 }>) {
   return (
     <div className='hidden max-lg:block'>
-      <p>MobileMenu</p>
-      {children}
-      {hasIcon && <SvgIconUI />}
+      <Container>
+        <p>MobileMenu</p>
+        {children}
+        {hasIcon && <SvgIconUI />}
+      </Container>
     </div>
   );
 }
