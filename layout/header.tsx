@@ -1,7 +1,4 @@
-import { ButtonType } from 'types';
-
-import { Contacts, Logo, Menu, ThemeSwitcher } from 'components';
-import { SvgIconUI } from 'ui';
+import { Contacts, Logo, Menu, ThemeSwitcher, ToggleMenuTrigger } from 'components';
 import Container from './container';
 
 export default function Header() {
@@ -16,9 +13,7 @@ export default function Header() {
         </div>
         <div className='hidden gap-x-1 max-lg:flex'>
           <ThemeSwitcher />
-          <button type={ButtonType.Button}>
-            <SvgIconUI />
-          </button>
+          <ToggleMenuTrigger />
         </div>
       </Container>
     </header>

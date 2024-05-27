@@ -1,10 +1,10 @@
-import { SvgIconUI } from '.';
+import SvgIcon from './svg-icon';
 
 export default function Input() {
   return (
     <>
       <p>Input</p>
-      <SvgIconUI />
+      <SvgIcon />
     </>
   );
 }
