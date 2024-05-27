@@ -1,12 +1,13 @@
-import { Logo } from 'components';
+import { Contacts, FooterMenu, Logo } from 'components';
 import Container from './container';
 
 export default function Footer() {
   return (
-    <footer className='bg-disabled-background w-full'>
+    <footer className='w-full bg-disabled-background'>
       <Container>
         <Logo />
-        <p>Footer</p>
+        <FooterMenu />
+        <Contacts />
       </Container>
     </footer>
   );

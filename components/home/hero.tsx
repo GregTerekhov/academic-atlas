@@ -5,7 +5,7 @@ import { PrimaryButtonUI } from 'ui';
 
 export default function Hero() {
   return (
-    <SectionTemplate>
+    <SectionTemplate hasBackground>
       <p>Герой</p>
       <PrimaryButtonUI type={ButtonType.Button} />
     </SectionTemplate>

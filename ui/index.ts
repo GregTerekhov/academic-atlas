@@ -5,4 +5,5 @@ export { default as DropdownUI } from './dropdown';
 export { default as InputUI } from './input';
 export { default as PopoverUI } from './popover';
 export { default as PrimaryButtonUI } from './primary-button';
+export { default as SectionHeading } from './section-heading';
 export { default as SvgIconUI } from './svg-icon';

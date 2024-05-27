@@ -1,10 +1,10 @@
-import React from 'react';
 import { Philosopher } from 'next/font/google';
 
 import type { Metadata } from 'next';
-import './globals.css';
 
 import { Footer, Header } from 'layout';
+
+import './globals.css';
 
 const philosopher = Philosopher({
   subsets: ['latin'],
@@ -28,7 +28,6 @@ export default function RootLayout({
       <body className={philosopher.className}>
         <Header />
         {children}
-
         <Footer />
       </body>
     </html>
