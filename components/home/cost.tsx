@@ -5,7 +5,7 @@ import { PrimaryButtonUI } from 'ui';
 
 export default function Cost() {
   return (
-    <SectionTemplate>
+    <SectionTemplate hasBackground>
       <p>Розрахувати вартість</p>
       <PrimaryButtonUI type={ButtonType.Submit} />
     </SectionTemplate>

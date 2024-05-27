@@ -1,3 +1,9 @@
+import { Container } from 'layout';
+
 export default function NotFound() {
-  return <main>NotFound</main>;
+  return (
+    <main>
+      <Container>NotFound</Container>
+    </main>
+  );
 }

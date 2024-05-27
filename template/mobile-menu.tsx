@@ -1,19 +1,21 @@
+import { ButtonType } from 'types';
+
 import { Container } from 'layout';
-import { SvgIconUI } from 'ui';
+import { PrimaryButtonUI } from 'ui';
 
 export default function MobileMenu({
   children,
-  hasIcon,
+  isPrice,
 }: Readonly<{
   children: React.ReactNode;
-  hasIcon?: boolean;
+  isPrice?: boolean;
 }>) {
   return (
     <div className='hidden max-lg:block'>
       <Container>
         <p>MobileMenu</p>
         {children}
-        {hasIcon && <SvgIconUI />}
+        {isPrice && <PrimaryButtonUI type={ButtonType.Button}>Primary Button/</PrimaryButtonUI>}
       </Container>
     </div>
   );

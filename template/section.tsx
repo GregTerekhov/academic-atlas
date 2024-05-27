@@ -1,11 +1,15 @@
+import { SectionHeading } from 'ui';
+
 export default function Section({
   children,
+  hasBackground,
 }: Readonly<{
   children: React.ReactNode;
+  hasBackground?: boolean;
 }>) {
   return (
-    <section>
-      <h2 className='text-5xl'>Section</h2>
+    <section className={hasBackground ? 'bg-transparent' : ''}>
+      <SectionHeading />
       {children}
     </section>
   );
