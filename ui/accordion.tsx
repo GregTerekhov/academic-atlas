@@ -1,4 +1,4 @@
-import { SvgIconUI } from '.';
+import SvgIcon from './svg-icon';
 
 export default function Accordion({
   children,
@@ -11,7 +11,7 @@ export default function Accordion({
     <>
       <p>Accordion</p>
       <div>
-        <SvgIconUI />
+        <SvgIcon />
         {title}
       </div>
       {children}

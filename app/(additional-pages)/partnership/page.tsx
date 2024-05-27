@@ -1,5 +1,3 @@
-import { ButtonType } from 'types';
-
 import { GridItem, Workflow } from 'components';
 import { PrimaryButtonUI } from 'ui';
 
@@ -11,7 +9,7 @@ export default function Partnership() {
         <GridItem />
       </ul>
       <Workflow />
-      <PrimaryButtonUI type={ButtonType.Button} />
+      <PrimaryButtonUI>Приєднатися</PrimaryButtonUI>
     </>
   );
 }

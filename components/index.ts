@@ -17,4 +17,5 @@ export { default as Promotions } from './home/promotions';
 export { default as ScrollController } from './layout/scroll-controller';
 export { default as Services } from './home/services';
 export { default as ThemeSwitcher } from './layout/theme-switcher';
+export { default as ToggleMenuTrigger } from './layout/toggle-controls';
 export { default as Workflow } from './performers/collaboration-workflow';

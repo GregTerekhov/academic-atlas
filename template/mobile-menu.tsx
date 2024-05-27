@@ -15,7 +15,9 @@ export default function MobileMenu({
       <Container>
         <p>MobileMenu</p>
         {children}
-        {isPrice && <PrimaryButtonUI type={ButtonType.Button}>Primary Button/</PrimaryButtonUI>}
+        {isPrice && (
+          <PrimaryButtonUI type={ButtonType.Button}>Розрахувати вартість</PrimaryButtonUI>
+        )}
       </Container>
     </div>
   );

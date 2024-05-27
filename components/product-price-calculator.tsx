@@ -1,4 +1,4 @@
-// 'use client'
+'use client';
 
 import { ButtonType } from 'types';
 
@@ -20,7 +20,10 @@ export default function PriceCalculator() {
         <InputUI />
         <InputUI />
       </MobileMenuTemplate>
-      <ModalTemplate type={ButtonType.Button}>
+      <ModalTemplate
+        type={ButtonType.Button}
+        buttonTitle='Розрахувати вартість'
+      >
         <p>Меню Дізнатись вартість</p>
         <DropdownUI />
         <DropdownUI />
@@ -29,7 +32,15 @@ export default function PriceCalculator() {
         <InputUI />
         <InputUI />
       </ModalTemplate>
-      {/* {hasSubmitData && <ModalTemplate type={ButtonType.Submit}>Price results</ModalTemplate>} */}
+      {/* {hasSubmitData && (
+        <ModalTemplate
+          type={ButtonType.Submit}
+          buttonTitle='@Academic Atlas'
+          hasIcon
+        >
+          Price results
+        </ModalTemplate>
+      )} */}
     </>
   );
 }
