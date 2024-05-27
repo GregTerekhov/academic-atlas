@@ -1,5 +1,6 @@
 import { Container } from 'layout';
 import { Breadcrumbs, ScrollController } from 'components';
+import { PrimaryButtonUI } from 'ui';
 
 export default function NestedLayout({
   children,
@@ -10,6 +11,7 @@ export default function NestedLayout({
     <main>
       <Container>
         <Breadcrumbs />
+        <PrimaryButtonUI>Замовити</PrimaryButtonUI>
         {children}
         <ScrollController />
       </Container>
