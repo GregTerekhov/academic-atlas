@@ -1,4 +1,5 @@
-import { Breadcrumbs } from 'components';
+import { Container } from 'layout';
+import { Breadcrumbs, ScrollController } from 'components';
 
 export default function NestedLayout({
   children,
@@ -6,9 +7,12 @@ export default function NestedLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <Breadcrumbs />
-      {children}
-    </div>
+    <main>
+      <Container>
+        <Breadcrumbs />
+        {children}
+        <ScrollController />
+      </Container>
+    </main>
   );
 }

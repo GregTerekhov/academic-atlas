@@ -1,5 +1,5 @@
 import { SectionTemplate } from 'template';
-import { GridItem } from '..';
+import GridItem from './grid-item';
 
 export default function Services() {
   return (

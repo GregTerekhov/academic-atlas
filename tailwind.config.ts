@@ -38,7 +38,10 @@ const config: Config = {
         transparent: 'transparent',
         current: 'currentColor',
         whiteBase: '#fefefe',
-        darkBase: '#1b1b1b',
+        darkBase: {
+          light: '#1b254c',
+          DEFAULT: '#1b1b1b',
+        },
         disabled: {
           foreground: '#959595',
           background: '#2f2f2f',
@@ -49,7 +52,7 @@ const config: Config = {
         },
         accentSecondary: {
           DEFAULT: '#2091f9',
-          darker: '#1b254c',
+          darker: '#3048a5',
         },
       },
       // backgroundImage: {

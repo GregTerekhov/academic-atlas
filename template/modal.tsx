@@ -1,4 +1,5 @@
 import { ButtonType } from 'types';
+
 import { PrimaryButtonUI, SvgIconUI } from 'ui';
 
 export default function Modal({

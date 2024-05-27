@@ -5,7 +5,7 @@ import { PrimaryButtonUI } from 'ui';
 
 export default function Performers() {
   return (
-    <SectionTemplate>
+    <SectionTemplate hasBackground>
       <p>Для виконавців</p>
       <PrimaryButtonUI type={ButtonType.Button} />
     </SectionTemplate>

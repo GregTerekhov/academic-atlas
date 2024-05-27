@@ -13,9 +13,11 @@ export const headerStyles = plugin(function ({ addComponents }) {
       zIndex: '10',
       maxHeight: '80px',
       width: '100%',
+      padding: '8px 0',
 
       '@media (min-width: 768px)': {
         maxHeight: '96px',
+        padding: '16px 0',
       },
       '@media (min-width: 1440px)': {
         maxHeight: '112px',

@@ -1,10 +1,17 @@
+// 'use client'
+
+import { ButtonType } from 'types';
+
 import { MobileMenuTemplate, ModalTemplate } from 'template';
 import { DropdownUI, InputUI } from 'ui';
+// import { useState } from 'react';
 
 export default function PriceCalculator() {
+  // const [hasSubmitData, setHasSubmitData] = useState(false);
+
   return (
     <>
-      <MobileMenuTemplate>
+      <MobileMenuTemplate isPrice>
         <p>Меню Дізнатись вартість</p>
         <DropdownUI />
         <DropdownUI />
@@ -13,7 +20,7 @@ export default function PriceCalculator() {
         <InputUI />
         <InputUI />
       </MobileMenuTemplate>
-      <ModalTemplate>
+      <ModalTemplate type={ButtonType.Button}>
         <p>Меню Дізнатись вартість</p>
         <DropdownUI />
         <DropdownUI />
@@ -22,6 +29,7 @@ export default function PriceCalculator() {
         <InputUI />
         <InputUI />
       </ModalTemplate>
+      {/* {hasSubmitData && <ModalTemplate type={ButtonType.Submit}>Price results</ModalTemplate>} */}
     </>
   );
 }
