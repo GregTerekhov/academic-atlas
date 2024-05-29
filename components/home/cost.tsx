@@ -1,11 +1,11 @@
 import { SectionTemplate } from 'template';
-import { PrimaryButtonUI } from 'ui';
+import PriceControls from '../price-controls';
 
 export default function Cost() {
   return (
     <SectionTemplate hasBackground>
       <p>Розрахувати вартість</p>
-      <PrimaryButtonUI>Розрахувати вартість</PrimaryButtonUI>
+      <PriceControls />
     </SectionTemplate>
   );
 }

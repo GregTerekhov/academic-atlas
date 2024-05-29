@@ -3,7 +3,7 @@ import Container from './container';
 
 export default function Header() {
   return (
-    <header className='header bg-gradient-to-br from-darkBase to-darkBase-light'>
+    <header className='header bg-whiteBase dark:bg-gradient-to-br dark:from-darkBase dark:to-darkBase-light'>
       <Container>
         <Logo />
         <div className='hidden lg:flex lg:gap-x-1'>
