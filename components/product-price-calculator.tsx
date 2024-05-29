@@ -1,17 +1,17 @@
 'use client';
 
-import { ButtonType } from 'types';
+import { useState } from 'react';
 
 import { MobileMenuTemplate, ModalTemplate } from 'template';
-import { DropdownUI, InputUI } from 'ui';
-// import { useState } from 'react';
+import { DropdownUI, InputUI, PrimaryButtonUI } from 'ui';
+import PriceResult from './price-result';
 
 export default function PriceCalculator() {
-  // const [hasSubmitData, setHasSubmitData] = useState(false);
+  const [hasSubmitData, setHasSubmitData] = useState(false);
 
   return (
     <>
-      <MobileMenuTemplate isPrice>
+      <MobileMenuTemplate>
         <p>Меню Дізнатись вартість</p>
         <DropdownUI />
         <DropdownUI />
@@ -19,11 +19,11 @@ export default function PriceCalculator() {
         <InputUI />
         <InputUI />
         <InputUI />
+        <PrimaryButtonUI handleClick={() => setHasSubmitData(true)}>
+          Розрахувати вартість
+        </PrimaryButtonUI>
       </MobileMenuTemplate>
-      <ModalTemplate
-        type={ButtonType.Button}
-        buttonTitle='Розрахувати вартість'
-      >
+      <ModalTemplate>
         <p>Меню Дізнатись вартість</p>
         <DropdownUI />
         <DropdownUI />
@@ -31,16 +31,20 @@ export default function PriceCalculator() {
         <InputUI />
         <InputUI />
         <InputUI />
+        <PrimaryButtonUI handleClick={() => setHasSubmitData(true)}>
+          Розрахувати вартість
+        </PrimaryButtonUI>
       </ModalTemplate>
-      {/* {hasSubmitData && (
-        <ModalTemplate
-          type={ButtonType.Submit}
-          buttonTitle='@Academic Atlas'
-          hasIcon
-        >
-          Price results
+      {hasSubmitData && (
+        <ModalTemplate>
+          <PriceResult />
         </ModalTemplate>
-      )} */}
+      )}
+      {hasSubmitData && (
+        <MobileMenuTemplate>
+          <PriceResult />
+        </MobileMenuTemplate>
+      )}
     </>
   );
 }
