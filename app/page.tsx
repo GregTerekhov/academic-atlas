@@ -1,6 +1,6 @@
 import { Container } from 'layout';
 import {
-  AboutService,
+  AboutUs,
   Benefits,
   Cost,
   Feedback,
@@ -8,6 +8,7 @@ import {
   Performers,
   Promotions,
   ScrollController,
+  ServiceOverview,
   Services,
 } from 'components';
 
@@ -18,8 +19,9 @@ export default function Home() {
         <Hero />
         <Services />
         <Cost />
-        <AboutService />
+        <ServiceOverview />
         <Performers />
+        <AboutUs />
         <Benefits />
         <Promotions />
         <Feedback />

@@ -4,7 +4,7 @@ export default function Workflow() {
   return (
     <>
       <p>Workflow</p>
-      <PopoverUI />
+      <PopoverUI>Hints</PopoverUI>
     </>
   );
 }
