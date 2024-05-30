@@ -5,6 +5,7 @@ export default function Contacts() {
     <>
       <p>Contacts</p>
       <SvgIconUI />
+      <SvgIconUI />
     </>
   );
 }

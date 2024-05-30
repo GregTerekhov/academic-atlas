@@ -1,7 +1,6 @@
 import { Container } from 'layout';
 import {
   AboutUs,
-  Benefits,
   Cost,
   Feedback,
   Hero,
@@ -22,7 +21,6 @@ export default function Home() {
         <ServiceOverview />
         <Performers />
         <AboutUs />
-        <Benefits />
         <Promotions />
         <Feedback />
         <ScrollController />
