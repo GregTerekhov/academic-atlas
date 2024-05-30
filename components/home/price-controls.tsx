@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { MobileMenuTemplate, ModalTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
-import PriceCalculator from './product-price-calculator';
+import PriceCalculator from '../product-price-calculator';
 
 export default function PriceControls() {
   const [isOpenPrice, setIsOpenPrice] = useState(false);

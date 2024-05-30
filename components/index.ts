@@ -13,7 +13,7 @@ export { default as Logo } from './layout/logo';
 export { default as Menu } from './layout/menu';
 export { default as Performers } from './home/performers';
 export { default as PriceCalculator } from './product-price-calculator';
-export { default as PriceControls } from './price-controls';
+export { default as PriceControls } from './home/price-controls';
 export { default as PriceResult } from './price-result';
 export { default as Promotions } from './home/promotions';
 export { default as ScrollController } from './layout/scroll-controller';

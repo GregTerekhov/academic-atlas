@@ -7,7 +7,7 @@ export default function Hero() {
       hasBackground
       isBigTitle
     >
-      <p className='light:text-whiteBase dark:text-accentPrimary'>Герой</p>
+      <p className='text-medium text-darkBase dark:text-accentPrimary'>Герой</p>
       <PrimaryButtonUI>Замовити</PrimaryButtonUI>
     </SectionTemplate>
   );
