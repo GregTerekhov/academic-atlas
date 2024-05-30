@@ -1,5 +1,4 @@
 export { default as AboutUs } from './home/about-us';
-export { default as Benefits } from './home/benefits';
 export { default as Breadcrumbs } from './layout/breadcrumbs';
 export { default as Contacts } from './layout/contacts';
 export { default as Cost } from './home/cost';
