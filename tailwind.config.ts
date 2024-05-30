@@ -35,6 +35,9 @@ const config: Config = {
         '5xl': '40px',
         giant: '55px',
       },
+      lineHeight: {
+        130: '1.3',
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
