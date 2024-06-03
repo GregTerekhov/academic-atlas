@@ -1,13 +1,21 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:jest/recommended", "prettier"],
+  "root": true,
+  "extends": ["next/core-web-vitals", "plugin:jest/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "react"],
   "overrides": [
     {
       "files": ["tests/**/*"],
+      
       "plugins": ["jest"],
       "env": {
         "jest/globals": true
       }
     }
+    
   ],
   "rules": {
     "jest/no-disabled-tests": "warn",
@@ -15,5 +23,10 @@
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
