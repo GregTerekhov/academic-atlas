@@ -6,7 +6,6 @@ export default function Hero() {
     <SectionTemplate
       hasBackground
       isBigTitle
-      title
     >
       <button className='text-medium hocus:bg-accentPrimary dark:text-accentPrimary md:text-5xl lg:text-2xl'>
         Герой
