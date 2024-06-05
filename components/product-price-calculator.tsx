@@ -2,12 +2,41 @@
 
 import { useState } from 'react';
 
+import { IWorkType, WorkType } from 'types';
+
 import { MobileMenuTemplate, ModalTemplate } from 'template';
-import { InputUI, PrimaryButtonUI } from 'ui';
+import { DropdownUI, InputUI, PrimaryButtonUI } from 'ui';
 import PriceResult from './price-result';
 
 export default function PriceCalculator() {
   const [hasSubmitData, setHasSubmitData] = useState(false);
+
+  const workTypes: IWorkType[] = [
+    {
+      typeId: 'teamWork1',
+      option: WorkType.Diplomas,
+    },
+    {
+      typeId: 'teamWork2',
+      option: WorkType.TeamPapers,
+    },
+    {
+      typeId: 'teamWork3',
+      option: WorkType.BachelorTheses,
+    },
+    {
+      typeId: 'teamWork4',
+      option: WorkType.TestPapers,
+    },
+    {
+      typeId: 'teamWork5',
+      option: WorkType.Abstracts,
+    },
+    {
+      typeId: 'teamWork6',
+      option: WorkType.PracticalWorks,
+    },
+  ];
 
   return (
     <>
@@ -25,9 +54,12 @@ export default function PriceCalculator() {
       </MobileMenuTemplate>
       <ModalTemplate>
         <p>Меню Дізнатись вартість</p>
+        <DropdownUI
+          label={WorkType.Default}
+          options={workTypes}
+        />
         {/* <DropdownUI />
-        <DropdownUI />
-        <DropdownUI /> */}
+        <DropdownUI />  */}
         <InputUI />
         <InputUI />
         <InputUI />

@@ -1,7 +1,7 @@
 import { IconName, IconSize } from 'types';
 
 import { SectionTemplate } from 'template';
-import { DropdownUI, SvgIconUI } from 'ui';
+import { SvgIconUI } from 'ui';
 
 export default function AboutUs() {
   return (
@@ -21,10 +21,6 @@ export default function AboutUs() {
         id={IconName.Benefits1}
         className='hidden stroke-accentSecondary-darker stroke-[0.5] max-md:block'
         size={{ width: IconSize.L, height: IconSize.L }}
-      />
-      <DropdownUI
-        label='Курсові роботи'
-        options={['1', '2', '3']}
       />
       {/* <SvgIconUI />
       <SvgIconUI />
