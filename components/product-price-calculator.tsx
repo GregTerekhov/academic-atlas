@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { MobileMenuTemplate, ModalTemplate } from 'template';
-import { DropdownUI, InputUI, PrimaryButtonUI } from 'ui';
+import { InputUI, PrimaryButtonUI } from 'ui';
 import PriceResult from './price-result';
 
 export default function PriceCalculator() {
@@ -13,9 +13,9 @@ export default function PriceCalculator() {
     <>
       <MobileMenuTemplate>
         <p>Меню Дізнатись вартість</p>
-        <DropdownUI />
-        <DropdownUI />
-        <DropdownUI />
+        {/* <DropdownUI /> */}
+        {/* <DropdownUI />
+        <DropdownUI /> */}
         <InputUI />
         <InputUI />
         <InputUI />
@@ -25,9 +25,9 @@ export default function PriceCalculator() {
       </MobileMenuTemplate>
       <ModalTemplate>
         <p>Меню Дізнатись вартість</p>
+        {/* <DropdownUI />
         <DropdownUI />
-        <DropdownUI />
-        <DropdownUI />
+        <DropdownUI /> */}
         <InputUI />
         <InputUI />
         <InputUI />

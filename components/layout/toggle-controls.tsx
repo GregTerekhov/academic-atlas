@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ButtonType } from 'types';
 
 import { MobileMenuTemplate } from 'template';
-import { SvgIconUI } from 'ui';
+// import { SvgIconUI } from 'ui';
 import Menu from './menu';
 
 export default function ToggleMenuTrigger() {
@@ -16,7 +16,7 @@ export default function ToggleMenuTrigger() {
         type={ButtonType.Button}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        <SvgIconUI />
+        {/* <SvgIconUI /> */}
       </button>
       {isMenuOpen && (
         <MobileMenuTemplate>

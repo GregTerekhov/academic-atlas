@@ -1,4 +1,4 @@
-import SvgIcon from './svg-icon';
+// import SvgIcon from './svg-icon';
 
 export default function Accordion({
   children,
@@ -11,7 +11,7 @@ export default function Accordion({
     <>
       <p>Accordion</p>
       <div>
-        <SvgIcon />
+        {/* <SvgIcon /> */}
         {title}
       </div>
       {children}

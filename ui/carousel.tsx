@@ -1,4 +1,4 @@
-import SvgIcon from './svg-icon';
+// import SvgIcon from './svg-icon';
 
 export default function Carousel({
   children,
@@ -8,7 +8,7 @@ export default function Carousel({
   return (
     <>
       <p>Carousel</p>
-      <SvgIcon />
+      {/* <SvgIcon /> */}
       {children}
     </>
   );

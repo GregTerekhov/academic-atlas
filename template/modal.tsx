@@ -1,4 +1,4 @@
-import { SvgIconUI } from 'ui';
+// import { SvgIconUI } from 'ui';
 
 export default function Modal({
   children,
@@ -8,7 +8,7 @@ export default function Modal({
   return (
     <div>
       <div>
-        <SvgIconUI />
+        {/* <SvgIconUI /> */}
         <h2>Modal</h2>
         {children}
       </div>

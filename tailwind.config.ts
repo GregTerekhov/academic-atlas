@@ -65,12 +65,13 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        // 'hero': ,
-        // 'price': ,
+        // hero: ,
+        // price: ,
         serviceOverview: "url('/service-overview.webp')",
-        // 'promotions': ,
-        // 'performers': ,
-
+        // promotions: ,
+        // performers: ,
+        'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
+        'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
         //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         //   'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
