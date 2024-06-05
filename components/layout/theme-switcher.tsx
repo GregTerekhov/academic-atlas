@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import { SvgIconUI } from 'ui';
+// import { SvgIconUI } from 'ui';
 
 export default function ThemeSwitcher() {
   const [enabled, setEnabled] = useState(false);
@@ -29,7 +29,7 @@ export default function ThemeSwitcher() {
   return (
     <>
       <p>ThemeSwitcher</p>
-      <SvgIconUI />
+      {/* <SvgIconUI /> */}
       <button
         type='button'
         onClick={handleSwitchTheme}

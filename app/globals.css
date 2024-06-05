@@ -23,3 +23,20 @@
     @apply text-1.5xl md:text-3xl lg:text-4xl;
   }
 }
+
+@layer components {
+  .gradient-border {
+    @apply rounded-lg border border-solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+      to right,
+      theme('colors.accentPrimary.DEFAULT'),
+      theme('colors.accentPrimary.darker')
+    );
+
+    &:hover,
+    &:focus {
+      border: 1px solid transparent;
+    }
+  }
+}
