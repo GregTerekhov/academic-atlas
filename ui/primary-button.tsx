@@ -16,8 +16,6 @@ export default function PrimaryButton({
   isDisabled,
   width = 'w-[320px]',
 }: IPrimaryButtonProps) {
-  console.log('THIS LOG IN CONSOLE');
-
   //FIXME: переменная применяется для определения стиля в случае, если кнопка отключена (disabled=true). В таком случае у кнопки нет поведения ховера.
   //FIXME: accent - gradient и background - gradient tailwind.config не работают как цвет рамки из - за особенностей работы градиента в tailwind в целом.как фон работает только accent - gradient, background - gradient - не рабоатет.в качестве альтернативы предлагаю оставить цвет рамки при ховере однотонной.
   const disabledStyle = isDisabled
