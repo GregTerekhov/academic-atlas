@@ -56,7 +56,7 @@ const config: Config = {
           background: '#2f2f2f',
         },
         accentPrimary: {
-          DEFAULT: '#f8a401',
+          default: '#f8a401', //FIXME: вызов стиля bg-accentPrimary-DEFAULT не работает
           darker: '#d12600',
         },
         accentSecondary: {
