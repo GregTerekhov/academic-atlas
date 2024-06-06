@@ -4,9 +4,9 @@ interface IPrimaryButtonProps {
   children: React.ReactNode;
   handleClick?: () => void;
   type?: ButtonType;
-  hasIcon?: boolean;
   isDisabled?: boolean;
   width?: string;
+  hasIcon?: boolean;
 }
 
 export default function PrimaryButton({
@@ -14,19 +14,18 @@ export default function PrimaryButton({
   handleClick,
   type = ButtonType.Button,
   isDisabled,
-  width = 'w-[320px]',
+  width = 'w-80',
+  hasIcon = false,
 }: IPrimaryButtonProps) {
-  //FIXME: переменная применяется для определения стиля в случае, если кнопка отключена (disabled=true). В таком случае у кнопки нет поведения ховера.
-  //FIXME: accent - gradient и background - gradient tailwind.config не работают как цвет рамки из - за особенностей работы градиента в tailwind в целом.как фон работает только accent - gradient, background - gradient - не рабоатет.в качестве альтернативы предлагаю оставить цвет рамки при ховере однотонной.
   const disabledStyle = isDisabled
-    ? 'bg-none text-disabled-foreground bg-disabled-background'
-    : 'hover:border-[2.4px] hover:border-solid hover:border-accentPrimary-darker hover:from-whiteBase/10 hover:to-whiteBase/10';
+    ? 'bg-none text-disabled-foreground bg-disabled-background/50'
+    : 'bg-accent-gradient hocus:bg-none hocus:bg-whiteBase/10 hocus:outline-none hocus:ring-[2.4px] hocus:ring-accentPrimary-darker';
 
   return (
     <button
       type={type}
       onClick={handleClick}
-      className={`${width} to-accentPrimary-default h-16 rounded-[20px] bg-gradient-to-r from-accentPrimary-darker ${disabledStyle}`}
+      className={`${width} ${hasIcon ? 'gap-x-4' : 'gap-x-0'}  flex h-16 items-center justify-center rounded-[20px] text-big lg:text-xl ${disabledStyle}`}
       disabled={isDisabled}
     >
       {children}
