@@ -1,4 +1,4 @@
-import { ContactPosition } from 'types';
+import { PositionInLayout } from 'types';
 
 import { Contacts, FooterMenu, Logo } from 'components';
 import Container from './container';
@@ -9,15 +9,15 @@ export default function Footer() {
       <Container>
         <div className='flex'>
           <div>
-            <Logo />
+            <Logo position={PositionInLayout.Footer} />
             <div className='hidden max-lg:block'>
-              <Contacts variant={ContactPosition.Footer} />
+              <Contacts variant={PositionInLayout.Footer} />
             </div>
           </div>
           <div className='lg:flex'>
             <FooterMenu />
             <div className='hidden lg:block'>
-              <Contacts variant={ContactPosition.Footer} />
+              <Contacts variant={PositionInLayout.Footer} />
             </div>
           </div>
         </div>

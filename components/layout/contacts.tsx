@@ -1,11 +1,11 @@
 'use client';
 
-import { ContactPosition, IconName, IconSize } from 'types';
+import { PositionInLayout, IconName, IconSize } from 'types';
 
 import { SvgIconUI } from 'ui';
 
 interface IContactsProps {
-  variant: ContactPosition;
+  variant: PositionInLayout;
 }
 
 interface IContactLink {
@@ -18,7 +18,7 @@ interface IContactLink {
 }
 
 export default function Contacts({ variant }: IContactsProps) {
-  const getLinkData = (variant: ContactPosition): IContactLink[] => {
+  const getLinkData = (variant: PositionInLayout): IContactLink[] => {
     return [
       {
         href: 'tel:+380632076120',
@@ -31,10 +31,10 @@ export default function Contacts({ variant }: IContactsProps) {
       {
         href: '#', //FIXME: --- add a right link
         iconName: IconName.Telegram,
-        defaultSize: variant === ContactPosition.Header ? IconSize.S : IconSize.L,
-        iconSize: variant === ContactPosition.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
+        defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
+        iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
         labelClass:
-          variant === ContactPosition.Header
+          variant === PositionInLayout.Header
             ? 'text-medium max-lg:inline'
             : 'md:inline lg:text-big',
         label: '@Academic_Atlas',
@@ -42,10 +42,10 @@ export default function Contacts({ variant }: IContactsProps) {
       {
         href: 'mailto:AcademicAtlas@ukr.net',
         iconName: IconName.Email,
-        defaultSize: variant === ContactPosition.Header ? IconSize.S : IconSize.L,
-        iconSize: variant === ContactPosition.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
+        defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
+        iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
         labelClass:
-          variant === ContactPosition.Header
+          variant === PositionInLayout.Header
             ? 'text-medium max-lg:inline'
             : 'md:inline lg:text-big',
         label: 'AcademicAtlas@ukr.net',
@@ -55,19 +55,19 @@ export default function Contacts({ variant }: IContactsProps) {
 
   const linkData = getLinkData(variant);
   const adaptedContacts =
-    variant === ContactPosition.Footer
+    variant === PositionInLayout.Footer
       ? linkData
       : linkData.filter((link) => link.iconName !== IconName.Call);
 
   return (
     <>
       <address className='not-italic'>
-        {variant === ContactPosition.Footer && (
+        {variant === PositionInLayout.Footer && (
           <p className='mb-4 hidden max-md:block max-md:text-center'>Наші контакти</p>
         )}
         <ul
           className={
-            variant === ContactPosition.Header
+            variant === PositionInLayout.Header
               ? 'max-lg:block max-lg:space-y-6 lg:flex lg:flex-row-reverse lg:gap-x-6'
               : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4'
           }
@@ -77,7 +77,7 @@ export default function Contacts({ variant }: IContactsProps) {
               <li key={iconName}>
                 <a
                   href={href}
-                  className={`${variant === ContactPosition.Footer ? 'md:max-lg:py-2' : ''} flex items-center gap-x-2`}
+                  className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} flex items-center gap-x-2`}
                 >
                   <SvgIconUI
                     id={iconName}

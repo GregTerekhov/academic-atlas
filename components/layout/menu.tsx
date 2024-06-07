@@ -1,4 +1,4 @@
-import { ContactPosition } from 'types';
+import { PositionInLayout } from 'types';
 
 import { MobileMenuTemplate } from 'template';
 import Contacts from './contacts';
@@ -11,7 +11,7 @@ export default function Menu() {
       <MobileMenuTemplate>
         <div className='space-y-12'>
           <Navigation />
-          <Contacts variant={ContactPosition.Header} />
+          <Contacts variant={PositionInLayout.Header} />
           <ThemeSwitcher />
         </div>
       </MobileMenuTemplate>
