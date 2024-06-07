@@ -4,11 +4,11 @@
 
 @layer base {
   html {
-    @apply bg-whiteBase text-darkBase;
+    @apply scroll-smooth bg-whiteBase text-darkBase;
   }
 
   html.dark {
-    @apply bg-gradient-to-br from-darkBase to-darkBase-light text-whiteBase;
+    @apply scroll-smooth bg-gradient-to-br from-darkBase to-darkBase-light text-whiteBase;
   }
 
   body {
