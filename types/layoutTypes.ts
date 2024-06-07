@@ -1,3 +1,5 @@
+import { UrlObject } from 'url';
+
 export enum MenuLinks {
   Main = 'Головна',
   Services = 'Наші послуги',
@@ -26,4 +28,9 @@ export enum Paths {
   FAQ = '/FAQ',
   LegalInfo = '/legal-info',
   Partnership = '/partnership',
+}
+
+export interface ILinks {
+  label: MenuLinks;
+  path: UrlObject | Paths;
 }
