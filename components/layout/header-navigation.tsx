@@ -2,15 +2,46 @@
 
 import Link from 'next/link';
 
-import { MenuLinks } from 'types';
-
-import { getHeaderLinks } from 'helpers';
+import { ILinks, MenuLinks, Paths } from 'types';
 
 interface INavigationProps {
   isDesktop?: boolean;
 }
 
 export default function Navigation({ isDesktop }: INavigationProps) {
+  const getHeaderLinks = (): ILinks[] => {
+    return [
+      {
+        path: Paths.Main,
+        label: MenuLinks.Main,
+      },
+      {
+        path: Paths.Services,
+        label: MenuLinks.Services,
+      },
+      {
+        path: Paths.AboutUs,
+        label: MenuLinks.AboutUs,
+      },
+      {
+        path: Paths.Promotions,
+        label: MenuLinks.Promotions,
+      },
+      {
+        path: Paths.Feedback,
+        label: MenuLinks.Feedback,
+      },
+      {
+        path: { pathname: Paths.FAQ },
+        label: MenuLinks.FAQ,
+      },
+      {
+        path: { pathname: Paths.Partnership },
+        label: MenuLinks.Partnership,
+      },
+    ];
+  };
+
   const headerLinks = getHeaderLinks();
 
   const adaptedLinks = isDesktop

@@ -3,9 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { MenuLinks } from 'types';
-
-import { getFooterLinks } from 'helpers';
+import { ILinks, MenuLinks, Paths } from 'types';
 
 export default function FooterMenu() {
   const [isOpen, setIsOpen] = useState(false); //FIXME: --- replace this state with the call of togglePopup function from a custom hook
@@ -13,6 +11,35 @@ export default function FooterMenu() {
   const openModal = () => {
     //FIXME: --- delete this
     setIsOpen(!isOpen);
+  };
+
+  const getFooterLinks = (): ILinks[] => {
+    return [
+      {
+        path: Paths.Overview,
+        label: MenuLinks.Overview,
+      },
+      {
+        path: Paths.AboutUs,
+        label: MenuLinks.AboutUs,
+      },
+      {
+        path: Paths.Feedback,
+        label: MenuLinks.Feedback,
+      },
+      {
+        path: Paths.Services,
+        label: MenuLinks.Services,
+      },
+      {
+        path: Paths.Promotions,
+        label: MenuLinks.Promotions,
+      },
+      {
+        path: { pathname: Paths.Partnership },
+        label: MenuLinks.Partnership,
+      },
+    ];
   };
 
   const footerMenuLinks = getFooterLinks();
