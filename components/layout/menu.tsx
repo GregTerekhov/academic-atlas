@@ -1,14 +1,23 @@
+import { ContactPosition } from 'types';
+
 import { MobileMenuTemplate } from 'template';
 import Contacts from './contacts';
+import Navigation from './header-navigation';
+import ThemeSwitcher from './theme-switcher';
 
 export default function Menu() {
   return (
     <>
       <MobileMenuTemplate>
-        <nav>Menu</nav>
-        <Contacts />
+        <div className='space-y-12'>
+          <Navigation />
+          <Contacts variant={ContactPosition.Header} />
+          <ThemeSwitcher />
+        </div>
       </MobileMenuTemplate>
-      <nav className='hidden lg:flex'>Menu</nav>
+      <div className='hidden lg:block'>
+        <Navigation isDesktop />
+      </div>
     </>
   );
 }

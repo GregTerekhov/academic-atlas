@@ -1,4 +1,6 @@
-import { ContactPosition } from 'types';
+'use client';
+
+import { ContactPosition, IconName } from 'types';
 
 import { getLinkData } from 'helpers';
 
@@ -10,6 +12,10 @@ interface IContactsProps {
 
 export default function Contacts({ variant }: IContactsProps) {
   const linkData = getLinkData(variant);
+  const adaptedContacts =
+    variant === ContactPosition.Footer
+      ? linkData
+      : linkData.filter((link) => link.iconName !== IconName.Call);
 
   return (
     <>
@@ -24,8 +30,8 @@ export default function Contacts({ variant }: IContactsProps) {
               : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4'
           }
         >
-          {Array.isArray(linkData) &&
-            linkData.map(({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
+          {Array.isArray(adaptedContacts) &&
+            adaptedContacts.map(({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
               <li key={iconName}>
                 <a
                   href={href}

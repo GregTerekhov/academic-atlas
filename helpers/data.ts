@@ -1,4 +1,6 @@
-import { ContactPosition, IconName, IconSize, MenuLinks, Paths } from 'types';
+'use client';
+
+import { ContactPosition, MenuLinks, Paths, IconName, IconSize } from 'types';
 import { UrlObject } from 'url';
 
 interface ContactLink {
@@ -12,12 +14,19 @@ interface ContactLink {
 
 interface ILinks {
   label: MenuLinks;
-  path?: UrlObject | Paths;
-  onClick?: () => void;
+  path: UrlObject | Paths;
 }
 
 export const getLinkData = (variant: ContactPosition): ContactLink[] => {
-  const data: ContactLink[] = [
+  return [
+    {
+      href: 'tel:+380632076120',
+      iconName: IconName.Call,
+      defaultSize: IconSize.L,
+      iconSize: 'md:size-6 lg:size-5',
+      labelClass: 'md:inline lg:text-big',
+      label: '+380 63 20 761 20',
+    },
     {
       href: '#', //FIXME: --- add a right link
       iconName: IconName.Telegram,
@@ -37,28 +46,10 @@ export const getLinkData = (variant: ContactPosition): ContactLink[] => {
       label: 'AcademicAtlas@ukr.net',
     },
   ];
-
-  if (variant === ContactPosition.Footer) {
-    data.unshift({
-      href: 'tel:+380632076120',
-      iconName: IconName.Call,
-      defaultSize: IconSize.L,
-      iconSize: 'md:size-6 lg:size-5',
-      labelClass: 'md:inline lg:text-big',
-      label: '+380 63 20 761 20',
-    });
-  }
-
-  return data;
 };
 
-export const getFooterLinks = (openModal: () => void): ILinks[] => {
+export const getFooterLinks = (): ILinks[] => {
   return [
-    {
-      onClick: openModal,
-      // path: Paths.Cost, //FIXME: --- possibly changing to function for opening modal
-      label: MenuLinks.Cost,
-    },
     {
       path: Paths.Overview,
       label: MenuLinks.Overview,
@@ -78,6 +69,39 @@ export const getFooterLinks = (openModal: () => void): ILinks[] => {
     {
       path: Paths.Promotions,
       label: MenuLinks.Promotions,
+    },
+    {
+      path: { pathname: Paths.Partnership },
+      label: MenuLinks.Partnership,
+    },
+  ];
+};
+
+export const getHeaderLinks = (): ILinks[] => {
+  return [
+    {
+      path: Paths.Main,
+      label: MenuLinks.Main,
+    },
+    {
+      path: Paths.Services,
+      label: MenuLinks.Services,
+    },
+    {
+      path: Paths.AboutUs,
+      label: MenuLinks.AboutUs,
+    },
+    {
+      path: Paths.Promotions,
+      label: MenuLinks.Promotions,
+    },
+    {
+      path: Paths.Feedback,
+      label: MenuLinks.Feedback,
+    },
+    {
+      path: { pathname: Paths.FAQ },
+      label: MenuLinks.FAQ,
     },
     {
       path: { pathname: Paths.Partnership },

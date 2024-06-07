@@ -1,4 +1,4 @@
 export * from './components';
 export * from './FAQ';
-export * from './layout';
+export * from './layoutTypes';
 export * from './ui';
