@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import { ContactPosition, MenuLinks, Paths, IconName, IconSize } from 'types';
 import { UrlObject } from 'url';
