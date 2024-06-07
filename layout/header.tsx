@@ -1,3 +1,5 @@
+import { ContactPosition } from 'types';
+
 import { Contacts, Logo, Menu, ThemeSwitcher, ToggleMenuTrigger } from 'components';
 import Container from './container';
 
@@ -9,7 +11,7 @@ export default function Header() {
         <div className='hidden lg:flex lg:gap-x-1'>
           <Menu />
           <ThemeSwitcher />
-          <Contacts />
+          <Contacts variant={ContactPosition.Header} />
         </div>
         <div className='hidden gap-x-1 max-lg:flex'>
           <ThemeSwitcher />
