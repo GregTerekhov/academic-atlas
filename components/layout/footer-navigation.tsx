@@ -52,7 +52,7 @@ export default function FooterMenu() {
             <button
               type='button'
               onClick={openModal}
-              className='text-sm md:text-base lg:text-big'
+              className='text-sm hocus:text-accentPrimary md:text-base lg:text-big'
             >
               {MenuLinks.Cost}
             </button>
@@ -62,7 +62,7 @@ export default function FooterMenu() {
               <li key={label}>
                 <Link
                   href={path}
-                  className='text-sm md:text-base lg:text-big'
+                  className='text-sm hocus:text-accentPrimary md:text-base lg:text-big'
                 >
                   {label}
                 </Link>

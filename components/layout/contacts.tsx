@@ -77,14 +77,16 @@ export default function Contacts({ variant }: IContactsProps) {
               <li key={iconName}>
                 <a
                   href={href}
-                  className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} flex items-center gap-x-2`}
+                  className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
                 >
                   <SvgIconUI
                     id={iconName}
                     size={{ width: defaultSize, height: defaultSize }}
-                    className={`${iconSize} fill-darkBase dark:fill-whiteBase`}
+                    className={`${iconSize} fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase`}
                   />
-                  <span className={`${labelClass} hidden`}>{label}</span>
+                  <span className={`${labelClass} hidden group-hover:text-accentPrimary`}>
+                    {label}
+                  </span>
                 </a>
               </li>
             ))}
