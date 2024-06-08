@@ -56,7 +56,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
             <li key={label}>
               <Link
                 href={path}
-                className='text-medium md:text-big'
+                className='text-medium hocus:text-accentPrimary md:text-big'
               >
                 {label}
               </Link>
@@ -66,7 +66,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
           <button
             type='button'
             onClick={() => console.log('Розрахувати вартість')} //FIXME: -- replace it with togglePopup function from the custom hook
-            className='text-medium md:text-big'
+            className='text-medium hocus:text-accentPrimary md:text-big'
           >
             {MenuLinks.Cost}
           </button>
