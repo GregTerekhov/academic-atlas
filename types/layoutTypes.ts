@@ -12,7 +12,7 @@ export enum MenuLinks {
   FAQ = 'Часті запитання',
 }
 
-export enum ContactPosition {
+export enum PositionInLayout {
   Header = 'header',
   Footer = 'footer',
 }

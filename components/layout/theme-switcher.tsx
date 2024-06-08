@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { IconName, IconSize } from 'types/ui';
 
-// import { SvgIconUI } from 'ui';
+import { SvgIconUI, SwitchUI } from 'ui';
 
 export default function ThemeSwitcher() {
   const [enabled, setEnabled] = useState(false);
@@ -28,14 +29,13 @@ export default function ThemeSwitcher() {
   };
   return (
     <>
-      <p>ThemeSwitcher</p>
-      {/* <SvgIconUI /> */}
-      <button
-        type='button'
-        onClick={handleSwitchTheme}
-      >
-        Switch theme
-      </button>
+      <SwitchUI onClick={handleSwitchTheme}>
+        <SvgIconUI
+          id={enabled ? IconName.Sun : IconName.Moon}
+          size={{ width: IconSize.XS, height: IconSize.XS }}
+          className='fill-whiteBase'
+        />
+      </SwitchUI>
     </>
   );
 }
