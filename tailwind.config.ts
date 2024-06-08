@@ -77,13 +77,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    hocusFunction,
-    headerStyles,
-    require('tailwind-scrollbar')({
-      nocompatible: true,
-      preferredStrategy: 'pseudoelements',
-    }),
-  ],
+  plugins: [hocusFunction, headerStyles],
 };
 export default config;

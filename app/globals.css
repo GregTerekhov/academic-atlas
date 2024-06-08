@@ -41,35 +41,3 @@
     /* these options aren't appropriate to this common type because we must create settings for all cases but this case is an isolated */
   }
 }
-
-/*FIXME: альтернативный вариант скролла. применяется глобально по всему проекту. возможность кастомизировать scroll thumb вручную не найдена  */
-*::-webkit-scrollbar {
-  width: 16px;
-}
-
-*::-webkit-scrollbar-track {
-  background: rgba(27, 27, 27, 0.75);
-}
-
-*::-webkit-scrollbar-thumb {
-  position: relative;
-  background-color: rgba(149, 149, 149, 1);
-  border-radius: 8px;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background-color: #f8a401;
-}
-
-*::-webkit-scrollbar-thumb::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  min-width: 44px;
-  min-height: 44px;
-  background-color: blue;
-}
