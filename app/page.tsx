@@ -11,7 +11,11 @@ import {
   Services,
 } from 'components';
 
-export default function Home({ searchParams }: any) {
+interface ISearchParamProps {
+  searchParams: Record<string, string> | null;
+}
+
+export default function Home({ searchParams }: ISearchParamProps) {
   return (
     <main>
       <Container>

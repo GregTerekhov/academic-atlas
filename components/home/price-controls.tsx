@@ -8,7 +8,11 @@ import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../product-price-calculator';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function PriceControls({ params }: any) {
+interface IPriceControlsComponentProps {
+  params: Record<string, string> | null;
+}
+
+export default function PriceControls({ params }: IPriceControlsComponentProps) {
   const show = params?.show;
   const searchParams = useSearchParams();
   const { replace } = useRouter();
