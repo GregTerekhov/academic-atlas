@@ -11,6 +11,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint", "react"],
+  "ignorePatterns": ["next.config.mjs"],
   "overrides": [
     {
       "files": ["tests/**/*"],

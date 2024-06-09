@@ -5,7 +5,7 @@ export { default as Cost } from './home/cost';
 export { default as FAQItem } from './FAQ/fag-item';
 export { default as FAQList } from './FAQ/fag-list';
 export { default as Feedback } from './home/feedback';
-export { default as FooterMenu } from './layout/footer-menu';
+export { default as FooterMenu } from './layout/footer-navigation';
 export { default as GridItem } from './home/grid-item';
 export { default as Hero } from './home/hero';
 export { default as Logo } from './layout/logo';
