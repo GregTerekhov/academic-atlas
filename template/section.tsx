@@ -14,7 +14,7 @@ export default function Section({
   hasBackground?: boolean;
   id?: string;
 }>) {
-  const backgroundImage = hasBackground ? `url('/backgroundImage/${title}.png')` : '';
+  const backgroundImage = hasBackground ? `url('/backgroundImage/${title}.webp')` : '';
 
   const paddingClasses = hasBackground
     ? 'py-[80px] md:py-[80px] lg:py-[120px]'

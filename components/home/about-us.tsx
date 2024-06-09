@@ -1,12 +1,11 @@
-import { IconName, IconSize } from 'types';
+import { IconName, IconSize, SectionTitle } from 'types';
 
 import { SectionTemplate } from 'template';
 import { SvgIconUI } from 'ui';
 
 export default function AboutUs() {
   return (
-    <SectionTemplate>
-      <p>Про нас</p>
+    <SectionTemplate title={SectionTitle.AboutUs}>
       <SvgIconUI
         id={IconName.Benefits1}
         className='hidden stroke-accentSecondary-darker stroke-[0.5] lg:block'
