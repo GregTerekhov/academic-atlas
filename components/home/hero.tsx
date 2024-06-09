@@ -9,9 +9,6 @@ export default function Hero() {
       hasBackground
       isBigTitle
     >
-      <button className='text-medium hocus:bg-accentPrimary dark:text-accentPrimary md:text-5xl lg:text-2xl'>
-        Герой
-      </button>
       <PrimaryButtonUI>Замовити</PrimaryButtonUI>
     </SectionTemplate>
   );

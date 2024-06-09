@@ -15,17 +15,15 @@ export default function Section({
   id?: string;
 }>) {
   const getSectionStyle = (hasBackground: boolean, title: SectionTitle) => {
-    return [
-      hasBackground ? `bg-${title}` : 'bg-transparent',
-      hasBackground ? 'py-20 lg:py-[120px]' : '',
-      'w-full bg-cover bg-center bg-no-repeat',
-    ].join(' ');
+    return hasBackground
+      ? `bg-${title} py-20 lg:py-[120px] w-full bg-cover bg-center bg-no-repeat`
+      : 'bg-transparent py-8 md:py-16 lg:py-[104px] w-full';
   };
 
   return (
     <section
       id={id}
-      className={`${getSectionStyle(hasBackground, title)} w-full bg-cover bg-center bg-no-repeat`}
+      className={getSectionStyle(hasBackground, title)}
     >
       <Container>
         {isBigTitle ? <h1>{SectionDescriptions[title]}</h1> : <h2>{SectionDescriptions[title]}</h2>}
