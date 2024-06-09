@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import { headerStyles, hocusFunction } from './helpers';
+import { customBackgroundImages, headerStyles, hocusFunction } from './helpers';
 
 const config: Config = {
   content: [
@@ -66,10 +66,10 @@ const config: Config = {
       },
       backgroundImage: {
         hero: "url('/backgroundImage/hero.webp')",
-        findOutCost: "url('/backgroundImage/find-out-the-cost.webp')",
+        'find-out-cost': "url('/backgroundImage/find-out-the-cost.webp')",
         performers: "url('/backgroundImage/for-partners.webp')",
         promotions: "url('/backgroundImage/shares.webp')",
-        serviceOverview: "url('/backgroundImage/service-overview.webp')",
+        'service-overview': "url('/backgroundImage/service-overview.webp')",
         'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
         'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
         //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -77,6 +77,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [hocusFunction, headerStyles],
+  plugins: [hocusFunction, headerStyles, customBackgroundImages],
 };
 export default config;

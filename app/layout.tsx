@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { Footer, Header } from 'layout';
 
 import './globals.css';
+import { ScrollController } from 'components/index';
 
 const philosopher = Philosopher({
   subsets: ['latin'],
@@ -27,7 +28,10 @@ export default function RootLayout({
     <html lang='uk'>
       <body className={philosopher.className}>
         <Header />
-        {children}
+        <main className='relative space-y-8 pb-8 md:space-y-16 md:pb-16 lg:space-y-[104px] lg:pb-[104px]'>
+          {children}
+          <ScrollController />
+        </main>
         <Footer />
       </body>
     </html>

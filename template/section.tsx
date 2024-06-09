@@ -1,5 +1,5 @@
 import Container from 'layout/container';
-import { SectionTitle, SectionDescriptions } from 'types/sectionTitle';
+import { type SectionTitle, SectionDescriptions } from 'types';
 
 export default function Section({
   title,
@@ -14,37 +14,23 @@ export default function Section({
   hasBackground?: boolean;
   id?: string;
 }>) {
-  const backgroundImage = hasBackground ? `url('/backgroundImage/${title}.webp')` : '';
-
-  const paddingClasses = hasBackground
-    ? 'py-[80px] md:py-[80px] lg:py-[120px]'
-    : 'py-[36px] md:py-[64px] lg:py-[104px]';
+  const getSectionStyle = (hasBackground: boolean, title: SectionTitle) => {
+    return [
+      hasBackground ? `bg-${title}` : 'bg-transparent',
+      hasBackground ? 'py-20 lg:py-[120px]' : '',
+      'w-full bg-cover bg-center bg-no-repeat',
+    ].join(' ');
+  };
 
   return (
-    <div
-      style={{
-        backgroundImage: hasBackground ? `${backgroundImage}` : 'none',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        width: '100vw',
-        marginLeft: 'calc(50% - 50vw)',
-        marginRight: 'calc(50% - 50vw)',
-      }}
+    <section
+      id={id}
+      className={`${getSectionStyle(hasBackground, title)} w-full bg-cover bg-center bg-no-repeat`}
     >
       <Container>
-        <section
-          id={id}
-          className={paddingClasses}
-        >
-          {isBigTitle ? (
-            <h1>{SectionDescriptions[title]}</h1>
-          ) : (
-            <h2>{SectionDescriptions[title]}</h2>
-          )}
-          {children}
-        </section>
+        {isBigTitle ? <h1>{SectionDescriptions[title]}</h1> : <h2>{SectionDescriptions[title]}</h2>}
+        {children}
       </Container>
-    </div>
+    </section>
   );
 }
