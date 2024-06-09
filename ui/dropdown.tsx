@@ -50,21 +50,22 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
       </button>
       {isOpened && (
         <>
-          <CustomScroll />
-          <ul className=' space-y-6 rounded-b-lg  bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>
-            {Array.isArray(options) &&
-              options.map(({ typeId, option }) => (
-                <li key={typeId}>
-                  <button
-                    type={ButtonType.Button}
-                    onClick={() => handleOptionClick(option)}
-                    className='hover:text-accentPrimary'
-                  >
-                    {option as ReactNode}
-                  </button>
-                </li>
-              ))}
-          </ul>
+          <CustomScroll className='h-48 w-full overflow-hidden border-[2.4px] border-solid border-accentPrimary '>
+            <ul className=' space-y-6 rounded-b-lg  bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>
+              {Array.isArray(options) &&
+                options.map(({ typeId, option }) => (
+                  <li key={typeId}>
+                    <button
+                      type={ButtonType.Button}
+                      onClick={() => handleOptionClick(option)}
+                      className='hover:text-accentPrimary'
+                    >
+                      {option as ReactNode}
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          </CustomScroll>
         </>
       )}
     </div>
