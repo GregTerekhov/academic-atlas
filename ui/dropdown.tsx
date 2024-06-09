@@ -6,6 +6,7 @@ import { ButtonType, IconName, IconSize } from 'types';
 import { useDropdown } from 'helpers';
 
 import SvgIcon from './svg-icon';
+import CustomScroll from './custom-scroll';
 
 interface IOption<T> {
   typeId: string;
@@ -37,7 +38,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
       <button
         type={ButtonType.Button}
         onClick={toggleDropdown}
-        className={`${isOptionSelected ? 'bg-accent-gradient border-transparent text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'gradient-border text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex w-full items-center justify-between rounded-lg p-2 hocus:border-transparent hocus:outline-none hocus:ring-[2.4px] hocus:ring-accentPrimary md:px-4 md:py-3`}
+        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'gradient-border text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex w-full items-center justify-between rounded-lg p-2 hocus:border-transparent hocus:outline-none hocus:ring-[2.4px] hocus:ring-accentPrimary md:px-4 md:py-3`}
       >
         {/* TODO--- border colour for dropdown's button: border-accentPrimary-darker */}
         {selectedLabel as ReactNode}
@@ -48,20 +49,24 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
         />
       </button>
       {isOpened && (
-        <ul className='dark:bg-background-gradient absolute z-20 w-full space-y-6 rounded-b-lg border-[2.4px] border-accentPrimary bg-whiteBase p-4 text-sm md:text-base lg:text-medium'>
-          {Array.isArray(options) &&
-            options.map(({ typeId, option }) => (
-              <li key={typeId}>
-                <button
-                  type={ButtonType.Button}
-                  onClick={() => handleOptionClick(option)}
-                  className='hover:text-accentPrimary'
-                >
-                  {option as ReactNode}
-                </button>
-              </li>
-            ))}
-        </ul>
+        <>
+          <CustomScroll className='h-48 w-full overflow-hidden border-[2.4px] border-solid border-accentPrimary '>
+            <ul className=' space-y-6 rounded-b-lg  bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>
+              {Array.isArray(options) &&
+                options.map(({ typeId, option }) => (
+                  <li key={typeId}>
+                    <button
+                      type={ButtonType.Button}
+                      onClick={() => handleOptionClick(option)}
+                      className='hover:text-accentPrimary'
+                    >
+                      {option as ReactNode}
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          </CustomScroll>
+        </>
       )}
     </div>
   );
