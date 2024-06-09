@@ -11,13 +11,13 @@ import {
   Services,
 } from 'components';
 
-export default function Home() {
+export default function Home({ searchParams }: any) {
   return (
     <main>
       <Container>
         <Hero />
         <Services />
-        <Cost />
+        <Cost params={searchParams} />
         <ServiceOverview />
         <Performers />
         <AboutUs />

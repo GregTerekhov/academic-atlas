@@ -1,25 +1,35 @@
 'use client';
 
-import { useState } from 'react';
-
-import { MobileMenuTemplate, ModalTemplate } from 'template';
+import {
+  // MobileMenuTemplate,
+  ModalTemplate,
+} from 'template';
 import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../product-price-calculator';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function PriceControls() {
-  const [isOpenPrice, setIsOpenPrice] = useState(false);
+export default function PriceControls({ params }: any) {
+  const show = params?.show;
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+
+  const handleClick = () => {
+    const queryParams = new URLSearchParams(searchParams);
+    queryParams.set('show', 'true');
+
+    replace(`/?${queryParams.toString()}`);
+  };
+
   return (
     <>
       <p>PriceControls</p>
-      <PrimaryButtonUI handleClick={() => setIsOpenPrice(true)}>
-        Розрахувати вартість
-      </PrimaryButtonUI>
-      {isOpenPrice && (
+      <PrimaryButtonUI handleClick={handleClick}>Розрахувати вартість</PrimaryButtonUI>
+      {/* {isOpenPrice && (
         <MobileMenuTemplate>
           <PriceCalculator />
         </MobileMenuTemplate>
-      )}
-      {isOpenPrice && (
+      )} */}
+      {show && (
         <ModalTemplate>
           <PriceCalculator />
         </ModalTemplate>
