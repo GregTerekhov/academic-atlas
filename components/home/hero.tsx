@@ -6,7 +6,6 @@ export default function Hero() {
   return (
     <SectionTemplate
       title={SectionTitle.Hero}
-      hasBackground
       isBigTitle
     >
       <PrimaryButtonUI>Замовити</PrimaryButtonUI>

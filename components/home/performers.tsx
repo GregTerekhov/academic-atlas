@@ -4,7 +4,9 @@ import { PrimaryButtonUI } from 'ui';
 
 export default function Performers() {
   return (
-    <SectionTemplate title={SectionTitle.Performers} hasBackground>
+    <SectionTemplate
+      title={SectionTitle.Performers}
+    >
       <p>Для виконавців</p>
       <PrimaryButtonUI>Приєднатися</PrimaryButtonUI>
     </SectionTemplate>

@@ -26,15 +26,3 @@ export const headerStyles = plugin(function ({ addComponents }) {
   });
 });
 
-export const customBackgroundImages = plugin(function ({ addUtilities }) {
-  const newUtilities: Record<string, { backgroundImage: string }> = {};
-  const titles = ['hero', 'find-out-cost', 'performers', 'promotions', 'service-overview'];
-
-  titles.forEach((title) => {
-    newUtilities[`.bg-${title}`] = {
-      backgroundImage: `url('/backgroundImage/${title}.webp')`,
-    };
-  });
-
-  addUtilities(newUtilities);
-});

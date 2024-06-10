@@ -4,7 +4,7 @@ import { SectionTitle } from 'types/sectionTitle';
 
 export default function Cost() {
   return (
-    <SectionTemplate title={SectionTitle.FindOutCost} hasBackground>
+    <SectionTemplate title={SectionTitle.FindOutCost}>
       <p>Розрахувати вартість</p>
       <PriceControls />
     </SectionTemplate>
