@@ -1,4 +1,4 @@
-import { ThemeVariants } from 'types';
+import { ThemeVariants } from '../types';
 import { eraseCookie, getCookie, setCookie } from './cookiesHelper';
 
 const applyPreference = (theme: string) => {
