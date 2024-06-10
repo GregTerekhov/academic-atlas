@@ -1,11 +1,16 @@
 import { IconName, IconSize, SectionTitle } from 'types';
 
+import { idValues } from 'helpers';
+
 import { SectionTemplate } from 'template';
 import { SvgIconUI } from 'ui';
 
 export default function AboutUs() {
   return (
-    <SectionTemplate title={SectionTitle.AboutUs}>
+    <SectionTemplate
+      title={SectionTitle.AboutUs}
+      id={idValues.AboutUs ?? ''}
+    >
       <SvgIconUI
         id={IconName.Overview1}
         className='hidden lg:block'
