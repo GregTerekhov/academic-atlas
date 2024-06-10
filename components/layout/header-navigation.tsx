@@ -56,7 +56,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
             <li key={label}>
               <Link
                 href={path}
-                className='text-medium hocus:text-accentPrimary md:text-big'
+                className='text-medium hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary md:text-big'
               >
                 {label}
               </Link>

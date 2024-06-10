@@ -84,7 +84,9 @@ export default function Contacts({ variant }: IContactsProps) {
                     size={{ width: defaultSize, height: defaultSize }}
                     className={`${iconSize} fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase`}
                   />
-                  <span className={`${labelClass} hidden group-hover:text-accentPrimary`}>
+                  <span
+                    className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase`}
+                  >
                     {label}
                   </span>
                 </a>
