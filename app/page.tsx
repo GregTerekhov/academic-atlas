@@ -1,4 +1,3 @@
-import { Container } from 'layout';
 import {
   AboutUs,
   Cost,
@@ -6,7 +5,6 @@ import {
   Hero,
   Performers,
   Promotions,
-  ScrollController,
   ServiceOverview,
   Services,
 } from 'components';
@@ -17,18 +15,15 @@ interface ISearchParamProps {
 
 export default function Home({ searchParams }: ISearchParamProps) {
   return (
-    <main>
-      <Container>
-        <Hero />
-        <Services />
-        <Cost params={searchParams} />
-        <ServiceOverview />
-        <Performers />
-        <AboutUs />
-        <Promotions />
-        <Feedback />
-        <ScrollController />
-      </Container>
-    </main>
+    <>
+      <Hero />
+      <Services />
+      <Cost />
+      <ServiceOverview />
+      <Performers />
+      <AboutUs />
+      <Promotions />
+      <Feedback />
+    </>
   );
 }
