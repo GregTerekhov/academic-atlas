@@ -29,7 +29,7 @@ export default function Contacts({ variant }: IContactsProps) {
         label: '+380 63 20 761 20',
       },
       {
-        href: '#', //FIXME: --- add a right link
+        href: 'https://web.telegram.org/k/#@AcademicAtlas_Official',
         iconName: IconName.Telegram,
         defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
         iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
@@ -77,6 +77,7 @@ export default function Contacts({ variant }: IContactsProps) {
               <li key={iconName}>
                 <a
                   href={href}
+                  target='_blank'
                   className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
                 >
                   <SvgIconUI
