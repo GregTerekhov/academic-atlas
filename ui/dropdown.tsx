@@ -38,9 +38,8 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
       <button
         type={ButtonType.Button}
         onClick={toggleDropdown}
-        className={`${isOptionSelected ? 'bg-accent-gradient border-transparent text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'gradient-border text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex w-full items-center justify-between rounded-lg p-2 hocus:border-transparent hocus:outline-none hocus:ring-[2.4px] hocus:ring-accentPrimary md:px-4 md:py-3`}
+        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between rounded-lg border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2.4px] hocus:ring-accentPrimary md:h-12 md:px-4`}
       >
-        {/* TODO--- border colour for dropdown's button: border-accentPrimary-darker */}
         {selectedLabel as ReactNode}
         <SvgIcon
           id={IconName.Expand}
@@ -49,9 +48,9 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
         />
       </button>
       {isOpened && (
-        <>
-          <CustomScroll className='h-full w-full overflow-hidden border-[2.4px] border-solid border-accentPrimary '>
-            <ul className=' dark:bg-background-gradient space-y-6  rounded-b-lg bg-whiteBase p-4 text-sm md:text-base lg:text-medium'>
+        <div className='absolute max-h-[248px] w-full overflow-hidden border-[2.4px] border-solid border-accentPrimary lg:max-h-[314px]'>
+          <CustomScroll className=''>
+            <ul className='w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>
               {Array.isArray(options) &&
                 options.map(({ typeId, option }) => (
                   <li key={typeId}>
@@ -66,7 +65,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
                 ))}
             </ul>
           </CustomScroll>
-        </>
+        </div>
       )}
     </div>
   );

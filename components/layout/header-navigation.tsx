@@ -65,7 +65,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
         <li className='hidden max-lg:block'>
           <button
             type='button'
-            onClick={() => console.log('Розрахувати вартість')} //FIXME: -- replace it with togglePopup function from the custom hook
+            onClick={() => console.log('Розрахувати вартість')} //FIXME: --- replace this state with the call of togglePopup function from a custom hook or use searchParams and link to modal
             className='text-medium hocus:text-accentPrimary md:text-big'
           >
             {MenuLinks.Cost}

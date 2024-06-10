@@ -13,7 +13,6 @@ const Switch = forwardRef<
     ref={ref}
   >
     <SwitchPrimitives.Thumb className='pointer-events-none flex h-8 w-8 items-center justify-center rounded-full bg-accentSecondary shadow-lg ring-0'>
-      {/*TODO: --- I propose to change the appearance of the theme switcher so that the slider does not jump: transition-transform data-[state=checked]:translate-x-11 data-[state=unchecked]:translate-x-1 */}
       {children}
     </SwitchPrimitives.Thumb>
   </SwitchPrimitives.Root>

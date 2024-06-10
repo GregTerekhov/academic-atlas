@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ButtonType, ILinks, MenuLinks, Paths } from 'types';
 
 export default function FooterMenu() {
-  const [isOpen, setIsOpen] = useState(false); //FIXME: --- replace this state with the call of togglePopup function from a custom hook
+  const [isOpen, setIsOpen] = useState(false); //FIXME: --- replace this state with the call of togglePopup function from a custom hook or use searchParams and link to modal
 
   const openModal = () => {
     //FIXME: --- delete this
