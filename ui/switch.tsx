@@ -8,11 +8,11 @@ const Switch = forwardRef<
   ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ children, ...props }, ref) => (
   <SwitchPrimitives.Root
-    className='inline-flex h-10 w-20 shrink-0 cursor-pointer items-center  rounded-[20px] border border-solid border-accentSecondary shadow-sm transition-colors'
+    className='inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-[20px] shadow-sm transition-colors'
     {...props}
     ref={ref}
   >
-    <SwitchPrimitives.Thumb className='pointer-events-none flex h-8 w-8 items-center justify-center rounded-full bg-accentSecondary shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-11 data-[state=unchecked]:translate-x-1'>
+    <SwitchPrimitives.Thumb className='pointer-events-none flex h-8 w-8 items-center justify-center rounded-full bg-accentSecondary shadow-lg ring-0'>
       {children}
     </SwitchPrimitives.Thumb>
   </SwitchPrimitives.Root>

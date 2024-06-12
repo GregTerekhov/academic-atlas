@@ -24,8 +24,8 @@ export default function Section({
       id={id}
       className={
         backgroundVariants[title]
-          ? `${backgroundVariants[title]} w-full bg-cover bg-center bg-no-repeat py-20 lg:py-[120px]`
-          : 'bg-transparent'
+          ? `${backgroundVariants[title]} relative w-full bg-cover bg-center bg-no-repeat py-20 text-whiteBase before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentSecondary/10 before:content-[""] lg:py-[120px]`
+          : 'bg-transparent text-darkBase dark:text-whiteBase'
       }
     >
       <Container>

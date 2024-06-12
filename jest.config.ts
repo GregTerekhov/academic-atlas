@@ -90,6 +90,7 @@ const config: Config = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     '^components/(.*)$': './components/$1',
+    '^context/(.*)$': './context/$1',
     '^helpers/(.*)$': './helpers/$1',
     '^layout/(.*)$': './layout/$1',
     '^template/(.*)$': './template/$1',

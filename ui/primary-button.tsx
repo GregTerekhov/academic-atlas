@@ -25,7 +25,7 @@ export default function PrimaryButton({
     <button
       type={type}
       onClick={handleClick}
-      className={`${width} ${hasIcon ? 'gap-x-4' : 'gap-x-0'}  flex h-16 items-center justify-center rounded-[20px] text-big lg:text-xl ${disabledStyle}`}
+      className={`${width} ${hasIcon ? 'gap-x-4' : 'gap-x-0'} flex h-16 items-center justify-center rounded-[20px] text-big text-whiteBase lg:text-xl ${disabledStyle}`}
       disabled={isDisabled}
     >
       {children}

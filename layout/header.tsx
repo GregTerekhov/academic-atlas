@@ -5,7 +5,7 @@ import Container from './container';
 
 export default function Header() {
   return (
-    <header className='header bg-whiteBase dark:bg-gradient-to-br dark:from-darkBase dark:to-darkBase-light'>
+    <header className='header bg-whiteBase dark:bg-background-gradient'>
       <Container>
         <div className='flex'>
           <Logo position={PositionInLayout.Header} />

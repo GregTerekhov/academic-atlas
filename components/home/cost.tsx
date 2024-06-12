@@ -1,6 +1,7 @@
+import { SectionTitle } from 'types';
+
 import { SectionTemplate } from 'template';
 import PriceControls from './price-controls';
-import { SectionTitle } from 'types/sectionTitle';
 
 export default function Cost() {
   return (
