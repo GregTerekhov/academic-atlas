@@ -5,7 +5,7 @@ import { SvgIconUI } from 'ui';
 interface IModalProps {
   children: React.ReactNode;
   title?: string;
-  closeModal: () => void;
+  closeModal?: () => void;
 }
 
 export default function Modal({
