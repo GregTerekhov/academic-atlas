@@ -10,14 +10,12 @@ export default function ThemeSwitcher() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <>
-      <SwitchUI onClick={toggleTheme}>
-        <SvgIconUI
-          id={theme === ThemeVariants.LIGHT ? IconName.Sun : IconName.Moon}
-          size={{ width: IconSize.XS, height: IconSize.XS }}
-          className='fill-whiteBase'
-        />
-      </SwitchUI>
-    </>
+    <SwitchUI onClick={toggleTheme}>
+      <SvgIconUI
+        id={theme === ThemeVariants.LIGHT ? IconName.Sun : IconName.Moon}
+        size={{ width: IconSize.XS, height: IconSize.XS }}
+        className='fill-whiteBase'
+      />
+    </SwitchUI>
   );
 }
