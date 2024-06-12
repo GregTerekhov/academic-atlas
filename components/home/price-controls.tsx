@@ -6,35 +6,35 @@ import {
 } from 'template';
 import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../product-price-calculator';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useModalClose } from 'helpers/useModalClose';
 
-interface IPriceControlsComponentProps {
-  params: Record<string, string> | null;
-}
+export default function PriceControls() {
+  const { isModalOpen, setIsModalOpen } = useModalClose();
 
-export default function PriceControls({ params }: IPriceControlsComponentProps) {
-  const show = params?.show;
-  const searchParams = useSearchParams();
-  const { replace } = useRouter();
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
 
-  const handleClick = () => {
-    const queryParams = new URLSearchParams(searchParams);
-    queryParams.set('show', 'true');
-
-    replace(`/?${queryParams.toString()}`);
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   return (
     <>
       <p>PriceControls</p>
-      <PrimaryButtonUI handleClick={handleClick}>Розрахувати вартість</PrimaryButtonUI>
+      <PrimaryButtonUI handleClick={handleModalOpen}>Розрахувати вартість</PrimaryButtonUI>
       {/* {isOpenPrice && (
         <MobileMenuTemplate>
           <PriceCalculator />
         </MobileMenuTemplate>
       )} */}
-      {show && (
-        <ModalTemplate>
+      {isModalOpen && (
+        <ModalTemplate
+          closeModal={handleModalClose}
+          title='MODAL TITLE'
+        >
           <PriceCalculator />
         </ModalTemplate>
       )}

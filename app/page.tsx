@@ -9,11 +9,7 @@ import {
   Services,
 } from 'components';
 
-interface ISearchParamProps {
-  searchParams: Record<string, string> | null;
-}
-
-export default function Home({ searchParams }: ISearchParamProps) {
+export default function Home() {
   return (
     <>
       <Hero />
