@@ -1,10 +1,16 @@
+import { SectionTitle } from 'types';
+
+import { idValues } from 'helpers';
+
 import { SectionTemplate } from 'template';
 import GridItem from './grid-item';
-import { SectionTitle } from 'types/sectionTitle';
 
 export default function Services() {
   return (
-    <SectionTemplate title={SectionTitle.OurServices}>
+    <SectionTemplate
+      title={SectionTitle.OurServices}
+      id={idValues.Services ?? ''}
+    >
       <p>Наші послуги</p>
       <ul>
         <GridItem />

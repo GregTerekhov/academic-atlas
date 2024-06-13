@@ -19,3 +19,8 @@ export interface IWorkType {
   typeId: string;
   option: WorkType;
 }
+
+export enum ThemeVariants {
+  DARK = 'dark',
+  LIGHT = 'light',
+}

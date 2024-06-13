@@ -1,10 +1,15 @@
+import { SectionTitle } from 'types';
+
+import { idValues } from 'helpers';
 import { SectionTemplate } from 'template';
-import { SectionTitle } from 'types/sectionTitle';
 // import { SvgIconUI } from 'ui';
 
 export default function ServiceOverview() {
   return (
-    <SectionTemplate title={SectionTitle.HowItWorks}>
+    <SectionTemplate
+      title={SectionTitle.HowItWorks}
+      id={idValues.Overview ?? ''}
+    >
       <p>Як працює сервіс</p>
 
       {/* <SvgIconUI />

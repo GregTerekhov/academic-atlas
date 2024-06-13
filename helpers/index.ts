@@ -1,3 +1,6 @@
+export * from './anchorLinks';
+export * from './cookiesHelper';
 export * from './tailwindPlugins';
+export * from './themeHelper';
 export { useDropdown } from './useDropdown';
-export { useModalClose } from './useModalClose';
+export { useTheme } from './useTheme';
