@@ -13,8 +13,8 @@ export default function ThemeSwitcher() {
     <SwitchUI onClick={toggleTheme}>
       <SvgIconUI
         id={theme === ThemeVariants.LIGHT ? IconName.Sun : IconName.Moon}
-        size={{ width: IconSize.XS, height: IconSize.XS }}
-        className='fill-whiteBase'
+        size={{ width: IconSize.BG, height: IconSize.BG }}
+        className='rotate-90 fill-whiteBase transition-transform hover:fill-darkBase-light'
       />
     </SwitchUI>
   );
