@@ -22,7 +22,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
   const [selectedLabel, setSelectedLabel] = useState<T>(label);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
-  const { isDropdownOpened, dropdownRef, toggleDropdown } = usePopUp();
+  const { isDropdownOpened, popUpRef, toggleDropdown } = usePopUp();
 
   const handleOptionClick = (option: T) => {
     setSelectedLabel(option);
@@ -33,7 +33,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
   return (
     <div
       className='relative'
-      ref={dropdownRef}
+      ref={popUpRef}
     >
       <button
         type={ButtonType.Button}

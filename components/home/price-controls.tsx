@@ -9,11 +9,7 @@ import PriceCalculator from '../product-price-calculator';
 import { usePopUp } from 'helpers/usePopUp';
 
 export default function PriceControls() {
-  const {
-    isModalOpen,
-    // modalRef,
-    toggleModal,
-  } = usePopUp();
+  const { isPopUpOpen, popUpRef, toggleModal } = usePopUp();
 
   return (
     <>
@@ -24,15 +20,15 @@ export default function PriceControls() {
           <PriceCalculator />
         </MobileMenuTemplate>
       )} */}
-      {isModalOpen && (
-        <ModalTemplate
-          closeModal={toggleModal}
-          title='MODAL TITLE'
-          // ref={modalRef}
-        >
-          <PriceCalculator />
-        </ModalTemplate>
-      )}
+
+      <ModalTemplate
+        closeModal={toggleModal}
+        title='MODAL TITLE'
+        modalRef={popUpRef}
+        isOpen={isPopUpOpen}
+      >
+        <PriceCalculator />
+      </ModalTemplate>
     </>
   );
 }

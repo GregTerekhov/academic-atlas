@@ -4,32 +4,36 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const usePopUp = () => {
   const [isDropdownOpened, setIsDropdownOpened] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isPopUpOpen, setIsPopUpOpen] = useState<boolean>(false);
 
-  const [closeSeparator, setCloseSeparator] = useState<boolean>(false);
+  const popUpRef = useRef<HTMLDivElement>(null);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
+  const handleWindowClick = useCallback(
+    (event: MouseEvent): void => {
+      if (popUpRef.current && !popUpRef.current.contains(event.target as Node)) {
+        if (isDropdownOpened) {
+          setIsDropdownOpened(false);
+        }
 
-  const handleWindowClick = useCallback((event: MouseEvent): void => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-      setIsDropdownOpened(false);
-    }
-  }, []);
+        if (isPopUpOpen) {
+          setIsPopUpOpen(false);
+          document.body.style.overflow = 'auto';
+        }
+      }
+    },
+    [isPopUpOpen, isDropdownOpened],
+  );
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
-        if (isModalOpen) {
-          setIsModalOpen(false);
-        }
-
-        if (isDropdownOpened) {
-          setIsDropdownOpened(false);
+        if (isPopUpOpen) {
+          setIsPopUpOpen(false);
+          document.body.style.overflow = 'auto';
         }
       }
     },
-    [isDropdownOpened, isModalOpen],
+    [isPopUpOpen],
   );
 
   useEffect(() => {
@@ -44,25 +48,20 @@ export const usePopUp = () => {
 
   const toggleDropdown = (): void => {
     setIsDropdownOpened(!isDropdownOpened);
-    setCloseSeparator(!closeSeparator);
   };
 
   const toggleModal = (): void => {
-    setIsModalOpen(!isModalOpen);
+    setIsPopUpOpen(!isPopUpOpen);
 
-    //Условие для отключения скролла. Из-за того, что состояние асинхронное отключать скролл нужно при !isModalOpen, иначе функция будет работать некорректно
-    if (!isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    !isPopUpOpen
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'auto');
   };
 
   return {
     isDropdownOpened,
-    modalRef,
-    isModalOpen,
-    dropdownRef,
+    popUpRef,
+    isPopUpOpen,
     toggleDropdown,
     toggleModal,
   };
