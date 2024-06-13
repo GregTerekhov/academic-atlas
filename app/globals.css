@@ -24,20 +24,29 @@
   }
 }
 
-@layer components {
-  .gradient-border {
-    @apply border;
-    border-image-slice: 1;
-    border-image-source: linear-gradient(
-      to right,
-      theme('colors.accentPrimary.DEFAULT'),
-      theme('colors.accentPrimary.darker')
-    );
+.swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
 
-    &:hover,
-    &:focus {
-      border: 1px solid transparent;
-    }
-    /* these options aren't appropriate to this common type because we must create settings for all cases but this case is an isolated */
+@media screen and (min-width: 768px) {
+  .swiper-slide-visible.swiper-slide-prev,
+  .swiper-slide-visible.swiper-slide-next {
+    width: 320px !important;
+  }
+
+  .swiper-slide-fully-visible.swiper-slide-active {
+    width: 432px !important;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .swiper-slide-visible.swiper-slide-prev,
+  .swiper-slide-visible.swiper-slide-next {
+    width: 336px !important;
+  }
+
+  .swiper-slide-fully-visible.swiper-slide-active {
+    width: 496px !important;
   }
 }
