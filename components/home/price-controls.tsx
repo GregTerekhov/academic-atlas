@@ -6,25 +6,19 @@ import {
 } from 'template';
 import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../product-price-calculator';
-import { useModalClose } from 'helpers/useModalClose';
+import { usePopUp } from 'helpers/usePopUp';
 
 export default function PriceControls() {
-  const { isModalOpen, setIsModalOpen } = useModalClose();
-
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    document.body.style.overflow = 'auto';
-  };
+  const {
+    isModalOpen,
+    // modalRef,
+    toggleModal,
+  } = usePopUp();
 
   return (
     <>
       <p>PriceControls</p>
-      <PrimaryButtonUI handleClick={handleModalOpen}>Розрахувати вартість</PrimaryButtonUI>
+      <PrimaryButtonUI handleClick={toggleModal}>Розрахувати вартість</PrimaryButtonUI>
       {/* {isOpenPrice && (
         <MobileMenuTemplate>
           <PriceCalculator />
@@ -32,8 +26,9 @@ export default function PriceControls() {
       )} */}
       {isModalOpen && (
         <ModalTemplate
-          closeModal={handleModalClose}
+          closeModal={toggleModal}
           title='MODAL TITLE'
+          // ref={modalRef}
         >
           <PriceCalculator />
         </ModalTemplate>

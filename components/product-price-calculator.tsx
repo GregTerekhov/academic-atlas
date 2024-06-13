@@ -4,12 +4,13 @@ import { useState } from 'react';
 
 import { IWorkType, WorkType } from 'types';
 
-import { MobileMenuTemplate, ModalTemplate } from 'template';
+import { MobileMenuTemplate } from 'template';
 import { DropdownUI, InputUI, PrimaryButtonUI } from 'ui';
 import PriceResult from './price-result';
 
 export default function PriceCalculator() {
-  const [hasSubmitData, setHasSubmitData] = useState(false);
+  const [hasSubmitData, setHasSubmitData] = useState<boolean>(false);
+  const [hasSubmitMobileData, setHasSubmitMobileData] = useState<boolean>(false);
 
   const workTypes: IWorkType[] = [
     {
@@ -40,39 +41,34 @@ export default function PriceCalculator() {
 
   return (
     <>
-      <MobileMenuTemplate>
-        <p>Меню Дізнатись вартість</p>
-        {/* <DropdownUI /> */}
-        {/* <DropdownUI />
-        <DropdownUI /> */}
-        <InputUI />
-        <InputUI />
-        <InputUI />
-        <PrimaryButtonUI handleClick={() => setHasSubmitData(true)}>
-          Розрахувати вартість
-        </PrimaryButtonUI>
-      </MobileMenuTemplate>
-      <ModalTemplate>
-        <p>Меню Дізнатись вартість</p>
-        <DropdownUI
-          label={WorkType.Default}
-          options={workTypes}
-        />
-        {/* <DropdownUI />
-        <DropdownUI />  */}
-        <InputUI />
-        <InputUI />
-        <InputUI />
-        <PrimaryButtonUI handleClick={() => setHasSubmitData(true)}>
-          Розрахувати вартість
-        </PrimaryButtonUI>
-      </ModalTemplate>
-      {hasSubmitData && (
-        <ModalTemplate>
-          <PriceResult />
-        </ModalTemplate>
+      {!hasSubmitData ? (
+        <div>
+          <p>Меню Дізнатись вартість</p>
+          <DropdownUI
+            label={WorkType.Default}
+            options={workTypes}
+          />
+          <InputUI />
+          <InputUI />
+          <InputUI />
+          <PrimaryButtonUI handleClick={() => setHasSubmitData(true)}>
+            Розрахувати вартість
+          </PrimaryButtonUI>
+        </div>
+      ) : (
+        <PriceResult />
       )}
-      {hasSubmitData && (
+      {!hasSubmitMobileData ? (
+        <MobileMenuTemplate>
+          <p>Меню Дізнатись вартість</p>
+          <InputUI />
+          <InputUI />
+          <InputUI />
+          <PrimaryButtonUI handleClick={() => setHasSubmitMobileData(true)}>
+            Розрахувати вартість
+          </PrimaryButtonUI>
+        </MobileMenuTemplate>
+      ) : (
         <MobileMenuTemplate>
           <PriceResult />
         </MobileMenuTemplate>
