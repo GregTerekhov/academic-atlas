@@ -13,6 +13,8 @@ export enum WorkType {
   TestPapers = 'Контрольні роботи',
   Abstracts = 'Наукові статті та тези',
   PracticalWorks = 'Практичні та лабораторні роботи',
+  Presentations = 'Презентації',
+  CaseStudyReports = 'Звіти з практики',
 }
 
 export interface IWorkType {
