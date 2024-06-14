@@ -1,4 +1,3 @@
-import { ThemeSwitcher } from 'components';
 import { Container } from 'layout';
 
 export default function MobileMenu({

@@ -10,7 +10,7 @@ import PriceResult from './price-result';
 
 export default function PriceCalculator() {
   const [hasSubmitData, setHasSubmitData] = useState<boolean>(false);
-  const [hasSubmitMobileData, setHasSubmitMobileData] = useState<boolean>(false);
+  // const [hasSubmitMobileData, setHasSubmitMobileData] = useState<boolean>(false);
 
   const workTypes: IWorkType[] = [
     {
