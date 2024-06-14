@@ -1,8 +1,9 @@
+import Link from 'next/link';
+
 import { Paths, PositionInLayout } from 'types';
 
 import { Contacts, FooterMenu, Logo } from 'components';
 import Container from './container';
-import Link from 'next/link';
 
 export default function Footer() {
   return (

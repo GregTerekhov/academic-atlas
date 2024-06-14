@@ -10,7 +10,9 @@ export const usePopUp = () => {
 
   const handleWindowClick = useCallback(
     (event: MouseEvent): void => {
-      if (popUpRef.current && !popUpRef.current.contains(event.target as Node)) {
+      const isPopup = popUpRef.current && !popUpRef.current.contains(event.target as Node);
+
+      if (isPopup) {
         if (isDropdownOpened) {
           setIsDropdownOpened(false);
         }
@@ -53,7 +55,7 @@ export const usePopUp = () => {
   const toggleModal = (): void => {
     setIsPopUpOpen(!isPopUpOpen);
 
-    !isPopUpOpen
+    !isPopUpOpen // FIXME: --- Find an option to specify the appropriate value
       ? (document.body.style.overflow = 'hidden')
       : (document.body.style.overflow = 'auto');
   };

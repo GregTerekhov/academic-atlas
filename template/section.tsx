@@ -1,5 +1,6 @@
-import Container from 'layout/container';
 import { SectionTitle, SectionDescriptions } from 'types';
+
+import { Container } from 'layout';
 
 export default function Section({
   title,
