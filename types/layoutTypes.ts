@@ -1,4 +1,5 @@
 import { UrlObject } from 'url';
+import { IconName, IconSize } from './ui';
 
 export enum MenuLinks {
   Main = 'Головна',
@@ -33,6 +34,15 @@ export enum Paths {
 export interface ILinks {
   label: MenuLinks;
   path: UrlObject | Paths;
+}
+
+export interface IContactLink {
+  href: string;
+  iconName: IconName;
+  defaultSize: IconSize;
+  iconSize: string;
+  labelClass: string;
+  label: string;
 }
 
 export enum SectionTitle {
