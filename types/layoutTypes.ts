@@ -3,7 +3,7 @@ import { UrlObject } from 'url';
 export enum MenuLinks {
   Main = 'Головна',
   Services = 'Наші послуги',
-  Cost = 'Дізнатися вартість',
+  Cost = 'Розрахувати вартість',
   Overview = 'Як працює сервіс',
   AboutUs = 'Про нас',
   Feedback = 'Відгуки',
