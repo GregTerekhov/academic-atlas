@@ -3,7 +3,6 @@ import { PositionInLayout } from 'types';
 // import { MobileMenuTemplate } from 'template';
 import Contacts from './contacts';
 import Navigation from './header-navigation';
-import ThemeSwitcher from './theme-switcher';
 
 export default function Menu() {
   return (
