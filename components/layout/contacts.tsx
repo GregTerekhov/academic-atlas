@@ -1,20 +1,11 @@
 'use client';
 
-import { PositionInLayout, IconName, IconSize } from 'types';
+import { PositionInLayout, IconName, IconSize, type IContactLink } from 'types';
 
-import { SvgIconUI } from 'ui';
+import ContactItem from './contact-item';
 
 interface IContactsProps {
   variant: PositionInLayout;
-}
-
-interface IContactLink {
-  href: string;
-  iconName: IconName;
-  defaultSize: IconSize;
-  iconSize: string;
-  labelClass: string;
-  label: string;
 }
 
 export default function Contacts({ variant }: IContactsProps) {
@@ -76,24 +67,16 @@ export default function Contacts({ variant }: IContactsProps) {
         >
           {Array.isArray(adaptedContacts) &&
             adaptedContacts.map(({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
-              <li key={iconName}>
-                <a
-                  href={href}
-                  target='_blank'
-                  className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
-                >
-                  <SvgIconUI
-                    id={iconName}
-                    size={{ width: defaultSize, height: defaultSize }}
-                    className={`${iconSize} fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase`}
-                  />
-                  <span
-                    className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase`}
-                  >
-                    {label}
-                  </span>
-                </a>
-              </li>
+              <ContactItem
+                key={iconName}
+                href={href}
+                iconName={iconName}
+                iconSize={iconSize}
+                defaultSize={defaultSize}
+                labelClass={labelClass}
+                label={label}
+                variant={variant}
+              />
             ))}
         </ul>
       </address>
