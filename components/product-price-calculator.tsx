@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { IWorkType, WorkType } from 'types';
 
-import { MobileMenuTemplate } from 'template';
+// import { MobileMenuTemplate } from 'template';
 import { DropdownUI, InputUI, PrimaryButtonUI } from 'ui';
 import PriceResult from './price-result';
 
@@ -58,7 +58,7 @@ export default function PriceCalculator() {
       ) : (
         <PriceResult />
       )}
-      {!hasSubmitMobileData ? (
+      {/* {!hasSubmitMobileData ? (
         <MobileMenuTemplate>
           <p>Меню Дізнатись вартість</p>
           <InputUI />
@@ -72,7 +72,7 @@ export default function PriceCalculator() {
         <MobileMenuTemplate>
           <PriceResult />
         </MobileMenuTemplate>
-      )}
+      )} */}
     </>
   );
 }

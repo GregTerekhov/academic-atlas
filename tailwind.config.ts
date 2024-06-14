@@ -45,6 +45,10 @@ const config: Config = {
       lineHeight: {
         130: '1.3',
       },
+       maxHeight: {
+        mobileMenu: 'calc(100vh - 80px)',
+        tabletMenu: 'calc(100vh - 96px)',
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
