@@ -37,7 +37,7 @@ const config: Config = {
         '5xl': '48px',
         '6xl': '52px',
         '7xl': '60px',
-        results: '90px',
+        '8xl': '90px',
         monstrousSm: '120px',
         monstrousMd: '200px',
         monstrousLg: '260px',
