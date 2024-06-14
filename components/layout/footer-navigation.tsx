@@ -47,7 +47,7 @@ export default function FooterMenu() {
   return (
     <>
       <nav>
-        <ul className='max-md:space-y-6 md:grid md:grid-cols-[226px_minmax(226px,_1fr)] md:grid-rows-4 md:gap-y-6 lg:grid-cols-[314px_minmax(314px,_1fr)] lg:gap-y-4'>
+        <ul className='max-md:space-y-6 md:grid md:grid-cols-[226px_minmax(226px,_1fr)] md:grid-rows-4 md:gap-y-6 lg:grid-cols-[324px_minmax(324px,_1fr)] lg:gap-y-4'>
           <li>
             <button
               type={ButtonType.Button}

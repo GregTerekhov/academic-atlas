@@ -1,3 +1,6 @@
+import { StaticImageData } from 'next/image';
+import { IconName } from './ui';
+
 export enum Example {
   'Ex1',
   'Ex2',
@@ -25,4 +28,38 @@ export interface IWorkType {
 export enum ThemeVariants {
   DARK = 'dark',
   LIGHT = 'light',
+}
+
+export interface IServiceItem {
+  imageSrc: StaticImageData;
+  imageAlt: string;
+  serviceTitle: WorkType;
+}
+
+export enum StatisticCount {
+  Year = '15+',
+  Service = '40+',
+  Speciality = '50+',
+  Work = '2850+',
+  Expert = '25+',
+}
+
+export enum StatisticLabel {
+  Year = 'років діяльності',
+  Service = 'видів послуг',
+  Speciality = 'спеціальностей',
+  Work = 'якісно виконаних робіт',
+  Expert = 'експертна команда',
+}
+
+export enum BenefitLabel {
+  Uniqueness = 'Високий рівень унікальності',
+  Guarantee = 'Гарантія якості та результатів',
+  Correction = 'Можливість внесення правок',
+  Support = 'Підтримка до захисту',
+}
+
+export interface IBenefitsItem {
+  icon: IconName;
+  label: BenefitLabel;
 }

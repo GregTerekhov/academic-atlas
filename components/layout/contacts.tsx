@@ -1,20 +1,11 @@
 'use client';
 
-import { PositionInLayout, IconName, IconSize } from 'types';
+import { PositionInLayout, IconName, IconSize, type IContactLink } from 'types';
 
-import { SvgIconUI } from 'ui';
+import ContactItem from './contact-item';
 
 interface IContactsProps {
   variant: PositionInLayout;
-}
-
-interface IContactLink {
-  href: string;
-  iconName: IconName;
-  defaultSize: IconSize;
-  iconSize: string;
-  labelClass: string;
-  label: string;
 }
 
 export default function Contacts({ variant }: IContactsProps) {
@@ -63,35 +54,29 @@ export default function Contacts({ variant }: IContactsProps) {
     <>
       <address className='not-italic'>
         {variant === PositionInLayout.Footer && (
-          <p className='mb-4 hidden max-md:block max-md:text-center'>Наші контакти</p>
+          <p className='mb-4 hidden text-darkBase dark:text-whiteBase max-md:block max-md:text-center'>
+            Наші контакти
+          </p>
         )}
         <ul
           className={
             variant === PositionInLayout.Header
               ? 'max-lg:block max-lg:space-y-6 lg:flex lg:flex-row-reverse lg:gap-x-6'
-              : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4'
+              : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4 lg:w-[304px]'
           }
         >
           {Array.isArray(adaptedContacts) &&
             adaptedContacts.map(({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
-              <li key={iconName}>
-                <a
-                  href={href}
-                  target='_blank'
-                  className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
-                >
-                  <SvgIconUI
-                    id={iconName}
-                    size={{ width: defaultSize, height: defaultSize }}
-                    className={`${iconSize} fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase`}
-                  />
-                  <span
-                    className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase`}
-                  >
-                    {label}
-                  </span>
-                </a>
-              </li>
+              <ContactItem
+                key={iconName}
+                href={href}
+                iconName={iconName}
+                iconSize={iconSize}
+                defaultSize={defaultSize}
+                labelClass={labelClass}
+                label={label}
+                variant={variant}
+              />
             ))}
         </ul>
       </address>

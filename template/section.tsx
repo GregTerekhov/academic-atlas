@@ -1,16 +1,21 @@
-import Container from 'layout/container';
 import { SectionTitle, SectionDescriptions } from 'types';
+
+import { Container } from 'layout';
 
 export default function Section({
   title,
   children,
   isBigTitle = false,
   id,
+  titleStyle,
+  noAlignment,
 }: Readonly<{
   title: SectionTitle;
   children: React.ReactNode;
   isBigTitle?: boolean;
   id?: string;
+  titleStyle?: string;
+  noAlignment?: string;
 }>) {
   const backgroundVariants: Partial<Record<SectionTitle, string>> = {
     [SectionTitle.Hero]: 'bg-hero',
@@ -29,7 +34,11 @@ export default function Section({
       }
     >
       <Container>
-        {isBigTitle ? <h1>{SectionDescriptions[title]}</h1> : <h2>{SectionDescriptions[title]}</h2>}
+        {isBigTitle ? (
+          <h1 className={titleStyle ?? ''}>{SectionDescriptions[title]}</h1>
+        ) : (
+          <h2 className={noAlignment ?? ''}>{SectionDescriptions[title]}</h2>
+        )}
         {children}
       </Container>
     </section>

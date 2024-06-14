@@ -2,6 +2,7 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import Image, { StaticImageData } from 'next/image';
 
 import 'swiper/css/bundle';
 import SvgIcon from './svg-icon';
@@ -10,8 +11,8 @@ import { IconName, IconSize } from 'types/ui';
 type Slides = {
   memberName: string;
   memberFeedback: string;
+  memberImage: StaticImageData;
   memberRating?: number;
-  memberImage?: string;
   memberFeedbackDate?: Date;
 };
 
@@ -24,6 +25,7 @@ export default function Carousel({ slides }: ICarouselProps) {
     375: {
       slidesPerView: 1,
       spaceBetween: 14,
+      centeredSlides: true,
     },
     768: {
       slidesPerView: 2,
@@ -69,8 +71,16 @@ export default function Carousel({ slides }: ICarouselProps) {
               className={`${isActive ? 'swiper-slide-active !w-[299px] border-2 border-accentPrimary p-4 md:!w-[432px] md:p-8 lg:!w-[496px] lg:p-12' : 'border border-accentSecondary md:!w-[320px] md:p-6 lg:!w-[336px] lg:p-8'} slide-content rounded-[18px] `}
             >
               <div
-                className={`${isActive ? 'mb-4 size-[120px] md:mb-6 md:size-[160px]' : 'mb-4 size-[120px]'} mx-auto rounded-full border-[3px] border-solid border-accentPrimary-darker`}
-              ></div>
+                className={`${isActive ? 'mb-4 size-[120px] md:mb-6 md:size-[160px]' : 'mb-4 size-[120px]'} mx-auto overflow-hidden rounded-full border-[3px] border-solid border-accentPrimary-darker`}
+              >
+                <Image
+                  src={slide.memberImage}
+                  alt={slide.memberName}
+                  width={120}
+                  height={120}
+                  className={`${isActive ? 'md:w-40' : 'md:w-[120px]'}`}
+                />
+              </div>
               <p
                 className={`${isActive ? 'mb-6 text-medium md:mb-8 md:text-big lg:text-xl' : 'md:mb-4 md:text-base lg:mb-6 lg:text-medium'} text-center`}
               >

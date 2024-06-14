@@ -1,9 +1,10 @@
 import { UrlObject } from 'url';
+import { IconName, IconSize } from './ui';
 
 export enum MenuLinks {
   Main = 'Головна',
   Services = 'Наші послуги',
-  Cost = 'Дізнатися вартість',
+  Cost = 'Розрахувати вартість',
   Overview = 'Як працює сервіс',
   AboutUs = 'Про нас',
   Feedback = 'Відгуки',
@@ -33,6 +34,15 @@ export enum Paths {
 export interface ILinks {
   label: MenuLinks;
   path: UrlObject | Paths;
+}
+
+export interface IContactLink {
+  href: string;
+  iconName: IconName;
+  defaultSize: IconSize;
+  iconSize: string;
+  labelClass: string;
+  label: string;
 }
 
 export enum SectionTitle {
