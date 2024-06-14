@@ -3,7 +3,7 @@
 import { ReactNode, useState } from 'react';
 
 import { ButtonType, IconName, IconSize } from 'types';
-import { useDropdown } from 'helpers';
+import { usePopUp } from 'helpers';
 
 import SvgIcon from './svg-icon';
 import CustomScroll from './custom-scroll';
@@ -22,7 +22,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
   const [selectedLabel, setSelectedLabel] = useState<T>(label);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
-  const { isOpened, dropdownRef, toggleDropdown } = useDropdown();
+  const { isDropdownOpened, popUpRef, toggleDropdown } = usePopUp();
 
   const handleOptionClick = (option: T) => {
     setSelectedLabel(option);
@@ -33,7 +33,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
   return (
     <div
       className='relative'
-      ref={dropdownRef}
+      ref={popUpRef}
     >
       <button
         type={ButtonType.Button}
@@ -44,10 +44,10 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
         <SvgIcon
           id={IconName.Expand}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-          className={`${isOpened ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'dark:fill-whiteBase'} transition-transform`}
+          className={`${isDropdownOpened ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'dark:fill-whiteBase'} transition-transform`}
         />
       </button>
-      {isOpened && (
+      {isDropdownOpened && (
         <div className='absolute max-h-[248px] w-full overflow-hidden border-[2.4px] border-solid border-accentPrimary lg:max-h-[314px]'>
           <CustomScroll className=''>
             <ul className='w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>

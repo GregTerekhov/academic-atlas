@@ -1,29 +1,34 @@
 'use client';
 
-import { useState } from 'react';
-
-import { MobileMenuTemplate, ModalTemplate } from 'template';
+import {
+  // MobileMenuTemplate,
+  ModalTemplate,
+} from 'template';
 import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../product-price-calculator';
+import { usePopUp } from 'helpers/usePopUp';
 
 export default function PriceControls() {
-  const [isOpenPrice, setIsOpenPrice] = useState(false);
+  const { isPopUpOpen, popUpRef, toggleModal } = usePopUp();
+
   return (
     <>
       <p>PriceControls</p>
-      <PrimaryButtonUI handleClick={() => setIsOpenPrice(true)}>
-        Розрахувати вартість
-      </PrimaryButtonUI>
-      {isOpenPrice && (
+      <PrimaryButtonUI handleClick={toggleModal}>Розрахувати вартість</PrimaryButtonUI>
+      {/* {isOpenPrice && (
         <MobileMenuTemplate>
           <PriceCalculator />
         </MobileMenuTemplate>
-      )}
-      {isOpenPrice && (
-        <ModalTemplate>
-          <PriceCalculator />
-        </ModalTemplate>
-      )}
+      )} */}
+
+      <ModalTemplate
+        closeModal={toggleModal}
+        title='MODAL TITLE'
+        modalRef={popUpRef}
+        isOpen={isPopUpOpen}
+      >
+        <PriceCalculator />
+      </ModalTemplate>
     </>
   );
 }
