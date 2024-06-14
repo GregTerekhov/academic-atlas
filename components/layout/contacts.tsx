@@ -63,13 +63,15 @@ export default function Contacts({ variant }: IContactsProps) {
     <>
       <address className='not-italic'>
         {variant === PositionInLayout.Footer && (
-          <p className='mb-4 hidden max-md:block max-md:text-center'>Наші контакти</p>
+          <p className='mb-4 hidden text-darkBase dark:text-whiteBase max-md:block max-md:text-center'>
+            Наші контакти
+          </p>
         )}
         <ul
           className={
             variant === PositionInLayout.Header
               ? 'max-lg:block max-lg:space-y-6 lg:flex lg:flex-row-reverse lg:gap-x-6'
-              : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4'
+              : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4 lg:w-[304px]'
           }
         >
           {Array.isArray(adaptedContacts) &&

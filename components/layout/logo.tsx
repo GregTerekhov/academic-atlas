@@ -25,13 +25,14 @@ export default function Logo({ position }: ISvgIconProps) {
     <Link
       href={Paths.Main}
       onClick={handleClick}
+      className='inline-block'
     >
       <SvgIconUI
         id={IconName.Logo}
         size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
-        className={
+        className={`${
           position === PositionInLayout.Header ? `lg:size-20` : `max-md:size-20 lg:size-28`
-        } //FIXME: --- colour at the light theme
+        } max-md:mx-auto`} //FIXME: --- colour at the light theme
       />
     </Link>
   );
