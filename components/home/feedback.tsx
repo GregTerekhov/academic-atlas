@@ -1,5 +1,3 @@
-'use client';
-
 import { SectionTitle } from 'types';
 
 import { idValues } from 'helpers';

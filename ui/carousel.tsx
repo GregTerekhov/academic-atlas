@@ -25,6 +25,7 @@ export default function Carousel({ slides }: ICarouselProps) {
     375: {
       slidesPerView: 1,
       spaceBetween: 14,
+      centeredSlides: true,
     },
     768: {
       slidesPerView: 2,
