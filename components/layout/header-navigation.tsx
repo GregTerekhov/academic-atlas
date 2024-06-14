@@ -62,7 +62,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
               </Link>
             </li>
           ))}
-        <li className='hidden max-lg:block'>
+        <li className='hidden dark:text-whiteBase max-lg:block'>
           <button
             type='button'
             onClick={() => console.log('Розрахувати вартість')} //FIXME: --- replace this state with the call of togglePopup function from a custom hook or use searchParams and link to modal
