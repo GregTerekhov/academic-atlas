@@ -22,6 +22,7 @@ export default function Section({
     [SectionTitle.FindOutCost]: 'bg-find-out-cost',
     [SectionTitle.Performers]: 'bg-performers',
     [SectionTitle.Promotions]: 'bg-promotions',
+    [SectionTitle.NotFound]: 'bg-notFound',
   };
 
   return (

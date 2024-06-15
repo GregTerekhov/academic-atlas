@@ -54,6 +54,7 @@ export enum SectionTitle {
   AboutUs = 'about-us',
   Promotions = 'promotions',
   CustomerReviews = 'customer-reviews',
+  NotFound = 'notFound',
 }
 
 export const SectionDescriptions = {
@@ -65,6 +66,7 @@ export const SectionDescriptions = {
   [SectionTitle.AboutUs]: 'Про нас',
   [SectionTitle.Promotions]: 'Акція - Диплом під ключ',
   [SectionTitle.CustomerReviews]: 'Відгуки наших клієнтів',
+  [SectionTitle.NotFound]: '',
 } as const;
 
 export type SectionTitleType = keyof typeof SectionDescriptions;
