@@ -5,7 +5,7 @@ import { SectionTitle } from 'types/layoutTypes';
 export default function NotFound() {
   return (
     <SectionTemplate
-      isBigTitle={true}
+      isBigTitle
       title={SectionTitle.NotFound}
       titleStyle='bg-accent-gradient bg-clip-text text-monstrousSm text-transparent md:text-[160px] lg:text-monstrousLg text-center'
     >
