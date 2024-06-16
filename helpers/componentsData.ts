@@ -8,17 +8,17 @@ import {
   WorkType,
 } from '../types';
 
-import customer1 from '../public/customer-1.webp';
-import customer2 from '../public/customer-2.webp';
-import customer3 from '../public/customer-3.webp';
-import diplomas from '../public/services-1.webp';
-import teamPapers from '../public/services-2.webp';
-import bachelorTheses from '../public/services-3.webp';
-import testPapers from '../public/services-4.webp';
-import abstracts from '../public/services-5.webp';
-import practicalWorks from '../public/services-6.webp';
-import presentations from '../public/services-7.webp';
-import caseStudyReports from '../public/services-8.webp';
+import customer1 from '../customer-1.webp';
+import customer2 from '../customer-2.webp';
+import customer3 from '../customer-3.webp';
+import diplomas from '../services-1.webp';
+import teamPapers from '../services-2.webp';
+import bachelorTheses from '../services-3.webp';
+import testPapers from '../services-4.webp';
+import abstracts from '../services-5.webp';
+import practicalWorks from '../services-6.webp';
+import presentations from '../services-7.webp';
+import caseStudyReports from '../services-8.webp';
 
 export const getBenefits = (): IBenefitsItem[] => {
   return [
