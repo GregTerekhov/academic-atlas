@@ -20,3 +20,4 @@ export { default as Services } from './home/services';
 export { default as ThemeSwitcher } from './layout/theme-switcher';
 export { default as ToggleMenuTrigger } from './layout/toggle-controls';
 export { default as Workflow } from './performers/collaboration-workflow';
+export { default as NotFoundNavigation } from './not-found-controls';
