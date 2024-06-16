@@ -4,3 +4,4 @@ export * from './tailwindPlugins';
 export * from './themeHelper';
 export { usePopUp } from './usePopUp';
 export { useTheme } from './useTheme';
+export { NotFoundNavigation } from './not-found-controls';
