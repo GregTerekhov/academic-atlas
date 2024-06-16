@@ -1,4 +1,3 @@
-import { StaticImageData } from 'next/image';
 import { IconName } from './ui';
 
 export enum Example {
@@ -31,7 +30,7 @@ export enum ThemeVariants {
 }
 
 export interface IServiceItem {
-  imageSrc: StaticImageData;
+  imageSrc: string;
   imageAlt: string;
   serviceTitle: WorkType;
 }
@@ -67,7 +66,7 @@ export interface IBenefitsItem {
 export interface Slide {
   memberName: string;
   memberFeedback: string;
-  memberImage: StaticImageData;
+  memberImage: string;
   memberRating?: number;
   memberFeedbackDate?: Date;
 }

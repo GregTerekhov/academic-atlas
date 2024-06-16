@@ -8,18 +8,6 @@ import {
   WorkType,
 } from '../types';
 
-import customer1 from '../customer-1.webp';
-import customer2 from '../customer-2.webp';
-import customer3 from '../customer-3.webp';
-import diplomas from '../services-1.webp';
-import teamPapers from '../services-2.webp';
-import bachelorTheses from '../services-3.webp';
-import testPapers from '../services-4.webp';
-import abstracts from '../services-5.webp';
-import practicalWorks from '../services-6.webp';
-import presentations from '../services-7.webp';
-import caseStudyReports from '../services-8.webp';
-
 export const getBenefits = (): IBenefitsItem[] => {
   return [
     {
@@ -47,31 +35,31 @@ export const getFeedbackSlides = (): Slide[] => {
       memberName: 'Дарина Заєць',
       memberFeedback:
         "Дякую за чудові послуги! Робота виконана якісно та вчасно, співпраця була дуже продуктивною. Ваш професіоналізм та увага до деталей вражають. Обов'язково звернусь ще раз і рекомендую іншим!",
-      memberImage: customer2,
+      memberImage: '/customer-2.webp',
     },
     {
       memberName: 'Андрій Білка',
       memberFeedback:
         'Дякую за відмінне обслуговування! Робота виконана на вищому рівні, співпраця була ефективною і комфортною. Рекомендую всім, хто шукає якісні послуги!',
-      memberImage: customer1,
+      memberImage: '/customer-1.webp',
     },
     {
       memberName: 'Петро Вовк',
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: customer3,
+      memberImage: '/customer-3.webp',
     },
     {
       memberName: 'Данило Ведмідь',
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: customer1,
+      memberImage: '/customer-1.webp',
     },
     {
       memberName: 'Семен Лисиця',
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: customer3,
+      memberImage: '/customer-3.webp',
     },
   ];
 };
@@ -109,42 +97,42 @@ export const getOrderSteps = (): IOrderStep[] => {
 export const getServices = (): IServiceItem[] => {
   return [
     {
-      imageSrc: diplomas,
+      imageSrc: '/services-1.webp',
       imageAlt: 'Three notebooks',
       serviceTitle: WorkType.Diplomas,
     },
     {
-      imageSrc: teamPapers,
+      imageSrc: '/services-2.webp',
       imageAlt: 'Three notebooks, a pen and glasses',
       serviceTitle: WorkType.TeamPapers,
     },
     {
-      imageSrc: bachelorTheses,
+      imageSrc: '/services-3.webp',
       imageAlt: 'Open book and notebook',
       serviceTitle: WorkType.BachelorTheses,
     },
     {
-      imageSrc: testPapers,
+      imageSrc: '/services-4.webp',
       imageAlt: 'A person draws diagrams',
       serviceTitle: WorkType.TestPapers,
     },
     {
-      imageSrc: abstracts,
+      imageSrc: '/services-5.webp',
       imageAlt: 'A person moves a pen across the text of a book',
       serviceTitle: WorkType.Abstracts,
     },
     {
-      imageSrc: practicalWorks,
+      imageSrc: '/services-6.webp',
       imageAlt: 'Geometric ruler, red marker and calculations',
       serviceTitle: WorkType.PracticalWorks,
     },
     {
-      imageSrc: presentations,
+      imageSrc: '/services-7.webp',
       imageAlt: 'A pile of books',
       serviceTitle: WorkType.Presentations,
     },
     {
-      imageSrc: caseStudyReports,
+      imageSrc: '/services-8.webp',
       imageAlt: 'Glasses on the book',
       serviceTitle: WorkType.CaseStudyReports,
     },
