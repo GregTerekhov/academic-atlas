@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { PrimaryButtonUI } from 'ui/index';
 
-export const NotFoundNavigation = () => {
+const NotFoundNavigation = () => {
   const router = useRouter();
 
   return (
@@ -20,3 +20,5 @@ export const NotFoundNavigation = () => {
     </ul>
   );
 };
+
+export default NotFoundNavigation;

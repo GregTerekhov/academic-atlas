@@ -1,4 +1,4 @@
-import { NotFoundNavigation } from 'helpers/not-found-controls';
+import NotFoundNavigation from 'components/not-found-controls';
 import { SectionTemplate } from 'template/index';
 import { SectionTitle } from 'types/layoutTypes';
 
