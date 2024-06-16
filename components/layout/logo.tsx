@@ -21,7 +21,7 @@ export default function Logo({ position }: ISvgIconProps) {
     }
   };
 
-  return (
+  return position === PositionInLayout.Header ? (
     <Link
       href={Paths.Main}
       onClick={handleClick}
@@ -30,10 +30,14 @@ export default function Logo({ position }: ISvgIconProps) {
       <SvgIconUI
         id={IconName.Logo}
         size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
-        className={`${
-          position === PositionInLayout.Header ? `lg:size-20` : `max-md:size-20 lg:size-28`
-        } max-md:mx-auto`} //FIXME: --- colour at the light theme
+        className='lg:size-20' //FIXME: --- colour at the light theme
       />
     </Link>
+  ) : (
+    <SvgIconUI
+      id={IconName.Logo}
+      size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
+      className='max-md:mx-auto max-md:size-20 lg:size-28' //FIXME: --- colour at the light theme
+    />
   );
 }

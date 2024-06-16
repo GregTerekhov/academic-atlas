@@ -1,4 +1,6 @@
-import { SectionTitle } from 'types';
+import Link from 'next/link';
+
+import { Paths, SectionTitle } from 'types';
 
 import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
@@ -13,7 +15,9 @@ export default function Performers() {
         Пиши, розвивайся, заробляй та ставай нашим виконавцем!
       </p>
       <div className='md:flex md:items-center md:justify-center'>
-        <PrimaryButtonUI>Приєднатися</PrimaryButtonUI>
+        <Link href={Paths.Partnership}>
+          <PrimaryButtonUI>Приєднатися</PrimaryButtonUI>
+        </Link>
       </div>
     </SectionTemplate>
   );
