@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import { headerStyles, hocusFunction } from './helpers';
+import { hocusFunction } from './helpers';
 
 const config: Config = {
   content: [
@@ -84,6 +84,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [hocusFunction, headerStyles],
+  plugins: [hocusFunction],
 };
 export default config;

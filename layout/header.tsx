@@ -5,12 +5,14 @@ import Container from './container';
 
 export default function Header() {
   return (
-    <header className='header bg-whiteBase dark:bg-background-gradient'>
+    <header className='fixed left-0 top-0 z-10 max-h-20 w-full border-b-[0.5px] border-whiteBase bg-whiteBase py-2 dark:bg-background-gradient md:max-h-24 md:py-4 lg:max-h-28'>
       <Container>
         <div className='flex items-center justify-between'>
           <Logo position={PositionInLayout.Header} />
-          <div className='hidden lg:flex lg:gap-x-1'>
+          <div className='hidden lg:flex'>
             <Menu />
+          </div>
+          <div className='hidden items-center gap-x-8 lg:flex'>
             <ThemeSwitcher />
             <Contacts variant={PositionInLayout.Header} />
           </div>
@@ -23,4 +25,3 @@ export default function Header() {
     </header>
   );
 }
-

@@ -2,7 +2,7 @@
 
 import { IconName, IconSize, ThemeVariants } from 'types';
 
-import { useTheme } from 'helpers';
+import { useTheme } from 'context';
 
 import { SvgIconUI, SwitchUI } from 'ui';
 
@@ -14,7 +14,7 @@ export default function ThemeSwitcher() {
       <SvgIconUI
         id={theme === ThemeVariants.LIGHT ? IconName.Sun : IconName.Moon}
         size={{ width: IconSize.BG, height: IconSize.BG }}
-        className='rotate-90 fill-whiteBase transition-transform hover:fill-darkBase-light'
+        className='fill-accentSecondary'
       />
     </SwitchUI>
   );

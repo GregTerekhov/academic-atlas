@@ -3,7 +3,7 @@
 import { ReactNode, useState } from 'react';
 
 import { ButtonType, IconName, IconSize } from 'types';
-import { usePopUp } from 'helpers';
+import { useDropdown } from 'context';
 
 import SvgIcon from './svg-icon';
 import CustomScroll from './custom-scroll';
@@ -22,7 +22,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
   const [selectedLabel, setSelectedLabel] = useState<T>(label);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
-  const { isDropdownOpened, popUpRef, toggleDropdown } = usePopUp();
+  const { isDropdownOpen, dropdownRef, toggleDropdown } = useDropdown();
 
   const handleOptionClick = (option: T) => {
     setSelectedLabel(option);
@@ -33,21 +33,21 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
   return (
     <div
       className='relative'
-      ref={popUpRef}
+      ref={dropdownRef}
     >
       <button
         type={ButtonType.Button}
         onClick={toggleDropdown}
-        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between rounded-lg border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2.4px] hocus:ring-accentPrimary md:h-12 md:px-4`}
+        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between rounded-lg border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4`}
       >
         {selectedLabel as ReactNode}
         <SvgIcon
           id={IconName.Expand}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-          className={`${isDropdownOpened ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'dark:fill-whiteBase'} transition-transform`}
+          className={`${isDropdownOpen ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'dark:fill-whiteBase'} transition-transform`}
         />
       </button>
-      {isDropdownOpened && (
+      {isDropdownOpen && (
         <div className='absolute max-h-[248px] w-full overflow-hidden border-[2.4px] border-solid border-accentPrimary lg:max-h-[314px]'>
           <CustomScroll className=''>
             <ul className='w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>

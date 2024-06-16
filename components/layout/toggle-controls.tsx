@@ -1,35 +1,34 @@
 'use client';
 
-import { usePopUp } from 'helpers';
 import { IconName, IconSize, ButtonType } from 'types';
 
+import { useMenu } from 'context';
+
+import { MobileMenuTemplate } from 'template';
 import { SvgIconUI } from 'ui';
 import Menu from './menu';
-import { MobileMenuTemplate } from 'template';
 
 export default function ToggleMenuTrigger() {
-  const { isPopUpOpen, toggleModal } = usePopUp();
+  const { isNavMenuOpen, isCalcMenuOpen, toggleNavMenu, toggleCalcMenu } = useMenu();
 
   return (
     <>
       <button
         type={ButtonType.Button}
-        onClick={toggleModal}
-        aria-label={isPopUpOpen ? 'Close Menu' : 'Open Menu'}
-        className='group'
+        onClick={isCalcMenuOpen ? toggleCalcMenu : toggleNavMenu}
+        aria-label={isNavMenuOpen || isCalcMenuOpen ? 'Close Menu' : 'Open Menu'}
+        className='group size-10'
       >
         <SvgIconUI
-          id={isPopUpOpen ? IconName.Close : IconName.Burger}
+          id={isNavMenuOpen || isCalcMenuOpen ? IconName.Close : IconName.Burger}
           size={{ width: IconSize.L, height: IconSize.L }}
           className='dark:fille-whiteBase fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase'
         />
       </button>
 
-      {isPopUpOpen && (
-        <MobileMenuTemplate isOpen={isPopUpOpen}>
-          <Menu />
-        </MobileMenuTemplate>
-      )}
+      <MobileMenuTemplate isOpen={isNavMenuOpen}>
+        <Menu />
+      </MobileMenuTemplate>
     </>
   );
 }
