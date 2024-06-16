@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Paths } from 'types/layoutTypes';
 import { PrimaryButtonUI } from 'ui/index';
 
 const NotFoundNavigation = () => {
@@ -13,7 +14,7 @@ const NotFoundNavigation = () => {
         <PrimaryButtonUI handleClick={() => router.back()}>Перейти на попередню</PrimaryButtonUI>
       </li>
       <li>
-        <Link href='/'>
+        <Link href={Paths.Main}>
           <PrimaryButtonUI>Перейти на головну</PrimaryButtonUI>
         </Link>
       </li>
