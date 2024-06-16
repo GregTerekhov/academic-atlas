@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 
 import { PositionInLayout, IconName, IconSize, Paths } from 'types';
 
+import { useMenu } from 'context';
+
 import { SvgIconUI } from 'ui';
 
 interface ISvgIconProps {
@@ -13,11 +15,18 @@ interface ISvgIconProps {
 
 export default function Logo({ position }: ISvgIconProps) {
   const pathname = usePathname();
+  const { isNavMenuOpen, isCalcMenuOpen, closeMenu } = useMenu();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (pathname === Paths.Main) {
+    const isScroll = !isNavMenuOpen || !isCalcMenuOpen;
+    const isOpenMenuOnMainPage = pathname === Paths.Main && (isCalcMenuOpen || isNavMenuOpen);
+
+    if (isScroll) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (isOpenMenuOnMainPage) {
+      closeMenu();
     }
   };
 

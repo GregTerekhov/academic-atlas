@@ -4,7 +4,7 @@ import { PositionInLayout } from 'types';
 
 import { getFooterLinks } from 'helpers';
 
-import CalculationModalTrigger from './calculation-modal-trigger';
+import { CalculationModalTrigger } from './subcomponents';
 
 export default function FooterMenu() {
   const footerMenuLinks = getFooterLinks();

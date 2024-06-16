@@ -7,7 +7,6 @@ import { useHandleClickOutside } from 'helpers';
 interface IPopupContext {
   isPopupOpen: boolean;
   togglePopup: () => void;
-  closePopup: () => void;
   popupRef: React.RefObject<HTMLDivElement>;
 }
 
@@ -15,10 +14,12 @@ const PopupContext = createContext<IPopupContext | undefined>(undefined);
 
 export const PopupProvider = ({ children }: { children: ReactNode }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   const popupRef = useRef<HTMLDivElement>(null);
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
+
     if (!isPopupOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -34,7 +35,7 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
   useHandleClickOutside(popupRef, isPopupOpen, closePopup);
 
   return (
-    <PopupContext.Provider value={{ isPopupOpen, togglePopup, closePopup, popupRef }}>
+    <PopupContext.Provider value={{ isPopupOpen, togglePopup, popupRef }}>
       {children}
     </PopupContext.Provider>
   );

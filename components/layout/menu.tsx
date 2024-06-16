@@ -1,7 +1,7 @@
 import { PositionInLayout } from 'types';
 
 import Contacts from './contacts';
-import Navigation from './header-navigation';
+import { Navigation } from './subcomponents';
 
 export default function Menu() {
   return (

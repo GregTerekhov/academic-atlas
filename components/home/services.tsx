@@ -3,7 +3,7 @@ import { SectionTitle } from 'types';
 import { getServices, idValues } from 'helpers';
 
 import { SectionTemplate } from 'template';
-import ServiceItem from './service-item';
+import { ServiceItem } from './subcomponents';
 
 export default function Services() {
   const serviceItems = getServices();

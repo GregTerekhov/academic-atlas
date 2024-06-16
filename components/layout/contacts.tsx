@@ -4,7 +4,7 @@ import { PositionInLayout, IconName } from 'types';
 
 import { getLinkData } from 'helpers';
 
-import ContactItem from './contact-item';
+import { ContactItem } from './subcomponents';
 
 interface IContactsProps {
   variant: PositionInLayout;

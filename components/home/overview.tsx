@@ -5,7 +5,7 @@ import { SectionTitle } from 'types';
 import { getOrderSteps, idValues } from 'helpers';
 
 import { SectionTemplate } from 'template';
-import OverviewItem from './overview-item';
+import { OverviewItem } from './subcomponents';
 
 import serviceOverview from '../../public/backgroundImage/service-overview.webp';
 
