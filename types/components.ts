@@ -63,3 +63,17 @@ export interface IBenefitsItem {
   icon: IconName;
   label: BenefitLabel;
 }
+
+export interface Slide {
+  memberName: string;
+  memberFeedback: string;
+  memberImage: StaticImageData;
+  memberRating?: number;
+  memberFeedbackDate?: Date;
+}
+
+export interface IOrderStep {
+  id: string;
+  step: string;
+  iconName: IconName;
+}

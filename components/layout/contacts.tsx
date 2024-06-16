@@ -1,6 +1,8 @@
 'use client';
 
-import { PositionInLayout, IconName, IconSize, type IContactLink } from 'types';
+import { PositionInLayout, IconName } from 'types';
+
+import { getLinkData } from 'helpers';
 
 import ContactItem from './contact-item';
 
@@ -9,41 +11,6 @@ interface IContactsProps {
 }
 
 export default function Contacts({ variant }: IContactsProps) {
-  const getLinkData = (variant: PositionInLayout): IContactLink[] => {
-    return [
-      {
-        href: 'tel:+380632076120',
-        iconName: IconName.Call,
-        defaultSize: IconSize.L,
-        iconSize: 'md:size-6 lg:size-5',
-        labelClass: 'md:inline lg:text-big',
-        label: '+380 63 20 761 20',
-      },
-      {
-        href: 'https://web.telegram.org/k/#@AcademicAtlas_Official',
-        iconName: IconName.Telegram,
-        defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
-        iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
-        labelClass:
-          variant === PositionInLayout.Header
-            ? 'text-medium max-lg:inline'
-            : 'md:inline lg:text-big',
-        label: '@Academic_Atlas',
-      },
-      {
-        href: 'mailto:AcademicAtlas@ukr.net',
-        iconName: IconName.Email,
-        defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
-        iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
-        labelClass:
-          variant === PositionInLayout.Header
-            ? 'text-medium max-lg:inline'
-            : 'md:inline lg:text-big',
-        label: 'AcademicAtlas@ukr.net',
-      },
-    ];
-  };
-
   const linkData = getLinkData(variant);
   const adaptedContacts =
     variant === PositionInLayout.Footer

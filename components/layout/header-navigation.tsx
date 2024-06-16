@@ -2,45 +2,19 @@
 
 import Link from 'next/link';
 
-import { ILinks, MenuLinks, Paths } from 'types';
+import { ButtonType, MenuLinks, PositionInLayout } from 'types';
+
+import { usePopup } from 'context';
+import { getHeaderLinks } from 'helpers';
+
+import CalculationModalTrigger from './calculation-modal-trigger';
 
 interface INavigationProps {
   isDesktop?: boolean;
 }
 
 export default function Navigation({ isDesktop }: INavigationProps) {
-  const getHeaderLinks = (): ILinks[] => {
-    return [
-      {
-        path: Paths.Main,
-        label: MenuLinks.Main,
-      },
-      {
-        path: Paths.Services,
-        label: MenuLinks.Services,
-      },
-      {
-        path: Paths.AboutUs,
-        label: MenuLinks.AboutUs,
-      },
-      {
-        path: Paths.Promotions,
-        label: MenuLinks.Promotions,
-      },
-      {
-        path: Paths.Feedback,
-        label: MenuLinks.Feedback,
-      },
-      {
-        path: { pathname: Paths.FAQ },
-        label: MenuLinks.FAQ,
-      },
-      {
-        path: { pathname: Paths.Partnership },
-        label: MenuLinks.Partnership,
-      },
-    ];
-  };
+  const { togglePopup } = usePopup();
 
   const headerLinks = getHeaderLinks();
 
@@ -54,22 +28,31 @@ export default function Navigation({ isDesktop }: INavigationProps) {
         {Array.isArray(adaptedLinks) &&
           adaptedLinks.map(({ path, label }) => (
             <li key={label}>
-              <Link
-                href={path}
-                className='text-medium hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary md:text-big'
-              >
-                {label}
-              </Link>
+              {isDesktop ? (
+                <Link
+                  href={path}
+                  className='hidden text-medium hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary md:text-big lg:inline-block'
+                >
+                  {label}
+                </Link>
+              ) : (
+                <button
+                  type={ButtonType.Button}
+                  onClick={togglePopup}
+                  className='hidden max-lg:block'
+                >
+                  <Link
+                    href={path}
+                    className='text-medium hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary md:text-big'
+                  >
+                    {label}
+                  </Link>
+                </button>
+              )}
             </li>
           ))}
         <li className='hidden dark:text-whiteBase max-lg:block'>
-          <button
-            type='button'
-            onClick={() => console.log('Розрахувати вартість')} //FIXME: --- replace this state with the call of togglePopup function from a custom hook or use searchParams and link to modal
-            className='text-medium hocus:text-accentPrimary md:text-big'
-          >
-            {MenuLinks.Cost}
-          </button>
+          <CalculationModalTrigger position={PositionInLayout.Header} />
         </li>
       </ul>
     </nav>
