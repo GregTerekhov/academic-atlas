@@ -1,10 +1,9 @@
 'use client';
 
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 
 import { ThemeVariants } from 'types';
 import { getPreference, setPreference } from 'helpers';
-import ThemeContext from './ThemeContext';
 
 interface IThemeProviderProps {
   children: ReactNode;
@@ -12,11 +11,21 @@ interface IThemeProviderProps {
   startTheme?: string | undefined;
 }
 
-export default function ThemeProvider({
+interface IThemeContext {
+  theme: string | undefined;
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<IThemeContext>({
+  theme: ThemeVariants.LIGHT,
+  toggleTheme: () => {},
+});
+
+export const ThemeProvider = ({
   children,
   storageKey,
   startTheme = ThemeVariants.LIGHT,
-}: IThemeProviderProps) {
+}: IThemeProviderProps) => {
   const initialTheme = startTheme ?? getPreference(storageKey);
   const [theme, setTheme] = useState<string>(initialTheme);
 
@@ -31,4 +40,12 @@ export default function ThemeProvider({
   }, []);
 
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
-}
+};
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};

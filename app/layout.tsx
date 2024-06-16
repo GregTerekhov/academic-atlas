@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 
 import type { Metadata } from 'next';
 
-import { ThemeProvider } from 'context';
+import { DropdownProvider, PopupProvider, ThemeProvider } from 'context';
 import { Footer, Header } from 'layout';
 import { ScrollController } from 'components';
 
@@ -41,12 +41,16 @@ export default function RootLayout({
           storageKey={THEME_STORAGE_KEY}
           startTheme={theme}
         >
-          <Header />
-          <main className='relative space-y-8 bg-whiteBase pb-8 dark:bg-background-gradient md:space-y-16 md:pb-16 lg:space-y-[104px] lg:pb-[104px]'>
-            {children}
-            <ScrollController />
-          </main>
-          <Footer />
+          <PopupProvider>
+            <DropdownProvider>
+              <Header />
+              <main className='relative space-y-8 bg-whiteBase pb-8 dark:bg-background-gradient md:space-y-16 md:pb-16 lg:space-y-[104px] lg:pb-[104px]'>
+                {children}
+                <ScrollController />
+              </main>
+              <Footer />
+            </DropdownProvider>
+          </PopupProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 'use client';
 
-import { usePopUp } from 'helpers';
+import { usePopup } from 'context';
 import { IconName, IconSize, ButtonType } from 'types';
 
 import { SvgIconUI } from 'ui';
@@ -8,28 +8,26 @@ import Menu from './menu';
 import { MobileMenuTemplate } from 'template';
 
 export default function ToggleMenuTrigger() {
-  const { isPopUpOpen, toggleModal } = usePopUp();
+  const { isPopupOpen, togglePopup } = usePopup();
 
   return (
     <>
       <button
         type={ButtonType.Button}
-        onClick={toggleModal}
-        aria-label={isPopUpOpen ? 'Close Menu' : 'Open Menu'}
+        onClick={togglePopup}
+        aria-label={isPopupOpen ? 'Close Menu' : 'Open Menu'}
         className='group'
       >
         <SvgIconUI
-          id={isPopUpOpen ? IconName.Close : IconName.Burger}
+          id={isPopupOpen ? IconName.Close : IconName.Burger}
           size={{ width: IconSize.L, height: IconSize.L }}
           className='dark:fille-whiteBase fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase'
         />
       </button>
 
-      {isPopUpOpen && (
-        <MobileMenuTemplate isOpen={isPopUpOpen}>
-          <Menu />
-        </MobileMenuTemplate>
-      )}
+      <MobileMenuTemplate isOpen={isPopupOpen}>
+        <Menu />
+      </MobileMenuTemplate>
     </>
   );
 }
