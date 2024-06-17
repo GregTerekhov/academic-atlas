@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Paths } from 'types/layoutTypes';
-import { PrimaryButtonUI } from 'ui/index';
+
+import { Paths } from 'types';
+
+import { PrimaryButtonUI } from 'ui';
 
 const NotFoundNavigation = () => {
   const router = useRouter();
