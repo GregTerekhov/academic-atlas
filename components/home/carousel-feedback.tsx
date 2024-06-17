@@ -20,7 +20,7 @@ export default function CarouselFeedback<T extends Slide>({
       <RatingIcons
         key={index}
         index={index}
-        rating={rating} //FIXME: --- take into account the problem of server and client rendering mismatch
+        rating={rating}
       />
     ));
   };
@@ -52,8 +52,7 @@ export default function CarouselFeedback<T extends Slide>({
       </p>
       <div className='flex items-center justify-center gap-x-4'>
         {getRatingIcons(slide.memberRating)}
-      </div>{' '}
-      {/* getRatingIcons(slide.memberRating) //FIXME: --- take into account the problem of server and client rendering mismatch */}
+      </div>
     </div>
   );
 }

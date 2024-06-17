@@ -3,16 +3,15 @@ import { SvgIconUI } from 'ui';
 
 interface RatingIconProps {
   index: number;
-  rating: number; //FIXME: --- take into account the problem of server and client rendering mismatch
+  rating: number;
 }
 
 export default function RatingIcons({ rating, index }: RatingIconProps) {
-  const iconId = index < rating ? IconName.RatingUp : IconName.RatingDown; //FIXME: --- take into account the problem of server and client rendering mismatch
+  const iconId = index < rating ? IconName.RatingUp : IconName.RatingDown;
   return (
     <SvgIconUI
       key={index}
       id={iconId}
-      // id={IconName.RatingUp}
       className='fill-accentPrimary md:size-6'
       size={{ width: IconSize.XXS, height: IconSize.XXS }}
     />
