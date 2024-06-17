@@ -1,22 +1,54 @@
 'use client';
 
-import { IconName, IconSize, ButtonType } from 'types';
+import { IconName, IconSize, ButtonType, AriaLabelTrigger } from 'types';
 
 import { useMenu } from 'context';
 
 import { MobileMenuTemplate } from 'template';
 import { SvgIconUI } from 'ui';
 import Menu from './menu';
+import PriceCalculator from '../product-price-calculator';
 
 export default function ToggleMenuTrigger() {
-  const { isNavMenuOpen, isCalcMenuOpen, toggleNavMenu, toggleCalcMenu } = useMenu();
+  const {
+    isNavMenuOpen,
+    isCalcMenuOpen,
+    showCalculationMenu,
+    toggleNavMenu,
+    toggleCalcMenu,
+    closeMenu,
+  } = useMenu();
+
+  const handleToggleMenu = (): void => {
+    if (isCalcMenuOpen) {
+      toggleCalcMenu();
+    } else if (showCalculationMenu) {
+      closeMenu();
+    } else {
+      toggleNavMenu();
+    }
+  };
+
+  const getAriaLabel = (): AriaLabelTrigger => {
+    switch (true) {
+      case isNavMenuOpen:
+        return AriaLabelTrigger.CloseNavigation;
+      case isCalcMenuOpen:
+        return AriaLabelTrigger.CloseCalculation;
+
+      default:
+        return AriaLabelTrigger.Default;
+    }
+  };
+
+  const dynamicAriaLabel = getAriaLabel();
 
   return (
-    <>
+    <div>
       <button
         type={ButtonType.Button}
-        onClick={isCalcMenuOpen ? toggleCalcMenu : toggleNavMenu}
-        aria-label={isNavMenuOpen || isCalcMenuOpen ? 'Close Menu' : 'Open Menu'}
+        onClick={handleToggleMenu}
+        aria-label={dynamicAriaLabel}
         className='group size-10'
       >
         <SvgIconUI
@@ -27,8 +59,8 @@ export default function ToggleMenuTrigger() {
       </button>
 
       <MobileMenuTemplate isOpen={isNavMenuOpen}>
-        <Menu />
+        {showCalculationMenu ? <PriceCalculator /> : <Menu />}
       </MobileMenuTemplate>
-    </>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import { ButtonType, MenuLinks, PositionInLayout } from 'types';
 
 import { useMenu, usePopup } from 'context';
 
-import { MobileMenuTemplate, ModalTemplate } from 'template';
+import { ModalTemplate } from 'template';
 import PriceCalculator from '../../product-price-calculator';
 
 interface IMenuTriggerProps {
@@ -13,13 +13,13 @@ interface IMenuTriggerProps {
 
 export default function CalculationModalTrigger({ position }: IMenuTriggerProps) {
   const { isPopupOpen, popupRef, togglePopup } = usePopup();
-  const { isCalcMenuOpen, toggleCalcMenu } = useMenu();
+  const { toggleCalcMenu, changeMenuContent } = useMenu();
 
   return (
     <>
       <button
         type={ButtonType.Button}
-        onClick={toggleCalcMenu}
+        onClick={position === PositionInLayout.Footer ? toggleCalcMenu : changeMenuContent}
         className={`${position === PositionInLayout.Footer ? 'text-sm md:text-base' : 'text-medium md:text-big'} hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary max-lg:block`}
       >
         {MenuLinks.Cost}
@@ -40,11 +40,6 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
         >
           <PriceCalculator />
         </ModalTemplate>
-      </div>
-      <div className='hidden max-lg:block'>
-        <MobileMenuTemplate isOpen={isCalcMenuOpen}>
-          <PriceCalculator />
-        </MobileMenuTemplate>
       </div>
     </>
   );
