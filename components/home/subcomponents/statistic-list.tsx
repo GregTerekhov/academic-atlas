@@ -4,7 +4,7 @@ import StatisticItem from './statistic-item';
 
 export default function StatisticList() {
   return (
-    <ul className='mb-8 mt-8 space-y-4 md:mb-12 md:mt-10 md:space-y-8 md:max-lg:flex md:max-lg:flex-col md:max-lg:justify-center lg:mb-20 lg:mt-[72px]'>
+    <ul className='mb-8 space-y-4 md:mb-12 md:space-y-8 md:max-lg:flex md:max-lg:flex-col md:max-lg:justify-center lg:mb-20'>
       <li className='flex max-md:justify-between md:max-lg:justify-center md:max-lg:gap-x-20 lg:justify-between'>
         <StatisticItem
           count={StatisticCount.Year}

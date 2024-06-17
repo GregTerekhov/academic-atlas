@@ -29,6 +29,12 @@
   align-items: center;
 }
 
+@media screen and (max-width: 767px) {
+  .swiper-slide-fully-visible.swiper-slide-active {
+    margin-right: 0 !important;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .swiper-slide-visible.swiper-slide-prev,
   .swiper-slide-visible.swiper-slide-next {
@@ -36,7 +42,9 @@
   }
 
   .swiper-slide-fully-visible.swiper-slide-active {
-    width: 432px !important;
+    width: 436px !important;
+    position: relative;
+    z-index: 10;
   }
 }
 

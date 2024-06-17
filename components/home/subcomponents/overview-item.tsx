@@ -20,7 +20,7 @@ export default function OverviewItem({ iconName, step }: Readonly<IOverviewItem>
           className='lg:size-16'
         />
       </div>
-      <p className='text-sm max-md:leading-130 md:text-base lg:text-big'>{step}</p>
+      <p className='generalText'>{step}</p>
     </li>
   );
 }

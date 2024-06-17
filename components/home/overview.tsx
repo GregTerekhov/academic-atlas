@@ -7,8 +7,6 @@ import { getOrderSteps, idValues } from 'helpers';
 import { SectionTemplate } from 'template';
 import { OverviewItem } from './subcomponents';
 
-import serviceOverview from '../../public/backgroundImage/service-overview.webp';
-
 export default function ServiceOverview() {
   const orderSteps = getOrderSteps();
   return (
@@ -16,10 +14,10 @@ export default function ServiceOverview() {
       title={SectionTitle.HowItWorks}
       id={idValues.Overview ?? ''}
     >
-      <div className='mt-8 flex items-center max-lg:bg-opacity-75 max-lg:bg-service-overview max-lg:bg-no-repeat md:mt-10 md:max-lg:justify-end md:max-lg:bg-contain lg:mt-[72px] lg:justify-center lg:gap-x-16'>
+      <div className='flex items-center max-lg:bg-opacity-75 max-lg:bg-service-overview max-lg:bg-no-repeat md:max-lg:justify-end md:max-lg:bg-contain lg:justify-center lg:gap-x-16'>
         <div className='hidden lg:block'>
           <Image
-            src={serviceOverview}
+            src='/backgroundImage/service-overview.webp'
             alt='A sheet of paper and a magnifying glass'
             width={402}
             height={512}

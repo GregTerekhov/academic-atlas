@@ -5,11 +5,15 @@ export const feedbackBreakpoints: Breakpoints = {
     slidesPerView: 1,
     spaceBetween: 14,
     centeredSlides: true,
+    slidesOffsetAfter: 8,
+    slidesOffsetBefore: 14,
   },
   768: {
     slidesPerView: 2,
-    spaceBetween: 40,
+    spaceBetween: -90,
     centeredSlides: true,
+    slidesOffsetAfter: 60,
+    slidesOffsetBefore: 50,
   },
   1440: {
     slidesPerView: 3,

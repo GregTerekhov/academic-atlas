@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import { hocusFunction } from './helpers';
+import { hocusFunction, generalText } from './helpers';
 
 const config: Config = {
   content: [
@@ -79,11 +79,9 @@ const config: Config = {
         'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
         'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
         notFound: "url('/backgroundImage/404.webp')",
-        //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        //   'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },
-  plugins: [hocusFunction],
+  plugins: [hocusFunction, generalText],
 };
 export default config;

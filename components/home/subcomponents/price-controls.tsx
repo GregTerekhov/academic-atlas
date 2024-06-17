@@ -12,10 +12,10 @@ export default function PriceControls() {
 
   return (
     <>
-      <div className='hidden items-center justify-center lg:mt-20 lg:flex'>
+      <div className='hidden items-center justify-center lg:flex'>
         <PrimaryButtonUI handleClick={togglePopup}>Розрахувати вартість</PrimaryButtonUI>
       </div>
-      <div className='mt-8 hidden items-center justify-center max-lg:flex'>
+      <div className='hidden items-center justify-center max-lg:flex'>
         <PrimaryButtonUI handleClick={toggleCalcMenu}>Розрахувати вартість</PrimaryButtonUI>
       </div>
 

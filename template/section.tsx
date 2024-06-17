@@ -9,6 +9,7 @@ export default function Section({
   id,
   titleStyle,
   noAlignment,
+  hasAdditionalText = false,
 }: Readonly<{
   title: SectionTitle;
   children: React.ReactNode;
@@ -16,6 +17,7 @@ export default function Section({
   id?: string;
   titleStyle?: string;
   noAlignment?: string;
+  hasAdditionalText?: boolean;
 }>) {
   const backgroundVariants: Partial<Record<SectionTitle, string>> = {
     [SectionTitle.Hero]: 'bg-hero',
@@ -38,7 +40,11 @@ export default function Section({
         {isBigTitle ? (
           <h1 className={titleStyle ?? ''}>{SectionDescriptions[title]}</h1>
         ) : (
-          <h2 className={noAlignment ?? ''}>{SectionDescriptions[title]}</h2>
+          <h2
+            className={`${noAlignment ?? ''} ${hasAdditionalText ? 'mb-4 md:mb-6 lg:mb-8' : 'mb-8 md:mb-10 lg:mb-[72px]'}`}
+          >
+            {SectionDescriptions[title]}
+          </h2>
         )}
         {children}
       </Container>
