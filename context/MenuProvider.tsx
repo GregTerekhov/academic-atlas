@@ -7,10 +7,11 @@ import { useHandleClickOutside } from 'helpers';
 interface IMenuContext {
   isCalcMenuOpen: boolean;
   isNavMenuOpen: boolean;
+  showCalculationMenu: boolean;
   toggleCalcMenu: () => void;
   toggleNavMenu: () => void;
   closeMenu: () => void;
-  menuRef: React.RefObject<HTMLDivElement>;
+  changeMenuContent: () => void;
 }
 
 const MenuContext = createContext<IMenuContext | undefined>(undefined);
@@ -18,6 +19,7 @@ const MenuContext = createContext<IMenuContext | undefined>(undefined);
 export const MenuProvider = ({ children }: { children: ReactNode }) => {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const [isCalcMenuOpen, setIsCalcMenuOpen] = useState(false);
+  const [showCalculationMenu, setShowCalculationMenu] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -33,13 +35,19 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
     setIsNavMenuOpen(!isNavMenuOpen);
   };
 
+  const changeMenuContent = () => {
+    setShowCalculationMenu(true);
+  };
+
   const toggleCalcMenu = () => {
     setIsCalcMenuOpen(!isCalcMenuOpen);
+    showCalculationMenu && setShowCalculationMenu(false);
   };
 
   const closeMenu = () => {
-    isCalcMenuOpen && setIsCalcMenuOpen(false);
-    isNavMenuOpen && setIsNavMenuOpen(false);
+    setIsCalcMenuOpen(false);
+    setIsNavMenuOpen(false);
+    setShowCalculationMenu(false);
   };
 
   useHandleClickOutside(menuRef, isCalcMenuOpen, closeMenu);
@@ -47,7 +55,15 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <MenuContext.Provider
-      value={{ isCalcMenuOpen, isNavMenuOpen, toggleCalcMenu, toggleNavMenu, menuRef, closeMenu }}
+      value={{
+        isCalcMenuOpen,
+        isNavMenuOpen,
+        showCalculationMenu,
+        changeMenuContent,
+        toggleCalcMenu,
+        toggleNavMenu,
+        closeMenu,
+      }}
     >
       {children}
     </MenuContext.Provider>

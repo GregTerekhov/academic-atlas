@@ -67,7 +67,7 @@ export interface Slide {
   memberName: string;
   memberFeedback: string;
   memberImage: string;
-  memberRating?: number;
+  memberRating: number;
   memberFeedbackDate?: Date;
 }
 
@@ -75,4 +75,10 @@ export interface IOrderStep {
   id: string;
   step: string;
   iconName: IconName;
+}
+
+export enum AriaLabelTrigger {
+  Default = 'Open navigation Menu',
+  CloseNavigation = 'Close navigation menu',
+  CloseCalculation = 'Close calculation menu',
 }

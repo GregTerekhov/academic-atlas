@@ -16,11 +16,11 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)', 
+        source: '/images/(.*)', //FiXME: --- turn on all before production
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable', 
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

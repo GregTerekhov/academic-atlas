@@ -1,5 +1,6 @@
 export { default as AboutUs } from './home/about-us';
 export { default as Breadcrumbs } from './layout/breadcrumbs';
+export { default as CarouselFeedback } from './home/carousel-feedback';
 export { default as Contacts } from './layout/contacts';
 export { default as Cost } from './home/cost';
 export { default as FAQItem } from './FAQ/fag-item';
