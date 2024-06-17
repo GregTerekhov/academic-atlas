@@ -4,7 +4,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 
 import { Breakpoints, Slide } from 'types';
-import CarouselFeedback from 'components/home/carousel-feedback';
+
+import { CarouselFeedback } from 'components';
 
 import 'swiper/css/bundle';
 

@@ -35,31 +35,36 @@ export const getFeedbackSlides = (): Slide[] => {
       memberName: 'Дарина Заєць',
       memberFeedback:
         "Дякую за чудові послуги! Робота виконана якісно та вчасно, співпраця була дуже продуктивною. Ваш професіоналізм та увага до деталей вражають. Обов'язково звернусь ще раз і рекомендую іншим!",
-      memberImage: '/customer-2.webp',
+      memberImage: '/images/customer-2.webp',
+      memberRating: 5,
     },
     {
       memberName: 'Андрій Білка',
       memberFeedback:
         'Дякую за відмінне обслуговування! Робота виконана на вищому рівні, співпраця була ефективною і комфортною. Рекомендую всім, хто шукає якісні послуги!',
-      memberImage: '/customer-1.webp',
+      memberImage: '/images/customer-1.webp',
+      memberRating: 4,
     },
     {
       memberName: 'Петро Вовк',
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: '/customer-3.webp',
+      memberImage: '/images/customer-3.webp',
+      memberRating: 5,
     },
     {
       memberName: 'Данило Ведмідь',
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: '/customer-1.webp',
+      memberImage: '/images/customer-1.webp',
+      memberRating: 5,
     },
     {
       memberName: 'Семен Лисиця',
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: '/customer-3.webp',
+      memberImage: '/images/customer-3.webp',
+      memberRating: 4,
     },
   ];
 };
@@ -97,42 +102,42 @@ export const getOrderSteps = (): IOrderStep[] => {
 export const getServices = (): IServiceItem[] => {
   return [
     {
-      imageSrc: '/services-1.webp',
+      imageSrc: '/images/services-1.webp',
       imageAlt: 'Three notebooks',
       serviceTitle: WorkType.Diplomas,
     },
     {
-      imageSrc: '/services-2.webp',
+      imageSrc: '/images/services-2.webp',
       imageAlt: 'Three notebooks, a pen and glasses',
       serviceTitle: WorkType.TeamPapers,
     },
     {
-      imageSrc: '/services-3.webp',
+      imageSrc: '/images/services-3.webp',
       imageAlt: 'Open book and notebook',
       serviceTitle: WorkType.BachelorTheses,
     },
     {
-      imageSrc: '/services-4.webp',
+      imageSrc: '/images/services-4.webp',
       imageAlt: 'A person draws diagrams',
       serviceTitle: WorkType.TestPapers,
     },
     {
-      imageSrc: '/services-5.webp',
+      imageSrc: '/images/services-5.webp',
       imageAlt: 'A person moves a pen across the text of a book',
       serviceTitle: WorkType.Abstracts,
     },
     {
-      imageSrc: '/services-6.webp',
+      imageSrc: '/images/services-6.webp',
       imageAlt: 'Geometric ruler, red marker and calculations',
       serviceTitle: WorkType.PracticalWorks,
     },
     {
-      imageSrc: '/services-7.webp',
+      imageSrc: '/images/services-7.webp',
       imageAlt: 'A pile of books',
       serviceTitle: WorkType.Presentations,
     },
     {
-      imageSrc: '/services-8.webp',
+      imageSrc: '/images/services-8.webp',
       imageAlt: 'Glasses on the book',
       serviceTitle: WorkType.CaseStudyReports,
     },

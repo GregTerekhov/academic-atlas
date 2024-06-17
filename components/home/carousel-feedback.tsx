@@ -1,26 +1,29 @@
 import Image from 'next/image';
 
-import { IconName, IconSize, Slide } from 'types';
+import { Slide } from 'types';
 
-import { SvgIconUI } from 'ui';
+import { RatingIcons } from './subcomponents';
 
 interface ICarouselFeedbackProps<T> {
   slide: T;
   isActive: boolean;
 }
 
+const TOTAL_ICONS = 5;
+
 export default function CarouselFeedback<T extends Slide>({
   slide,
   isActive,
 }: ICarouselFeedbackProps<T>) {
-  const ratingIcons = Array.from({ length: 5 }, (_, index) => (
-    <SvgIconUI
-      key={index}
-      id={IconName.Rating}
-      className='fill-accentPrimary md:size-6'
-      size={{ width: IconSize.XXS, height: IconSize.XXS }}
-    />
-  ));
+  const getRatingIcons = (rating: number) => {
+    return Array.from({ length: TOTAL_ICONS }, (_, index) => (
+      <RatingIcons
+        key={index}
+        index={index}
+        rating={rating} //FIXME: --- take into account the problem of server and client rendering mismatch
+      />
+    ));
+  };
 
   return (
     <div
@@ -47,7 +50,10 @@ export default function CarouselFeedback<T extends Slide>({
       >
         {slide.memberFeedback}
       </p>
-      <div className='flex items-center justify-center gap-x-4'>{ratingIcons}</div>
+      <div className='flex items-center justify-center gap-x-4'>
+        {getRatingIcons(slide.memberRating)}
+      </div>{' '}
+      {/* getRatingIcons(slide.memberRating) //FIXME: --- take into account the problem of server and client rendering mismatch */}
     </div>
   );
 }

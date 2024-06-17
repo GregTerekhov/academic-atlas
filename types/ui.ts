@@ -46,8 +46,8 @@ export enum IconName {
   Overview4 = 'deal-closing',
   Overview5 = 'feedback',
   Question = 'question',
-  Rating = 'star',
-  RatingUp = 'star-filled',
+  RatingDown = 'star',
+  RatingUp = 'star-full',
   Sun = 'sun',
   Telegram = 'telegram',
 }
