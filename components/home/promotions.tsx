@@ -21,7 +21,7 @@ export default function Promotions() {
         {callToAction}
       </p>
       <Image
-        src='/notes.webp'
+        src='/images/notes.webp'
         alt='Notes'
         width={216}
         height={144}
