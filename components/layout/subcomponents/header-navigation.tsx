@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
+import { ButtonType, MenuLinks, PositionInLayout } from 'types';
 
 import { useMenu } from 'context';
 import { getHeaderLinks } from 'helpers';
@@ -25,7 +25,6 @@ export default function Navigation({ isDesktop }: INavigationProps) {
   return (
     <nav>
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
-        <Link href={Paths.Main}>Ujkjydfy</Link>
         {Array.isArray(adaptedLinks) &&
           adaptedLinks.map(({ path, label }) => (
             <li key={label}>

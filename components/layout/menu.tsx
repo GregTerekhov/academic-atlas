@@ -6,7 +6,7 @@ import { Navigation } from './subcomponents';
 export default function Menu() {
   return (
     <>
-      <div className='hidden space-y-12 py-10 max-lg:block'>
+      <div className='hidden space-y-12 max-lg:block'>
         <Navigation />
         <Contacts variant={PositionInLayout.Header} />
       </div>
