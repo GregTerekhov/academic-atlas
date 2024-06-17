@@ -24,7 +24,7 @@ export default function CarouselFeedback<T extends Slide>({
 
   return (
     <div
-      className={`${isActive ? 'swiper-slide-active !w-[301px] border-2 border-accentPrimary p-4 md:!w-[436px] md:p-8 lg:!w-[496px] lg:p-12' : 'border border-accentSecondary md:!w-[320px] md:p-6 lg:!w-[336px] lg:p-8'} slide-content rounded-[18px]`}
+      className={`${isActive ? 'swiper-slide-active !w-[301px] border-2 border-accentPrimary bg-background-gradient p-4 max-md:!mr-0 md:!w-[436px] md:p-8 lg:!w-[496px] lg:p-12' : 'border border-accentSecondary md:!w-[320px] md:p-6 md:max-lg:blur-[1px] lg:!w-[336px] lg:p-8'} slide-content rounded-[18px]`}
     >
       <div
         className={`${isActive ? 'mb-4 size-[120px] md:mb-6 md:size-[160px]' : 'mb-4 size-[120px]'} mx-auto overflow-hidden rounded-full border-[3px] border-solid border-accentPrimary-darker`}
@@ -43,7 +43,7 @@ export default function CarouselFeedback<T extends Slide>({
         {slide.memberName}
       </p>
       <p
-        className={`${isActive ? 'min-h-[110px] text-sm max-md:leading-130 md:mb-6 md:min-h-24 md:text-base lg:min-h-[150px] lg:text-big' : 'max-lg:leading-130 md:text-sm lg:text-base'} mb-4`}
+        className={`${isActive ? 'generalText min-h-[110px] md:mb-6 md:min-h-24 lg:min-h-[150px]' : 'max-lg:leading-130 md:text-sm md:max-lg:min-h-[91px] lg:text-base'} mb-4`}
       >
         {slide.memberFeedback}
       </p>

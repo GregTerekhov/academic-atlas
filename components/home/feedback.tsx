@@ -13,12 +13,10 @@ export default function Feedback() {
       title={SectionTitle.CustomerReviews}
       id={idValues.Feedback ?? ''}
     >
-      <div className='mt-6 md:mt-10 lg:mt-[72px]'>
-        <CarouselUI
-          slides={feedbackSlides}
-          breakpoints={feedbackBreakpoints}
-        />
-      </div>
+      <CarouselUI
+        slides={feedbackSlides}
+        breakpoints={feedbackBreakpoints}
+      />
     </SectionTemplate>
   );
 }
