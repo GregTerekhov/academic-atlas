@@ -67,6 +67,7 @@ export interface Slide {
   memberName: string;
   memberFeedback: string;
   memberImage: string;
+  memberAlt: string;
   memberRating: number;
   memberFeedbackDate?: Date;
 }
