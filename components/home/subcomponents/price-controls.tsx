@@ -5,6 +5,7 @@ import { useMenu, usePopup } from 'context';
 import { MobileMenuTemplate, ModalTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../../product-price-calculator';
+import { PrimaryButtonLabel } from 'types/ui';
 
 export default function PriceControls() {
   const { isPopupOpen, popupRef, togglePopup } = usePopup();
@@ -13,10 +14,14 @@ export default function PriceControls() {
   return (
     <>
       <div className='hidden items-center justify-center lg:flex'>
-        <PrimaryButtonUI handleClick={togglePopup}>Розрахувати вартість</PrimaryButtonUI>
+        <PrimaryButtonUI handleClick={togglePopup}>
+          {PrimaryButtonLabel.CostCalculation}
+        </PrimaryButtonUI>
       </div>
       <div className='hidden items-center justify-center max-lg:flex'>
-        <PrimaryButtonUI handleClick={toggleCalcMenu}>Розрахувати вартість</PrimaryButtonUI>
+        <PrimaryButtonUI handleClick={toggleCalcMenu}>
+          {PrimaryButtonLabel.CostCalculation}
+        </PrimaryButtonUI>
       </div>
 
       <div className='hidden max-lg:block'>
