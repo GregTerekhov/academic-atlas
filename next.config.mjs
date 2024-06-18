@@ -3,16 +3,29 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
-  compiler: {
-    removeConsole: {
-      exclude: ['error'],
-    },
-  },
+  // compiler: { //FIXME:--- before production
+  //   removeConsole: {
+  //     exclude: ['error'],
+  //   },
+  // },
   images: {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  async headers() {
+    return [
+      {
+        source: '/images/(.*)', //FiXME: --- turn on all before production
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,10 +1,12 @@
 import type { Config } from 'tailwindcss';
-import { headerStyles, hocusFunction } from './helpers';
+import { hocusFunction, generalText } from './helpers';
 
 const config: Config = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './context/**/*.{js,ts,jsx,tsx,mdx}',
+    './helpers/**/*.{js,ts,jsx,tsx,mdx}',
     './layout/**/*.{js,ts,jsx,tsx,mdx}',
     './template/**/*.{js,ts,jsx,tsx,mdx}',
     './ui/**/*.{js,ts,jsx,tsx,mdx}',
@@ -35,13 +37,17 @@ const config: Config = {
         '5xl': '48px',
         '6xl': '52px',
         '7xl': '60px',
-        results: '90px',
+        '8xl': '90px',
         monstrousSm: '120px',
         monstrousMd: '200px',
         monstrousLg: '260px',
       },
       lineHeight: {
         130: '1.3',
+      },
+      maxHeight: {
+        mobileMenu: 'calc(100vh - 80px)',
+        tabletMenu: 'calc(100vh - 96px)',
       },
       colors: {
         transparent: 'transparent',
@@ -65,17 +71,17 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        // 'hero': ,
-        // 'price': ,
-        serviceOverview: "url('/service-overview.webp')",
-        // 'promotions': ,
-        // 'performers': ,
-
-        //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        //   'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        hero: "url('/backgroundImage/hero.webp')",
+        'find-out-cost': "url('/backgroundImage/find-out-cost.webp')",
+        performers: "url('/backgroundImage/performers.webp')",
+        promotions: "url('/backgroundImage/promotions.webp')",
+        'service-overview': "url('/backgroundImage/service-overview.webp')",
+        'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
+        'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
+        notFound: "url('/backgroundImage/404.webp')",
       },
     },
   },
-  plugins: [hocusFunction, headerStyles],
+  plugins: [hocusFunction, generalText],
 };
 export default config;

@@ -1,15 +1,16 @@
 'use client';
 
-import { ButtonType } from 'types';
+import { ButtonType, PrimaryButtonLabel } from 'types';
 
-import { PrimaryButtonUI, SvgIconUI } from 'ui';
+import { PrimaryButtonUI } from 'ui';
 
 export default function PriceResult() {
   return (
     <>
       <p>PriceResult</p>
       <PrimaryButtonUI type={ButtonType.Submit}>
-        <SvgIconUI /> @Academic Atlas
+        {/* <SvgIconUI /> */}
+        {PrimaryButtonLabel.SwitchToTelegram}
       </PrimaryButtonUI>
     </>
   );

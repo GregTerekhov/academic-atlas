@@ -1,14 +1,18 @@
-import { MobileMenuTemplate } from 'template';
+import { PositionInLayout } from 'types';
+
 import Contacts from './contacts';
+import { Navigation } from './subcomponents';
 
 export default function Menu() {
   return (
     <>
-      <MobileMenuTemplate>
-        <nav>Menu</nav>
-        <Contacts />
-      </MobileMenuTemplate>
-      <nav className='hidden lg:flex'>Menu</nav>
+      <div className='mx-auto hidden space-y-12 max-lg:block max-md:max-w-fit md:max-lg:pl-[120px]'>
+        <Navigation />
+        <Contacts variant={PositionInLayout.Header} />
+      </div>
+      <div className='hidden lg:block'>
+        <Navigation isDesktop />
+      </div>
     </>
   );
 }

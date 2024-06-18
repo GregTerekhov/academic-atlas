@@ -1,19 +1,25 @@
+import { PositionInLayout } from 'types';
+
 import { Contacts, Logo, Menu, ThemeSwitcher, ToggleMenuTrigger } from 'components';
 import Container from './container';
 
 export default function Header() {
   return (
-    <header className='header bg-whiteBase dark:bg-gradient-to-br dark:from-darkBase dark:to-darkBase-light'>
+    <header className='fixed left-0 top-0 z-10 max-h-20 w-full border-b-[0.5px] border-whiteBase bg-whiteBase py-2 dark:bg-background-gradient md:max-h-24 md:py-4 lg:max-h-28'>
       <Container>
-        <Logo />
-        <div className='hidden lg:flex lg:gap-x-1'>
-          <Menu />
-          <ThemeSwitcher />
-          <Contacts />
-        </div>
-        <div className='hidden gap-x-1 max-lg:flex'>
-          <ThemeSwitcher />
-          <ToggleMenuTrigger />
+        <div className='flex items-center justify-between'>
+          <Logo position={PositionInLayout.Header} />
+          <div className='hidden lg:flex'>
+            <Menu />
+          </div>
+          <div className='hidden items-center gap-x-8 lg:flex'>
+            <ThemeSwitcher />
+            <Contacts variant={PositionInLayout.Header} />
+          </div>
+          <div className='hidden items-center gap-x-8 max-lg:flex'>
+            <ThemeSwitcher />
+            <ToggleMenuTrigger />
+          </div>
         </div>
       </Container>
     </header>

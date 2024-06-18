@@ -1,10 +1,7 @@
-import { PopoverUI } from 'ui';
-
-export default function Workflow() {
+export default function WorkflowSteps() {
   return (
     <>
-      <p>Workflow</p>
-      <PopoverUI>Hints</PopoverUI>
+      <p>WorkflowSteps</p>
     </>
   );
 }

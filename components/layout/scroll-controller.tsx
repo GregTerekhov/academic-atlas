@@ -1,10 +1,19 @@
+import { ButtonType, IconName, IconSize } from 'types';
+
 import { SvgIconUI } from 'ui';
 
 export default function ScrollController() {
   return (
-    <div className='absolute bottom-10 right-20 z-20'>
-      <p>ScrollController</p>
-      <SvgIconUI />
-    </div>
+    <button
+      type={ButtonType.Button}
+      aria-label='Scroll up button'
+      className='fixed bottom-4 right-10 hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 md:flex lg:right-20 lg:size-16'
+    >
+      <SvgIconUI
+        id={IconName.Arrow}
+        size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
+        className='fill-accentPrimary lg:size-9'
+      />
+    </button>
   );
 }

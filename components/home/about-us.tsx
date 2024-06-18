@@ -1,13 +1,18 @@
+import { SectionTitle } from 'types';
+
+import { idValues } from 'helpers';
+
 import { SectionTemplate } from 'template';
-import { SvgIconUI } from 'ui';
+import { BenefitsList, StatisticList } from './subcomponents';
 
 export default function AboutUs() {
   return (
-    <SectionTemplate>
-      <p>Про нас</p>
-      <SvgIconUI />
-      <SvgIconUI />
-      <SvgIconUI />
+    <SectionTemplate
+      title={SectionTitle.AboutUs}
+      id={idValues.AboutUs ?? ''}
+    >
+      <StatisticList />
+      <BenefitsList />
     </SectionTemplate>
   );
 }

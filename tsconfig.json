@@ -38,6 +38,7 @@
     ],
     "paths": {
       "components/*": ["components/*"],
+      "context/*": ["context/*"],
       "helpers/*": ["helpers/*"],
       "layout/*": ["layout/*"],
       "public/*": ["public/*"],

@@ -4,22 +4,57 @@
 
 @layer base {
   html {
-    @apply bg-whiteBase text-darkBase;
+    @apply scroll-smooth bg-whiteBase;
   }
 
   html.dark {
-    @apply bg-gradient-to-br from-darkBase to-darkBase-light text-whiteBase;
+    @apply scroll-smooth bg-gradient-to-br from-darkBase to-darkBase-light;
   }
 
   body {
-    @apply h-full pt-20 md:pt-24 lg:pt-28;
+    @apply h-full pt-20 text-darkBase dark:text-whiteBase md:pt-24 lg:pt-28;
   }
 
   h1 {
-    @apply text-3xl md:text-5xl lg:text-7xl;
+    @apply text-balance text-3xl font-bold leading-130 md:text-5xl lg:text-7xl;
   }
 
   h2 {
-    @apply text-1.5xl md:text-3xl lg:text-4xl;
+    @apply text-balance text-center text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
+  }
+}
+
+.swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .swiper-slide-fully-visible.swiper-slide-active {
+    margin-right: 0 !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .swiper-slide-visible.swiper-slide-prev,
+  .swiper-slide-visible.swiper-slide-next {
+    width: 320px !important;
+  }
+
+  .swiper-slide-fully-visible.swiper-slide-active {
+    width: 436px !important;
+    position: relative;
+    z-index: 10;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .swiper-slide-visible.swiper-slide-prev,
+  .swiper-slide-visible.swiper-slide-next {
+    width: 336px !important;
+  }
+
+  .swiper-slide-fully-visible.swiper-slide-active {
+    width: 496px !important;
   }
 }
