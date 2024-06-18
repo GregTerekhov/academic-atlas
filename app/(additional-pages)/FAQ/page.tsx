@@ -1,10 +1,11 @@
-import { FAQList } from 'components';
+import { FAQList, HeroFAQ, OrderingFAQ } from 'components';
 
 export default function Faq() {
   return (
     <>
-      <h1>FAQ</h1>
+      <HeroFAQ />
       <FAQList />
+      <OrderingFAQ />
     </>
   );
 }
