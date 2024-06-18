@@ -6,6 +6,7 @@ export default function ScrollController() {
   return (
     <button
       type={ButtonType.Button}
+      aria-label='Scroll up button'
       className='fixed bottom-4 right-10 hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 md:flex lg:right-20 lg:size-16'
     >
       <SvgIconUI

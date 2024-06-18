@@ -56,3 +56,12 @@ export interface Breakpoints {
   [width: number]: SwiperOptions;
   [ratio: string]: SwiperOptions;
 }
+
+export enum PrimaryButtonLabel {
+  Ordering = 'Замовити',
+  CostCalculation = 'Розрахувати вартість',
+  Accession = 'Приєднатися',
+  SwitchToTelegram = 'Перейти в Телеграм',
+  ToPreviousPage = 'Перейти на попередню',
+  ToMainPage = 'Перейти на головну',
+}

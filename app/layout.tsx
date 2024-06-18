@@ -45,7 +45,7 @@ export default function RootLayout({
             <PopupProvider>
               <DropdownProvider>
                 <Header />
-                <main className='relative space-y-8 bg-whiteBase pb-8 dark:bg-background-gradient md:space-y-16 md:pb-16 lg:space-y-[104px] lg:pb-[104px]'>
+                <main className='relative bg-whiteBase dark:bg-background-gradient'>
                   {children}
                   <ScrollController />
                 </main>

@@ -1,4 +1,5 @@
 import { GridItem, Workflow } from 'components';
+import { PrimaryButtonLabel } from 'types/ui';
 import { PrimaryButtonUI } from 'ui';
 
 export default function Partnership() {
@@ -9,7 +10,7 @@ export default function Partnership() {
         <GridItem />
       </ul>
       <Workflow />
-      <PrimaryButtonUI>Приєднатися</PrimaryButtonUI>
+      <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
     </>
   );
 }
