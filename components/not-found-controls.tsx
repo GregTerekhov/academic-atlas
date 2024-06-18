@@ -9,7 +9,7 @@ const NotFoundNavigation = () => {
   const router = useRouter();
 
   return (
-    <ul className='mt-10 flex justify-center gap-x-20 max-md:gap-x-8 max-sm:flex-col max-sm:gap-6'>
+    <ul className='mt-10 flex justify-center gap-x-20 max-md:flex-col max-md:gap-6'>
       <li>
         <PrimaryButtonUI handleClick={() => router.back()}>Перейти на попередню</PrimaryButtonUI>
       </li>
