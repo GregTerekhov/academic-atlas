@@ -1,4 +1,3 @@
-import { StaticImageData } from 'next/image';
 import { IconName } from './ui';
 
 export enum Example {
@@ -31,7 +30,7 @@ export enum ThemeVariants {
 }
 
 export interface IServiceItem {
-  imageSrc: StaticImageData;
+  imageSrc: string;
   imageAlt: string;
   serviceTitle: WorkType;
 }
@@ -62,4 +61,24 @@ export enum BenefitLabel {
 export interface IBenefitsItem {
   icon: IconName;
   label: BenefitLabel;
+}
+
+export interface Slide {
+  memberName: string;
+  memberFeedback: string;
+  memberImage: string;
+  memberRating: number;
+  memberFeedbackDate?: Date;
+}
+
+export interface IOrderStep {
+  id: string;
+  step: string;
+  iconName: IconName;
+}
+
+export enum AriaLabelTrigger {
+  Default = 'Open navigation Menu',
+  CloseNavigation = 'Close navigation menu',
+  CloseCalculation = 'Close calculation menu',
 }

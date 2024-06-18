@@ -1,6 +1,8 @@
 export * from './anchorLinks';
+export * from './carouselHelper';
 export * from './cookiesHelper';
+export * from './componentsData';
+export * from './layoutsData';
 export * from './tailwindPlugins';
 export * from './themeHelper';
-export { usePopUp } from './usePopUp';
-export { useTheme } from './useTheme';
+export { useHandleClickOutside } from './useHandleClickOutside';

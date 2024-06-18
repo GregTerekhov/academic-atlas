@@ -13,7 +13,7 @@ export default function SvgIcon({ id, size, className }: ISvgIconProps) {
       height={size.height}
       className={className}
     >
-      <use href={`/icons.svg#icon-${id}`}></use>
+      <use href={`/images/icons.svg#icon-${id}`}></use>
     </svg>
   );
 }

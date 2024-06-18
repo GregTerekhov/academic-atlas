@@ -4,25 +4,20 @@ export const hocusFunction = plugin(function ({ addVariant }) {
   addVariant('hocus', ['&:hover', '&:focus']);
 });
 
-export const headerStyles = plugin(function ({ addComponents }) {
+export const generalText = plugin(function ({ addComponents, theme }) {
   addComponents({
-    '.header': {
-      position: 'fixed',
-      left: '0',
-      top: '0',
-      zIndex: '10',
-      maxHeight: '80px',
-      width: '100%',
-      padding: '8px 0',
+    '.generalText': {
+      fontSize: theme('fontSize.sm'),
+      lineHeight: theme('lineHeight.130'),
 
       '@media (min-width: 768px)': {
-        maxHeight: '96px',
-        padding: '16px 0',
+        fontSize: theme('fontSize.base'),
+        lineHeight: '1.5',
       },
+
       '@media (min-width: 1440px)': {
-        maxHeight: '112px',
+        fontSize: theme('fontSize.big'),
       },
     },
   });
 });
-

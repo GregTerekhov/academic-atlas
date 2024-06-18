@@ -1,3 +1,5 @@
+import { SwiperOptions } from 'swiper/types';
+
 export enum ButtonType {
   Button = 'button',
   Submit = 'submit',
@@ -44,7 +46,13 @@ export enum IconName {
   Overview4 = 'deal-closing',
   Overview5 = 'feedback',
   Question = 'question',
-  Rating = 'star',
+  RatingDown = 'star',
+  RatingUp = 'star-full',
   Sun = 'sun',
   Telegram = 'telegram',
+}
+
+export interface Breakpoints {
+  [width: number]: SwiperOptions;
+  [ratio: string]: SwiperOptions;
 }

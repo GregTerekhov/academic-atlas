@@ -4,9 +4,9 @@ import { SvgIconUI } from 'ui';
 
 interface IModalProps {
   children: React.ReactNode;
-  title?: string;
+  title: string;
   closeModal: () => void;
-  modalRef?: RefObject<HTMLDivElement>;
+  modalRef: RefObject<HTMLDivElement>;
   isOpen: boolean;
 }
 

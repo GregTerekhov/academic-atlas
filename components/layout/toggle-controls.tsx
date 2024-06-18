@@ -1,35 +1,66 @@
 'use client';
 
-import { usePopUp } from 'helpers';
-import { IconName, IconSize, ButtonType } from 'types';
+import { IconName, IconSize, ButtonType, AriaLabelTrigger } from 'types';
 
+import { useMenu } from 'context';
+
+import { MobileMenuTemplate } from 'template';
 import { SvgIconUI } from 'ui';
 import Menu from './menu';
-import { MobileMenuTemplate } from 'template';
+import PriceCalculator from '../product-price-calculator';
 
 export default function ToggleMenuTrigger() {
-  const { isPopUpOpen, toggleModal } = usePopUp();
+  const {
+    isNavMenuOpen,
+    isCalcMenuOpen,
+    showCalculationMenu,
+    toggleNavMenu,
+    toggleCalcMenu,
+    closeMenu,
+  } = useMenu();
+
+  const handleToggleMenu = (): void => {
+    if (isCalcMenuOpen) {
+      toggleCalcMenu();
+    } else if (showCalculationMenu) {
+      closeMenu();
+    } else {
+      toggleNavMenu();
+    }
+  };
+
+  const getAriaLabel = (): AriaLabelTrigger => {
+    switch (true) {
+      case isNavMenuOpen:
+        return AriaLabelTrigger.CloseNavigation;
+      case isCalcMenuOpen:
+        return AriaLabelTrigger.CloseCalculation;
+
+      default:
+        return AriaLabelTrigger.Default;
+    }
+  };
+
+  const dynamicAriaLabel = getAriaLabel();
 
   return (
-    <>
+    <div>
       <button
         type={ButtonType.Button}
-        onClick={toggleModal}
-        aria-label={isPopUpOpen ? 'Close Menu' : 'Open Menu'}
-        className='group'
+        onClick={handleToggleMenu}
+        aria-label={dynamicAriaLabel}
+        className='group size-10'
       >
         <SvgIconUI
-          id={isPopUpOpen ? IconName.Close : IconName.Burger}
+          id={isNavMenuOpen || isCalcMenuOpen ? IconName.Close : IconName.Burger}
           size={{ width: IconSize.L, height: IconSize.L }}
           className='dark:fille-whiteBase fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase'
         />
       </button>
 
-      {isPopUpOpen && (
-        <MobileMenuTemplate isOpen={isPopUpOpen}>
-          <Menu />
-        </MobileMenuTemplate>
-      )}
-    </>
+      <MobileMenuTemplate isOpen={isNavMenuOpen}>
+        {showCalculationMenu ? <PriceCalculator /> : <Menu />}
+      </MobileMenuTemplate>
+    </div>
   );
 }
