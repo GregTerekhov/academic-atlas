@@ -33,7 +33,7 @@ export default function Section({
       className={
         backgroundVariants[title]
           ? `${backgroundVariants[title]} relative w-full bg-cover bg-center bg-no-repeat py-20 text-whiteBase before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentSecondary/10 before:content-[""] lg:py-[120px]`
-          : 'bg-transparent text-darkBase dark:text-whiteBase'
+          : 'bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]'
       }
     >
       <Container>

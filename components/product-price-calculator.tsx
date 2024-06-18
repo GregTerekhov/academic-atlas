@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { IWorkType, WorkType } from 'types';
+import { IWorkType, PrimaryButtonLabel, WorkType } from 'types';
 
 import { DropdownUI, InputUI, PrimaryButtonUI } from 'ui';
 import PriceResult from './price-result';
@@ -50,7 +50,7 @@ export default function PriceCalculator() {
           <InputUI />
           <InputUI />
           <PrimaryButtonUI handleClick={() => setHasSubmitData(true)}>
-            Розрахувати вартість
+            {PrimaryButtonLabel.CostCalculation}
           </PrimaryButtonUI>
         </div>
       ) : (

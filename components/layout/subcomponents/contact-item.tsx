@@ -15,11 +15,23 @@ export default function ContactItem({
   label,
   variant,
 }: IContactItem) {
+  const getAriaLabel = (href: string, label: string) => {
+    if (href.startsWith('tel:')) {
+      return `Call ${label}`;
+    } else if (href.startsWith('mailto:')) {
+      return `Email ${label}`;
+    } else {
+      return `Open link to ${label}`;
+    }
+  };
+
   return (
     <li>
       <a
         href={href}
         target='_blank'
+        rel='noopener noreferrer'
+        aria-label={getAriaLabel(href, label)}
         className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
       >
         <SvgIconUI

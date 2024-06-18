@@ -18,8 +18,8 @@ export default function Logo({ position }: ISvgIconProps) {
   const { isNavMenuOpen, isCalcMenuOpen, closeMenu } = useMenu();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const isScroll = !isNavMenuOpen || !isCalcMenuOpen;
-    const isOpenMenuOnMainPage = pathname === Paths.Main && (isCalcMenuOpen || isNavMenuOpen);
+    const isScroll = pathname === Paths.Main && (!isNavMenuOpen || !isCalcMenuOpen);
+    const isOpenMenuOnMainPage = isCalcMenuOpen || isNavMenuOpen;
 
     if (isScroll) {
       e.preventDefault();
@@ -35,6 +35,7 @@ export default function Logo({ position }: ISvgIconProps) {
       href={Paths.Main}
       onClick={handleClick}
       className='inline-block'
+      aria-label='Main page'
     >
       <SvgIconUI
         id={IconName.Logo}
