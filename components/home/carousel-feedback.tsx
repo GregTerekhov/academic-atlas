@@ -34,7 +34,7 @@ export default function CarouselFeedback<T extends Slide>({
       >
         <Image
           src={slide.memberImage}
-          alt={slide.memberName}
+          alt={slide.memberAlt}
           width={120}
           height={120}
           className={`${isActive ? 'md:w-40' : 'md:w-[120px]'}`}
