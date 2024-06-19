@@ -17,6 +17,12 @@ export default function Contacts({ variant }: IContactsProps) {
       ? linkData
       : linkData.filter((link) => link.iconName !== IconName.Call);
 
+  const getListStyle = () => {
+    return variant === PositionInLayout.Header
+      ? 'max-lg:block max-lg:space-y-6 lg:flex lg:flex-row-reverse lg:gap-x-6'
+      : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4 lg:w-[304px]';
+  };
+
   return (
     <>
       <address className='not-italic'>
@@ -25,13 +31,7 @@ export default function Contacts({ variant }: IContactsProps) {
             Наші контакти
           </p>
         )}
-        <ul
-          className={
-            variant === PositionInLayout.Header
-              ? 'max-lg:block max-lg:space-y-6 lg:flex lg:flex-row-reverse lg:gap-x-6'
-              : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4 lg:w-[304px]'
-          }
-        >
+        <ul className={getListStyle()}>
           {Array.isArray(adaptedContacts) &&
             adaptedContacts.map(({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
               <ContactItem

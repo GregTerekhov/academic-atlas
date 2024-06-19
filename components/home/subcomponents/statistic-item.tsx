@@ -15,10 +15,24 @@ export default function StatisticItem({
   hideOnLargeScreen,
   showOnLargeScreen,
 }: IStatisticItem) {
+  const getFiguresTextStyle = () => {
+    switch (true) {
+      case hideOnSmallScreen:
+        return 'hidden md:flex';
+      case hideOnLargeScreen:
+        return 'hidden max-lg:flex';
+      case showOnLargeScreen:
+        return 'hidden lg:flex';
+
+      default:
+        return '';
+    }
+  };
+
+  const figuresStyle = getFiguresTextStyle();
+
   return (
-    <p
-      className={`flex flex-col items-center justify-center ${hideOnSmallScreen ? 'hidden md:flex' : ''} ${hideOnLargeScreen ? 'hidden max-lg:flex' : ''} ${showOnLargeScreen ? 'hidden lg:flex' : ''} generalText`}
-    >
+    <p className={`generalText flex flex-col items-center justify-center ${figuresStyle}`}>
       <strong className='bg-accent-gradient bg-clip-text text-6xl leading-130 tracking-[2px] text-transparent md:text-7xl lg:text-8xl'>
         {count}
       </strong>{' '}

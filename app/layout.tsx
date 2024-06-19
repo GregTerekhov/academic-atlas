@@ -3,9 +3,8 @@ import { cookies } from 'next/headers';
 
 import type { Metadata } from 'next';
 
-import { DropdownProvider, MenuProvider, PopupProvider, ThemeProvider } from 'context';
 import { Footer, Header } from 'layout';
-import { ScrollController } from 'components';
+import { ProviderWrapper, ScrollController } from 'components';
 
 import './globals.css';
 
@@ -37,23 +36,17 @@ export default function RootLayout({
       style={{ colorScheme: theme }}
     >
       <body className={philosopher.className}>
-        <ThemeProvider
+        <ProviderWrapper
+          theme={theme}
           storageKey={THEME_STORAGE_KEY}
-          startTheme={theme}
         >
-          <MenuProvider>
-            <PopupProvider>
-              <DropdownProvider>
-                <Header />
-                <main className='relative bg-whiteBase dark:bg-background-gradient'>
-                  {children}
-                  <ScrollController />
-                </main>
-                <Footer />
-              </DropdownProvider>
-            </PopupProvider>
-          </MenuProvider>
-        </ThemeProvider>
+          <Header />
+          <main className='relative bg-whiteBase dark:bg-background-gradient'>
+            {children}
+            <ScrollController />
+          </main>
+          <Footer />
+        </ProviderWrapper>
       </body>
     </html>
   );

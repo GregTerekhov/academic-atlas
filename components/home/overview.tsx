@@ -9,6 +9,7 @@ import { OverviewItem } from './subcomponents';
 
 export default function ServiceOverview() {
   const orderSteps = getOrderSteps();
+
   return (
     <SectionTemplate
       title={SectionTitle.HowItWorks}

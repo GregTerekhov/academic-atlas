@@ -1,12 +1,5 @@
 import { IconName } from './ui';
 
-export enum Example {
-  'Ex1',
-  'Ex2',
-  'Ex3',
-  'Ex4',
-}
-
 export enum WorkType {
   Default = 'Оберіть тип роботи',
   Diplomas = 'Дипломні роботи',

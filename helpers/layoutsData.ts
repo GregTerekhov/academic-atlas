@@ -100,3 +100,11 @@ export const getHeaderLinks = (): ILinks[] => {
     },
   ];
 };
+
+const headerLinks = getHeaderLinks();
+
+export const getAdaptedLinks = (isDesktop: boolean | undefined) => {
+  return isDesktop
+    ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
+    : headerLinks;
+};

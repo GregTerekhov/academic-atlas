@@ -1,10 +1,11 @@
-// import { SvgIconUI } from "ui"
+// import { SectionTemplate } from 'template';
 
 export default function Benefits() {
   return (
     <>
-      {/* <SvgIconUI/> */}
+      {/* <SectionTemplate> */}
       <p>Benefits</p>
+      {/* </SectionTemplate> */}
     </>
   );
 }

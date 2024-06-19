@@ -1,6 +1,4 @@
-import { Breadcrumbs, ScrollController } from 'components';
-import { PrimaryButtonLabel } from 'types/ui';
-import { PrimaryButtonUI } from 'ui';
+import { Breadcrumbs } from 'components';
 
 export default function NestedLayout({
   children,
@@ -10,9 +8,7 @@ export default function NestedLayout({
   return (
     <>
       <Breadcrumbs />
-      <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
       {children}
-      <ScrollController />
     </>
   );
 }
