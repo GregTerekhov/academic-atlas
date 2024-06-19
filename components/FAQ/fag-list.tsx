@@ -1,5 +1,6 @@
 import { WorkTitle } from 'types';
 
+// import { SectionTemplate } from 'template';
 import { AccordionUI } from 'ui';
 import FAQItem from './fag-item';
 
@@ -18,6 +19,7 @@ export default function FAQList() {
   ];
   return (
     <>
+      {/* <SectionTemplate> */}
       <p>FAQList</p>
       {Array.isArray(listTitle) &&
         listTitle.map(({ title }) => (
@@ -28,6 +30,7 @@ export default function FAQList() {
             <FAQItem workTitle={title} />
           </AccordionUI>
         ))}
+      {/* </SectionTemplate> */}
     </>
   );
 }

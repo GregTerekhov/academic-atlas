@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 
-import { ButtonType, MenuLinks, PositionInLayout } from 'types';
+import { ButtonType, PositionInLayout } from 'types';
 
 import { useMenu } from 'context';
-import { getHeaderLinks } from 'helpers';
+import { getAdaptedLinks } from 'helpers';
 
 import CalculationModalTrigger from './calculation-modal-trigger';
 
@@ -16,11 +16,7 @@ interface INavigationProps {
 export default function Navigation({ isDesktop }: INavigationProps) {
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
-  const headerLinks = getHeaderLinks();
-
-  const adaptedLinks = isDesktop
-    ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
-    : headerLinks;
+  const adaptedLinks = getAdaptedLinks(isDesktop);
 
   return (
     <nav>

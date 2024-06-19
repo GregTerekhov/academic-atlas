@@ -1,10 +1,10 @@
 // import { SectionTemplate } from "template"
 
-export default function WorkflowSteps() {
+export default function Hero() {
   return (
     <>
       {/* <SectionTemplate> */}
-      <p>WorkflowSteps</p>
+      <p>Hero</p>
       {/* </SectionTemplate> */}
     </>
   );

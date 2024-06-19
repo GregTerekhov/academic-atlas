@@ -4,15 +4,15 @@
 
 @layer base {
   html {
-    @apply scroll-smooth bg-whiteBase text-darkBase;
+    @apply scroll-smooth bg-whiteBase;
   }
 
   html.dark {
-    @apply scroll-smooth bg-gradient-to-br from-darkBase to-darkBase-light text-whiteBase;
+    @apply scroll-smooth bg-gradient-to-br from-darkBase to-darkBase-light;
   }
 
   body {
-    @apply h-full pt-20 md:pt-24 lg:pt-28;
+    @apply h-full pt-20 text-darkBase dark:text-whiteBase md:pt-24 lg:pt-28;
   }
 
   h1 {

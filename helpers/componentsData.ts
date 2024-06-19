@@ -36,6 +36,7 @@ export const getFeedbackSlides = (): Slide[] => {
       memberFeedback:
         "Дякую за чудові послуги! Робота виконана якісно та вчасно, співпраця була дуже продуктивною. Ваш професіоналізм та увага до деталей вражають. Обов'язково звернусь ще раз і рекомендую іншим!",
       memberImage: '/images/customer-2.webp',
+      memberAlt: 'Daryna Zaec',
       memberRating: 5,
     },
     {
@@ -43,6 +44,7 @@ export const getFeedbackSlides = (): Slide[] => {
       memberFeedback:
         'Дякую за відмінне обслуговування! Робота виконана на вищому рівні, співпраця була ефективною і комфортною. Рекомендую всім, хто шукає якісні послуги!',
       memberImage: '/images/customer-1.webp',
+      memberAlt: 'Andrii Bilka',
       memberRating: 4,
     },
     {
@@ -50,6 +52,7 @@ export const getFeedbackSlides = (): Slide[] => {
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
       memberImage: '/images/customer-3.webp',
+      memberAlt: 'Petro Vovk',
       memberRating: 5,
     },
     {
@@ -57,6 +60,7 @@ export const getFeedbackSlides = (): Slide[] => {
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
       memberImage: '/images/customer-1.webp',
+      memberAlt: 'Danylo Wedmid',
       memberRating: 5,
     },
     {
@@ -64,6 +68,7 @@ export const getFeedbackSlides = (): Slide[] => {
       memberFeedback:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
       memberImage: '/images/customer-3.webp',
+      memberAlt: 'Semen Lysytsia',
       memberRating: 4,
     },
   ];

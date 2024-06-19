@@ -1,5 +1,6 @@
 import { RefObject } from 'react';
-import { IconName, IconSize } from 'types/ui';
+
+import { IconName, IconSize } from 'types';
 import { SvgIconUI } from 'ui';
 
 interface IModalProps {

@@ -13,6 +13,7 @@ export default function Accordion({
       <div>
         {/* <SvgIcon /> */}
         {title}
+        {/* <SvgIcon /> */}
       </div>
       {children}
     </>

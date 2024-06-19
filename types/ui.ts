@@ -45,6 +45,8 @@ export enum IconName {
   Overview3 = 'prepayment',
   Overview4 = 'deal-closing',
   Overview5 = 'feedback',
+  PartnershipStepMd = 'partnership-steps-tablet',
+  PartnershipStepLg = 'partnership-steps-desktop',
   Question = 'question',
   RatingDown = 'star',
   RatingUp = 'star-full',

@@ -44,7 +44,7 @@ export default function ToggleMenuTrigger() {
   const dynamicAriaLabel = getAriaLabel();
 
   return (
-    <div>
+    <>
       <button
         type={ButtonType.Button}
         onClick={handleToggleMenu}
@@ -61,6 +61,6 @@ export default function ToggleMenuTrigger() {
       <MobileMenuTemplate isOpen={isNavMenuOpen}>
         {showCalculationMenu ? <PriceCalculator /> : <Menu />}
       </MobileMenuTemplate>
-    </div>
+    </>
   );
 }
