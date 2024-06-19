@@ -1,11 +1,12 @@
 'use client';
 
+import { PrimaryButtonLabel } from 'types';
+
 import { useMenu, usePopup } from 'context';
 
 import { MobileMenuTemplate, ModalTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../../product-price-calculator';
-import { PrimaryButtonLabel } from 'types/ui';
 
 export default function PriceControls() {
   const { isPopupOpen, popupRef, togglePopup } = usePopup();
@@ -23,7 +24,6 @@ export default function PriceControls() {
           {PrimaryButtonLabel.CostCalculation}
         </PrimaryButtonUI>
       </div>
-
       <div className='hidden max-lg:block'>
         <MobileMenuTemplate isOpen={isCalcMenuOpen}>
           <PriceCalculator />

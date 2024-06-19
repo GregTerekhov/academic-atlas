@@ -30,7 +30,7 @@ export default function Logo({ position }: ISvgIconProps) {
     }
   };
 
-  return position === PositionInLayout.Header ? (
+  const renderLogoLink = () => (
     <Link
       href={Paths.Main}
       onClick={handleClick}
@@ -43,11 +43,15 @@ export default function Logo({ position }: ISvgIconProps) {
         className='fill-darkBase-light dark:fill-whiteBase lg:size-20'
       />
     </Link>
-  ) : (
+  );
+
+  const renderLogoIcon = () => (
     <SvgIconUI
       id={IconName.Logo}
       size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
       className='fill-darkBase-light dark:fill-whiteBase max-md:mx-auto max-md:size-20 lg:size-28'
     />
   );
+
+  return position === PositionInLayout.Header ? renderLogoLink() : renderLogoIcon();
 }

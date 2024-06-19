@@ -5,7 +5,7 @@ import { IServiceItem, WorkType } from 'types';
 export default function ServiceItem({ imageSrc, imageAlt, serviceTitle }: Readonly<IServiceItem>) {
   return (
     //FIXME: --- add responsive width for li on small devices
-    <li className='relative h-[120px] overflow-hidden rounded-xl border border-accentSecondary hocus:border-transparent hocus:bg-whiteBase/10 hocus:outline-none hocus:ring-[2px]  hocus:ring-accentPrimary max-md:w-[152px] md:w-[160px] lg:h-[307px] lg:w-[293px]'>
+    <li className='relative h-[120px] overflow-hidden rounded-xl border border-accentSecondary hocus:border-transparent hocus:bg-whiteBase/10 hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary max-md:w-[152px] md:w-[160px] lg:h-[307px] lg:w-[293px]'>
       <a
         href='#' //FIXME: --- add necessary link to backend
         className='flex h-full w-full flex-col justify-end'

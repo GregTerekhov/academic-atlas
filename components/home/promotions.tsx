@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { PrimaryButtonLabel, SectionTitle } from 'types';
+import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
 import { idValues } from 'helpers';
 
@@ -8,18 +8,15 @@ import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 
 export default function Promotions() {
-  const callToAction =
-    'Замовте готовий підшитий диплом у нас і отримайте його зі зручністю "Новою поштою"';
   return (
     <SectionTemplate
       title={SectionTitle.Promotions}
       id={idValues.Promotions ?? ''}
       noAlignment='text-start'
-      hasAdditionalText
+      hasCtaText
+      ctaStyle='md:w-[421px] lg:w-[572px]'
+      ctaText={CtaText.MainPromotions}
     >
-      <p className='text-medium max-md:mb-4 md:mb-8 md:w-[421px] md:text-xl lg:mb-16 lg:w-[572px] lg:text-2xl'>
-        {callToAction}
-      </p>
       <Image
         src='/images/notes.webp'
         alt='Notes'
