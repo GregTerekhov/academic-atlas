@@ -1,4 +1,5 @@
 export * from './anchorLinks';
+export * from './sectionHelper';
 export * from './carouselHelper';
 export * from './cookiesHelper';
 export * from './componentsData';
