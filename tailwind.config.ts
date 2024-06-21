@@ -44,6 +44,7 @@ const config: Config = {
       },
       lineHeight: {
         130: '1.3',
+        150: '1.5',
       },
       maxHeight: {
         mobileMenu: 'calc(100vh - 80px)',
