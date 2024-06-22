@@ -7,7 +7,6 @@ export { default as CallToActionText } from './layout/cta-text';
 export { default as CarouselFeedback } from './home/carousel-feedback';
 export { default as Contacts } from './layout/contacts';
 export { default as Cost } from './home/cost';
-export { default as FAQItem } from './FAQ/fag-item';
 export { default as FAQList } from './FAQ/fag-list';
 export { default as Feedback } from './home/feedback';
 export { default as FooterMenu } from './layout/footer-navigation';
