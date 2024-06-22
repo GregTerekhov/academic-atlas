@@ -13,6 +13,7 @@ export type SvgSizes = {
 export enum IconSize {
   XXS = 14,
   XS = 16,
+  HalfS = 18,
   S = 20,
   HalfM = 24,
   M = 30,

@@ -5,45 +5,49 @@ import { SvgIconUI } from 'ui';
 import { usePathname } from 'next/navigation';
 import { IconName, IconSize } from 'types/ui';
 import { useEffect, useState } from 'react';
-
-enum BreadcrumbsPaths {
-  partnership = '/partnership',
-  FAQ = '/FAQ',
-}
-
-const BreadcrumbsPathsDescription = {
-  [BreadcrumbsPaths.partnership]: 'Виконавцям',
-  [BreadcrumbsPaths.FAQ]: 'Часті питання',
-};
+import { MenuLinks, Paths } from 'types/layoutTypes';
 
 export default function Breadcrumbs() {
   const [determineCurrentPath, setDetermineCurrentPath] = useState<string | null>(null);
   const currentPath = usePathname();
 
   useEffect(() => {
-    if (currentPath === BreadcrumbsPaths.partnership) {
-      console.log('curPATH', currentPath);
-      setDetermineCurrentPath(BreadcrumbsPathsDescription[currentPath]);
-    } else if (currentPath === BreadcrumbsPaths.FAQ) {
-      setDetermineCurrentPath(BreadcrumbsPathsDescription[currentPath]);
+    const pathMenuLinkMap = new Map();
+    const enumMergeChain = Object.entries(Paths)
+      .filter(([, value]) => !value.includes('#') && value !== Paths.Main)
+      .map(([key, value]) => [value, MenuLinks[key as keyof typeof MenuLinks]]);
+
+    for (const [, value] of Object.entries(enumMergeChain)) {
+      pathMenuLinkMap.set(value[0], value[1]);
+    }
+
+    if (currentPath && pathMenuLinkMap.has(currentPath)) {
+      setDetermineCurrentPath(pathMenuLinkMap.get(currentPath) || '');
+    } else {
+      setDetermineCurrentPath('');
     }
   }, [currentPath]);
 
   return (
-    <>
-      <ul className='absolute left-20 top-6 flex items-center gap-1.5  max-md:left-10 max-md:top-4 '>
-        <li className='text-big max-md:text-base'>
-          <Link href='/'>Головна</Link>
-        </li>
-        <li className='rotate-[270deg]'>
-          <SvgIconUI
-            id={IconName.Expand}
-            size={{ width: IconSize.M, height: IconSize.M }}
-            className='fill-whiteBase'
-          />
-        </li>
-        <li className='text-big text-accentSecondary max-md:text-base'>{determineCurrentPath}</li>
-      </ul>
-    </>
+    <div className='absolute left-20 top-6 flex items-center gap-x-2  max-md:left-10 max-md:top-4 '>
+      <Link
+        href='/'
+        className='text-big max-md:text-sm max-md:leading-130 lg:text-big'
+      >
+        Головна
+      </Link>
+      <div className='-rotate-90'>
+        <SvgIconUI
+          id={IconName.Expand}
+          size={{ width: IconSize.HalfS, height: IconSize.HalfS }}
+          className='fill-whiteBase'
+        />
+      </div>
+      <p className='text-big text-accentSecondary max-md:text-sm max-md:leading-130 lg:text-big '>
+        {determineCurrentPath}
+      </p>
+    </div>
   );
 }
+
+//  ,
