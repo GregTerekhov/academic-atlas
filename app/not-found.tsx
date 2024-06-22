@@ -9,7 +9,7 @@ export default function NotFound() {
       title={SectionTitle.NotFound}
       titleStyle='bg-accent-gradient bg-clip-text text-monstrousSm text-transparent md:text-[160px] lg:text-monstrousLg text-center'
     >
-      <h2 className='flex flex-col'>
+      <h2 className='mb-6 flex flex-col md:mb-8 lg:mb-10'>
         <span>Ой!</span>
         Схоже, ми не можемо знайти сторінку, яку ви шукаєте
       </h2>
