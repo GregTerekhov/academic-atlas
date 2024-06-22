@@ -62,6 +62,10 @@ export const getFooterLinks = (): ILinks[] => {
       label: MenuLinks.Promotions,
     },
     {
+      path: { pathname: Paths.FAQ },
+      label: MenuLinks.FAQ,
+    },
+    {
       path: { pathname: Paths.Partnership },
       label: MenuLinks.Partnership,
     },

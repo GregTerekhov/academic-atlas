@@ -9,11 +9,8 @@ interface ICustomScroll {
 
 function CustomScroll({ children, className }: ICustomScroll) {
   return (
-    <ScrollArea.Root
-      type='auto'
-      className={className}
-    >
-      <ScrollArea.Viewport className='h-full w-full'>{children}</ScrollArea.Viewport>
+    <ScrollArea.Root type='auto'>
+      <ScrollArea.Viewport className={className}>{children}</ScrollArea.Viewport>
       <ScrollArea.Scrollbar
         orientation='vertical'
         className='touch-none select-none bg-darkBase/75 p-0.5 transition-colors data-[orientation=vertical]:h-full data-[orientation=vertical]:w-4'

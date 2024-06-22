@@ -13,7 +13,7 @@ export default function Services() {
       title={SectionTitle.OurServices}
       id={idValues.Services ?? ''}
     >
-      <ul className='flex flex-wrap justify-between gap-y-6 md:gap-y-4 lg:gap-y-9'>
+      <ul className='max-sm:space-y-4 sm:flex sm:flex-wrap sm:justify-between sm:gap-y-6 md:gap-y-4 lg:gap-y-9'>
         {Array.isArray(serviceItems) &&
           serviceItems.map(({ imageSrc, imageAlt, serviceTitle }) => (
             <ServiceItem

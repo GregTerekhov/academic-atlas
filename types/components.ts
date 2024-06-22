@@ -12,9 +12,57 @@ export enum WorkType {
   CaseStudyReports = 'Звіти з практики',
 }
 
-export interface IWorkType {
+export enum ExpertiseArea {
+  Default = 'Оберіть спеціальність',
+  Education = 'Освіта',
+  CultureAndArt = 'Культура і мистецтво',
+  Humanities = 'Гуманітарні науки',
+  Theology = 'Богослов’я',
+  SocialSciences = 'Соціальні та поведінкові науки',
+  Journalism = 'Журналістика',
+  Management = 'Управління та адміністрування',
+  Law = 'Право',
+  Biology = 'Біологія',
+  NaturalSciences = 'Природничі науки',
+  FormalSciences = 'Математика та статистика',
+  IT = 'Інформаційні технології',
+  MechanicalEngineering = 'Механічна інженерія',
+  ElectricalEngineering = 'Електрична інженерія',
+  AutomationAndInstrumentation = 'Автоматизація та приладобудування',
+  ChemicalAndBioengineering = 'Хімічна та біоінженерія',
+  ElectronicsAndTelecommunications = 'Електроніка та телекомунікації',
+  ProductionAndTechnology = 'Виробництво та технології',
+  ArchitectureAndConstruction = 'Архітектура та будівництво',
+  AgriculturalSciences = 'Аграрні науки та продовольство',
+  VeterinaryMedicine = 'Ветеринарна медицина',
+  Healthcare = 'Охорона здоров’я',
+  SocialWork = 'Соціальна робота',
+  ServiceSector = 'Сфера обслуговування',
+  MilitarySciences = 'Воєнні науки, національна безпека, безпека державного кордону',
+  CivilSecurity = 'Цивільна безпека',
+  Transport = 'Транспорт',
+}
+
+export enum ExecutionTime {
+  Default = 'Оберіть термін виконання',
+  LongTerm = 'Довготривалий: від 14 днів і довше',
+  MediumTerm = 'Середньотривалий: 4-14 днів',
+  Urgent = 'Терміновий: 1-3 дні',
+}
+
+export enum Uniqueness {
+  Zero = 0,
+  Standard = 50,
+  Higher = 70,
+}
+
+type DropdownCalculationOption = WorkType | ExpertiseArea | ExecutionTime;
+
+export interface IDropdownData {
   typeId: string;
-  option: WorkType;
+  option: DropdownCalculationOption;
+  uniquenessPercentage?: Uniqueness;
+  basePrice?: number;
 }
 
 export enum ThemeVariants {

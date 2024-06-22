@@ -3,18 +3,19 @@
 import { ReactNode, useState } from 'react';
 
 import { ButtonType, IconName, IconSize } from 'types';
-import { useDropdown } from 'context';
+
+import { useDropdown } from 'helpers';
 
 import SvgIcon from './svg-icon';
 import CustomScroll from './custom-scroll';
 
 interface IOption<T> {
   typeId: string;
-  option: T; // FIXME:-- possibly you should change this type to an appropriate common type for option's arrays after creating these types into /types/components.ts
+  option: T;
 }
 
 interface IDropdownProps<T> {
-  label: T; // FIXME:-- possibly you should change this type to an appropriate common type for labels after creating these types into /types/components.ts
+  label: T;
   options: IOption<T>[];
 }
 
@@ -38,7 +39,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
       <button
         type={ButtonType.Button}
         onClick={toggleDropdown}
-        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between rounded-lg border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4`}
+        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-darkBase-light md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4 ${isDropdownOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
       >
         {selectedLabel as ReactNode}
         <SvgIcon
@@ -48,8 +49,10 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
         />
       </button>
       {isDropdownOpen && (
-        <div className='absolute max-h-[248px] w-full overflow-hidden border-[2.4px] border-solid border-accentPrimary lg:max-h-[314px]'>
-          <CustomScroll className=''>
+        <div className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg ring-[2px] ring-accentPrimary lg:max-h-[314px]'>
+          <CustomScroll className='max-h-[248px]'>
+            {' '}
+            {/* FIXME: --- fix height*/}
             <ul className='w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>
               {Array.isArray(options) &&
                 options.map(({ typeId, option }) => (
