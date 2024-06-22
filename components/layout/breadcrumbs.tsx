@@ -12,14 +12,11 @@ export default function Breadcrumbs() {
   const currentPath = usePathname();
 
   useEffect(() => {
-    const pathMenuLinkMap = new Map();
-    const enumMergeChain = Object.entries(Paths)
-      .filter(([, value]) => !value.includes('#') && value !== Paths.Main)
-      .map(([key, value]) => [value, MenuLinks[key as keyof typeof MenuLinks]]);
-
-    for (const [, value] of Object.entries(enumMergeChain)) {
-      pathMenuLinkMap.set(value[0], value[1]);
-    }
+    const pathMenuLinkMap = new Map<string, MenuLinks>(
+      Object.entries(Paths)
+        .filter(([, value]) => !value.includes('#') && value !== Paths.Main)
+        .map(([key, value]) => [value, MenuLinks[key as keyof typeof MenuLinks]]),
+    );
 
     if (currentPath && pathMenuLinkMap.has(currentPath)) {
       setDetermineCurrentPath(pathMenuLinkMap.get(currentPath) || '');
@@ -32,7 +29,7 @@ export default function Breadcrumbs() {
     <div className='absolute left-20 top-6 flex items-center gap-x-2  max-md:left-10 max-md:top-4 '>
       <Link
         href='/'
-        className='text-big max-md:text-sm max-md:leading-130 lg:text-big'
+        className='generalText'
       >
         Головна
       </Link>
@@ -43,9 +40,9 @@ export default function Breadcrumbs() {
           className='fill-whiteBase'
         />
       </div>
-      <p className='text-big text-accentSecondary max-md:text-sm max-md:leading-130 lg:text-big '>
-        {determineCurrentPath}
-      </p>
+      {determineCurrentPath ? (
+        <p className='generalText text-accentSecondary'>{determineCurrentPath}</p>
+      ) : null}
     </div>
   );
 }
