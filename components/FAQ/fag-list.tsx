@@ -65,7 +65,7 @@ export default function FAQList() {
 
   return (
     <Container>
-      <div>
+      <ul className='space-y-4 md:space-y-6 lg:space-y-8'>
         {questions.map(({ id, title, answer }) => (
           <AccordionUI
             key={id}
@@ -74,7 +74,7 @@ export default function FAQList() {
             {answer}
           </AccordionUI>
         ))}
-      </div>
+      </ul>
     </Container>
   );
 }

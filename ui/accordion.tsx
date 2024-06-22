@@ -23,46 +23,48 @@ export default function Accordion({
   }, [isOpen]);
 
   return (
-    <div className='mb-4 border-b border-whiteBase bg-transparent py-4 md:mb-6 md:py-6 lg:mb-8'>
-      <button
-        type='button'
+    <li className='border-b border-whiteBase bg-transparent py-4 md:py-6'>
+      <div
+        role='button'
         onClick={() => setIsOpen(!isOpen)}
-        className='group mb-2 flex w-full items-center justify-between text-left'
+        className='group mb-2 flex w-full cursor-pointer items-center justify-between'
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            setIsOpen(!isOpen);
+          } else if (e.key === 'Escape') {
+            setIsOpen(false);
+          }
+        }}
       >
         <SvgIconUI
           id={IconName.Question}
           className='mx-auto mr-4 fill-accentPrimary md:mr-5 md:size-10'
           size={{ width: IconSize.HalfL, height: IconSize.HalfL }}
         />
-        <h4
-          className={
-            ' mr-2 flex-1 text-1.5xl font-bold leading-130 text-whiteBase group-hover:text-accentPrimary md:text-3xl lg:text-4xl'
-          }
+        <h2
+          className={`mr-2 flex-1 text-left group-hover:bg-accent-gradient group-hover:bg-clip-text group-hover:text-transparent ${
+            isOpen ? 'bg-none text-accentPrimary' : ''
+          }`}
         >
           {title}
-        </h4>
+        </h2>
 
         <SvgIconUI
           id={IconName.Expand}
-          className={`mx-auto fill-whiteBase transition-transform duration-200 group-hover:fill-accentPrimary md:size-8 ${
-            isOpen ? 'rotate-180 transform' : ''
+          className={`mx-auto transition-transform duration-200 group-hover:fill-accentPrimary-darker md:size-8 ${
+            isOpen ? 'rotate-180 transform fill-accentPrimary' : 'fill-whiteBase'
           }`}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
         />
-      </button>
+      </div>
 
       <div
         ref={contentRef}
-        className={`accordion-content ${isOpen ? 'open' : ''}`}
+        className={`transition-max-height overflow-hidden duration-500 ease-out ${isOpen ? 'max-h-max' : 'max-h-0'} px-9 md:px-14 lg:px-16`}
       >
-        <div className='px-9 md:px-14 lg:px-16'>
-          <p
-            className={'md:leading-150 text-sm leading-130 text-whiteBase md:text-base lg:text-big'}
-          >
-            {children}
-          </p>
-        </div>
+        <p className='generalText'>{children}</p>
       </div>
-    </div>
+    </li>
   );
 }
