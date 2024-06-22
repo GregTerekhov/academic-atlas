@@ -11,6 +11,7 @@ export enum MenuLinks {
   Promotions = 'Акції',
   Partnership = 'Виконавцям',
   FAQ = 'Часті запитання',
+  LegalInfo = 'Політика конфіденційності та умови використання',
 }
 
 export enum PositionInLayout {

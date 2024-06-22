@@ -10,8 +10,6 @@ import { PrimaryButtonUI } from 'ui';
 const NotFoundNavigation = () => {
   const router = useRouter();
 
-  // console.log('console for commit');
-
   return (
     <ul className='mt-10 gap-x-20  max-md:space-y-6 md:flex md:justify-center md:gap-x-8 lg:gap-x-20'>
       <li>
