@@ -66,14 +66,15 @@ export default function FAQList() {
   return (
     <Container>
       <ul className='space-y-4 md:space-y-6 lg:space-y-8'>
-        {questions.map(({ id, title, answer }) => (
-          <AccordionUI
-            key={id}
-            title={title}
-          >
-            {answer}
-          </AccordionUI>
-        ))}
+        {Array.isArray(questions) &&
+          questions.map(({ id, title, answer }) => (
+            <AccordionUI
+              key={id}
+              title={title}
+            >
+              {answer}
+            </AccordionUI>
+          ))}
       </ul>
     </Container>
   );
