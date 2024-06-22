@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { ButtonType, PositionInLayout } from 'types';
+import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
 
 import { useMenu } from 'context';
 import { getAdaptedLinks } from 'helpers';
@@ -15,6 +16,20 @@ interface INavigationProps {
 
 export default function Navigation({ isDesktop }: INavigationProps) {
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
+  const pathname = usePathname();
+
+  const handleMainLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    label: MenuLinks,
+  ) => {
+    if (label === MenuLinks.Main && pathname === Paths.Main) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const adaptedLinks = getAdaptedLinks(isDesktop);
 
@@ -26,6 +41,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
             <li key={label}>
               <Link
                 href={path}
+                onClick={(e) => handleMainLinkClick(e, label)}
                 className='text-medium hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary md:text-big'
               >
                 {isNavMenuOpen ? (
