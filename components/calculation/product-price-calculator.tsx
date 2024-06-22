@@ -39,6 +39,19 @@ export default function PriceCalculator() {
   const expertiseArea = getExpertiseArea();
   const executionTimes = getExecutionTime();
 
+  // // Проміжковий приклад використання функції CalculatePrice
+  // const selectedWorkType = WorkType.Diplomas;
+  // const selectedExpertiseArea = ExpertiseArea.IT;
+  // const selectedExecutionTime = ExecutionTime.Urgent;
+
+  // const finalPrice = calculatePrice(
+  //   selectedWorkType,
+  //   selectedExpertiseArea,
+  //   selectedExecutionTime,
+  //   80,
+  // );
+  // console.log(`Final Price: ${finalPrice}`);
+
   return (
     <>
       {hasSubmitData ? (
