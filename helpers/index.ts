@@ -1,9 +1,11 @@
 export * from './anchorLinks';
-export * from './sectionHelper';
+export * from './calculationData';
 export * from './carouselHelper';
 export * from './cookiesHelper';
 export * from './componentsData';
 export * from './layoutsData';
+export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './themeHelper';
+export { useDropdown } from './useDropdown';
 export { useHandleClickOutside } from './useHandleClickOutside';

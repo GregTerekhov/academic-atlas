@@ -10,6 +10,7 @@ export enum MenuLinks {
   Feedback = 'Відгуки',
   Promotions = 'Акції',
   Partnership = 'Виконавцям',
+  LegalInfo = 'Політика конфіденційності та умови використання',
   FAQ = 'Часті запитання',
 }
 
@@ -76,4 +77,9 @@ export enum CtaText {
   MainHero = 'Розпочніть шлях до успіху з нами — оформіть замовлення вже сьогодні',
   MainPerformers = 'Пиши, розвивайся, заробляй та ставай нашим виконавцем!',
   MainPromotions = 'Замовте готовий підшитий диплом у нас і отримайте його зі зручністю "Новою поштою"',
+}
+
+export enum CalculationTitle {
+  CalculationForm = 'Дізнатися орієнтовну вартість',
+  CalculationResult = 'Орієнтовна вартість',
 }

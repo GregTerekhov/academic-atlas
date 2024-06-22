@@ -7,7 +7,7 @@ import { useMenu } from 'context';
 import { MobileMenuTemplate } from 'template';
 import { SvgIconUI } from 'ui';
 import Menu from './menu';
-import PriceCalculator from '../product-price-calculator';
+import PriceCalculator from '../calculation/product-price-calculator';
 
 export default function ToggleMenuTrigger() {
   const {
