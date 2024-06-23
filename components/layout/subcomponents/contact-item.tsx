@@ -1,3 +1,4 @@
+import { useMenu } from 'context/MenuProvider';
 import { type IContactLink, PositionInLayout } from 'types';
 
 import { SvgIconUI } from 'ui';
@@ -15,6 +16,12 @@ export default function ContactItem({
   label,
   variant,
 }: IContactItem) {
+  const { isNavMenuOpen, toggleNavMenu } = useMenu();
+
+  const handleClick = () => {
+    // event.preventDefault();
+    if (isNavMenuOpen) toggleNavMenu();
+  };
   const getAriaLabel = (href: string, label: string) => {
     if (href.startsWith('tel:')) {
       return `Call ${label}`;
@@ -33,6 +40,7 @@ export default function ContactItem({
         rel='noopener noreferrer'
         aria-label={getAriaLabel(href, label)}
         className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
+        onClick={handleClick}
       >
         <SvgIconUI
           id={iconName}

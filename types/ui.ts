@@ -35,6 +35,7 @@ export enum IconName {
   Benefits4 = 'support',
   Burger = 'burger',
   Call = 'call',
+  Check = 'checkmark',
   Close = 'close',
   Email = 'email',
   Fire = 'fire',

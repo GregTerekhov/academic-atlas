@@ -6,7 +6,7 @@ import { useMenu, usePopup } from 'context';
 
 import { MobileMenuTemplate, ModalTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
-import PriceCalculator from '../../product-price-calculator';
+import PriceCalculator from '../../calculation/product-price-calculator';
 
 export default function PriceControls() {
   const { isPopupOpen, popupRef, togglePopup } = usePopup();
@@ -32,7 +32,6 @@ export default function PriceControls() {
       <div className='hidden lg:block'>
         <ModalTemplate
           closeModal={togglePopup}
-          title='MODAL TITLE'
           modalRef={popupRef}
           isOpen={isPopupOpen}
         >

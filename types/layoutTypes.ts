@@ -10,8 +10,8 @@ export enum MenuLinks {
   Feedback = 'Відгуки',
   Promotions = 'Акції',
   Partnership = 'Виконавцям',
-  FAQ = 'Часті запитання',
   LegalInfo = 'Політика конфіденційності та умови використання',
+  FAQ = 'Часті запитання',
 }
 
 export enum PositionInLayout {
@@ -62,6 +62,8 @@ export enum SectionTitle {
   PartnershipWorkflow = 'partnership-workflow',
   PartnershipRequirements = 'partnership-requirements',
   PartnershipAccession = 'partnership-accession',
+  FAQHero = 'faq-hero',
+  FAQOrder = 'faq-order',
 }
 
 export const SectionDescriptions = {

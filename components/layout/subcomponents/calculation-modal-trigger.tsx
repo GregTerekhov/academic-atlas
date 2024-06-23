@@ -5,7 +5,7 @@ import { ButtonType, MenuLinks, PositionInLayout } from 'types';
 import { useMenu, usePopup } from 'context';
 
 import { ModalTemplate } from 'template';
-import PriceCalculator from '../../product-price-calculator';
+import PriceCalculator from '../../calculation/product-price-calculator';
 
 interface IMenuTriggerProps {
   position: PositionInLayout;
@@ -34,7 +34,6 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
       <div className='hidden lg:block'>
         <ModalTemplate
           closeModal={togglePopup}
-          title='MODAL TITLE'
           modalRef={popupRef}
           isOpen={isPopupOpen}
         >

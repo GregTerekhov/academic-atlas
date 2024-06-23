@@ -15,6 +15,7 @@ interface ISectionTemplate {
   ctaStyle?: string;
   ctaText?: CtaText;
   hasCtaText?: boolean;
+  minHeight?: string;
 }
 
 export default function Section({
@@ -27,6 +28,7 @@ export default function Section({
   ctaStyle,
   ctaText = CtaText.NoText,
   hasCtaText = false,
+  minHeight,
 }: Readonly<ISectionTemplate>) {
   const sectionClasses = getSectionClasses(title);
   const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
@@ -34,7 +36,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={sectionClasses}
+      className={`${sectionClasses} ${minHeight}`}
     >
       <Container>
         {isBigTitle ? (
