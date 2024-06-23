@@ -2,26 +2,47 @@
 
 import { useEffect } from 'react';
 
+import { Uniqueness, WorkType } from 'types';
+
 interface IRangeInputProps {
   id: string;
   isChecked: boolean;
   value: number;
+  workType: WorkType | '';
   onChange: (value: number) => void;
 }
 
-export default function RangeInput({ id, isChecked, value, onChange }: IRangeInputProps) {
+export default function RangeInput({ id, isChecked, value, workType, onChange }: IRangeInputProps) {
+  const shouldChooseHigherUniqueness =
+    workType && [WorkType.Abstracts, WorkType.BachelorTheses, WorkType.Diplomas].includes(workType);
+
   useEffect(() => {
-    if (!isChecked) {
-      onChange(0);
+    if (isChecked && workType) {
+      if (value < Uniqueness.Standard && workType === WorkType.TeamPapers) {
+        onChange(Uniqueness.Standard);
+      } else if (value < Uniqueness.Higher && shouldChooseHigherUniqueness) {
+        onChange(Uniqueness.Higher);
+      }
+    } else {
+      onChange(Uniqueness.Zero);
     }
-  }, [isChecked, onChange]);
+  }, [isChecked, onChange, shouldChooseHigherUniqueness, value, workType]);
 
   return (
     <label
       htmlFor={id}
       className='flex flex-col'
     >
-      <span className='generalText mb-4 inline-block'>Оберіть відсоток унікальності</span>
+      <span className='generalText mb-4 inline-block'>
+        Оберіть відсоток унікальності{' '}
+        {isChecked &&
+        (value === Uniqueness.Standard ||
+          (shouldChooseHigherUniqueness &&
+            shouldChooseHigherUniqueness &&
+            value === Uniqueness.Higher)) ? (
+          <span>(мінімальний)</span>
+        ) : null}
+      </span>
       <input
         type='range'
         id={id}
@@ -29,6 +50,8 @@ export default function RangeInput({ id, isChecked, value, onChange }: IRangeInp
         list='percents'
         disabled={!isChecked}
         value={value}
+        min={0}
+        max={100}
         onChange={(e) => onChange(Number(e.target.value))}
         className={`range-input ${!isChecked ? 'cursor-not-allowed' : ''} mb-2 block`}
       />
