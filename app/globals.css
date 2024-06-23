@@ -20,7 +20,7 @@
   }
 
   h2 {
-    @apply text-balance text-center text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
+    @apply text-center text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
   }
 }
 

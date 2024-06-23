@@ -76,6 +76,7 @@ const config: Config = {
         performers: "url('/backgroundImage/performers.webp')",
         promotions: "url('/backgroundImage/promotions.webp')",
         'service-overview': "url('/backgroundImage/service-overview.webp')",
+        'faq-order': "url('/backgroundImage/faq-order.webp')",
         'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
         'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
         notFound: "url('/backgroundImage/404.webp')",
