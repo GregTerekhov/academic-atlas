@@ -1,4 +1,4 @@
-import { MenuProvider, PopupProvider, ThemeProvider } from 'context';
+import { CalculationProvider, MenuProvider, PopupProvider, ThemeProvider } from 'context';
 
 export default function ProviderWrapper({
   children,
@@ -14,9 +14,11 @@ export default function ProviderWrapper({
       storageKey={storageKey}
       startTheme={theme}
     >
-      <MenuProvider>
-        <PopupProvider>{children}</PopupProvider>
-      </MenuProvider>
+      <CalculationProvider>
+        <MenuProvider>
+          <PopupProvider>{children}</PopupProvider>
+        </MenuProvider>
+      </CalculationProvider>
     </ThemeProvider>
   );
 }

@@ -56,13 +56,26 @@ export enum Uniqueness {
   Higher = 70,
 }
 
-type DropdownCalculationOption = WorkType | ExpertiseArea | ExecutionTime;
+export enum BasePrice {
+  Diplomas = 7000,
+  TeamPapers = 2800,
+  BachelorTheses = 8000,
+  TestPapersAndAbstracts = 400,
+  PracticalWorks = 150,
+  Presentations = 500,
+  CaseStudyReports = 1400,
+}
 
-export interface IDropdownData {
+export interface ICalculationData {
+  workType: WorkType;
+  expertiseArea: ExpertiseArea;
+  executionTime: ExecutionTime;
+}
+export interface IDropdownData<T> {
   typeId: string;
-  option: DropdownCalculationOption;
+  option: T;
   uniquenessPercentage?: Uniqueness;
-  basePrice?: number;
+  basePrice?: BasePrice;
 }
 
 export enum ThemeVariants {

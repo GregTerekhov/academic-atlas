@@ -1,59 +1,66 @@
-import { ExecutionTime, ExpertiseArea, IDropdownData, Uniqueness, WorkType } from '../types';
+import {
+  BasePrice,
+  ExecutionTime,
+  ExpertiseArea,
+  IDropdownData,
+  Uniqueness,
+  WorkType,
+} from '../types';
 
-export const getWorkType = (): IDropdownData[] => {
+export const getWorkType = (): IDropdownData<WorkType>[] => {
   return [
     {
       typeId: 'teamWork1',
       option: WorkType.Diplomas,
       uniquenessPercentage: Uniqueness.Higher,
-      basePrice: 7000,
+      basePrice: BasePrice.Diplomas,
     },
     {
       typeId: 'teamWork2',
       option: WorkType.TeamPapers,
       uniquenessPercentage: Uniqueness.Standard,
-      basePrice: 2800,
+      basePrice: BasePrice.TeamPapers,
     },
     {
       typeId: 'teamWork3',
       option: WorkType.BachelorTheses,
       uniquenessPercentage: Uniqueness.Higher,
-      basePrice: 8000,
+      basePrice: BasePrice.BachelorTheses,
     },
     {
       typeId: 'teamWork4',
       option: WorkType.TestPapers,
       uniquenessPercentage: Uniqueness.Zero,
-      basePrice: 400,
+      basePrice: BasePrice.TestPapersAndAbstracts,
     },
     {
       typeId: 'teamWork5',
       option: WorkType.Abstracts,
       uniquenessPercentage: Uniqueness.Higher,
-      basePrice: 400,
+      basePrice: BasePrice.TestPapersAndAbstracts,
     },
     {
       typeId: 'teamWork6',
       option: WorkType.PracticalWorks,
       uniquenessPercentage: Uniqueness.Zero,
-      basePrice: 150,
+      basePrice: BasePrice.PracticalWorks,
     },
     {
       typeId: 'teamWork7',
       option: WorkType.Presentations,
       uniquenessPercentage: Uniqueness.Zero,
-      basePrice: 500,
+      basePrice: BasePrice.Presentations,
     },
     {
       typeId: 'teamWork8',
       option: WorkType.CaseStudyReports,
       uniquenessPercentage: Uniqueness.Zero,
-      basePrice: 1400,
+      basePrice: BasePrice.CaseStudyReports,
     },
   ];
 };
 
-export const getExpertiseArea = () => {
+export const getExpertiseArea = (): IDropdownData<ExpertiseArea>[] => {
   return [
     {
       typeId: 'area1',
@@ -166,7 +173,7 @@ export const getExpertiseArea = () => {
   ];
 };
 
-export const getExecutionTime = () => {
+export const getExecutionTime = (): IDropdownData<ExecutionTime>[] => {
   return [
     {
       typeId: 'time1',

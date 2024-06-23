@@ -17,9 +17,10 @@ interface IOption<T> {
 interface IDropdownProps<T> {
   label: T;
   options: IOption<T>[];
+  onOptionSelect: (option: T) => void;
 }
 
-export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
+export default function Dropdown<T>({ label, options, onOptionSelect }: IDropdownProps<T>) {
   const [selectedLabel, setSelectedLabel] = useState<T>(label);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
@@ -28,6 +29,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
   const handleOptionClick = (option: T) => {
     setSelectedLabel(option);
     setIsOptionSelected(true);
+    onOptionSelect(option);
     toggleDropdown();
   };
 
@@ -39,7 +41,7 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
       <button
         type={ButtonType.Button}
         onClick={toggleDropdown}
-        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-darkBase-light md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4 ${isDropdownOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
+        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4 ${isDropdownOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
       >
         {selectedLabel as ReactNode}
         <SvgIcon
