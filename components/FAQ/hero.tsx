@@ -15,7 +15,7 @@ export default function Hero() {
       minHeight='lg:min-h-[792px]'
     >
       <Image
-        src='/backgroundImage/faq-hero.webp'
+        src='/images/faq-hero.webp'
         alt='Girl with a book and question marks symbolizing frequently asked questions and answers'
         width={192}
         height={208}

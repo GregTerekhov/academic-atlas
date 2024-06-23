@@ -40,7 +40,7 @@ export default function Accordion({
           size={{ width: IconSize.HalfL, height: IconSize.HalfL }}
         />
         <h2
-          className={`mr-2 flex-1 text-wrap text-left group-hover:bg-accent-gradient group-hover:bg-clip-text group-hover:text-transparent ${
+          className={`mr-2 flex-1 text-left group-hover:bg-accent-gradient group-hover:bg-clip-text group-hover:text-transparent ${
             isOpen ? 'bg-none text-accentPrimary' : ''
           }`}
         >

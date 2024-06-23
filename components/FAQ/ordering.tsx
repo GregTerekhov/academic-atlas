@@ -9,9 +9,8 @@ export default function Ordering() {
     <SectionTemplate
       title={SectionTitle.FAQOrder}
       hasCtaText
-      noAlignment='text-wrap'
       ctaText={CtaText.FAQOrder}
-      ctaStyle='text-center w-[300px] mx-auto md:w-[658px] lg:w-[1252px]'
+      ctaStyle='text-center max-md:px-3 md:max-lg:px-[15px]'
     >
       <div className='md:flex md:items-center md:justify-center'>
         <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
