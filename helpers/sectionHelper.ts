@@ -7,6 +7,7 @@ const getBackgrounds = (): Partial<Record<SectionTitle, string>> => {
     [SectionTitle.Performers]: 'bg-performers',
     [SectionTitle.Promotions]: 'bg-promotions',
     [SectionTitle.NotFound]: 'bg-notFound',
+    [SectionTitle.FAQOrder]: 'bg-faq-order',
   };
 };
 
@@ -26,7 +27,7 @@ export const getTitleClasses = (
 ) => {
   const ctaClass = hasCtaText
     ? 'mb-4 md:mb-6 lg:mb-8'
-    : !isBigTitle
+    : !isBigTitle && !titleStyle.includes('no-margin')
       ? 'mb-8 md:mb-10 lg:mb-[72px]'
       : '';
   const customBigTitleClass = isBigTitle ? titleStyle : '';

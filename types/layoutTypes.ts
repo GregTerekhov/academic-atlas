@@ -56,6 +56,8 @@ export enum SectionTitle {
   Promotions = 'promotions',
   CustomerReviews = 'customer-reviews',
   NotFound = 'notFound',
+  FAQHero = 'faq-hero',
+  FAQOrder = 'faq-order'
 }
 
 export const SectionDescriptions = {
@@ -68,6 +70,8 @@ export const SectionDescriptions = {
   [SectionTitle.Promotions]: 'Акція - Диплом під ключ',
   [SectionTitle.CustomerReviews]: 'Відгуки наших клієнтів',
   [SectionTitle.NotFound]: '404',
+  [SectionTitle.FAQHero]: 'Найпоширеніші запитання та відповіді',
+  [SectionTitle.FAQOrder]: 'Замовте дипломну роботу прямо зараз!',
 } as const;
 
 export type SectionTitleType = keyof typeof SectionDescriptions;
@@ -77,4 +81,6 @@ export enum CtaText {
   MainHero = 'Розпочніть шлях до успіху з нами — оформіть замовлення вже сьогодні',
   MainPerformers = 'Пиши, розвивайся, заробляй та ставай нашим виконавцем!',
   MainPromotions = 'Замовте готовий підшитий диплом у нас і отримайте його зі зручністю "Новою поштою"',
+  FAQHero = 'Тут ви знайдете відповіді на основні питання про наші послуги. ',
+  FAQOrder = 'Наша команда готова допомогти вам з виконанням роботи, яка відповідатиме вашим вимогам',
 }
