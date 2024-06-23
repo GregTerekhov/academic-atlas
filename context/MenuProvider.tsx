@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
-import { useHandleClickOutside } from 'helpers';
+import { useHandleClickOutside, isCalculationDataValid } from 'helpers';
+import { useCalculation } from './CalculationProvider';
 
 interface IMenuContext {
   isCalcMenuOpen: boolean;
@@ -20,8 +21,11 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const [isCalcMenuOpen, setIsCalcMenuOpen] = useState(false);
   const [showCalculationMenu, setShowCalculationMenu] = useState(false);
+  const [isValidData, setIsValidData] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const { calculationData, resetCalculation } = useCalculation();
 
   useEffect(() => {
     if (isNavMenuOpen || isCalcMenuOpen) {
@@ -30,6 +34,12 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
       document.body.style.overflow = 'auto';
     }
   }, [isCalcMenuOpen, isNavMenuOpen]);
+
+  useEffect(() => {
+    const hasData = isCalculationDataValid(calculationData);
+
+    setIsValidData(hasData);
+  }, [calculationData]);
 
   const toggleNavMenu = () => {
     setIsNavMenuOpen(!isNavMenuOpen);
@@ -42,12 +52,18 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
   const toggleCalcMenu = () => {
     setIsCalcMenuOpen(!isCalcMenuOpen);
     showCalculationMenu && setShowCalculationMenu(false);
+    if (isValidData) {
+      resetCalculation();
+    }
   };
 
   const closeMenu = () => {
     setIsCalcMenuOpen(false);
     setIsNavMenuOpen(false);
     setShowCalculationMenu(false);
+    if (isValidData) {
+      resetCalculation();
+    }
   };
 
   useHandleClickOutside(menuRef, isCalcMenuOpen, closeMenu);

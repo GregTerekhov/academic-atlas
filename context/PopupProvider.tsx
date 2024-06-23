@@ -1,8 +1,9 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, ReactNode } from 'react';
+import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
-import { useHandleClickOutside } from 'helpers';
+import { useCalculation } from './CalculationProvider';
+import { isCalculationDataValid, useHandleClickOutside } from 'helpers';
 
 interface IPopupContext {
   isPopupOpen: boolean;
@@ -14,8 +15,17 @@ const PopupContext = createContext<IPopupContext | undefined>(undefined);
 
 export const PopupProvider = ({ children }: { children: ReactNode }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isValidData, setIsValidData] = useState(false);
+
+  const { calculationData, resetCalculation } = useCalculation();
 
   const popupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const hasData = isCalculationDataValid(calculationData);
+
+    setIsValidData(hasData);
+  }, [calculationData]);
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -24,12 +34,18 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
+      if (isValidData) {
+        resetCalculation();
+      }
     }
   };
 
   const closePopup = () => {
     setIsPopupOpen(false);
     document.body.style.overflow = 'auto';
+    if (isValidData) {
+      resetCalculation();
+    }
   };
 
   useHandleClickOutside(popupRef, isPopupOpen, closePopup);
