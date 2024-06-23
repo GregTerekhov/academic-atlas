@@ -15,7 +15,7 @@ export default function ServiceItem({ imageSrc, imageAlt, serviceTitle }: Readon
           alt={imageAlt}
           width={152}
           height={80}
-          className='absolute top-0 w-full max-sm:object-cover md:w-40 lg:h-[149px] lg:w-[293px]'
+          className='absolute top-0 max-sm:h-auto max-sm:w-full max-sm:object-cover md:h-auto md:w-40 lg:h-auto lg:w-[293px]'
         />
         <div className='p-2 lg:p-6'>
           <div className='max-md:backdrop-blur-sm max-sm:p-1'>

@@ -1,6 +1,6 @@
-import { useMenu } from 'context/MenuProvider';
 import { type IContactLink, PositionInLayout } from 'types';
 
+import { useMenu } from 'context';
 import { SvgIconUI } from 'ui';
 
 interface IContactItem extends IContactLink {
@@ -19,7 +19,6 @@ export default function ContactItem({
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
   const handleClick = () => {
-    // event.preventDefault();
     if (isNavMenuOpen) toggleNavMenu();
   };
   const getAriaLabel = (href: string, label: string) => {
