@@ -7,7 +7,7 @@ const localComponentData = [
     title: 'Якість та терміни',
     desc: 'Ми надаємо високоякісні послуги. Виконавці повинні працювати вчасно та відповідально',
     iconData: {
-      id: IconName.Fire,
+      id: IconName.Requirements,
       size: {
         width: IconSize.HalfM,
         height: IconSize.HalfM,
@@ -19,7 +19,7 @@ const localComponentData = [
     title: 'Фаховість',
     desc: 'Ми шукаємо фахівців з високим рівнем знань та досвідом. Вища освіта або значний досвід роботи – перевага',
     iconData: {
-      id: IconName.Fire,
+      id: IconName.Requirements,
       size: {
         width: IconSize.HalfM,
         height: IconSize.HalfM,
@@ -31,7 +31,7 @@ const localComponentData = [
     title: 'Навички співпраці',
     desc: 'Командна робота та врахування потреб клієнтів – це ключовий аспект успішної співпраці',
     iconData: {
-      id: IconName.Fire,
+      id: IconName.Requirements,
       size: {
         width: IconSize.HalfM,
         height: IconSize.HalfM,

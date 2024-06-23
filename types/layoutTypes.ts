@@ -76,12 +76,14 @@ export const SectionDescriptions = {
   [SectionTitle.Promotions]: 'Акція - Диплом під ключ',
   [SectionTitle.CustomerReviews]: 'Відгуки наших клієнтів',
   [SectionTitle.NotFound]: '404',
-  [SectionTitle.PartnershipHero]: 'Ласкаво просимодо нашої команди виконавців!',
+  [SectionTitle.PartnershipHero]: 'Ласкаво просимо до нашої команди виконавців!',
   [SectionTitle.PartnershipAboutUs]: '',
-  [SectionTitle.PartnershipBenefits]: '',
+  [SectionTitle.PartnershipBenefits]: 'Вигоди співпраці з нами',
   [SectionTitle.PartnershipWorkflow]: 'Як це працює',
   [SectionTitle.PartnershipRequirements]: 'Основні вимоги',
   [SectionTitle.PartnershipAccession]: 'Як приєднатися до нашої команди',
+  [SectionTitle.FAQHero]: 'Найпоширеніші запитання та відповіді',
+  [SectionTitle.FAQOrder]: 'Замовте дипломну роботу прямо зараз!',
 } as const;
 
 export type SectionTitleType = keyof typeof SectionDescriptions;
@@ -92,4 +94,11 @@ export enum CtaText {
   MainPerformers = 'Пиши, розвивайся, заробляй та ставай нашим виконавцем!',
   MainPromotions = 'Замовте готовий підшитий диплом у нас і отримайте його зі зручністю "Новою поштою"',
   PartnershipHero = 'Станьте частиною спільноти професіоналів, що допомагають студентам досягати успіху',
+  FAQHero = 'Тут ви знайдете відповіді на основні питання про наші послуги. ',
+  FAQOrder = 'Наша команда готова допомогти вам з виконанням роботи, яка відповідатиме вашим вимогам',
+}
+
+export enum CalculationTitle {
+  CalculationForm = 'Дізнатися орієнтовну вартість',
+  CalculationResult = 'Орієнтовна вартість',
 }

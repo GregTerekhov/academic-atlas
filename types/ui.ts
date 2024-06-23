@@ -54,6 +54,7 @@ export enum IconName {
   RatingUp = 'star-full',
   Sun = 'sun',
   Telegram = 'telegram',
+  Requirements = 'requirements',
 }
 
 export interface Breakpoints {

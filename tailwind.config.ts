@@ -80,7 +80,7 @@ const config: Config = {
         'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
         'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
         notFound: "url('/backgroundImage/404.webp')",
-        'performers-hero': "url('/backgroundImage/partnershipHero.webp')",
+        'partnership-hero': "url('/backgroundImage/partnership-hero.webp')",
         'partnership-benefits': "url('/backgroundImage/partnership-benefits.webp')",
         'partnership-requirements': "url('/backgroundImage/partnership-requirements.webp')",
         'partnership-about-us': "url('/backgroundImage/partnership-about-us.webp')",
