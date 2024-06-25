@@ -12,12 +12,16 @@ export default function AboutUs() {
           {Array.isArray(aboutUsData) &&
             aboutUsData.map(({ header, description, imageData, lgPosition }) => {
               return (
-                <AboutUsItem
-                  header={header}
-                  description={description}
-                  imageData={imageData}
-                  lgPosition={lgPosition}
-                />
+                <li
+                  key={header}
+                  className={`lg:flex lg:gap-20 ${lgPosition}`}
+                >
+                  <AboutUsItem
+                    header={header}
+                    description={description}
+                    imageData={imageData}
+                  />
+                </li>
               );
             })}
         </ul>

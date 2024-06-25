@@ -130,7 +130,7 @@ export interface IAboutUs {
   header: string;
   description: string;
   imageData: {
-    src: StaticImageData;
+    src: StaticImageData | string;
     alt: string;
   };
   lgPosition: string;

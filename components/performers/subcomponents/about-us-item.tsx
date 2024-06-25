@@ -1,12 +1,17 @@
-import Image from 'next/image';
-import { IAboutUs } from 'types/components';
+import Image, { StaticImageData } from 'next/image';
 
-export default function AboutUsItem({ header, description, imageData, lgPosition }: IAboutUs) {
+interface IAboutUsItemProps {
+  header: string;
+  description: string;
+  imageData: {
+    src: StaticImageData | string;
+    alt: string;
+  };
+}
+
+export default function AboutUsItem({ header, description, imageData }: IAboutUsItemProps) {
   return (
-    <li
-      key={header}
-      className={`lg:flex lg:gap-20 ${lgPosition}`}
-    >
+    <>
       <div>
         <h2 className='text-start'>{header}</h2>
         <p className='generalText my-6'>{description}</p>
@@ -18,6 +23,6 @@ export default function AboutUsItem({ header, description, imageData, lgPosition
         width={327}
         className='relative rounded-3xl bg-contain before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentSecondary/10 before:content-[""] md:h-[280px] md:w-[512px]'
       />
-    </li>
+    </>
   );
 }

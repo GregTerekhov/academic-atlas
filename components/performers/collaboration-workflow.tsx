@@ -12,12 +12,16 @@ export default function WorkflowSteps() {
       <ul className='md:grid md:grid-cols-5 md:justify-between max-lg:md:gap-y-2 lg:relative lg:mx-auto lg:w-[1144px] lg:auto-rows-max lg:grid-cols-2 lg:grid-rows-3 lg:gap-y-16'>
         {Array.isArray(workflowData) &&
           workflowData.map(({ count, header, desc, gridMarkup }) => (
-            <WorkflowItem
-              count={count}
-              header={header}
-              desc={desc}
-              gridMarkup={gridMarkup}
-            />
+            <li
+              key={count}
+              className={`flex items-center gap-x-4 max-md:mb-6 md:w-[408px] md:flex-col md:gap-y-4 lg:w-[520px] ${gridMarkup}`}
+            >
+              <WorkflowItem
+                count={count}
+                header={header}
+                desc={desc}
+              />
+            </li>
           ))}
       </ul>
       <SvgIconUI

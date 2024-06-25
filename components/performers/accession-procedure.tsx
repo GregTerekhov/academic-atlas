@@ -17,10 +17,15 @@ export default function Accession() {
           <ul className='space-y-6 '>
             {Array.isArray(accessionData) &&
               accessionData.map(({ step, desc }) => (
-                <AccessionItem
-                  step={step}
-                  desc={desc}
-                />
+                <li
+                  key={step}
+                  className='flex items-center gap-x-6 md:gap-x-8 lg:gap-x-16'
+                >
+                  <AccessionItem
+                    step={step}
+                    desc={desc}
+                  />
+                </li>
               ))}
           </ul>
           <Image

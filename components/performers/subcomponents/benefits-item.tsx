@@ -1,12 +1,19 @@
-import { IPartnershipBenefits, IconSize } from 'types';
+import { IconName, IconSize } from 'types';
 import { SvgIconUI } from 'ui/index';
 
-export default function PartnershipBenefitsItem({ id, title, desc, iconId }: IPartnershipBenefits) {
+interface IPartnershipBenefitsItemProps {
+  title: string;
+  desc: string;
+  iconId: IconName;
+}
+
+export default function PartnershipBenefitsItem({
+  title,
+  desc,
+  iconId,
+}: IPartnershipBenefitsItemProps) {
   return (
-    <li
-      key={id}
-      className='flex items-center rounded-2xl border border-accentSecondary bg-whiteBase/10 p-4 max-md:gap-x-6 md:flex-col md:gap-y-6 lg:gap-y-8'
-    >
+    <>
       <div>
         <SvgIconUI
           id={iconId}
@@ -20,6 +27,6 @@ export default function PartnershipBenefitsItem({ id, title, desc, iconId }: IPa
         </h3>
         <p className='generalText'>{desc}</p>
       </div>
-    </li>
+    </>
   );
 }
