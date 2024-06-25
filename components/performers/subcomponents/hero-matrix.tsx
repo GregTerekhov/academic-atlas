@@ -1,17 +1,5 @@
 import Image from 'next/image';
-// import topLeftImage from '/public/images/top-left-matrix-grid.webp';
-// import bottomRightImage from '/public/images/right-bottom-matrix-grid.webp';
-// import centerImage from '/public/images/center-matrix-grid.webp';
-
 const HeroMatrix = () => {
-  // const gridMatrixSize = 'lg:h-44 lg:w-44 md:h-20 md:w-20';
-  // const gridMatrixRadius = {
-  //   one: 'lg:rounded-bl-[60px] lg:rounded-tr-[60px] md:rounded-bl-[30px] md:rounded-tr-[30px]',
-  //   three: 'lg:rounded-tl-[60px] lg:rounded-tr-[60px] md:rounded-tl-[30px] md:rounded-tr-[30px]',
-  //   four: 'lg:rounded-tl-[60px] md:rounded-tl-[30px]',
-  //   six: 'lg:rounded-br-[60px] md:rounded-br-[30px]',
-  //   seven: 'lg:rounded-bl-[60px] lg:rounded-br-[60px] md:rounded-bl-[30px] md:rounded-br-[30px]',
-  // };
   const cellSize = 'size-20 lg:size-44';
 
   return (

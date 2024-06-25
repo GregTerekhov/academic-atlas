@@ -1,4 +1,3 @@
-// import { StaticImageData } from 'next/image';
 import { IconName } from './ui';
 
 export enum WorkType {
@@ -127,14 +126,13 @@ export enum AriaLabelTrigger {
 }
 
 export interface IAboutUs {
+  id: number;
   header: string;
   description: string;
   imageData: {
     src: string;
-    // src: StaticImageData | string;
     alt: string;
   };
-  // lgPosition: string;
 }
 
 export interface IPartnershipBenefits {

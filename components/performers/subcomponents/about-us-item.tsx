@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 interface IAboutUsItemProps {
+  key: number;
   header: string;
   description: string;
   imageData: {

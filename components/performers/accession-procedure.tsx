@@ -1,14 +1,9 @@
 import Image from 'next/image';
-
 import { PrimaryButtonLabel, SectionTitle } from 'types';
-
 import { getAccession } from 'helpers';
-
 import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 import { AccessionItem } from './subcomponents';
-
-// import accessionImage from '/public/images/partnership-accession.webp';
 
 export default function Accession() {
   const accessionData = getAccession();
@@ -20,16 +15,11 @@ export default function Accession() {
           <ul className='space-y-6 '>
             {Array.isArray(accessionData) &&
               accessionData.map(({ step, desc }) => (
-                // <li
-                //   key={step}
-                //   className='flex items-center gap-x-6 md:gap-x-8 lg:gap-x-16'
-                // >
                 <AccessionItem
                   key={step}
                   step={step}
                   desc={desc}
                 />
-                // </li>
               ))}
           </ul>
           <Image
