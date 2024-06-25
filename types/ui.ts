@@ -25,6 +25,10 @@ export enum IconSize {
   LogoSmallWidth = 77,
   XXXL = 80,
   Giant = 112,
+  WorkflowMdHeight = 640,
+  WorkflowMdWidth = 264,
+  WorkflowLgHeight = 480,
+  WorkflowLgWidth = 616,
 }
 
 export enum IconName {
@@ -55,6 +59,9 @@ export enum IconName {
   Sun = 'sun',
   Telegram = 'telegram',
   Requirements = 'requirements',
+  BenefitPartnership1 = 'reward',
+  BenefitPartnership2 = 'schedule',
+  BenefitPartnership3 = 'progress',
 }
 
 export interface Breakpoints {

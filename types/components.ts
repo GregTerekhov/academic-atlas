@@ -1,3 +1,4 @@
+import { StaticImageData } from 'next/image';
 import { IconName } from './ui';
 
 export enum WorkType {
@@ -123,4 +124,38 @@ export enum AriaLabelTrigger {
   Default = 'Open navigation Menu',
   CloseNavigation = 'Close navigation menu',
   CloseCalculation = 'Close calculation menu',
+}
+
+export interface IAboutUs {
+  header: string;
+  description: string;
+  imageData: {
+    src: StaticImageData;
+    alt: string;
+  };
+  lgPosition: string;
+}
+
+export interface IPartnershipBenefits {
+  id: number;
+  title: string;
+  desc: string;
+  iconId: IconName;
+}
+
+export interface IWorkflow {
+  count: string;
+  header: string;
+  desc: string;
+  gridMarkup: string;
+}
+
+export interface IRequirements {
+  title: string;
+  desc: string;
+}
+
+export interface IAccession {
+  step: string;
+  desc: string;
 }

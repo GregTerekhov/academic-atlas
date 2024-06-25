@@ -15,17 +15,13 @@ const HeroMatrix = () => {
 
   return (
     <div className='max-md:hidden'>
-      <div className='grid w-max grid-cols-3 md:gap-2 lg:gap-1'>
-        <div className='bg-transparent'>
-          <Image
-            src={topLeftImage}
-            alt='a-person-texting'
-            className={`${gridMatrixSize} ${gridMatrixRadius.one}`}
-          />
-        </div>
-        <div className='col-span-2 grid grid-cols-subgrid md:gap-2 lg:gap-1'>
-          <div className={`${gridMatrixRadius.three} col-start-2 bg-accentSecondary-darker/20`} />
-        </div>
+      <div className='col-span-2 grid w-max grid-cols-3 bg-transparent md:gap-2 lg:gap-1'>
+        <Image
+          src={topLeftImage}
+          alt='aPersonTexting'
+          className={`${gridMatrixSize} ${gridMatrixRadius.one}`}
+        />
+        <div className={`${gridMatrixRadius.three} col-start-3 bg-accentSecondary-darker/20`} />
         <div className={`${gridMatrixSize} ${gridMatrixRadius.four} bg-accentSecondary/20`} />
         <div className='bg-transparent'>
           <Image
@@ -35,15 +31,13 @@ const HeroMatrix = () => {
           />
         </div>
         <div className={`${gridMatrixSize} ${gridMatrixRadius.six} bg-accentPrimary/20`} />
-        <div className={`${gridMatrixSize} ${gridMatrixRadius.seven} bg-whiteBase/20`} />
-        <div className='col-span-2 grid grid-cols-subgrid md:gap-2 lg:gap-1'>
-          <div className='col-start-2 bg-transparent'>
-            <Image
-              src={bottomRightImage}
-              alt='some-guy-smiling-with-arms-crossed'
-              className={`${gridMatrixSize} ${gridMatrixRadius.one}`}
-            />
-          </div>
+        <div className={`${gridMatrixSize} ${gridMatrixRadius.seven} col-span-2 bg-whiteBase/20`} />
+        <div className='col-start-3 bg-transparent'>
+          <Image
+            src={bottomRightImage}
+            alt='some-guy-smiling-with-arms-crossed'
+            className={`${gridMatrixSize} ${gridMatrixRadius.one}`}
+          />
         </div>
       </div>
     </div>

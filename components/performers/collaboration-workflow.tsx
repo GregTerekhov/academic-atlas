@@ -1,55 +1,35 @@
+import { getWorkflowData } from 'helpers/componentsData';
 import { SectionTemplate } from 'template';
-import { SectionTitle } from 'types/layoutTypes';
-
-const localComponentData = [
-  {
-    count: '1',
-    header: 'Реєстрація',
-    desc: 'Приєднуйтесь до нашої платформи через Telegram, заповнивши профіль з вашим досвідом та спеціалізацією',
-  },
-  {
-    count: '2',
-    header: 'Отримання завдань',
-    desc: "Якщо замовлення відповідає вашій експертизі, наш менеджер зв'яжеться з вами для узгодження деталей",
-  },
-  {
-    count: '3',
-    header: 'Виконання замовлення',
-    desc: 'Після прийняття замовлення, виконуйте його з відповідальністю та уважності до деталей',
-  },
-  {
-    count: '4',
-    header: 'Отримання оплати',
-    desc: 'Після успішного виконання замовлення, оплата буде здійснена відповідно до обговорених умов',
-  },
-  {
-    count: '5',
-    header: 'Комунікація та підтримка',
-    desc: 'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни, за потреби',
-  },
-];
+import { SectionTitle, IconName, IconSize } from 'types';
+import { SvgIconUI } from 'ui/index';
+import { WorkflowItem } from './subcomponents';
 
 export default function WorkflowSteps() {
+  const workflowData = getWorkflowData();
+
   return (
-    <>
-      <SectionTemplate title={SectionTitle.PartnershipWorkflow}>
-        <ul>
-          {localComponentData.map(({ count, header, desc }) => (
-            <li
-              key={count}
-              className='mb-6 flex items-center gap-x-4'
-            >
-              <div className='flex h-10 w-10 items-center justify-center rounded-full bg-accentPrimary'>
-                {count}
-              </div>
-              <div>
-                <h3 className='mb-2 text-medium'>{header}</h3>
-                <p className='generalText'>{desc}</p>
-              </div>
-            </li>
+    <SectionTemplate title={SectionTitle.PartnershipWorkflow}>
+      <ul className='md:grid md:grid-cols-5 md:justify-between max-lg:md:gap-y-2 lg:relative lg:mx-auto lg:w-[1144px] lg:auto-rows-max lg:grid-cols-2 lg:grid-rows-3 lg:gap-y-16'>
+        {Array.isArray(workflowData) &&
+          workflowData.map(({ count, header, desc, gridMarkup }) => (
+            <WorkflowItem
+              count={count}
+              header={header}
+              desc={desc}
+              gridMarkup={gridMarkup}
+            />
           ))}
-        </ul>
-      </SectionTemplate>
-    </>
+      </ul>
+      <SvgIconUI
+        id={IconName.PartnershipStepMd}
+        size={{ width: IconSize.WorkflowMdWidth, height: IconSize.WorkflowMdHeight }}
+        className='absolute hidden fill-accentPrimary md:left-1/2 md:top-[82px] md:-translate-x-1/2 max-lg:md:block'
+      />
+      <SvgIconUI
+        id={IconName.PartnershipStepLg}
+        size={{ width: IconSize.WorkflowLgWidth, height: IconSize.WorkflowLgHeight }}
+        className='absolute fill-accentPrimary max-lg:hidden md:left-1/2  md:top-[136px] md:-translate-x-1/2'
+      />
+    </SectionTemplate>
   );
 }

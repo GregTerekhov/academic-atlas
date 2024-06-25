@@ -6,7 +6,15 @@ import {
   IServiceItem,
   Slide,
   WorkType,
+  IAboutUs,
+  IPartnershipBenefits,
+  IWorkflow,
+  IRequirements,
+  IAccession,
 } from '../types';
+
+import whoWeAreImage from '/public/images/partnership-who-we-are.webp';
+import whatWeAreLookingImage from '/public/images/partnership-what-we-are-looking-for.webp';
 
 export const getBenefits = (): IBenefitsItem[] => {
   return [
@@ -145,6 +153,123 @@ export const getServices = (): IServiceItem[] => {
       imageSrc: '/images/services-8.webp',
       imageAlt: 'Glasses on the book',
       serviceTitle: WorkType.CaseStudyReports,
+    },
+  ];
+};
+
+export const getAboutUsData = (): IAboutUs[] => {
+  return [
+    {
+      header: 'Хто ми?',
+      description:
+        'Ми - платформа, що спеціалізується на виконанні наукових робіт на замовлення. Наша мета - надавати якісні та професійні послуги нашим клієнтам, допомагаючи їм досягти успіху в їхніх навчальних цілях',
+      imageData: {
+        src: whoWeAreImage,
+        alt: 'a couple arm pointing on a laptop',
+      },
+      lgPosition: 'lg:flex-row-reverse',
+    },
+    {
+      header: 'Кого ми шукаємо?',
+      description:
+        'Ми запрошуємо талановитих та відповідальних виконавців, готових долучитися до нашої команди. Якщо ви експерт у вашій галузі, володієте високим рівнем професіоналізму та бажаєте працювати в команді, це місце для вас',
+      imageData: {
+        src: whatWeAreLookingImage,
+        alt: 'people sitting at the desktop',
+      },
+      lgPosition: '',
+    },
+  ];
+};
+
+export const getPartnershipBenefits = (): IPartnershipBenefits[] => {
+  return [
+    {
+      id: 1,
+      title: 'Конкурентна винагорода',
+      desc: 'Ми пропонуємо справедливу оплату за виконану роботу',
+      iconId: IconName.BenefitPartnership1,
+    },
+    {
+      id: 2,
+      title: 'Гнучкий графік',
+      desc: 'Обирайте час роботи, який буде для вас найзручнішим',
+      iconId: IconName.BenefitPartnership2,
+    },
+    {
+      id: 3,
+      title: 'Ваш розвиток',
+      desc: 'Розвивайтеся та вдосконалюйте навички з проектами',
+      iconId: IconName.BenefitPartnership3,
+    },
+  ];
+};
+
+export const getWorkflowData = (): IWorkflow[] => {
+  return [
+    {
+      count: '1',
+      header: 'Реєстрація',
+      desc: 'Приєднуйтесь до нашої платформи через Telegram, заповнивши профіль з вашим досвідом та спеціалізацією',
+      gridMarkup: 'md:col-span-3 lg:col-span-1',
+    },
+    {
+      count: '2',
+      header: 'Отримання завдань',
+      desc: "Якщо замовлення відповідає вашій експертизі, наш менеджер зв'яжеться з вами для узгодження деталей",
+      gridMarkup: 'md:col-span-3 md:col-start-3 lg:absolute lg:right-0 lg:top-28',
+    },
+    {
+      count: '3',
+      header: 'Виконання замовлення',
+      desc: 'Після прийняття замовлення, виконуйте його з відповідальністю та уважності до деталей',
+      gridMarkup: 'md:col-span-3 lg:row-start-2',
+    },
+    {
+      count: '4',
+      header: 'Отримання оплати',
+      desc: 'Після успішного виконання замовлення, оплата буде здійснена відповідно до обговорених умов',
+      gridMarkup: 'md:col-span-3  md:col-start-3 lg:absolute lg:right-0 lg:top-[340px]',
+    },
+    {
+      count: '5',
+      header: 'Комунікація та підтримка',
+      desc: 'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни, за потреби',
+      gridMarkup: 'md:col-span-3 lg:row-start-3',
+    },
+  ];
+};
+
+export const getRequirements = (): IRequirements[] => {
+  return [
+    {
+      title: 'Якість та терміни',
+      desc: 'Ми надаємо високоякісні послуги. Виконавці повинні працювати вчасно та відповідально',
+    },
+    {
+      title: 'Фаховість',
+      desc: 'Ми шукаємо фахівців з високим рівнем знань та досвідом. Вища освіта або значний досвід роботи – перевага',
+    },
+    {
+      title: 'Навички співпраці',
+      desc: 'Командна робота та врахування потреб клієнтів – це ключовий аспект успішної співпраці',
+    },
+  ];
+};
+
+export const getAccession = (): IAccession[] => {
+  return [
+    {
+      step: '1',
+      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
+    },
+    {
+      step: '2',
+      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
+    },
+    {
+      step: '3',
+      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
     },
   ];
 };

@@ -3,50 +3,36 @@ import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 import Image from 'next/image';
 
-import accessionImage from '../../public/backgroundImage/partnership-accession.jpg';
-
-const localComponentData = [
-  {
-    step: '1',
-    desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
-  },
-  {
-    step: '2',
-    desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
-  },
-  {
-    step: '3',
-    desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
-  },
-];
+import accessionImage from '/public/images/partnership-accession.webp';
+import { getAccession } from 'helpers/componentsData';
+import { AccessionItem } from './subcomponents';
 
 export default function Accession() {
+  const accessionData = getAccession();
+
   return (
-    <>
-      <SectionTemplate title={SectionTitle.PartnershipAccession}>
-        <ul className='space-y-6'>
-          {localComponentData.map(({ step, desc }) => (
-            <li
-              key={step}
-              className='flex items-center gap-x-6'
-            >
-              <div className="relative flex min-w-[45px] items-center justify-center after:absolute  after:right-0 after:top-0 after:h-full after:w-[1px] after:bg-accent-gradient after:content-['']">
-                <p className='bg-accent-gradient bg-clip-text text-6xl font-bold text-transparent'>
-                  {step}
-                </p>
-              </div>
-              <p className='generalText'>{desc}</p>
-            </li>
-          ))}
-        </ul>
-        <div className='my-6 flex h-44 items-center justify-center overflow-hidden'>
+    <SectionTemplate title={SectionTitle.PartnershipAccession}>
+      <div className='md:flex md:flex-col md:items-center md:gap-y-10 lg:gap-y-[86px]'>
+        <div className='items-center md:flex md:gap-x-10 lg:gap-x-28'>
+          <ul className='space-y-6 '>
+            {Array.isArray(accessionData) &&
+              accessionData.map(({ step, desc }) => (
+                <AccessionItem
+                  step={step}
+                  desc={desc}
+                />
+              ))}
+          </ul>
           <Image
             src={accessionImage}
-            alt='accession-image'
+            height={200}
+            width={327}
+            alt='people grabs each other wrist to holding up one another'
+            className='rounded-2xl md:h-[220px] md:w-[292px] lg:h-[287px] lg:w-[516px]'
           />
         </div>
         <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
-      </SectionTemplate>
-    </>
+      </div>
+    </SectionTemplate>
   );
 }
