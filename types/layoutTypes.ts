@@ -56,8 +56,13 @@ export enum SectionTitle {
   Promotions = 'promotions',
   CustomerReviews = 'customer-reviews',
   NotFound = 'notFound',
+  PartnershipHero = 'partnership-hero',
+  PartnershipBenefits = 'partnership-benefits',
+  PartnershipWorkflow = 'partnership-workflow',
+  PartnershipRequirements = 'partnership-requirements',
+  PartnershipAccession = 'partnership-accession',
   FAQHero = 'faq-hero',
-  FAQOrder = 'faq-order'
+  FAQOrder = 'faq-order',
 }
 
 export const SectionDescriptions = {
@@ -70,6 +75,11 @@ export const SectionDescriptions = {
   [SectionTitle.Promotions]: 'Акція - Диплом під ключ',
   [SectionTitle.CustomerReviews]: 'Відгуки наших клієнтів',
   [SectionTitle.NotFound]: '404',
+  [SectionTitle.PartnershipHero]: 'Ласкаво просимо до нашої команди виконавців!',
+  [SectionTitle.PartnershipBenefits]: 'Вигоди співпраці з нами',
+  [SectionTitle.PartnershipWorkflow]: 'Як це працює',
+  [SectionTitle.PartnershipRequirements]: 'Основні вимоги',
+  [SectionTitle.PartnershipAccession]: 'Як приєднатися до нашої команди',
   [SectionTitle.FAQHero]: 'Найпоширеніші запитання та відповіді',
   [SectionTitle.FAQOrder]: 'Замовте дипломну роботу прямо зараз!',
 } as const;
@@ -81,6 +91,7 @@ export enum CtaText {
   MainHero = 'Розпочніть шлях до успіху з нами — оформіть замовлення вже сьогодні',
   MainPerformers = 'Пиши, розвивайся, заробляй та ставай нашим виконавцем!',
   MainPromotions = 'Замовте готовий підшитий диплом у нас і отримайте його зі зручністю "Новою поштою"',
+  PartnershipHero = 'Станьте частиною спільноти професіоналів, що допомагають студентам досягати успіху',
   FAQHero = 'Тут ви знайдете відповіді на основні питання про наші послуги. ',
   FAQOrder = 'Наша команда готова допомогти вам з виконанням роботи, яка відповідатиме вашим вимогам',
 }

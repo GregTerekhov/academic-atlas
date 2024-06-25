@@ -124,3 +124,38 @@ export enum AriaLabelTrigger {
   CloseNavigation = 'Close navigation menu',
   CloseCalculation = 'Close calculation menu',
 }
+
+export interface IAboutUs {
+  id: number;
+  header: string;
+  description: string;
+  imageData: {
+    src: string;
+    alt: string;
+  };
+}
+
+export interface IPartnershipBenefits {
+  id: number;
+  title: string;
+  desc: string;
+  iconId: IconName;
+}
+
+export interface IWorkflow {
+  count: string;
+  header: string;
+  desc: string;
+  gridMarkup: string;
+}
+
+export interface IRequirements {
+  id: number;
+  title: string;
+  desc: string;
+}
+
+export interface IAccession {
+  step: string;
+  desc: string;
+}

@@ -6,6 +6,11 @@ import {
   IServiceItem,
   Slide,
   WorkType,
+  IPartnershipBenefits,
+  IWorkflow,
+  IRequirements,
+  IAccession,
+  IAboutUs,
 } from '../types';
 
 export const getBenefits = (): IBenefitsItem[] => {
@@ -145,6 +150,126 @@ export const getServices = (): IServiceItem[] => {
       imageSrc: '/images/services-8.webp',
       imageAlt: 'Glasses on the book',
       serviceTitle: WorkType.CaseStudyReports,
+    },
+  ];
+};
+
+export const getAboutUsData = (): IAboutUs[] => {
+  return [
+    {
+      id: 1,
+      header: 'Хто ми?',
+      description:
+        'Ми - платформа, що спеціалізується на виконанні наукових робіт на замовлення. Наша мета - надавати якісні та професійні послуги нашим клієнтам, допомагаючи їм досягти успіху в їхніх навчальних цілях',
+      imageData: {
+        src: '/images/partnership-who-we-are.webp',
+        alt: 'a couple arm pointing on a laptop',
+      },
+    },
+    {
+      id: 2,
+      header: 'Кого ми шукаємо?',
+      description:
+        'Ми запрошуємо талановитих та відповідальних виконавців, готових долучитися до нашої команди. Якщо ви експерт у вашій галузі, володієте високим рівнем професіоналізму та бажаєте працювати в команді, це місце для вас',
+      imageData: {
+        src: '/images/partnership-what-we-are-looking-for.webp',
+        alt: 'people sitting at the desktop',
+      },
+    },
+  ];
+};
+
+export const getPartnershipBenefits = (): IPartnershipBenefits[] => {
+  return [
+    {
+      id: 1,
+      title: 'Конкурентна винагорода',
+      desc: 'Ми пропонуємо справедливу оплату за виконану роботу',
+      iconId: IconName.BenefitPartnership1,
+    },
+    {
+      id: 2,
+      title: 'Гнучкий графік',
+      desc: 'Обирайте час роботи, який буде для вас найзручнішим',
+      iconId: IconName.BenefitPartnership2,
+    },
+    {
+      id: 3,
+      title: 'Ваш розвиток',
+      desc: 'Розвивайтеся та вдосконалюйте навички з проектами',
+      iconId: IconName.BenefitPartnership3,
+    },
+  ];
+};
+
+export const getWorkflowData = (): IWorkflow[] => {
+  return [
+    {
+      count: '1',
+      header: 'Реєстрація',
+      desc: 'Приєднуйтесь до нашої платформи через Telegram, заповнивши профіль з вашим досвідом та спеціалізацією',
+      gridMarkup: 'lg:row-start-1 lg:row-end-3',
+    },
+    {
+      count: '2',
+      header: 'Отримання завдань',
+      desc: "Якщо замовлення відповідає вашій експертизі, наш менеджер зв'яжеться з вами для узгодження деталей",
+      gridMarkup: 'lg:row-start-2 lg:row-end-4 lg:col-start-2',
+    },
+    {
+      count: '3',
+      header: 'Виконання замовлення',
+      desc: 'Після прийняття замовлення, виконуйте його з відповідальністю та уважності до деталей',
+      gridMarkup: 'lg:row-start-3 lg:row-end-5',
+    },
+    {
+      count: '4',
+      header: 'Отримання оплати',
+      desc: 'Після успішного виконання замовлення, оплата буде здійснена відповідно до обговорених умов',
+      gridMarkup: 'lg:row-start-4 lg:row-end-6 lg:col-start-2',
+    },
+    {
+      count: '5',
+      header: 'Комунікація та підтримка',
+      desc: 'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни, за потреби',
+      gridMarkup: 'lg:row-start-5 lg:row-end-7',
+    },
+  ];
+};
+
+export const getRequirements = (): IRequirements[] => {
+  return [
+    {
+      id: 1,
+      title: 'Якість та терміни',
+      desc: 'Ми надаємо високоякісні послуги. Виконавці повинні працювати вчасно та відповідально',
+    },
+    {
+      id: 2,
+      title: 'Фаховість',
+      desc: 'Ми шукаємо фахівців з високим рівнем знань та досвідом. Вища освіта або значний досвід роботи – перевага',
+    },
+    {
+      id: 3,
+      title: 'Навички співпраці',
+      desc: 'Командна робота та врахування потреб клієнтів – це ключовий аспект успішної співпраці',
+    },
+  ];
+};
+
+export const getAccession = (): IAccession[] => {
+  return [
+    {
+      step: '1',
+      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот',
+    },
+    {
+      step: '2',
+      desc: 'Наш менеджер зв`яжеться з вами для узгодження подальших інструкцій та деталей',
+    },
+    {
+      step: '3',
+      desc: 'Станьте частиною команди виконавців та допоможіть нашим клієнтам досягти цілей разом з нами',
     },
   ];
 };
