@@ -1,9 +1,35 @@
-import { getAboutUsData } from 'helpers/componentsData';
+// import { getAboutUsData } from 'helpers/componentsData';
 import Container from 'layout/container';
 import { AboutUsItem } from './subcomponents';
 
+import whoWeAreImage from '../../public/images/partnership-who-we-are.webp';
+import whatWeAreLookingImage from '../../public/images/partnership-what-we-are-looking-for.webp';
+
+const aboutUsData = [
+  {
+    header: 'Хто ми?',
+    description:
+      'Ми - платформа, що спеціалізується на виконанні наукових робіт на замовлення. Наша мета - надавати якісні та професійні послуги нашим клієнтам, допомагаючи їм досягти успіху в їхніх навчальних цілях',
+    imageData: {
+      src: whoWeAreImage,
+      alt: 'a couple arm pointing on a laptop',
+    },
+    lgPosition: 'lg:flex-row-reverse',
+  },
+  {
+    header: 'Кого ми шукаємо?',
+    description:
+      'Ми запрошуємо талановитих та відповідальних виконавців, готових долучитися до нашої команди. Якщо ви експерт у вашій галузі, володієте високим рівнем професіоналізму та бажаєте працювати в команді, це місце для вас',
+    imageData: {
+      src: whatWeAreLookingImage,
+      alt: 'people sitting at the desktop',
+    },
+    lgPosition: '',
+  },
+];
+
 export default function AboutUs() {
-  const aboutUsData = getAboutUsData();
+  // const aboutUsData = getAboutUsData();
 
   return (
     <section className='py-8 md:py-16 lg:py-[114px]'>
