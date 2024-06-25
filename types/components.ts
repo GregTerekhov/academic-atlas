@@ -150,6 +150,7 @@ export interface IWorkflow {
 }
 
 export interface IRequirements {
+  id: number;
   title: string;
   desc: string;
 }

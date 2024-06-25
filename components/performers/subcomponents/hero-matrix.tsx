@@ -1,5 +1,6 @@
 import Image from 'next/image';
-const HeroMatrix = () => {
+
+function HeroMatrix() {
   const cellSize = 'size-20 lg:size-44';
 
   return (
@@ -45,6 +46,6 @@ const HeroMatrix = () => {
       </div>
     </div>
   );
-};
+}
 
 export default HeroMatrix;

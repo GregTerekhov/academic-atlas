@@ -10,9 +10,9 @@ export default function Requirements() {
     <SectionTemplate title={SectionTitle.PartnershipRequirements}>
       <ul className='max-lg:space-y-6 md:max-lg:px-[88px] lg:flex lg:gap-x-10'>
         {Array.isArray(requirementsData) &&
-          requirementsData.map(({ title, desc }) => (
+          requirementsData.map(({ id, title, desc }) => (
             <RequirementsItem
-              key={title}
+              key={id}
               title={title}
               desc={desc}
             />

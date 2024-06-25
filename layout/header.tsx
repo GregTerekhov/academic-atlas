@@ -5,7 +5,7 @@ import Container from './container';
 
 export default function Header() {
   return (
-    <header className='fixed left-0 top-0 z-10 z-20 max-h-20 w-full border-b-[0.5px] border-whiteBase bg-whiteBase py-2 dark:bg-background-gradient md:max-h-24 md:py-4 lg:max-h-28'>
+    <header className='fixed left-0 top-0 z-20 max-h-20 w-full border-b-[0.5px] border-whiteBase bg-whiteBase py-2 dark:bg-background-gradient md:max-h-24 md:py-4 lg:max-h-28'>
       <Container>
         <div className='flex items-center justify-between'>
           <Logo position={PositionInLayout.Header} />

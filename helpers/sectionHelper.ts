@@ -10,7 +10,6 @@ const getBackgrounds = (): Partial<Record<SectionTitle, string>> => {
     [SectionTitle.PartnershipHero]: 'bg-performers-hero',
     [SectionTitle.PartnershipBenefits]: 'bg-partnership-benefits',
     [SectionTitle.PartnershipRequirements]: 'bg-partnership-requirements',
-    [SectionTitle.PartnershipAboutUs]: 'bg-partnership-about-us',
     [SectionTitle.FAQOrder]: 'bg-faq-order',
   };
 };

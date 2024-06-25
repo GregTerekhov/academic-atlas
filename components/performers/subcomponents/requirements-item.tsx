@@ -1,8 +1,14 @@
-import { IRequirements, IconName, IconSize } from 'types';
+import { IconName, IconSize } from 'types';
 
 import { SvgIconUI } from 'ui';
 
-export default function RequirementsItem({ title, desc }: IRequirements) {
+interface IRequirementsItemProps {
+  key?: number;
+  title: string;
+  desc: string;
+}
+
+export default function RequirementsItem({ title, desc }: IRequirementsItemProps) {
   return (
     <li className='rounded-[20px] border border-accentSecondary bg-whiteBase/10 p-4 lg:basis-1/3 lg:p-6'>
       <div className='mb-2 mr-auto flex items-center gap-x-4 lg:gap-x-2'>
