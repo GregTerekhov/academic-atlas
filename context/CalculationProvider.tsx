@@ -1,24 +1,30 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, ChangeEvent } from 'react';
 
 import { ExecutionTime, ExpertiseArea, ICalculationData, WorkType } from '../types';
 
 interface ICalculationContext {
-  calculationData: ICalculationData;
+  calculationData: ICalculation;
   handleWorkTypeChange: (option: WorkType) => void;
   handleExpertiseAreaChange: (option: ExpertiseArea) => void;
   handleExecutionTimeChange: (option: ExecutionTime) => void;
+  handleThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
   resetCalculation: () => void;
+}
+
+interface ICalculation extends ICalculationData {
+  theme?: string;
 }
 
 const CalculationContext = createContext<ICalculationContext | undefined>(undefined);
 
 export const CalculationProvider = ({ children }: { children: ReactNode }) => {
-  const [calculationData, setCalculationData] = useState<ICalculationData>({
+  const [calculationData, setCalculationData] = useState<ICalculation>({
     workType: WorkType.Default,
     expertiseArea: ExpertiseArea.Default,
     executionTime: ExecutionTime.Default,
+    theme: '',
   });
 
   const handleWorkTypeChange = (option: WorkType) => {
@@ -33,11 +39,17 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     setCalculationData((prevData) => ({ ...prevData, executionTime: option }));
   };
 
+  const handleThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newTheme = e.target.value;
+    setCalculationData((prevData) => ({ ...prevData, theme: newTheme }));
+  };
+
   const resetCalculation = () => {
     setCalculationData({
       workType: WorkType.Default,
       expertiseArea: ExpertiseArea.Default,
       executionTime: ExecutionTime.Default,
+      theme: '',
     });
   };
 
@@ -48,6 +60,7 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
         handleWorkTypeChange,
         handleExpertiseAreaChange,
         handleExecutionTimeChange,
+        handleThemeChange,
         resetCalculation,
       }}
     >

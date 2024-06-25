@@ -41,13 +41,21 @@ export default function Dropdown<T>({ label, options, onOptionSelect }: IDropdow
       <button
         type={ButtonType.Button}
         onClick={toggleDropdown}
-        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-whiteBase md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4 ${isDropdownOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
+        className={`${isOptionSelected ? 'border-none bg-accent-gradient' : 'border-accentPrimary-darker dark:bg-darkBase'} flex h-10 w-full items-center justify-between border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4 ${isDropdownOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
       >
-        {selectedLabel as ReactNode}
+        <span
+          className={
+            isOptionSelected
+              ? 'text-base font-bold text-whiteBase md:text-medium lg:text-lg'
+              : 'text-sm text-darkBase dark:text-whiteBase max-md:leading-130 md:text-base lg:text-big'
+          }
+        >
+          {selectedLabel as ReactNode}
+        </span>
         <SvgIcon
           id={IconName.Expand}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-          className={`${isDropdownOpen ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'dark:fill-whiteBase'} transition-transform`}
+          className={`${isDropdownOpen ? 'rotate-180' : ''} fill-whiteBase transition-transform`}
         />
       </button>
       {isDropdownOpen && (

@@ -3,21 +3,25 @@
 import { useEffect } from 'react';
 
 import { Uniqueness, WorkType } from 'types';
+import RangePercents from './range-percents';
 
 interface IRangeInputProps {
   id: string;
   isChecked: boolean;
   value: number;
-  workType: WorkType | '';
+  workType: WorkType;
   onChange: (value: number) => void;
 }
 
 export default function RangeInput({ id, isChecked, value, workType, onChange }: IRangeInputProps) {
-  const shouldChooseHigherUniqueness =
-    workType && [WorkType.Abstracts, WorkType.BachelorTheses, WorkType.Diplomas].includes(workType);
+  const shouldChooseHigherUniqueness = [
+    WorkType.Abstracts,
+    WorkType.BachelorTheses,
+    WorkType.Diplomas,
+  ].includes(workType);
 
   useEffect(() => {
-    if (isChecked && workType) {
+    if (isChecked) {
       if (value < Uniqueness.Standard && workType === WorkType.TeamPapers) {
         onChange(Uniqueness.Standard);
       } else if (value < Uniqueness.Higher && shouldChooseHigherUniqueness) {
@@ -28,20 +32,21 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
     }
   }, [isChecked, onChange, shouldChooseHigherUniqueness, value, workType]);
 
+  const addTextMinimalValue = () => {
+    const isShowMinimal =
+      isChecked &&
+      (value === Uniqueness.Standard ||
+        (shouldChooseHigherUniqueness && value === Uniqueness.Higher));
+    return isShowMinimal ? <span>(мінімальний)</span> : null;
+  };
+
   return (
     <label
       htmlFor={id}
       className='flex flex-col'
     >
       <span className='generalText mb-4 inline-block'>
-        Оберіть відсоток унікальності{' '}
-        {isChecked &&
-        (value === Uniqueness.Standard ||
-          (shouldChooseHigherUniqueness &&
-            shouldChooseHigherUniqueness &&
-            value === Uniqueness.Higher)) ? (
-          <span>(мінімальний)</span>
-        ) : null}
+        Оберіть відсоток унікальності {addTextMinimalValue()}
       </span>
       <input
         type='range'
@@ -55,25 +60,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
         onChange={(e) => onChange(Number(e.target.value))}
         className={`range-input ${!isChecked ? 'cursor-not-allowed' : ''} mb-2 block`}
       />
-      <datalist
-        id='percents'
-        className='flex w-full justify-between text-xs [writing-mode:horizontal-tb]'
-      >
-        <option
-          value='0'
-          label='0'
-        ></option>
-        {value !== 0 && value !== 100 && (
-          <option
-            value={value.toString()}
-            label={`${value.toString()}%`}
-          ></option>
-        )}
-        <option
-          value='100'
-          label='100'
-        ></option>
-      </datalist>
+      <RangePercents value={value} />
       <style jsx>{`
         .range-input {
           height: 12px;
@@ -97,7 +84,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
           background: ${!isChecked ? '#959595' : 'linear-gradient(to right, #f8a401, #d12600)'};
           border-radius: 50%;
           margin-top: -12px;
-          cursor: pointer;
+          cursor: ${!isChecked ? 'not-allowed' : 'pointer'};
           -webkit-appearance: none;
         }
         .range-input::-moz-range-thumb {
@@ -106,7 +93,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
           background: ${!isChecked ? '#959595' : 'linear-gradient(to right, #f8a401, #d12600)'};
           margin-top: -12px;
           border-radius: 50%;
-          cursor: pointer;
+          cursor: ${!isChecked ? 'not-allowed' : 'pointer'};
         }
       `}</style>
     </label>
