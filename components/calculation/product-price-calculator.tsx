@@ -50,8 +50,6 @@ export default function PriceCalculator() {
   // );
   // console.log(`Final Price: ${finalPrice}`);
 
-  console.log('shouldPlagiarismCheck', shouldPlagiarismCheck);
-
   return (
     <>
       {hasSubmitData ? (
