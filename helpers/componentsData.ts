@@ -13,8 +13,8 @@ import {
   IAccession,
 } from '../types';
 
-import whoWeAreImage from '/public/images/partnership-who-we-are.webp';
-import whatWeAreLookingImage from '/public/images/partnership-what-we-are-looking-for.webp';
+// import whoWeAreImage from '/public/images/partnership-who-we-are.webp';
+// import whatWeAreLookingImage from '/public/images/partnership-what-we-are-looking-for.webp';
 
 export const getBenefits = (): IBenefitsItem[] => {
   return [
@@ -164,20 +164,20 @@ export const getAboutUsData = (): IAboutUs[] => {
       description:
         'Ми - платформа, що спеціалізується на виконанні наукових робіт на замовлення. Наша мета - надавати якісні та професійні послуги нашим клієнтам, допомагаючи їм досягти успіху в їхніх навчальних цілях',
       imageData: {
-        src: whoWeAreImage,
+        src: '/images/partnership-who-we-are.webp',
         alt: 'a couple arm pointing on a laptop',
       },
-      lgPosition: 'lg:flex-row-reverse',
+      // lgPosition: 'lg:flex-row-reverse',
     },
     {
       header: 'Кого ми шукаємо?',
       description:
         'Ми запрошуємо талановитих та відповідальних виконавців, готових долучитися до нашої команди. Якщо ви експерт у вашій галузі, володієте високим рівнем професіоналізму та бажаєте працювати в команді, це місце для вас',
       imageData: {
-        src: whatWeAreLookingImage,
+        src: '/images/partnership-what-we-are-looking-for.webp',
         alt: 'people sitting at the desktop',
       },
-      lgPosition: '',
+      // lgPosition: '',
     },
   ];
 };
@@ -211,31 +211,36 @@ export const getWorkflowData = (): IWorkflow[] => {
       count: '1',
       header: 'Реєстрація',
       desc: 'Приєднуйтесь до нашої платформи через Telegram, заповнивши профіль з вашим досвідом та спеціалізацією',
-      gridMarkup: 'md:col-span-3 lg:col-span-1',
+      gridMarkup: 'lg:row-start-1 lg:row-end-3',
+      // gridMarkup: 'md:col-span-3 lg:col-span-1',
     },
     {
       count: '2',
       header: 'Отримання завдань',
       desc: "Якщо замовлення відповідає вашій експертизі, наш менеджер зв'яжеться з вами для узгодження деталей",
-      gridMarkup: 'md:col-span-3 md:col-start-3 lg:absolute lg:right-0 lg:top-28',
+      gridMarkup: 'lg:row-start-2 lg:row-end-4 lg:col-start-2',
+      // gridMarkup: 'md:col-span-3 md:col-start-3 lg:absolute lg:right-0 lg:top-28',
     },
     {
       count: '3',
       header: 'Виконання замовлення',
       desc: 'Після прийняття замовлення, виконуйте його з відповідальністю та уважності до деталей',
-      gridMarkup: 'md:col-span-3 lg:row-start-2',
+      gridMarkup: 'lg:row-start-3 lg:row-end-5',
+      // gridMarkup: 'md:col-span-3 lg:row-start-2',
     },
     {
       count: '4',
       header: 'Отримання оплати',
       desc: 'Після успішного виконання замовлення, оплата буде здійснена відповідно до обговорених умов',
-      gridMarkup: 'md:col-span-3  md:col-start-3 lg:absolute lg:right-0 lg:top-[340px]',
+      gridMarkup: 'lg:row-start-4 lg:row-end-6 lg:col-start-2',
+      // gridMarkup: 'md:col-span-3  md:col-start-3 lg:absolute lg:right-0 lg:top-[340px]',
     },
     {
       count: '5',
       header: 'Комунікація та підтримка',
       desc: 'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни, за потреби',
-      gridMarkup: 'md:col-span-3 lg:row-start-3',
+      gridMarkup: 'lg:row-start-5 lg:row-end-7',
+      // gridMarkup: 'md:col-span-3 lg:row-start-3',
     },
   ];
 };
@@ -261,15 +266,15 @@ export const getAccession = (): IAccession[] => {
   return [
     {
       step: '1',
-      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
+      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот',
     },
     {
       step: '2',
-      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
+      desc: 'Наш менеджер зв`яжеться з вами для узгодження подальших інструкцій та деталей',
     },
     {
       step: '3',
-      desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот.',
+      desc: 'Станьте частиною команди виконавців та допоможіть нашим клієнтам досягти цілей разом з нами',
     },
   ];
 };

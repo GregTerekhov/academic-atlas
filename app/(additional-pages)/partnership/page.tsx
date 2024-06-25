@@ -6,7 +6,7 @@ import {
   Requirements,
   WorkflowSteps,
 } from 'components';
-import { SectionTitle } from 'types/layoutTypes';
+// import { SectionTitle } from 'types/layoutTypes';
 
 export default function Partnership() {
   return (
@@ -14,14 +14,14 @@ export default function Partnership() {
       <HeroPartnership />
       <AboutCompany />
       <Benefits />
-      <Requirements
-        title={SectionTitle.PartnershipRequirementsLg}
-        style='max-lg:hidden'
-      />
+      {/* <Requirements
+      title={SectionTitle.PartnershipRequirementsLg}
+      style='max-lg:hidden'
+      /> */}
       <WorkflowSteps />
       <Requirements
-        title={SectionTitle.PartnershipRequirementsMdSm}
-        style='lg:hidden'
+      // title={SectionTitle.PartnershipRequirementsMdSm}
+      // style='lg:hidden'
       />
       <Accession />
     </>

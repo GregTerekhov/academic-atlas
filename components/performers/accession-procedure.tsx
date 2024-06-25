@@ -1,42 +1,48 @@
-import { PrimaryButtonLabel, SectionTitle } from 'types';
-import { SectionTemplate } from 'template';
-import { PrimaryButtonUI } from 'ui';
 import Image from 'next/image';
 
-import accessionImage from '/public/images/partnership-accession.webp';
-import { getAccession } from 'helpers/componentsData';
+import { PrimaryButtonLabel, SectionTitle } from 'types';
+
+import { getAccession } from 'helpers';
+
+import { SectionTemplate } from 'template';
+import { PrimaryButtonUI } from 'ui';
 import { AccessionItem } from './subcomponents';
+
+// import accessionImage from '/public/images/partnership-accession.webp';
 
 export default function Accession() {
   const accessionData = getAccession();
 
   return (
     <SectionTemplate title={SectionTitle.PartnershipAccession}>
-      <div className='md:flex md:flex-col md:items-center md:gap-y-10 lg:gap-y-[86px]'>
-        <div className='items-center md:flex md:gap-x-10 lg:gap-x-28'>
+      <div className='space-y-6 md:space-y-10 lg:space-y-[72px]'>
+        <div className='max-md:space-y-6 md:flex md:items-center md:justify-between md:gap-x-10 lg:gap-x-28'>
           <ul className='space-y-6 '>
             {Array.isArray(accessionData) &&
               accessionData.map(({ step, desc }) => (
-                <li
+                // <li
+                //   key={step}
+                //   className='flex items-center gap-x-6 md:gap-x-8 lg:gap-x-16'
+                // >
+                <AccessionItem
                   key={step}
-                  className='flex items-center gap-x-6 md:gap-x-8 lg:gap-x-16'
-                >
-                  <AccessionItem
-                    step={step}
-                    desc={desc}
-                  />
-                </li>
+                  step={step}
+                  desc={desc}
+                />
+                // </li>
               ))}
           </ul>
           <Image
-            src={accessionImage}
+            src='/images/partnership-accession.webp'
             height={200}
             width={327}
             alt='people grabs each other wrist to holding up one another'
-            className='rounded-2xl md:h-[220px] md:w-[292px] lg:h-[287px] lg:w-[516px]'
+            className='rounded-xl object-cover object-center md:h-[220px] md:w-[292px] lg:h-[287px] lg:w-[516px]'
           />
         </div>
-        <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+        <div className='flex items-center justify-center'>
+          <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+        </div>
       </div>
     </SectionTemplate>
   );

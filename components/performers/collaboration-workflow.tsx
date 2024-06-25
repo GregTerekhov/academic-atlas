@@ -1,7 +1,9 @@
-import { getWorkflowData } from 'helpers/componentsData';
-import { SectionTemplate } from 'template';
 import { SectionTitle, IconName, IconSize } from 'types';
-import { SvgIconUI } from 'ui/index';
+
+import { getWorkflowData } from 'helpers';
+
+import { SectionTemplate } from 'template';
+import { SvgIconUI } from 'ui';
 import { WorkflowItem } from './subcomponents';
 
 export default function WorkflowSteps() {
@@ -9,19 +11,16 @@ export default function WorkflowSteps() {
 
   return (
     <SectionTemplate title={SectionTitle.PartnershipWorkflow}>
-      <ul className='md:grid md:grid-cols-5 md:justify-between max-lg:md:gap-y-2 lg:relative lg:mx-auto lg:w-[1144px] lg:auto-rows-max lg:grid-cols-2 lg:grid-rows-3 lg:gap-y-16'>
+      <ul className='max-md:space-y-6 md:max-lg:space-y-2 lg:relative lg:grid lg:grid-rows-6 lg:gap-x-28 lg:gap-y-[56px] lg:px-16'>
         {Array.isArray(workflowData) &&
           workflowData.map(({ count, header, desc, gridMarkup }) => (
-            <li
+            <WorkflowItem
               key={count}
-              className={`flex items-center gap-x-4 max-md:mb-6 md:w-[408px] md:flex-col md:gap-y-4 lg:w-[520px] ${gridMarkup}`}
-            >
-              <WorkflowItem
-                count={count}
-                header={header}
-                desc={desc}
-              />
-            </li>
+              count={count}
+              header={header}
+              desc={desc}
+              gridMarkup={gridMarkup}
+            />
           ))}
       </ul>
       <SvgIconUI

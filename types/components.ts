@@ -1,4 +1,4 @@
-import { StaticImageData } from 'next/image';
+// import { StaticImageData } from 'next/image';
 import { IconName } from './ui';
 
 export enum WorkType {
@@ -130,10 +130,11 @@ export interface IAboutUs {
   header: string;
   description: string;
   imageData: {
-    src: StaticImageData | string;
+    src: string;
+    // src: StaticImageData | string;
     alt: string;
   };
-  lgPosition: string;
+  // lgPosition: string;
 }
 
 export interface IPartnershipBenefits {
