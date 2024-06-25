@@ -82,9 +82,8 @@ const config: Config = {
         notFound: "url('/backgroundImage/404.webp')",
         'partnership-hero': "url('/backgroundImage/partnership-hero.webp')",
         'partnership-benefits': "url('/backgroundImage/partnership-benefits.webp')",
-        'partnership-requirements-md-sm':
-          "url('/backgroundImage/partnership-requirements-md-sm.webp')",
-        'partnership-requirements-lg': "url('/backgroundImage/partnership-requirements-lg.webp')",
+        'partnership-requirements': "url('/backgroundImage/partnership-requirements.webp')",
+        // 'partnership-requirements-lg': "url('/backgroundImage/partnership-requirements-lg.webp')",
         'partnership-about-us': "url('/backgroundImage/partnership-about-us.webp')",
       },
     },

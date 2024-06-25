@@ -19,7 +19,7 @@ export default function Requirements() {
   // const sectionClasses = getSectionClasses(title);
 
   return (
-    <SectionTemplate title={SectionTitle.PartnershipRequirementsLg}>
+    <SectionTemplate title={SectionTitle.PartnershipRequirements}>
       {/* <section className={`${style} lg:pt-[104px]`}>
         <div className={`${sectionClasses}`}> */}
       {/* <Container> */}

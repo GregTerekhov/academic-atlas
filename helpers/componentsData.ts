@@ -6,11 +6,12 @@ import {
   IServiceItem,
   Slide,
   WorkType,
-  IAboutUs,
+  // IAboutUs,
   IPartnershipBenefits,
   IWorkflow,
   IRequirements,
   IAccession,
+  IAboutUs,
 } from '../types';
 
 // import whoWeAreImage from '/public/images/partnership-who-we-are.webp';
