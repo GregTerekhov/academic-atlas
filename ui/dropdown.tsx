@@ -1,33 +1,59 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { forwardRef, ReactNode, Ref, useImperativeHandle, useState } from 'react';
 
-import { ButtonType, IconName, IconSize } from 'types';
+// import { ButtonType, IconName, IconSize, IDropdownRef } from 'types';
+import { ButtonType, DropdownOption, IconName, IconSize, IDropdownRef } from 'types';
 
-import { useDropdown } from 'helpers';
+import { useDropdown } from 'hooks';
 
 import SvgIcon from './svg-icon';
 import CustomScroll from './custom-scroll';
 
-interface IOption<T> {
+interface IOption {
   typeId: string;
-  option: T;
+  option: DropdownOption;
 }
+// interface IOption<T> {
+//   typeId: string;
+//   option: T;
+// }
 
-interface IDropdownProps<T> {
-  label: T;
-  options: IOption<T>[];
+interface IDropdownProps {
+  label: DropdownOption;
+  options: IOption[];
+  onOptionSelect: (option: DropdownOption) => void;
 }
+// interface IDropdownProps<T> {
+//   label: T;
+//   options: IOption<T>[];
+//   onOptionSelect: (option: T) => void;
+// }
 
-export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
-  const [selectedLabel, setSelectedLabel] = useState<T>(label);
+function Dropdown(
+  // function Dropdown<T>(
+  { label, options, onOptionSelect }: IDropdownProps,
+  // { label, options, onOptionSelect }: IDropdownProps<T>,
+  ref: Ref<IDropdownRef | null>,
+) {
+  // const [selectedLabel, setSelectedLabel] = useState<T>(label);
+  const [selectedLabel, setSelectedLabel] = useState<DropdownOption>(label);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
   const { isDropdownOpen, dropdownRef, toggleDropdown } = useDropdown();
 
-  const handleOptionClick = (option: T) => {
+  useImperativeHandle(ref, () => ({
+    resetSelectedLabel: () => {
+      setSelectedLabel(label);
+      setIsOptionSelected(false);
+    },
+  }));
+
+  // const handleOptionClick = (option: T) => {
+  const handleOptionClick = (option: DropdownOption) => {
     setSelectedLabel(option);
     setIsOptionSelected(true);
+    onOptionSelect(option);
     toggleDropdown();
   };
 
@@ -39,13 +65,21 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
       <button
         type={ButtonType.Button}
         onClick={toggleDropdown}
-        className={`${isOptionSelected ? 'border-transparent bg-accent-gradient text-base font-bold text-darkBase-light md:text-medium lg:text-lg' : 'border-accentPrimary-darker text-sm text-darkBase dark:bg-darkBase dark:text-whiteBase md:text-base lg:text-big'} flex h-10 w-full items-center justify-between border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4 ${isDropdownOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
+        className={`${isOptionSelected ? 'border-none bg-accent-gradient' : 'border-accentPrimary-darker dark:bg-darkBase'} flex h-10 w-full items-center justify-between border border-solid px-2 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary md:h-12 md:px-4 ${isDropdownOpen ? 'rounded-t-lg' : 'rounded-lg'}`}
       >
-        {selectedLabel as ReactNode}
+        <span
+          className={
+            isOptionSelected
+              ? 'text-base font-bold text-whiteBase md:text-medium lg:text-lg'
+              : 'text-sm text-darkBase dark:text-whiteBase max-md:leading-130 md:text-base lg:text-big'
+          }
+        >
+          {selectedLabel as ReactNode}
+        </span>
         <SvgIcon
           id={IconName.Expand}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-          className={`${isDropdownOpen ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'dark:fill-whiteBase'} transition-transform`}
+          className={`${isDropdownOpen ? 'rotate-180' : ''} fill-whiteBase transition-transform`}
         />
       </button>
       {isDropdownOpen && (
@@ -73,3 +107,5 @@ export default function Dropdown<T>({ label, options }: IDropdownProps<T>) {
     </div>
   );
 }
+
+export default forwardRef(Dropdown);

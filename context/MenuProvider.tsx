@@ -2,7 +2,11 @@
 
 import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
-import { useHandleClickOutside } from 'helpers';
+import { IDropdownRef } from 'types';
+
+import { useCalculation } from './CalculationProvider';
+import { isCalculationDataValid } from 'helpers';
+import { useHandleClickOutside } from 'hooks';
 
 interface IMenuContext {
   isCalcMenuOpen: boolean;
@@ -12,6 +16,7 @@ interface IMenuContext {
   toggleNavMenu: () => void;
   closeMenu: () => void;
   changeMenuContent: () => void;
+  registerDropdownRefs: (refs: Record<string, IDropdownRef | null>) => void;
 }
 
 const MenuContext = createContext<IMenuContext | undefined>(undefined);
@@ -20,8 +25,12 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const [isCalcMenuOpen, setIsCalcMenuOpen] = useState(false);
   const [showCalculationMenu, setShowCalculationMenu] = useState(false);
+  const [isValidData, setIsValidData] = useState(false);
+  const [dropdownRefs, setDropdownRefs] = useState<Record<string, IDropdownRef | null>>({});
 
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const { calculationData, resetCalculation } = useCalculation();
 
   useEffect(() => {
     if (isNavMenuOpen || isCalcMenuOpen) {
@@ -30,6 +39,20 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
       document.body.style.overflow = 'auto';
     }
   }, [isCalcMenuOpen, isNavMenuOpen]);
+
+  useEffect(() => {
+    const hasData = isCalculationDataValid(calculationData);
+
+    setIsValidData(hasData);
+  }, [calculationData]);
+
+  const resetAllDropdownLabels = () => {
+    Object.values(dropdownRefs).forEach((ref) => {
+      if (ref) {
+        ref.resetSelectedLabel();
+      }
+    });
+  };
 
   const toggleNavMenu = () => {
     setIsNavMenuOpen(!isNavMenuOpen);
@@ -42,12 +65,31 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
   const toggleCalcMenu = () => {
     setIsCalcMenuOpen(!isCalcMenuOpen);
     showCalculationMenu && setShowCalculationMenu(false);
+    resetAllDropdownLabels();
+
+    if (isValidData) {
+      resetCalculation();
+    }
   };
 
   const closeMenu = () => {
     setIsCalcMenuOpen(false);
     setIsNavMenuOpen(false);
     setShowCalculationMenu(false);
+    resetAllDropdownLabels();
+
+    if (isValidData) {
+      resetCalculation();
+    }
+  };
+
+  const registerDropdownRefs = (refs: Record<string, IDropdownRef | null>) => {
+    setDropdownRefs((prevRefs) => {
+      if (JSON.stringify(prevRefs) === JSON.stringify(refs)) {
+        return prevRefs;
+      }
+      return refs;
+    });
   };
 
   useHandleClickOutside(menuRef, isCalcMenuOpen, closeMenu);
@@ -63,6 +105,7 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
         toggleCalcMenu,
         toggleNavMenu,
         closeMenu,
+        registerDropdownRefs,
       }}
     >
       {children}

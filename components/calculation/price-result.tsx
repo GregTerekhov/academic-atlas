@@ -5,6 +5,18 @@ import { ButtonType, CalculationTitle, IconName, IconSize, PrimaryButtonLabel } 
 import { PrimaryButtonUI, SvgIconUI } from 'ui';
 
 export default function PriceResult() {
+  // // Проміжковий приклад використання функції CalculatePrice
+  // const selectedWorkType = WorkType.Abstracts;
+  // const selectedExpertiseArea = ExpertiseArea.CultureAndArt;
+  // const selectedExecutionTime = ExecutionTime.LongTerm;
+
+  // const finalPrice = calculatePrice(
+  //   selectedWorkType,
+  //   selectedExpertiseArea,
+  //   selectedExecutionTime,
+  //   90,
+  // );
+  // console.log(`Final Price: ${finalPrice}`);
   return (
     <>
       <h2 className='mb-8 !text-1.5xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'>

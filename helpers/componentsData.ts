@@ -115,41 +115,51 @@ export const getServices = (): IServiceItem[] => {
       imageSrc: '/images/services-1.webp',
       imageAlt: 'Three notebooks',
       serviceTitle: WorkType.Diplomas,
+      gridPosition:
+        'md:max-lg:col-start-1 md:max-lg:col-end-3 md:max-lg:row-start-1 md:max-lg:row-end-3',
     },
     {
       imageSrc: '/images/services-2.webp',
       imageAlt: 'Three notebooks, a pen and glasses',
       serviceTitle: WorkType.TeamPapers,
+      gridPosition: '',
     },
     {
       imageSrc: '/images/services-3.webp',
       imageAlt: 'Open book and notebook',
       serviceTitle: WorkType.BachelorTheses,
+      gridPosition: 'md:max-lg:col-start-3 md:max-lg:col-end-5 md:max-lg:row-start-1',
     },
     {
       imageSrc: '/images/services-4.webp',
       imageAlt: 'A person draws diagrams',
       serviceTitle: WorkType.TestPapers,
+      gridPosition:
+        'md:max-lg:col-start-4 md:max-lg:col-end-5 md:max-lg:row-start-2 md:max-lg:row-end-4',
     },
     {
       imageSrc: '/images/services-5.webp',
       imageAlt: 'A person moves a pen across the text of a book',
       serviceTitle: WorkType.Abstracts,
+      gridPosition: 'md:max-lg:col-start-1 md:max-lg:row-start-3 md:max-lg:row-end-5',
     },
     {
       imageSrc: '/images/services-6.webp',
       imageAlt: 'Geometric ruler, red marker and calculations',
       serviceTitle: WorkType.PracticalWorks,
+      gridPosition: 'md:max-lg:col-start-2 md:max-lg:col-end-4 md:max-lg:row-start-3',
     },
     {
       imageSrc: '/images/services-7.webp',
       imageAlt: 'A pile of books',
       serviceTitle: WorkType.Presentations,
+      gridPosition: '',
     },
     {
       imageSrc: '/images/services-8.webp',
       imageAlt: 'Glasses on the book',
       serviceTitle: WorkType.CaseStudyReports,
+      gridPosition: 'md:max-lg:col-start-3 md:max-lg:col-end-5 md:max-lg:row-start-4',
     },
   ];
 };

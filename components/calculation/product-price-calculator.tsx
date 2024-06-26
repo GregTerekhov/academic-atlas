@@ -1,16 +1,23 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   CalculationTitle,
+  DropdownOption,
   ExecutionTime,
   ExpertiseArea,
   PrimaryButtonLabel,
   WorkType,
 } from 'types';
 
+import { useCalculation, useMenu } from 'context';
 import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
+import {
+  useButtonDisabled,
+  useDropdownRefs,
+  usePlagiarismCheck,
+  usePlagiarismInputs,
+  useSubmitData,
+} from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';
 import PlagiarismCheckbox from './plagiarism-checkbox';
@@ -19,38 +26,40 @@ import ThemeInput from './theme-input';
 import PriceResult from './price-result';
 
 export default function PriceCalculator() {
-  const [hasSubmitData, setHasSubmitData] = useState(false);
-  const [shouldPlagiarismCheck, setShouldPlagiarismCheck] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  const [rangeValue, setRangeValue] = useState(0);
+  const {
+    calculationData,
+    handleExecutionTimeChange,
+    handleExpertiseAreaChange,
+    handleWorkTypeChange,
+  } = useCalculation();
+  const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
+  const { isChecked, rangeValue, handleCheckboxChange, handleRangeChange } =
+    usePlagiarismInputs(calculationData);
+  const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
+  const { hasSubmitData, handleCostClick } = useSubmitData();
 
-  const handleCostClick = () => {
-    setHasSubmitData(true);
-  };
-  const handleRangeChange = (value: number) => {
-    setRangeValue(value);
-  };
+  const { registerDropdownRefs } = useMenu();
+  const { workTypeRef, executionTimeRef, expertiseAreaRef } = useDropdownRefs(registerDropdownRefs);
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setIsChecked(checked);
+  const selectWorkType = (option: DropdownOption) => {
+    if (typeof option === 'string') {
+      handleWorkTypeChange(option as WorkType);
+    }
+  };
+  const selectExpertiseArea = (option: DropdownOption) => {
+    if (typeof option === 'string') {
+      handleExpertiseAreaChange(option as ExpertiseArea);
+    }
+  };
+  const selectExecutionTime = (option: DropdownOption) => {
+    if (typeof option === 'string') {
+      handleExecutionTimeChange(option as ExecutionTime);
+    }
   };
 
   const workTypes = getWorkType();
-  const expertiseArea = getExpertiseArea();
+  const expertiseAreas = getExpertiseArea();
   const executionTimes = getExecutionTime();
-
-  // // Проміжковий приклад використання функції CalculatePrice
-  // const selectedWorkType = WorkType.Diplomas;
-  // const selectedExpertiseArea = ExpertiseArea.IT;
-  // const selectedExecutionTime = ExecutionTime.Urgent;
-
-  // const finalPrice = calculatePrice(
-  //   selectedWorkType,
-  //   selectedExpertiseArea,
-  //   selectedExecutionTime,
-  //   80,
-  // );
-  // console.log(`Final Price: ${finalPrice}`);
 
   return (
     <>
@@ -65,20 +74,26 @@ export default function PriceCalculator() {
             <ul className={`${shouldPlagiarismCheck ? 'md:mb-10' : 'md:mb-20'} mb-8 space-y-6`}>
               <li>
                 <DropdownUI
-                  label={WorkType.Default}
+                  ref={workTypeRef}
+                  label={calculationData.workType}
                   options={workTypes}
+                  onOptionSelect={selectWorkType}
                 />
               </li>
               <li>
                 <DropdownUI
-                  label={ExpertiseArea.Default}
-                  options={expertiseArea}
+                  ref={expertiseAreaRef}
+                  label={calculationData.expertiseArea}
+                  options={expertiseAreas}
+                  onOptionSelect={selectExpertiseArea}
                 />
               </li>
               <li>
                 <DropdownUI
-                  label={ExecutionTime.Default}
+                  ref={executionTimeRef}
+                  label={calculationData.executionTime}
                   options={executionTimes}
+                  onOptionSelect={selectExecutionTime}
                 />
               </li>
               <li>
@@ -98,6 +113,7 @@ export default function PriceCalculator() {
                   id='range'
                   value={rangeValue}
                   isChecked={isChecked}
+                  workType={calculationData.workType ?? ''}
                   onChange={handleRangeChange}
                 />
               </div>
@@ -105,11 +121,8 @@ export default function PriceCalculator() {
             <div className='md:flex md:items-center md:justify-center'>
               <PrimaryButtonUI
                 handleClick={handleCostClick}
-                isDisabled={!isChecked}
+                isDisabled={isButtonDisabled}
               >
-                {PrimaryButtonLabel.CostCalculation}
-              </PrimaryButtonUI>
-              <PrimaryButtonUI handleClick={() => setShouldPlagiarismCheck(true)}>
                 {PrimaryButtonLabel.CostCalculation}
               </PrimaryButtonUI>
             </div>

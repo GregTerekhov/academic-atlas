@@ -92,6 +92,7 @@ const config: Config = {
     '^components/(.*)$': './components/$1',
     '^context/(.*)$': './context/$1',
     '^helpers/(.*)$': './helpers/$1',
+    '^hooks/(.*)$': './hooks/$1',
     '^layout/(.*)$': './layout/$1',
     '^template/(.*)$': './template/$1',
     '^ui/(.*)$': './ui/$1',

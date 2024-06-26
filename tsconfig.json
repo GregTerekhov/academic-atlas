@@ -40,6 +40,7 @@
       "components/*": ["components/*"],
       "context/*": ["context/*"],
       "helpers/*": ["helpers/*"],
+      "hooks/*": ["hooks/*"],
       "layout/*": ["layout/*"],
       "public/*": ["public/*"],
       "template/*": ["template/*"],

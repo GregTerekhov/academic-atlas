@@ -22,6 +22,7 @@ export default function ServiceOverview() {
             alt='A sheet of paper and a magnifying glass'
             width={402}
             height={512}
+            className='h-auto w-auto md:h-[512px] md:w-[402px]'
           />
         </div>
         <ul className='space-y-6 max-md:bg-center max-md:px-2 md:w-[430px] md:space-y-8 md:bg-left lg:w-[631px] lg:space-y-12'>

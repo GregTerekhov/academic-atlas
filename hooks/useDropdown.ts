@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+
 import { useHandleClickOutside } from './useHandleClickOutside';
 
 export const useDropdown = () => {

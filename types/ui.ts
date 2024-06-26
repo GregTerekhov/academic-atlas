@@ -77,3 +77,7 @@ export enum PrimaryButtonLabel {
   ToPreviousPage = 'Перейти на попередню',
   ToMainPage = 'Перейти на головну',
 }
+
+export interface IDropdownRef {
+  resetSelectedLabel: () => void;
+}

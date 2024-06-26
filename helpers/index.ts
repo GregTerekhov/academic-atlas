@@ -1,6 +1,7 @@
 export * from './anchorLinks';
 export * from './calculatePrice';
 export * from './calculationData';
+export * from './calculationHelper';
 export * from './carouselHelper';
 export * from './cookiesHelper';
 export * from './componentsData';
@@ -8,5 +9,3 @@ export * from './layoutsData';
 export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './themeHelper';
-export { useDropdown } from './useDropdown';
-export { useHandleClickOutside } from './useHandleClickOutside';
