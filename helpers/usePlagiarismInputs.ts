@@ -7,7 +7,7 @@ import { getWorkType } from './calculationData';
 
 export const usePlagiarismInputs = (calculationData: ICalculationData) => {
   const [isChecked, setIsChecked] = useState(false);
-  const [rangeValue, setRangeValue] = useState(0);
+  const [rangeValue, setRangeValue] = useState(Uniqueness.Zero);
 
   useEffect(() => {
     const workTypeObject = getWorkType().find((work) => work.option === calculationData.workType);

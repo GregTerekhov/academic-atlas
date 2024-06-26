@@ -100,11 +100,8 @@ export const uniquenessMultiplier = (
 
 export const isCalculationDataValid = (data: ICalculationData): boolean => {
   return (
-    data.workType &&
     data.workType !== WorkType.Default &&
-    data.expertiseArea &&
     data.expertiseArea !== ExpertiseArea.Default &&
-    data.executionTime &&
     data.executionTime !== ExecutionTime.Default
   );
 };

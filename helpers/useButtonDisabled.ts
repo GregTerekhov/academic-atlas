@@ -8,23 +8,20 @@ import { getWorkType } from './calculationData';
 export const useButtonDisabled = (calculationData: ICalculationData, isChecked: boolean) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
+  const { workType, expertiseArea, executionTime } = calculationData;
+
   useEffect(() => {
-    const workTypeObject = getWorkType().find((work) => work.option === calculationData.workType);
+    const workTypeObject = getWorkType().find((work) => work.option === workType);
 
     const liftedDisableState =
       (workTypeObject &&
         workTypeObject.uniquenessPercentage === Uniqueness.Zero &&
-        calculationData.expertiseArea &&
-        calculationData.executionTime) ||
+        expertiseArea &&
+        executionTime) ||
       isChecked;
 
     setIsButtonDisabled(!liftedDisableState);
-  }, [
-    calculationData.executionTime,
-    calculationData.expertiseArea,
-    calculationData.workType,
-    isChecked,
-  ]);
+  }, [executionTime, expertiseArea, workType, isChecked]);
 
   return { isButtonDisabled };
 };

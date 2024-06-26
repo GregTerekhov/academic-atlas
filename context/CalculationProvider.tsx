@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode, ChangeEvent } from 'react';
 
-import { ExecutionTime, ExpertiseArea, ICalculationData, WorkType } from '../types';
+import { ExecutionTime, ExpertiseArea, ICalculationData, Uniqueness, WorkType } from '../types';
 
 interface ICalculationContext {
   calculationData: ICalculation;
@@ -14,6 +14,7 @@ interface ICalculationContext {
 }
 
 interface ICalculation extends ICalculationData {
+  uniqueness?: number;
   theme?: string;
 }
 
@@ -24,6 +25,7 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     workType: WorkType.Default,
     expertiseArea: ExpertiseArea.Default,
     executionTime: ExecutionTime.Default,
+    uniqueness: Uniqueness.Zero,
     theme: '',
   });
 
