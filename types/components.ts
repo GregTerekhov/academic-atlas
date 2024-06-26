@@ -50,6 +50,8 @@ export enum ExecutionTime {
   Urgent = 'Терміновий: 1-3 дні',
 }
 
+export type DropdownOption = WorkType | ExpertiseArea | ExecutionTime;
+
 export enum Uniqueness {
   Zero = 0,
   Standard = 50,
@@ -71,9 +73,11 @@ export interface ICalculationData {
   expertiseArea: ExpertiseArea;
   executionTime: ExecutionTime;
 }
-export interface IDropdownData<T> {
+export interface IDropdownData {
+  // export interface IDropdownData<T> {
   typeId: string;
-  option: T;
+  option: DropdownOption;
+  // option: T;
   uniquenessPercentage?: Uniqueness;
   basePrice?: BasePrice;
 }

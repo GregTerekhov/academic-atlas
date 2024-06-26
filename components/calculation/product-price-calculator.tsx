@@ -1,18 +1,23 @@
 'use client';
 
-import { CalculationTitle, PrimaryButtonLabel } from 'types';
-
-import { useCalculation } from 'context';
 import {
-  // calculatePrice,
-  getExecutionTime,
-  getExpertiseArea,
-  getWorkType,
+  CalculationTitle,
+  DropdownOption,
+  ExecutionTime,
+  ExpertiseArea,
+  PrimaryButtonLabel,
+  WorkType,
+} from 'types';
+
+import { useCalculation, useMenu } from 'context';
+import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
+import {
   useButtonDisabled,
+  useDropdownRefs,
   usePlagiarismCheck,
   usePlagiarismInputs,
   useSubmitData,
-} from 'helpers';
+} from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';
 import PlagiarismCheckbox from './plagiarism-checkbox';
@@ -33,22 +38,28 @@ export default function PriceCalculator() {
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
   const { hasSubmitData, handleCostClick } = useSubmitData();
 
+  const { registerDropdownRefs } = useMenu();
+  const { workTypeRef, executionTimeRef, expertiseAreaRef } = useDropdownRefs(registerDropdownRefs);
+
+  const selectWorkType = (option: DropdownOption) => {
+    if (typeof option === 'string') {
+      handleWorkTypeChange(option as WorkType);
+    }
+  };
+  const selectExpertiseArea = (option: DropdownOption) => {
+    if (typeof option === 'string') {
+      handleExpertiseAreaChange(option as ExpertiseArea);
+    }
+  };
+  const selectExecutionTime = (option: DropdownOption) => {
+    if (typeof option === 'string') {
+      handleExecutionTimeChange(option as ExecutionTime);
+    }
+  };
+
   const workTypes = getWorkType();
   const expertiseAreas = getExpertiseArea();
   const executionTimes = getExecutionTime();
-
-  // // Проміжковий приклад використання функції CalculatePrice
-  // const selectedWorkType = WorkType.Abstracts;
-  // const selectedExpertiseArea = ExpertiseArea.CultureAndArt;
-  // const selectedExecutionTime = ExecutionTime.LongTerm;
-
-  // const finalPrice = calculatePrice(
-  //   selectedWorkType,
-  //   selectedExpertiseArea,
-  //   selectedExecutionTime,
-  //   90,
-  // );
-  // console.log(`Final Price: ${finalPrice}`);
 
   return (
     <>
@@ -63,26 +74,26 @@ export default function PriceCalculator() {
             <ul className={`${shouldPlagiarismCheck ? 'md:mb-10' : 'md:mb-20'} mb-8 space-y-6`}>
               <li>
                 <DropdownUI
+                  ref={workTypeRef}
                   label={calculationData.workType}
-                  // defaultLabel={WorkType.Default}  // FIXME: --- back to default values when calculation menu (or modal) is closed
                   options={workTypes}
-                  onOptionSelect={handleWorkTypeChange}
+                  onOptionSelect={selectWorkType}
                 />
               </li>
               <li>
                 <DropdownUI
+                  ref={expertiseAreaRef}
                   label={calculationData.expertiseArea}
-                  // defaultLabel={ExpertiseArea.Default} // FIXME: --- back to default values when calculation menu (or modal) is closed
                   options={expertiseAreas}
-                  onOptionSelect={handleExpertiseAreaChange}
+                  onOptionSelect={selectExpertiseArea}
                 />
               </li>
               <li>
                 <DropdownUI
+                  ref={executionTimeRef}
                   label={calculationData.executionTime}
-                  // defaultLabel={ExecutionTime.Default} // FIXME: --- back to default values when calculation menu (or modal) is closed
                   options={executionTimes}
-                  onOptionSelect={handleExecutionTimeChange}
+                  onOptionSelect={selectExecutionTime}
                 />
               </li>
               <li>

@@ -1,32 +1,56 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { forwardRef, ReactNode, Ref, useImperativeHandle, useState } from 'react';
 
-import { ButtonType, IconName, IconSize } from 'types';
+// import { ButtonType, IconName, IconSize, IDropdownRef } from 'types';
+import { ButtonType, DropdownOption, IconName, IconSize, IDropdownRef } from 'types';
 
-import { useDropdown } from 'helpers';
+import { useDropdown } from 'hooks';
 
 import SvgIcon from './svg-icon';
 import CustomScroll from './custom-scroll';
 
-interface IOption<T> {
+interface IOption {
   typeId: string;
-  option: T;
+  option: DropdownOption;
 }
+// interface IOption<T> {
+//   typeId: string;
+//   option: T;
+// }
 
-interface IDropdownProps<T> {
-  label: T;
-  options: IOption<T>[];
-  onOptionSelect: (option: T) => void;
+interface IDropdownProps {
+  label: DropdownOption;
+  options: IOption[];
+  onOptionSelect: (option: DropdownOption) => void;
 }
+// interface IDropdownProps<T> {
+//   label: T;
+//   options: IOption<T>[];
+//   onOptionSelect: (option: T) => void;
+// }
 
-export default function Dropdown<T>({ label, options, onOptionSelect }: IDropdownProps<T>) {
-  const [selectedLabel, setSelectedLabel] = useState<T>(label);
+function Dropdown(
+  // function Dropdown<T>(
+  { label, options, onOptionSelect }: IDropdownProps,
+  // { label, options, onOptionSelect }: IDropdownProps<T>,
+  ref: Ref<IDropdownRef | null>,
+) {
+  // const [selectedLabel, setSelectedLabel] = useState<T>(label);
+  const [selectedLabel, setSelectedLabel] = useState<DropdownOption>(label);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
   const { isDropdownOpen, dropdownRef, toggleDropdown } = useDropdown();
 
-  const handleOptionClick = (option: T) => {
+  useImperativeHandle(ref, () => ({
+    resetSelectedLabel: () => {
+      setSelectedLabel(label);
+      setIsOptionSelected(false);
+    },
+  }));
+
+  // const handleOptionClick = (option: T) => {
+  const handleOptionClick = (option: DropdownOption) => {
     setSelectedLabel(option);
     setIsOptionSelected(true);
     onOptionSelect(option);
@@ -83,3 +107,5 @@ export default function Dropdown<T>({ label, options, onOptionSelect }: IDropdow
     </div>
   );
 }
+
+export default forwardRef(Dropdown);
