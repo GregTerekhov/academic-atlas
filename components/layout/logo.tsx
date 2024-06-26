@@ -40,7 +40,7 @@ export default function Logo({ position }: ISvgIconProps) {
       <SvgIconUI
         id={IconName.Logo}
         size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
-        className='fill-darkBase-light dark:fill-whiteBase lg:size-20'
+        className='fill-accentSecondary-darker dark:fill-whiteBase lg:size-20'
       />
     </Link>
   );
