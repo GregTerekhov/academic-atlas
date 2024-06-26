@@ -87,6 +87,7 @@ export interface IServiceItem {
   imageSrc: string;
   imageAlt: string;
   serviceTitle: WorkType;
+  gridPosition: string;
 }
 
 export enum StatisticCount {
