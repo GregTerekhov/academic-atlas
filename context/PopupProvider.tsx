@@ -3,7 +3,8 @@
 import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
 import { useCalculation } from './CalculationProvider';
-import { isCalculationDataValid, useHandleClickOutside } from 'helpers';
+import { isCalculationDataValid } from 'helpers';
+import { useHandleClickOutside } from 'hooks';
 
 interface IPopupContext {
   isPopupOpen: boolean;

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { ICalculationData, WorkType } from '../types';
-import { isCalculationDataValid } from './calculationHelper';
+import { isCalculationDataValid } from '../helpers/calculationHelper';
 
 export const usePlagiarismCheck = (calculationData: ICalculationData) => {
   const [shouldPlagiarismCheck, setShouldPlagiarismCheck] = useState(false);

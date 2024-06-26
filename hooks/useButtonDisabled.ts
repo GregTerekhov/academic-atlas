@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { ICalculationData, Uniqueness } from '../types';
-import { getWorkType } from './calculationData';
+import { getWorkType } from '../helpers/calculationData';
 
 export const useButtonDisabled = (calculationData: ICalculationData, isChecked: boolean) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
