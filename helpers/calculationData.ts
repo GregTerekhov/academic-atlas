@@ -7,7 +7,7 @@ import {
   WorkType,
 } from '../types';
 
-export const getWorkType = (): IDropdownData<WorkType>[] => {
+export const getWorkType = (): IDropdownData[] => {
   return [
     {
       typeId: 'teamWork1',
@@ -60,7 +60,7 @@ export const getWorkType = (): IDropdownData<WorkType>[] => {
   ];
 };
 
-export const getExpertiseArea = (): IDropdownData<ExpertiseArea>[] => {
+export const getExpertiseArea = (): IDropdownData[] => {
   return [
     {
       typeId: 'area1',
@@ -173,7 +173,7 @@ export const getExpertiseArea = (): IDropdownData<ExpertiseArea>[] => {
   ];
 };
 
-export const getExecutionTime = (): IDropdownData<ExecutionTime>[] => {
+export const getExecutionTime = (): IDropdownData[] => {
   return [
     {
       typeId: 'time1',
