@@ -77,10 +77,7 @@ export const executionTimeMultiplier = (
   }
 };
 
-export const uniquenessMultiplier = (
-  workTypeData: IDropdownData<WorkType>,
-  customUniqueness?: number,
-) => {
+export const uniquenessMultiplier = (workTypeData: IDropdownData, customUniqueness?: number) => {
   if (!customUniqueness) return CalculationMultiplier.NoMultiplier;
 
   const defaultUniqueness = workTypeData.uniquenessPercentage;
