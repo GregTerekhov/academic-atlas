@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import { hocusFunction, generalText } from './helpers';
+import { hocusFunction, commonComponents } from './helpers';
 
 const config: Config = {
   content: [
@@ -86,6 +86,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [hocusFunction, generalText],
+  plugins: [hocusFunction, commonComponents, require('@tailwindcss/typography')],
 };
 export default config;

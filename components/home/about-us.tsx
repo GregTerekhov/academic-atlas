@@ -1,4 +1,5 @@
 import { SectionTitle } from 'types';
+
 import { idValues } from 'helpers';
 import { SectionTemplate } from 'template';
 import { BenefitsList, StatisticList } from './subcomponents';

@@ -2,10 +2,10 @@
 
 import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
-import { IDropdownRef } from 'types';
+import { type IDropdownRef } from 'types';
 
 import { useCalculation } from './CalculationProvider';
-import { isCalculationDataValid } from 'helpers';
+import { checkCalculationField } from 'helpers';
 import { useHandleClickOutside } from 'hooks';
 
 interface IMenuContext {
@@ -41,9 +41,9 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
   }, [isCalcMenuOpen, isNavMenuOpen]);
 
   useEffect(() => {
-    const hasData = isCalculationDataValid(calculationData);
+    const isNotDefaultData = checkCalculationField(calculationData);
 
-    setIsValidData(hasData);
+    setIsValidData(isNotDefaultData);
   }, [calculationData]);
 
   const resetAllDropdownLabels = () => {
@@ -92,8 +92,7 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  useHandleClickOutside(menuRef, isCalcMenuOpen, closeMenu);
-  useHandleClickOutside(menuRef, isNavMenuOpen, closeMenu);
+  useHandleClickOutside(menuRef, isCalcMenuOpen || isNavMenuOpen, closeMenu);
 
   return (
     <MenuContext.Provider

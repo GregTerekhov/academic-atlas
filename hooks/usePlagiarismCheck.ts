@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import { ICalculationData, WorkType } from '../types';
-import { isCalculationDataValid } from '../helpers/calculationHelper';
+import { type ICalculationData, WorkType } from '../types';
+import { checkCalculationField } from '../helpers';
 
 export const usePlagiarismCheck = (calculationData: ICalculationData) => {
   const [shouldPlagiarismCheck, setShouldPlagiarismCheck] = useState(false);
@@ -16,9 +16,9 @@ export const usePlagiarismCheck = (calculationData: ICalculationData) => {
       WorkType.Abstracts,
     ];
 
-    const hasData = isCalculationDataValid(calculationData);
+    const isNotDefaultData = checkCalculationField(calculationData);
 
-    const showInputs = hasData && necessaryWorkType.includes(calculationData.workType);
+    const showInputs = isNotDefaultData && necessaryWorkType.includes(calculationData.workType);
 
     setShouldPlagiarismCheck(showInputs ? true : false);
   }, [calculationData]);

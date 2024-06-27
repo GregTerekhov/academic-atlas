@@ -22,7 +22,7 @@ export default function Promotions() {
         alt='Notes'
         width={216}
         height={144}
-        className='h-auto w-auto max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-auto md:w-[224px] md:-translate-y-1/2 lg:h-auto lg:w-[416px]'
+        className='size-auto max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-auto md:w-[224px] md:-translate-y-1/2 lg:h-auto lg:w-[416px]'
       />
       <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
     </SectionTemplate>

@@ -15,22 +15,34 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
   const { isPopupOpen, popupRef, togglePopup } = usePopup();
   const { toggleCalcMenu, changeMenuContent } = useMenu();
 
+  const onCostLinkClick = () => {
+    if (position === PositionInLayout.Footer) {
+      toggleCalcMenu();
+    } else {
+      changeMenuContent();
+    }
+  };
+
+  const commonButtonStyles =
+    'hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary';
+
   return (
     <>
       <button
         type={ButtonType.Button}
-        onClick={position === PositionInLayout.Footer ? toggleCalcMenu : changeMenuContent}
-        className={`${position === PositionInLayout.Footer ? 'text-sm md:text-base' : 'text-medium md:text-big'} hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary max-lg:block`}
+        onClick={onCostLinkClick}
+        className={`${position === PositionInLayout.Footer ? 'text-sm md:text-base' : 'text-medium md:text-big'} ${commonButtonStyles} max-lg:block`}
       >
         {MenuLinks.Cost}
       </button>
       <button
         type={ButtonType.Button}
         onClick={togglePopup}
-        className='hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary lg:block lg:text-big'
+        className={`${commonButtonStyles} lg:block lg:text-big`}
       >
         {MenuLinks.Cost}
       </button>
+      {/* check the need to use a template for the menu */}
       <div className='hidden lg:block'>
         <ModalTemplate
           closeModal={togglePopup}

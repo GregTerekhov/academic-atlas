@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { Paths } from 'types';
+import { Paths, PrimaryButtonLabel } from 'types';
 
 import { PrimaryButtonUI } from 'ui';
 
@@ -11,13 +11,15 @@ const NotFoundNavigation = () => {
   const router = useRouter();
 
   return (
-    <ul className='mt-10 gap-x-20  max-md:space-y-6 md:flex md:justify-center md:gap-x-8 lg:gap-x-20'>
+    <ul className='mt-10 gap-x-20 max-md:space-y-6 md:flex md:justify-center md:gap-x-8 lg:gap-x-20'>
       <li>
-        <PrimaryButtonUI handleClick={() => router.back()}>Перейти на попередню</PrimaryButtonUI>
+        <PrimaryButtonUI handleClick={() => router.back()}>
+          {PrimaryButtonLabel.ToPreviousPage}
+        </PrimaryButtonUI>
       </li>
       <li>
         <Link href={Paths.Main}>
-          <PrimaryButtonUI>Перейти на головну</PrimaryButtonUI>
+          <PrimaryButtonUI>{PrimaryButtonLabel.ToMainPage}</PrimaryButtonUI>
         </Link>
       </li>
     </ul>

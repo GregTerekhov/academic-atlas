@@ -1,8 +1,8 @@
 import {
+  type ICalculationData,
+  type IDropdownData,
   ExecutionTime,
   ExpertiseArea,
-  ICalculationData,
-  IDropdownData,
   Uniqueness,
   WorkType,
 } from '../types';
@@ -77,28 +77,38 @@ export const executionTimeMultiplier = (
   }
 };
 
-export const uniquenessMultiplier = (workTypeData: IDropdownData, customUniqueness?: number) => {
+export const uniquenessMultiplier = (
+  workTypeData: IDropdownData,
+  customUniqueness?: number,
+): CalculationMultiplier => {
   if (!customUniqueness) return CalculationMultiplier.NoMultiplier;
 
-  const defaultUniqueness = workTypeData.uniquenessPercentage;
+  const { uniquenessPercentage: defaultUniqueness } = workTypeData;
 
-  switch (true) {
-    case defaultUniqueness === Uniqueness.Higher && customUniqueness > Uniqueness.Higher:
-      return CalculationMultiplier.IncreasedStandard;
-    case defaultUniqueness === Uniqueness.Standard && customUniqueness - Uniqueness.Standard >= 30:
-      return CalculationMultiplier.IncreasedStandard;
-    case defaultUniqueness === Uniqueness.Standard && customUniqueness - Uniqueness.Standard >= 10:
-      return CalculationMultiplier.Standard;
-
-    default:
-      return CalculationMultiplier.NoMultiplier;
+  if (defaultUniqueness === Uniqueness.Higher && customUniqueness > Uniqueness.Higher) {
+    return CalculationMultiplier.IncreasedStandard;
   }
+
+  if (defaultUniqueness === Uniqueness.Standard) {
+    if (customUniqueness - Uniqueness.Standard >= 30) {
+      return CalculationMultiplier.IncreasedStandard;
+    }
+    if (customUniqueness - Uniqueness.Standard >= 10) {
+      return CalculationMultiplier.Standard;
+    }
+  }
+
+  return CalculationMultiplier.NoMultiplier;
 };
 
-export const isCalculationDataValid = (data: ICalculationData): boolean => {
+export const checkCalculationField = (data: ICalculationData): boolean => {
   return (
     data.workType !== WorkType.Default &&
     data.expertiseArea !== ExpertiseArea.Default &&
     data.executionTime !== ExecutionTime.Default
   );
+};
+
+export const couldChooseUniqueness = (workType: WorkType): boolean => {
+  return [WorkType.Abstracts, WorkType.BachelorTheses, WorkType.Diplomas].includes(workType);
 };

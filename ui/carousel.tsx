@@ -3,7 +3,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 
-import { Breakpoints, Slide } from 'types';
+import { type Breakpoints, type Slide } from 'types';
 
 import { CarouselFeedback } from 'components';
 

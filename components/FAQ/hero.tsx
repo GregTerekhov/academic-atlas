@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import { SectionTemplate } from 'template';
+
 import { CtaText, SectionTitle } from 'types';
+import { SectionTemplate } from 'template';
 
 export default function Hero() {
   return (

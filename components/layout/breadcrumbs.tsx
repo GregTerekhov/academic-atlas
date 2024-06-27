@@ -29,7 +29,7 @@ export default function Breadcrumbs() {
 
   return (
     <Container>
-      <div className=' absolute left-6 top-2 z-10 flex items-center gap-x-2 md:left-10 md:top-4 lg:left-20 lg:top-6'>
+      <div className='absolute left-6 top-2 z-10 flex items-center gap-x-2 md:left-10 md:top-4 lg:left-20 lg:top-6'>
         <Link
           href={Paths.Main}
           className='generalText'

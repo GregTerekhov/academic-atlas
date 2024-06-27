@@ -2,7 +2,13 @@
 
 import { createContext, useContext, useState, ReactNode, ChangeEvent } from 'react';
 
-import { ExecutionTime, ExpertiseArea, ICalculationData, Uniqueness, WorkType } from '../types';
+import {
+  type ICalculationData,
+  ExecutionTime,
+  ExpertiseArea,
+  Uniqueness,
+  WorkType,
+} from '../types';
 
 interface ICalculationContext {
   calculationData: ICalculation;

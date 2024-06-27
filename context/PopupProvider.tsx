@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
 import { useCalculation } from './CalculationProvider';
-import { isCalculationDataValid } from 'helpers';
+import { checkCalculationField } from 'helpers';
 import { useHandleClickOutside } from 'hooks';
 
 interface IPopupContext {
@@ -23,9 +23,9 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
   const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const hasData = isCalculationDataValid(calculationData);
+    const isNotDefaultData = checkCalculationField(calculationData);
 
-    setIsValidData(hasData);
+    setIsValidData(isNotDefaultData);
   }, [calculationData]);
 
   const togglePopup = () => {

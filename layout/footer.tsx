@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Paths, PositionInLayout } from 'types';
+import { MenuLinks, Paths, PositionInLayout } from 'types';
 
 import { Contacts, FooterMenu, Logo } from 'components';
 import Container from './container';
@@ -27,7 +27,7 @@ export default function Footer() {
           href={Paths.LegalInfo}
           className='mx-auto block text-center text-xs text-whiteBase hocus:text-accentSecondary md:text-sm lg:text-base'
         >
-          Політіка конфіденційності та умови використання
+          {MenuLinks.LegalInfo} та умови використання
         </Link>
       </Container>
     </footer>

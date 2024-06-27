@@ -1,8 +1,9 @@
 'use client';
 
-import { IconName, IconSize, ButtonType, AriaLabelTrigger } from 'types';
+import { IconName, IconSize, ButtonType } from 'types';
 
 import { useMenu } from 'context';
+import { getAriaLabelSwitcher } from 'helpers';
 
 import { MobileMenuTemplate } from 'template';
 import { SvgIconUI } from 'ui';
@@ -29,19 +30,7 @@ export default function ToggleMenuTrigger() {
     }
   };
 
-  const getAriaLabel = (): AriaLabelTrigger => {
-    switch (true) {
-      case isNavMenuOpen:
-        return AriaLabelTrigger.CloseNavigation;
-      case isCalcMenuOpen:
-        return AriaLabelTrigger.CloseCalculation;
-
-      default:
-        return AriaLabelTrigger.Default;
-    }
-  };
-
-  const dynamicAriaLabel = getAriaLabel();
+  const dynamicAriaLabel = getAriaLabelSwitcher(isNavMenuOpen, isCalcMenuOpen);
 
   return (
     <>
@@ -54,7 +43,7 @@ export default function ToggleMenuTrigger() {
         <SvgIconUI
           id={isNavMenuOpen || isCalcMenuOpen ? IconName.Close : IconName.Burger}
           size={{ width: IconSize.L, height: IconSize.L }}
-          className='dark:fille-whiteBase fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase'
+          className='fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase'
         />
       </button>
 

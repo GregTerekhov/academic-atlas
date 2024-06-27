@@ -23,3 +23,9 @@ export enum QuestionAnswer {
   Team9 = 'Так, ви можете надати всі необхідні матеріали та рекомендації, що допоможе нам забезпечити точне виконання роботи.',
   Team10 = 'По завершенню виконання – менеджер звяжеться. Після оплати залишку – відправляємо матеріали замовлення в повному обсязі на Email або в Telegram.',
 }
+
+export interface IQuestions {
+  id: string;
+  title: QuestionTitle;
+  answer: QuestionAnswer;
+}

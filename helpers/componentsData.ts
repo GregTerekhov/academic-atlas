@@ -1,16 +1,20 @@
 import {
+  type IBenefitsItem,
+  type IOrderStep,
+  type IServiceItem,
+  type Slide,
+  type IPartnershipBenefits,
+  type IWorkflow,
+  type IRequirements,
+  type IAccession,
+  type IAboutUs,
+  type IQuestions,
+  type IHeroGrid,
   BenefitLabel,
-  IBenefitsItem,
   IconName,
-  IOrderStep,
-  IServiceItem,
-  Slide,
+  QuestionAnswer,
+  QuestionTitle,
   WorkType,
-  IPartnershipBenefits,
-  IWorkflow,
-  IRequirements,
-  IAccession,
-  IAboutUs,
 } from '../types';
 
 export const getBenefits = (): IBenefitsItem[] => {
@@ -280,6 +284,102 @@ export const getAccession = (): IAccession[] => {
     {
       step: '3',
       desc: 'Станьте частиною команди виконавців та допоможіть нашим клієнтам досягти цілей разом з нами',
+    },
+  ];
+};
+
+export const getFAQQuestions = (): IQuestions[] => {
+  return [
+    {
+      id: 'TeamPaper 1',
+      title: QuestionTitle.Team1,
+      answer: QuestionAnswer.Team1,
+    },
+    {
+      id: 'TeamPaper 2',
+      title: QuestionTitle.Team2,
+      answer: QuestionAnswer.Team2,
+    },
+    {
+      id: 'TeamPaper 3',
+      title: QuestionTitle.Team3,
+      answer: QuestionAnswer.Team3,
+    },
+    {
+      id: 'TeamPaper 4',
+      title: QuestionTitle.Team4,
+      answer: QuestionAnswer.Team4,
+    },
+    {
+      id: 'TeamPaper 5',
+      title: QuestionTitle.Team5,
+      answer: QuestionAnswer.Team5,
+    },
+    {
+      id: 'TeamPaper 6',
+      title: QuestionTitle.Team6,
+      answer: QuestionAnswer.Team6,
+    },
+    {
+      id: 'TeamPaper 7',
+      title: QuestionTitle.Team7,
+      answer: QuestionAnswer.Team7,
+    },
+    {
+      id: 'TeamPaper 8',
+      title: QuestionTitle.Team8,
+      answer: QuestionAnswer.Team8,
+    },
+    {
+      id: 'TeamPaper 9',
+      title: QuestionTitle.Team9,
+      answer: QuestionAnswer.Team9,
+    },
+    {
+      id: 'TeamPaper 10',
+      title: QuestionTitle.Team10,
+      answer: QuestionAnswer.Team10,
+    },
+  ];
+};
+
+export const getHeroGrid = (): IHeroGrid[] => {
+  return [
+    {
+      id: 'top-left',
+      className:
+        'overflow-hidden rounded-bl-[30px] rounded-tr-[30px] bg-whiteBase/20 lg:rounded-bl-[60px] lg:rounded-tr-[60px]',
+      imageSrc: '/images/top-left-matrix-grid.webp',
+      imageAlt: 'A person is typing on a laptop',
+    },
+    {
+      id: 'top-right',
+      className: 'col-start-3 rounded-t-[30px] bg-accentSecondary-darker/20 lg:rounded-t-[60px]',
+    },
+    {
+      id: 'middle-left',
+      className: 'row-start-2 rounded-ss-[50px] bg-accentSecondary/20 lg:rounded-ss-[100px]',
+    },
+    {
+      id: 'middle-center',
+      className: 'bg-whiteBase/20',
+      imageSrc: '/images/center-matrix-grid.webp',
+      imageAlt: 'A woman searches the bookshelves',
+    },
+    {
+      id: 'middle-right',
+      className: 'rounded-ee-[50px] bg-accentPrimary/20 lg:rounded-ee-[100px]',
+    },
+    {
+      id: 'bottom-left',
+      className: 'rounded-b-[30px] bg-whiteBase/20 lg:rounded-b-[60px]',
+    },
+    {
+      id: 'bottom-right',
+      className:
+        'col-start-3 overflow-hidden rounded-bl-[30px] rounded-tr-[30px] bg-whiteBase/20  lg:rounded-bl-[60px] lg:rounded-tr-[60px]',
+      imageSrc: '/images/right-bottom-matrix-grid.webp',
+      imageAlt: 'A guy smiles with his arms crossed',
     },
   ];
 };

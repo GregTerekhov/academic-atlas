@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 
 import { Uniqueness, WorkType } from 'types';
+import { couldChooseUniqueness } from 'helpers';
+
 import RangePercents from './range-percents';
 
 interface IRangeInputProps {
@@ -14,29 +16,25 @@ interface IRangeInputProps {
 }
 
 export default function RangeInput({ id, isChecked, value, workType, onChange }: IRangeInputProps) {
-  const shouldChooseHigherUniqueness = [
-    WorkType.Abstracts,
-    WorkType.BachelorTheses,
-    WorkType.Diplomas,
-  ].includes(workType);
+  const couldChooseHigherUniqueness = couldChooseUniqueness(workType);
 
   useEffect(() => {
     if (isChecked) {
       if (value < Uniqueness.Standard && workType === WorkType.TeamPapers) {
         onChange(Uniqueness.Standard);
-      } else if (value < Uniqueness.Higher && shouldChooseHigherUniqueness) {
+      } else if (value < Uniqueness.Higher && couldChooseHigherUniqueness) {
         onChange(Uniqueness.Higher);
       }
     } else {
       onChange(Uniqueness.Zero);
     }
-  }, [isChecked, onChange, shouldChooseHigherUniqueness, value, workType]);
+  }, [isChecked, onChange, couldChooseHigherUniqueness, value, workType]);
 
-  const addTextMinimalValue = () => {
+  const addTextMinimalValue = (): JSX.Element | null => {
     const isShowMinimal =
       isChecked &&
       (value === Uniqueness.Standard ||
-        (shouldChooseHigherUniqueness && value === Uniqueness.Higher));
+        (couldChooseHigherUniqueness && value === Uniqueness.Higher));
     return isShowMinimal ? <span>(мінімальний)</span> : null;
   };
 
@@ -58,26 +56,13 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
         min={0}
         max={100}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={`range-input ${!isChecked ? 'cursor-not-allowed' : ''} mb-2 block`}
+        className={`range-input h-3 appearance-none rounded-[10px] outline-none ${!isChecked ? 'cursor-not-allowed' : ''} mb-2 block`}
+        style={{
+          background: `linear-gradient(to right, #f8a401 ${value}%, rgba(47, 47, 47, 0.5) ${value}%)`,
+        }}
       />
       <RangePercents value={value} />
       <style jsx>{`
-        .range-input {
-          height: 12px;
-          background: linear-gradient(to right, #f8a401, #f8a401) no-repeat;
-          border-radius: 10px;
-          outline: none;
-          -webkit-appearance: none;
-          background-size:
-            ${(value / 100) * 100}% 100%,
-            100% 100%;
-          background-image: linear-gradient(to right, #f8a401, #f8a401),
-            linear-gradient(
-              to right,
-              rgba(47, 47, 47, 0.5) ${(value / 100) * 100}%,
-              rgba(47, 47, 47, 0.5) ${(value / 100) * 100}%
-            );
-        }
         .range-input::-webkit-slider-thumb {
           width: 32px;
           height: 32px;

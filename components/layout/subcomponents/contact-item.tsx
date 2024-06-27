@@ -1,6 +1,8 @@
 import { type IContactLink, PositionInLayout } from 'types';
 
 import { useMenu } from 'context';
+import { getAriaLabelContacts } from 'helpers';
+
 import { SvgIconUI } from 'ui';
 
 interface IContactItem extends IContactLink {
@@ -21,15 +23,8 @@ export default function ContactItem({
   const handleClick = () => {
     if (isNavMenuOpen) toggleNavMenu();
   };
-  const getAriaLabel = (href: string, label: string) => {
-    if (href.startsWith('tel:')) {
-      return `Call ${label}`;
-    } else if (href.startsWith('mailto:')) {
-      return `Email ${label}`;
-    } else {
-      return `Open link to ${label}`;
-    }
-  };
+
+  const ariaLabel = getAriaLabelContacts(href, label);
 
   return (
     <li>
@@ -37,7 +32,7 @@ export default function ContactItem({
         href={href}
         target='_blank'
         rel='noopener noreferrer'
-        aria-label={getAriaLabel(href, label)}
+        aria-label={ariaLabel}
         className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
         onClick={handleClick}
       >
