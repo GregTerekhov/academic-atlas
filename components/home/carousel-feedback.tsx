@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Slide } from 'types';
+import { type Slide } from 'types';
 import { getCarouselFeedbackStyles } from 'helpers';
 
 import { RatingIcons } from './subcomponents';

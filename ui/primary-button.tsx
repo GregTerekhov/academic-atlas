@@ -25,7 +25,7 @@ export default function PrimaryButton({
     <button
       type={type}
       onClick={handleClick}
-      className={`${width} ${hasIcon ? 'gap-x-4 md:mx-auto' : 'gap-x-0'} flex h-16 items-center justify-center rounded-[20px] text-big font-bold tracking-[0.5px] max-md:w-full lg:text-xl ${disabledStyle}`} //FIXME: --- delete tracking style
+      className={`${width} ${hasIcon ? 'gap-x-4 md:mx-auto' : 'gap-x-0'} flex h-16 items-center justify-center rounded-[20px] text-big font-bold max-md:w-full lg:text-xl ${disabledStyle}`}
       disabled={isDisabled}
     >
       {children}

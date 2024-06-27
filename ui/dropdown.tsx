@@ -87,7 +87,7 @@ function Dropdown(
           <CustomScroll className='max-h-[248px]'>
             {' '}
             {/* FIXME: --- fix height*/}
-            <ul className='w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm dark:bg-background-gradient md:text-base lg:text-medium'>
+            <ul className='w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm dark:bg-background-gradient max-md:leading-130 md:text-base lg:text-medium'>
               {Array.isArray(options) &&
                 options.map(({ typeId, option }) => (
                   <li key={typeId}>

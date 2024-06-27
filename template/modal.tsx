@@ -20,7 +20,7 @@ export default function Modal({ closeModal, children, modalRef, isOpen }: IModal
         >
           <button
             type={ButtonType.Button}
-            className='group absolute right-6 top-6 h-[30px] w-[30px]'
+            className='group absolute right-6 top-6 size-[30px]'
             onClick={closeModal}
           >
             <SvgIconUI

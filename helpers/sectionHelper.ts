@@ -18,7 +18,7 @@ export const getSectionClasses = (title: SectionTitle) => {
   const backgroundVariants = getBackgrounds();
 
   return backgroundVariants[title]
-    ? `${backgroundVariants[title]} relative w-full max-w-[4000px] mx-auto bg-cover bg-center bg-no-repeat py-20 text-whiteBase before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentSecondary/10 before:content-[""] lg:py-[120px]`
+    ? `${backgroundVariants[title]} backgroundSection before:bg-accentSecondary/10`
     : 'bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]';
 };
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-import { IDropdownRef } from '../types';
+import { type IDropdownRef } from '../types';
 
 export const useDropdownRefs = (
   registerDropdownRefs: (refs: Record<string, IDropdownRef | null>) => void,

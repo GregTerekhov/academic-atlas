@@ -1,8 +1,8 @@
 import {
+  type IDropdownData,
   BasePrice,
   ExecutionTime,
   ExpertiseArea,
-  IDropdownData,
   Uniqueness,
   WorkType,
 } from '../types';

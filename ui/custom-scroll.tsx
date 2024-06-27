@@ -15,7 +15,7 @@ function CustomScroll({ children, className }: ICustomScroll) {
         orientation='vertical'
         className='!right-4 !top-4 touch-none select-none bg-darkBase/75 p-0.5 transition-colors data-[orientation=vertical]:h-full data-[orientation=vertical]:w-4'
       >
-        <ScrollArea.Thumb className="relative before:absolute before:h-full before:w-3 before:rounded-lg before:bg-disabled-foreground before:content-[''] " />
+        <ScrollArea.Thumb className="relative before:absolute before:h-full before:w-3 before:rounded-lg before:bg-disabled-foreground before:content-['']" />
       </ScrollArea.Scrollbar>
     </ScrollArea.Root>
   );

@@ -1,4 +1,5 @@
 import { getAboutUsData } from 'helpers';
+
 import { Container } from 'layout';
 import { AboutUsItem } from './subcomponents';
 

@@ -1,8 +1,8 @@
 import {
+  type IContactLink,
+  type ILinks,
   IconName,
   IconSize,
-  IContactLink,
-  ILinks,
   MenuLinks,
   Paths,
   PositionInLayout,
@@ -72,7 +72,7 @@ export const getFooterLinks = (): ILinks[] => {
   ];
 };
 
-export const getHeaderLinks = (): ILinks[] => {
+const getHeaderLinks = (): ILinks[] => {
   return [
     {
       path: Paths.Main,
@@ -107,7 +107,7 @@ export const getHeaderLinks = (): ILinks[] => {
 
 const headerLinks = getHeaderLinks();
 
-export const getAdaptedLinks = (isDesktop: boolean | undefined) => {
+export const getAdaptedLinks = (isDesktop: boolean | undefined): ILinks[] => {
   return isDesktop
     ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
     : headerLinks;

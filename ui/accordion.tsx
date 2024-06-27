@@ -1,8 +1,10 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import SvgIcon from './svg-icon';
+
 import { IconName, IconSize } from 'types';
+
+import SvgIcon from './svg-icon';
 
 export default function Accordion({
   children,
@@ -61,7 +63,7 @@ export default function Accordion({
       <div
         ref={contentRef}
         style={{ maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px' }}
-        className={`overflow-hidden px-9 transition-[max-height] duration-500 ease-out md:px-14 lg:px-16`}
+        className={`overflow-hidden px-9 transition-[max-height] duration-300 ease-out md:px-14 lg:px-16`}
       >
         <p className='generalText'>{children}</p>
       </div>
