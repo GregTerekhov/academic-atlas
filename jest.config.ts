@@ -95,6 +95,7 @@ const config: Config = {
     '^hooks/(.*)$': './hooks/$1',
     '^layout/(.*)$': './layout/$1',
     '^template/(.*)$': './template/$1',
+    '^types/(.*)$': './types/$1',
     '^ui/(.*)$': './ui/$1',
   },
 

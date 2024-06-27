@@ -9,6 +9,8 @@ import { IconName, IconSize, MenuLinks, Paths } from 'types';
 import { Container } from 'layout';
 import { SvgIconUI } from 'ui';
 
+const validPaths = [Paths.FAQ, Paths.LegalInfo, Paths.Partnership];
+
 export default function Breadcrumbs() {
   const [determineCurrentPath, setDetermineCurrentPath] = useState('');
   const currentPath = usePathname();
@@ -16,7 +18,7 @@ export default function Breadcrumbs() {
   useEffect(() => {
     const pathMenuLinkMap = new Map<string, MenuLinks>(
       Object.entries(Paths)
-        .filter(([, value]) => !value.includes('#') && value !== Paths.Main)
+        .filter(([, value]) => !value.includes('#') && validPaths.includes(value))
         .map(([key, value]) => [value, MenuLinks[key as keyof typeof MenuLinks]]),
     );
 
@@ -26,6 +28,10 @@ export default function Breadcrumbs() {
       setDetermineCurrentPath('');
     }
   }, [currentPath]);
+
+  // if (!validPaths.includes(currentPath)) {
+  //   return null
+  // } // change to appropriate type
 
   return (
     <Container>
