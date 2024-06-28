@@ -126,3 +126,19 @@ export const couldChooseUniqueness = (workType: WorkType): boolean => {
     WorkType.TeamPapers,
   ].includes(workType);
 };
+
+export const getMinimalUniqueness = (workType: WorkType): number => {
+  switch (workType) {
+    case WorkType.TeamPapers:
+      return Uniqueness.TeamPapers;
+    case WorkType.Diplomas:
+    case WorkType.BachelorTheses:
+      return Uniqueness.Standard;
+    case WorkType.MasterTheses:
+      return Uniqueness.Higher;
+    case WorkType.Abstracts:
+      return Uniqueness.Highest;
+    default:
+      return Uniqueness.Zero;
+  }
+};
