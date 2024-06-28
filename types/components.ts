@@ -47,7 +47,7 @@ export interface ISlide {
   memberImage: string;
   memberAlt: string;
   memberRating: number;
-  memberFeedbackDate?: Date;
+  memberFeedbackDate?: Date; //FIXME: --- add date or delete this point
 }
 
 export interface IOrderStep {
