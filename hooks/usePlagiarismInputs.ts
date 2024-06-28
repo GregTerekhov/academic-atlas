@@ -5,44 +5,36 @@ import { useEffect, useState } from 'react';
 import { type ICalculationData, Uniqueness } from '../types';
 import { getWorkType } from '../helpers';
 
-export const usePlagiarismInputs = (calculationData: ICalculationData) => {
-  const [isChecked, setIsChecked] = useState(false);
+export const usePlagiarismInputs = (calculationData: ICalculationData, isChecked: boolean) => {
   const [rangeValue, setRangeValue] = useState(Uniqueness.Zero);
 
   const { workType } = calculationData;
 
   useEffect(() => {
     const workTypeObject = getWorkType().find((work) => work.option === workType);
-    let newRangeValue: number = Uniqueness.Zero;
 
-    if (isChecked && workTypeObject) {
-      if (workTypeObject.uniquenessPercentage === Uniqueness.TeamPapers) {
-        newRangeValue = Uniqueness.TeamPapers;
-      } else if (workTypeObject.uniquenessPercentage === Uniqueness.Standard) {
-        newRangeValue = Uniqueness.Standard;
-      } else if (workTypeObject.uniquenessPercentage === Uniqueness.Higher) {
-        newRangeValue = Uniqueness.Higher;
-      } else {
-        newRangeValue = Uniqueness.Highest;
-      }
-      setRangeValue(newRangeValue);
-    } else {
-      setRangeValue(Uniqueness.Zero);
-    }
+    const uniquenessMapping = {
+      [Uniqueness.TeamPapers]: Uniqueness.TeamPapers,
+      [Uniqueness.Standard]: Uniqueness.Standard,
+      [Uniqueness.Higher]: Uniqueness.Higher,
+      [Uniqueness.Highest]: Uniqueness.Highest,
+    };
+
+    const newRangeValue =
+      isChecked && workTypeObject && workTypeObject.uniquenessPercentage
+        ? uniquenessMapping[workTypeObject.uniquenessPercentage] ?? Uniqueness.Zero
+        : Uniqueness.Zero;
+
+    setRangeValue(newRangeValue);
   }, [workType, isChecked]);
 
   const handleRangeChange = (value: number) => {
     setRangeValue(value);
   };
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
-
   return {
     isChecked,
     rangeValue,
     handleRangeChange,
-    handleCheckboxChange,
   };
 };

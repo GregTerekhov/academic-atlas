@@ -12,6 +12,7 @@ import {
 
 interface ICalculationContext {
   calculationData: ICalculation;
+  isChecked: boolean;
   hasSubmitData: boolean;
   handleWorkTypeChange: (option: WorkType) => void;
   handleExpertiseAreaChange: (option: ExpertiseArea) => void;
@@ -19,6 +20,7 @@ interface ICalculationContext {
   handleThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
   resetCalculation: () => void;
   handleCostClick: () => void;
+  handleCheckboxChange: (checked: boolean) => void;
 }
 
 interface ICalculation extends ICalculationData {
@@ -30,6 +32,7 @@ const CalculationContext = createContext<ICalculationContext | undefined>(undefi
 
 export const CalculationProvider = ({ children }: { children: ReactNode }) => {
   const [hasSubmitData, setHasSubmitData] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [calculationData, setCalculationData] = useState<ICalculation>({
     workType: WorkType.Default,
     expertiseArea: ExpertiseArea.Default,
@@ -68,10 +71,15 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     setHasSubmitData(true);
   };
 
+  const handleCheckboxChange = (checked: boolean) => {
+    setIsChecked(checked);
+  };
+
   return (
     <CalculationContext.Provider
       value={{
         hasSubmitData,
+        isChecked,
         calculationData,
         handleWorkTypeChange,
         handleExpertiseAreaChange,
@@ -79,6 +87,7 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
         handleThemeChange,
         resetCalculation,
         handleCostClick,
+        handleCheckboxChange,
       }}
     >
       {children}

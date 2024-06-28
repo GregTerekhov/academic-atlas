@@ -162,7 +162,7 @@ export const getServices = (): IServiceItem[] => {
       imageSrc: '/images/services-6.webp',
       imageAlt: 'Geometric ruler, red marker and calculations',
       serviceTitle: WorkType.PracticalWorks,
-      gridPosition: 'md:col-start-1 md:col-end-3 md:row-start-3',
+      gridPosition: 'md:col-start-1 md:row-start-3 md:row-end-5',
     },
     {
       id: 'presentations',
