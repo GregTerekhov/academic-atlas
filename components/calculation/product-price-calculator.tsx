@@ -21,16 +21,17 @@ import PriceResult from './price-result';
 
 export default function PriceCalculator() {
   const {
+    isChecked,
     hasSubmitData,
     calculationData,
     handleExecutionTimeChange,
     handleExpertiseAreaChange,
     handleWorkTypeChange,
     handleCostClick,
+    handleCheckboxChange,
   } = useCalculation();
   const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
-  const { isChecked, rangeValue, handleCheckboxChange, handleRangeChange } =
-    usePlagiarismInputs(calculationData);
+  const { rangeValue, handleRangeChange } = usePlagiarismInputs(calculationData, isChecked);
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
 
   const { registerDropdownRefs } = useMenu();

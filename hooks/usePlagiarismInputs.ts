@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import { type ICalculationData, Uniqueness } from '../types';
 import { getWorkType } from '../helpers';
 
-export const usePlagiarismInputs = (calculationData: ICalculationData) => {
-  const [isChecked, setIsChecked] = useState(false);
+export const usePlagiarismInputs = (calculationData: ICalculationData, isChecked: boolean) => {
   const [rangeValue, setRangeValue] = useState(Uniqueness.Zero);
 
   const { workType } = calculationData;
@@ -33,14 +32,9 @@ export const usePlagiarismInputs = (calculationData: ICalculationData) => {
     setRangeValue(value);
   };
 
-  const handleCheckboxChange = (checked: boolean) => {
-    setIsChecked(checked);
-  };
-
   return {
     isChecked,
     rangeValue,
     handleRangeChange,
-    handleCheckboxChange,
   };
 };
