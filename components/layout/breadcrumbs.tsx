@@ -29,9 +29,9 @@ export default function Breadcrumbs() {
     }
   }, [currentPath]);
 
-  // if (!validPaths.includes(currentPath)) {
-  //   return null
-  // } // change to appropriate type
+  if (!validPaths.includes(currentPath as Paths)) {
+    return null;
+  }
 
   return (
     <Container>
