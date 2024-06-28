@@ -16,7 +16,6 @@ export const usePlagiarismInputs = (calculationData: ICalculationData) => {
     let newRangeValue: number = Uniqueness.Zero;
 
     if (isChecked && workTypeObject) {
-      console.log('workTypeObject.uniquenessPercentage', workTypeObject.uniquenessPercentage);
       if (workTypeObject.uniquenessPercentage === Uniqueness.TeamPapers) {
         newRangeValue = Uniqueness.TeamPapers;
       } else if (workTypeObject.uniquenessPercentage === Uniqueness.Standard) {
