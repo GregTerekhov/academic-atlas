@@ -41,7 +41,7 @@ export interface IBenefitsItem {
   label: BenefitLabel;
 }
 
-export interface Slide {
+export interface ISlide {
   memberName: string;
   memberFeedback: string;
   memberImage: string;
