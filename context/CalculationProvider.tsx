@@ -12,11 +12,13 @@ import {
 
 interface ICalculationContext {
   calculationData: ICalculation;
+  hasSubmitData: boolean;
   handleWorkTypeChange: (option: WorkType) => void;
   handleExpertiseAreaChange: (option: ExpertiseArea) => void;
   handleExecutionTimeChange: (option: ExecutionTime) => void;
   handleThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
   resetCalculation: () => void;
+  handleCostClick: () => void;
 }
 
 interface ICalculation extends ICalculationData {
@@ -27,6 +29,7 @@ interface ICalculation extends ICalculationData {
 const CalculationContext = createContext<ICalculationContext | undefined>(undefined);
 
 export const CalculationProvider = ({ children }: { children: ReactNode }) => {
+  const [hasSubmitData, setHasSubmitData] = useState(false);
   const [calculationData, setCalculationData] = useState<ICalculation>({
     workType: WorkType.Default,
     expertiseArea: ExpertiseArea.Default,
@@ -61,15 +64,21 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const handleCostClick = () => {
+    setHasSubmitData(true);
+  };
+
   return (
     <CalculationContext.Provider
       value={{
+        hasSubmitData,
         calculationData,
         handleWorkTypeChange,
         handleExpertiseAreaChange,
         handleExecutionTimeChange,
         handleThemeChange,
         resetCalculation,
+        handleCostClick,
       }}
     >
       {children}

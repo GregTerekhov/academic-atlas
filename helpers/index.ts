@@ -10,3 +10,4 @@ export * from './layoutsHelper';
 export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './themeHelper';
+export * from './uiHelper';

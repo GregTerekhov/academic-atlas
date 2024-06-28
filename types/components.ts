@@ -7,6 +7,7 @@ export enum ThemeVariants {
 }
 
 export interface IServiceItem {
+  id?: string;
   imageSrc: string;
   imageAlt: string;
   serviceTitle: WorkType;
@@ -41,13 +42,13 @@ export interface IBenefitsItem {
   label: BenefitLabel;
 }
 
-export interface Slide {
+export interface ISlide {
   memberName: string;
   memberFeedback: string;
   memberImage: string;
   memberAlt: string;
   memberRating: number;
-  memberFeedbackDate?: Date;
+  memberFeedbackDate?: Date; //FIXME: --- add date or delete this point
 }
 
 export interface IOrderStep {

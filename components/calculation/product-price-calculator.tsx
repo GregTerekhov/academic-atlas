@@ -11,13 +11,7 @@ import {
 
 import { useCalculation, useMenu } from 'context';
 import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
-import {
-  useButtonDisabled,
-  useDropdownRefs,
-  usePlagiarismCheck,
-  usePlagiarismInputs,
-  useSubmitData,
-} from 'hooks';
+import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck, usePlagiarismInputs } from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';
 import PlagiarismCheckbox from './plagiarism-checkbox';
@@ -27,16 +21,17 @@ import PriceResult from './price-result';
 
 export default function PriceCalculator() {
   const {
+    hasSubmitData,
     calculationData,
     handleExecutionTimeChange,
     handleExpertiseAreaChange,
     handleWorkTypeChange,
+    handleCostClick,
   } = useCalculation();
   const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
   const { isChecked, rangeValue, handleCheckboxChange, handleRangeChange } =
     usePlagiarismInputs(calculationData);
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
-  const { hasSubmitData, handleCostClick } = useSubmitData();
 
   const { registerDropdownRefs } = useMenu();
   const { workTypeRef, executionTimeRef, expertiseAreaRef } = useDropdownRefs(registerDropdownRefs);
@@ -108,7 +103,6 @@ export default function PriceCalculator() {
                   checked={isChecked}
                   onChange={handleCheckboxChange}
                 />
-
                 <RangeInput
                   id='range'
                   value={rangeValue}

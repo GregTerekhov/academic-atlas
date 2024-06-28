@@ -89,11 +89,20 @@ export const uniquenessMultiplier = (
     return CalculationMultiplier.IncreasedStandard;
   }
 
-  if (defaultUniqueness === Uniqueness.Standard) {
-    if (customUniqueness - Uniqueness.Standard >= 30) {
+  if (defaultUniqueness === Uniqueness.TeamPapers) {
+    if (customUniqueness - Uniqueness.TeamPapers >= 40) {
       return CalculationMultiplier.IncreasedStandard;
     }
-    if (customUniqueness - Uniqueness.Standard >= 10) {
+    if (customUniqueness - Uniqueness.TeamPapers >= 20) {
+      return CalculationMultiplier.Standard;
+    }
+  }
+
+  if (defaultUniqueness === Uniqueness.Standard) {
+    if (customUniqueness - Uniqueness.Standard >= 40) {
+      return CalculationMultiplier.IncreasedStandard;
+    }
+    if (customUniqueness - Uniqueness.Standard >= 30) {
       return CalculationMultiplier.Standard;
     }
   }
@@ -110,5 +119,11 @@ export const checkCalculationField = (data: ICalculationData): boolean => {
 };
 
 export const couldChooseUniqueness = (workType: WorkType): boolean => {
-  return [WorkType.Abstracts, WorkType.BachelorTheses, WorkType.Diplomas].includes(workType);
+  return [
+    WorkType.BachelorTheses,
+    WorkType.MasterTheses,
+    WorkType.Diplomas,
+    WorkType.Abstracts,
+    WorkType.TeamPapers,
+  ].includes(workType);
 };
