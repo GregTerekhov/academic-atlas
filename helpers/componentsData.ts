@@ -116,54 +116,63 @@ export const getOrderSteps = (): IOrderStep[] => {
 export const getServices = (): IServiceItem[] => {
   return [
     {
+      id: 'diplomas',
       imageSrc: '/images/services-1.webp',
       imageAlt: 'Three notebooks',
       serviceTitle: WorkType.Diplomas,
       gridPosition: 'md:col-start-1 md:col-end-3 md:row-start-1 md:row-end-3',
     },
     {
+      id: 'teamPapers',
       imageSrc: '/images/services-2.webp',
       imageAlt: 'Three notebooks, a pen and glasses',
       serviceTitle: WorkType.TeamPapers,
       gridPosition: 'md:col-start-3 md:col-end-5 md:row-start-1',
     },
     {
+      id: 'bachelorTheses',
       imageSrc: '/images/services-3.webp',
       imageAlt: 'Open book and notebook',
       serviceTitle: WorkType.BachelorTheses,
       gridPosition: '',
     },
     {
+      id: 'masterTheses',
       imageSrc: '/images/services-7.webp',
       imageAlt: 'A pile of books',
       serviceTitle: WorkType.MasterTheses,
       gridPosition: '',
     },
     {
+      id: 'testPapers',
       imageSrc: '/images/services-4.webp',
       imageAlt: 'A person draws diagrams',
       serviceTitle: WorkType.TestPapers,
       gridPosition: 'md:col-start-4 md:col-end-5 md:row-start-2 md:row-end-4',
     },
     {
+      id: 'abstracts',
       imageSrc: '/images/services-5.webp',
       imageAlt: 'A person moves a pen across the text of a book',
       serviceTitle: WorkType.Abstracts,
       gridPosition: '',
     },
     {
+      id: 'practicalWorks',
       imageSrc: '/images/services-6.webp',
       imageAlt: 'Geometric ruler, red marker and calculations',
       serviceTitle: WorkType.PracticalWorks,
       gridPosition: 'md:col-start-1 md:col-end-3 md:row-start-3',
     },
     {
+      id: 'presentations',
       imageSrc: '/images/services-7.webp',
       imageAlt: 'A pile of books',
       serviceTitle: WorkType.Presentations,
       gridPosition: '',
     },
     {
+      id: 'caseStudyReports',
       imageSrc: '/images/services-8.webp',
       imageAlt: 'Glasses on the book',
       serviceTitle: WorkType.CaseStudyReports,

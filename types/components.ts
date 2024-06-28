@@ -7,6 +7,7 @@ export enum ThemeVariants {
 }
 
 export interface IServiceItem {
+  id?: string;
   imageSrc: string;
   imageAlt: string;
   serviceTitle: WorkType;
