@@ -20,21 +20,25 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
 
   useEffect(() => {
     if (isChecked) {
-      if (value < Uniqueness.Standard && workType === WorkType.TeamPapers) {
+      if (value < Uniqueness.TeamPapers && workType === WorkType.TeamPapers) {
+        onChange(Uniqueness.TeamPapers);
+      } else if (
+        value < Uniqueness.Standard &&
+        (workType === WorkType.Diplomas || workType === WorkType.BachelorTheses)
+      ) {
         onChange(Uniqueness.Standard);
-      } else if (value < Uniqueness.Higher && couldChooseHigherUniqueness) {
+      } else if (value < Uniqueness.Higher && workType === WorkType.MasterTheses) {
         onChange(Uniqueness.Higher);
+      } else if (value < Uniqueness.Highest && workType === WorkType.Abstracts) {
+        onChange(Uniqueness.Highest);
       }
     } else {
       onChange(Uniqueness.Zero);
     }
-  }, [isChecked, onChange, couldChooseHigherUniqueness, value, workType]);
+  }, [isChecked, onChange, value, workType]);
 
   const addTextMinimalValue = (): JSX.Element | null => {
-    const isShowMinimal =
-      isChecked &&
-      (value === Uniqueness.Standard ||
-        (couldChooseHigherUniqueness && value === Uniqueness.Higher));
+    const isShowMinimal = isChecked && couldChooseHigherUniqueness;
     return isShowMinimal ? <span>(мінімальний)</span> : null;
   };
 

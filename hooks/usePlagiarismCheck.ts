@@ -13,6 +13,7 @@ export const usePlagiarismCheck = (calculationData: ICalculationData) => {
       WorkType.Diplomas,
       WorkType.TeamPapers,
       WorkType.BachelorTheses,
+      WorkType.MasterTheses,
       WorkType.Abstracts,
     ];
 

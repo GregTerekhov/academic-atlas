@@ -1,8 +1,9 @@
 export enum WorkType {
   Default = 'Оберіть тип роботи',
-  Diplomas = 'Дипломні роботи',
+  Diplomas = 'Дипломні роботи для технікумів',
   TeamPapers = 'Курсові роботи та проєкти',
-  BachelorTheses = 'Бакалаврські та магістерські роботи',
+  BachelorTheses = 'Бакалаврські роботи',
+  MasterTheses = 'Магістерські роботи',
   TestPapers = 'Контрольні роботи',
   Abstracts = 'Наукові статті та тези',
   PracticalWorks = 'Практичні та лабораторні роботи',
@@ -52,14 +53,16 @@ export type DropdownOption = WorkType | ExpertiseArea | ExecutionTime;
 
 export enum Uniqueness {
   Zero = 0,
+  TeamPapers = 40,
   Standard = 50,
   Higher = 70,
+  Highest = 100,
 }
 
 export enum BasePrice {
   Diplomas = 7000,
   TeamPapers = 2800,
-  BachelorTheses = 8000,
+  BachelorAndMasterTheses = 8000,
   TestPapersAndAbstracts = 400,
   PracticalWorks = 150,
   Presentations = 500,
