@@ -12,9 +12,8 @@ export default function LegalInfo() {
       titleStyle='text-center'
       hasCtaText
     >
-      {/* TOFIX: по каким-то причинам нельзя подвинуть числовой маркер списка от самого текста. выглядит всё слитно. плохо читается*/}
       <article className="prose-sm md:prose-base lg:prose-xl prose-p:text-pretty prose-a:text-accentPrimary prose-a:hover:underline  prose-ol:text-pretty  prose-ol:[counter-reset:section]  prose-li:[counter-increment:section] prose-li:marker:[content:counters(section,'.')]">
-        <article className='mt-8 space-y-8'>
+        <div>
           <p>Останнє оновлення 07.06.2024 року.</p>
           <p>
             Прохання уважно прочитати Політику конфіденційності (далі – «Політика конфіденційності»)
@@ -28,8 +27,8 @@ export default function LegalInfo() {
             могли зв’язатися з Вами, підтвердити замовлення і доставити замовлений товар. Ваші
             персональні дані ми не передаємо третім особам і захищаємо їх конфіденційність.
           </p>
-        </article>
-        <ol className=''>
+        </div>
+        <ol>
           {Array.isArray(legalInfoArticle) &&
             legalInfoArticle.map(({ id, article, paragraph }) => (
               <li key={id}>
