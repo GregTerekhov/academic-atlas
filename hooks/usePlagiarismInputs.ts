@@ -28,13 +28,13 @@ export const usePlagiarismInputs = (calculationData: ICalculationData, isChecked
     setRangeValue(newRangeValue);
   }, [workType, isChecked]);
 
-  const handleRangeChange = (value: number) => {
-    setRangeValue(value);
-  };
+  // const handleRangeChange = (value: number) => {
+  //   setRangeValue(value);
+  // };
 
   return {
     isChecked,
     rangeValue,
-    handleRangeChange,
+    // handleRangeChange,
   };
 };

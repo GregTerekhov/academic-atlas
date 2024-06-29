@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
-
-import { Uniqueness, WorkType } from 'types';
+import { WorkType } from 'types';
 import { couldChooseUniqueness, getMinimalUniqueness } from 'helpers';
 
 import RangePercents from './range-percents';
+import { useEffect, useState } from 'react';
 
 interface IRangeInputProps {
   id: string;
@@ -16,22 +15,22 @@ interface IRangeInputProps {
 }
 
 export default function RangeInput({ id, isChecked, value, workType, onChange }: IRangeInputProps) {
+  const [showMinimalText, setShowMinimalText] = useState(false);
   const couldChooseHigherUniqueness = couldChooseUniqueness(workType);
+  const minimalUniqueness = getMinimalUniqueness(workType);
 
   useEffect(() => {
-    if (isChecked) {
-      const minimalUniqueness = getMinimalUniqueness(workType);
-      if (value < minimalUniqueness) {
-        onChange(minimalUniqueness);
-      }
-    } else {
-      onChange(Uniqueness.Zero);
-    }
-  }, [isChecked, onChange, value, workType]);
+    setShowMinimalText(isChecked && couldChooseHigherUniqueness);
+  }, [isChecked, couldChooseHigherUniqueness]);
 
   const addTextMinimalValue = (): JSX.Element | null => {
-    const isShowMinimal = isChecked && couldChooseHigherUniqueness;
-    return isShowMinimal ? <span>(мінімальний)</span> : null;
+    return showMinimalText ? <span>(мінімальний)</span> : null;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    onChange(newValue);
+    setShowMinimalText(newValue <= minimalUniqueness);
   };
 
   return (
@@ -51,7 +50,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
         value={value}
         min={0}
         max={100}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={handleChange}
         className={`range-input h-3 appearance-none rounded-[10px] outline-none ${!isChecked ? 'cursor-not-allowed' : ''} mb-2 block`}
         style={{
           background: `linear-gradient(to right, #f8a401 ${value}%, rgba(47, 47, 47, 0.5) ${value}%)`,

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode, ChangeEvent } from 'react';
+import { createContext, useContext, useState, ReactNode, ChangeEvent, useEffect } from 'react';
 
 import {
   type ICalculationData,
@@ -9,18 +9,22 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
+import { getWorkType } from 'helpers';
 
 interface ICalculationContext {
   calculationData: ICalculation;
   isChecked: boolean;
+  rangeValue: Uniqueness;
   hasSubmitData: boolean;
   handleWorkTypeChange: (option: WorkType) => void;
   handleExpertiseAreaChange: (option: ExpertiseArea) => void;
   handleExecutionTimeChange: (option: ExecutionTime) => void;
   handleThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
   resetCalculation: () => void;
-  handleCostClick: () => void;
+  handleShowCostResult: () => void;
+  handleResetCostResult: () => void;
   handleCheckboxChange: (checked: boolean) => void;
+  handleRangeChange: (value: number) => void;
 }
 
 interface ICalculation extends ICalculationData {
@@ -32,6 +36,7 @@ const CalculationContext = createContext<ICalculationContext | undefined>(undefi
 
 export const CalculationProvider = ({ children }: { children: ReactNode }) => {
   const [hasSubmitData, setHasSubmitData] = useState(false);
+  const [rangeValue, setRangeValue] = useState(Uniqueness.Zero);
   const [isChecked, setIsChecked] = useState(false);
   const [calculationData, setCalculationData] = useState<ICalculation>({
     workType: WorkType.Default,
@@ -40,6 +45,24 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     uniqueness: Uniqueness.Zero,
     theme: '',
   });
+
+  useEffect(() => {
+    const workTypeObject = getWorkType().find((work) => work.option === calculationData.workType);
+
+    const uniquenessMapping = {
+      [Uniqueness.TeamPapers]: Uniqueness.TeamPapers,
+      [Uniqueness.Standard]: Uniqueness.Standard,
+      [Uniqueness.Higher]: Uniqueness.Higher,
+      [Uniqueness.Highest]: Uniqueness.Highest,
+    };
+
+    const newRangeValue =
+      isChecked && workTypeObject && workTypeObject.uniquenessPercentage
+        ? uniquenessMapping[workTypeObject.uniquenessPercentage] ?? Uniqueness.Zero
+        : Uniqueness.Zero;
+
+    setRangeValue(newRangeValue);
+  }, [calculationData.workType, isChecked]);
 
   const handleWorkTypeChange = (option: WorkType) => {
     setCalculationData((prevData) => ({ ...prevData, workType: option }));
@@ -58,6 +81,11 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     setCalculationData((prevData) => ({ ...prevData, theme: newTheme }));
   };
 
+  const handleRangeChange = (value: number) => {
+    setCalculationData((prevData) => ({ ...prevData, uniqueness: value }));
+    setRangeValue(value);
+  };
+
   const resetCalculation = () => {
     setCalculationData({
       workType: WorkType.Default,
@@ -67,8 +95,12 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const handleCostClick = () => {
+  const handleShowCostResult = () => {
     setHasSubmitData(true);
+  };
+
+  const handleResetCostResult = () => {
+    setHasSubmitData(false);
   };
 
   const handleCheckboxChange = (checked: boolean) => {
@@ -80,14 +112,17 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
       value={{
         hasSubmitData,
         isChecked,
+        rangeValue,
         calculationData,
         handleWorkTypeChange,
         handleExpertiseAreaChange,
         handleExecutionTimeChange,
         handleThemeChange,
         resetCalculation,
-        handleCostClick,
+        handleShowCostResult,
+        handleResetCostResult,
         handleCheckboxChange,
+        handleRangeChange,
       }}
     >
       {children}

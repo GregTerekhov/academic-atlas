@@ -1,8 +1,11 @@
 'use client';
 
-import { ButtonType, MenuLinks, PositionInLayout } from 'types';
+import { createRef } from 'react';
+
+import { ButtonType, MenuLinks, PopupID, PositionInLayout } from 'types';
 
 import { useMenu, usePopup } from 'context';
+import { useHandleClickOutside } from 'hooks';
 
 import { ModalTemplate } from 'template';
 import PriceCalculator from '../../calculation/product-price-calculator';
@@ -12,8 +15,17 @@ interface IMenuTriggerProps {
 }
 
 export default function CalculationModalTrigger({ position }: IMenuTriggerProps) {
-  const { isPopupOpen, popupRef, togglePopup } = usePopup();
+  const { isPopupOpen, popupRefs, closePopup, togglePopup } = usePopup();
   const { toggleCalcMenu, changeMenuContent } = useMenu();
+  const popupId = PopupID.FooterMenu;
+
+  if (!popupRefs.current[popupId]) {
+    popupRefs.current[popupId] = createRef();
+  }
+
+  useHandleClickOutside(popupRefs.current[popupId], isPopupOpen(popupId), () =>
+    closePopup(popupId),
+  );
 
   const onCostLinkClick = () => {
     if (position === PositionInLayout.Footer) {
@@ -37,7 +49,7 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
       </button>
       <button
         type={ButtonType.Button}
-        onClick={togglePopup}
+        onClick={() => togglePopup(popupId)}
         className={`${commonButtonStyles} lg:block lg:text-big`}
       >
         {MenuLinks.Cost}
@@ -45,9 +57,10 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
       {/* check the need to use a template for the menu */}
       <div className='hidden lg:block'>
         <ModalTemplate
-          closeModal={togglePopup}
-          modalRef={popupRef}
-          isOpen={isPopupOpen}
+          id={popupId}
+          closeModal={() => togglePopup(popupId)}
+          modalRef={popupRefs.current[popupId]}
+          isOpen={() => isPopupOpen(popupId)}
         >
           <PriceCalculator />
         </ModalTemplate>
