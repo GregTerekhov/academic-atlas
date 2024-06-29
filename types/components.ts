@@ -104,3 +104,16 @@ export interface IHeroGrid {
   imageSrc?: string;
   imageAlt?: string;
 }
+
+export interface ILegalInfoArticle {
+  id: number;
+  article: string;
+  paragraph: {
+    one: string;
+    two?: string;
+    three?: string;
+    four?: string;
+    five?: string;
+    six?: string;
+  };
+}
