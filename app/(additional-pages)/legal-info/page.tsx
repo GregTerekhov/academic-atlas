@@ -1,6 +1,6 @@
-import { getLegalInfoArticles } from 'helpers/componentsData';
-import { SectionTemplate } from 'template/index';
-import { SectionTitle } from 'types/layoutTypes';
+import { getLegalInfoArticles } from 'helpers';
+import { SectionTemplate } from 'template';
+import { SectionTitle } from 'types';
 
 export default function LegalInfo() {
   const legalInfoArticle = getLegalInfoArticles();
@@ -10,10 +10,11 @@ export default function LegalInfo() {
       isBigTitle
       title={SectionTitle.LegalInfo}
       titleStyle='text-center'
+      hasCtaText
     >
       {/* TOFIX: по каким-то причинам нельзя подвинуть числовой маркер списка от самого текста. выглядит всё слитно. плохо читается*/}
-      <div className="pro prose prose-xl max-w-none prose-p:generalText prose-li:generalText prose-p:m-0 prose-p:text-whiteBase prose-ol:list-inside prose-ol:p-0 prose-ol:[counter-reset:section] prose-li:p-0 prose-li:text-whiteBase prose-li:[counter-increment:section] prose-li:marker:text-whiteBase prose-li:marker:[content:counters(section,'.')]">
-        <div className='mt-8 space-y-8'>
+      <article className="prose-sm md:prose-base lg:prose-xl prose-p:text-pretty prose-a:text-accentPrimary prose-a:hover:underline  prose-ol:text-pretty  prose-ol:[counter-reset:section]  prose-li:[counter-increment:section] prose-li:marker:[content:counters(section,'.')]">
+        <article className='mt-8 space-y-8'>
           <p>Останнє оновлення 07.06.2024 року.</p>
           <p>
             Прохання уважно прочитати Політику конфіденційності (далі – «Політика конфіденційності»)
@@ -27,26 +28,31 @@ export default function LegalInfo() {
             могли зв’язатися з Вами, підтвердити замовлення і доставити замовлений товар. Ваші
             персональні дані ми не передаємо третім особам і захищаємо їх конфіденційність.
           </p>
-        </div>
-        <ol className='mt-8 space-y-8'>
+        </article>
+        <ol className=''>
           {Array.isArray(legalInfoArticle) &&
-            legalInfoArticle.map(({ id, article, paragraph }) => {
-              return (
-                <li key={id}>
-                  {article}
-                  <ol>
-                    <li>{paragraph.one}</li>
-                    {paragraph.two && <li>{paragraph.two}</li>}
-                    {paragraph.three && <li>{paragraph.three}</li>}
-                    {paragraph.four && <li>{paragraph.four}</li>}
-                    {paragraph.five && <li>{paragraph.five}</li>}
-                    {paragraph.six && <li>{paragraph.six}</li>}
-                  </ol>
-                </li>
-              );
-            })}
+            legalInfoArticle.map(({ id, article, paragraph }) => (
+              <li key={id}>
+                {article}
+                <ol>
+                  {Object.entries(paragraph).map(([key, value]) => (
+                    <li key={key}>
+                      {value.includes('AcademicAtlas@ukr.net') ? (
+                        <>
+                          {value.split('AcademicAtlas@ukr.net')[0]}
+                          <a href='mailto:AcademicAtlas@ukr.net'>AcademicAtlas@ukr.net</a>
+                          {value.split('AcademicAtlas@ukr.net')[1]}
+                        </>
+                      ) : (
+                        value
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </li>
+            ))}
         </ol>
-      </div>
+      </article>
     </SectionTemplate>
   );
 }
