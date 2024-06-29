@@ -33,7 +33,6 @@ export default function PriceCalculator() {
     handleRangeChange,
   } = useCalculation();
   const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
-  // const { rangeValue } = usePlagiarismInputs(calculationData, isChecked);
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
 
   const { registerDropdownRefs } = useMenu();
