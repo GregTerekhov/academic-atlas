@@ -17,7 +17,7 @@ export default function OverviewItem({ iconName, step }: Readonly<IOverviewItem>
         <SvgIconUI
           id={iconName}
           size={{ width: IconSize.L, height: IconSize.L }}
-          className='lg:size-16'
+          className='fill-accentSecondary-darker lg:size-16'
         />
       </div>
       <p className='generalText'>{step}</p>
