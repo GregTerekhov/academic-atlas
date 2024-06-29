@@ -17,7 +17,7 @@ export default function PartnershipBenefitsItem({
       <SvgIconUI
         id={iconId}
         size={{ width: IconSize.L, height: IconSize.L }}
-        className='mx-auto md:size-14 lg:size-20'
+        className='mx-auto fill-accentSecondary-darker md:size-14 lg:size-20'
       />
       <div className='text-start md:text-center'>
         <h3 className='mx-auto mb-2 text-medium font-bold md:mb-4 max-lg:md:w-[110px] lg:text-xl'>
