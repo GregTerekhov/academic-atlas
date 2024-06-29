@@ -19,6 +19,11 @@ export enum PositionInLayout {
   Footer = 'footer',
 }
 
+export enum PopupID {
+  CostSection = 'cost-section',
+  FooterMenu = 'footer-menu-link',
+}
+
 export enum Paths {
   Main = '/',
   Services = '/#services',

@@ -1,18 +1,19 @@
 import { RefObject } from 'react';
 
-import { ButtonType, IconName, IconSize } from 'types';
+import { ButtonType, IconName, IconSize, PopupID } from 'types';
 import { SvgIconUI } from 'ui';
 
 interface IModalProps {
   children: React.ReactNode;
   closeModal: () => void;
   modalRef: RefObject<HTMLDivElement>;
-  isOpen: boolean;
+  isOpen: (id: string) => boolean;
+  id: PopupID;
 }
 
-export default function Modal({ closeModal, children, modalRef, isOpen }: IModalProps) {
+export default function Modal({ closeModal, id, children, modalRef, isOpen }: IModalProps) {
   return (
-    isOpen && (
+    isOpen(id) && (
       <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-auto bg-darkBase/75 transition-colors'>
         <div
           ref={modalRef}

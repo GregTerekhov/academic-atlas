@@ -30,7 +30,8 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { calculationData, resetCalculation } = useCalculation();
+  const { calculationData, resetCalculation, handleResetCostResult, handleCheckboxChange } =
+    useCalculation();
 
   useEffect(() => {
     if (isNavMenuOpen || isCalcMenuOpen) {
@@ -64,8 +65,10 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
   const toggleCalcMenu = () => {
     setIsCalcMenuOpen(!isCalcMenuOpen);
+    handleResetCostResult();
     showCalculationMenu && setShowCalculationMenu(false);
     resetAllDropdownLabels();
+    handleCheckboxChange(false);
 
     if (isValidData) {
       resetCalculation();
@@ -76,7 +79,9 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
     setIsCalcMenuOpen(false);
     setIsNavMenuOpen(false);
     setShowCalculationMenu(false);
+    handleResetCostResult();
     resetAllDropdownLabels();
+    handleCheckboxChange(false);
 
     if (isValidData) {
       resetCalculation();

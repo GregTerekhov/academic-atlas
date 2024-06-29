@@ -11,7 +11,7 @@ import {
 
 import { useCalculation, useMenu } from 'context';
 import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
-import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck, usePlagiarismInputs } from 'hooks';
+import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck } from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';
 import PlagiarismCheckbox from './plagiarism-checkbox';
@@ -22,16 +22,17 @@ import PriceResult from './price-result';
 export default function PriceCalculator() {
   const {
     isChecked,
+    rangeValue,
     hasSubmitData,
     calculationData,
     handleExecutionTimeChange,
     handleExpertiseAreaChange,
     handleWorkTypeChange,
-    handleCostClick,
+    handleShowCostResult,
     handleCheckboxChange,
+    handleRangeChange,
   } = useCalculation();
   const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
-  const { rangeValue, handleRangeChange } = usePlagiarismInputs(calculationData, isChecked);
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
 
   const { registerDropdownRefs } = useMenu();
@@ -115,7 +116,7 @@ export default function PriceCalculator() {
             )}
             <div className='md:flex md:items-center md:justify-center'>
               <PrimaryButtonUI
-                handleClick={handleCostClick}
+                handleClick={handleShowCostResult}
                 isDisabled={isButtonDisabled}
               >
                 {PrimaryButtonLabel.CostCalculation}

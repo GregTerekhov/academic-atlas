@@ -1,26 +1,35 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useRef,
+  ReactNode,
+  useEffect,
+  useCallback,
+} from 'react';
 
 import { useCalculation } from './CalculationProvider';
 import { checkCalculationField } from 'helpers';
-import { useHandleClickOutside } from 'hooks';
 
 interface IPopupContext {
-  isPopupOpen: boolean;
-  togglePopup: () => void;
-  popupRef: React.RefObject<HTMLDivElement>;
+  isPopupOpen: (id: string) => boolean;
+  togglePopup: (id: string) => void;
+  closePopup: (id: string) => void;
+  popupRefs: React.MutableRefObject<{ [key: string]: React.RefObject<HTMLDivElement> }>;
 }
 
 const PopupContext = createContext<IPopupContext | undefined>(undefined);
 
 export const PopupProvider = ({ children }: { children: ReactNode }) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [openPopups, setOpenPopups] = useState<{ [key: string]: boolean }>({});
   const [isValidData, setIsValidData] = useState(false);
 
-  const { calculationData, resetCalculation } = useCalculation();
+  const { calculationData, resetCalculation, handleResetCostResult, handleCheckboxChange } =
+    useCalculation();
 
-  const popupRef = useRef<HTMLDivElement>(null);
+  const popupRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>({});
 
   useEffect(() => {
     const isNotDefaultData = checkCalculationField(calculationData);
@@ -28,31 +37,49 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
     setIsValidData(isNotDefaultData);
   }, [calculationData]);
 
-  const togglePopup = () => {
-    setIsPopupOpen(!isPopupOpen);
+  const togglePopup = useCallback(
+    (id: string) => {
+      setOpenPopups((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
 
-    if (!isPopupOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
+      const isPopupOpen = !openPopups[id];
+
+      if (!isPopupOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+        handleResetCostResult();
+        handleCheckboxChange(false);
+        if (isValidData) {
+          resetCalculation();
+        }
+      }
+    },
+    [handleCheckboxChange, handleResetCostResult, isValidData, openPopups, resetCalculation],
+  );
+
+  const closePopup = useCallback(
+    (id: string) => {
+      handleResetCostResult();
+      handleCheckboxChange(false);
+      setOpenPopups((prev) => ({
+        ...prev,
+        [id]: false,
+      }));
       document.body.style.overflow = 'auto';
       if (isValidData) {
         resetCalculation();
       }
-    }
-  };
+    },
+    [handleCheckboxChange, handleResetCostResult, isValidData, resetCalculation],
+  );
 
-  const closePopup = () => {
-    setIsPopupOpen(false);
-    document.body.style.overflow = 'auto';
-    if (isValidData) {
-      resetCalculation();
-    }
-  };
-
-  useHandleClickOutside(popupRef, isPopupOpen, closePopup);
+  const isPopupOpen = useCallback((id: string) => !!openPopups[id], [openPopups]);
 
   return (
-    <PopupContext.Provider value={{ isPopupOpen, togglePopup, popupRef }}>
+    <PopupContext.Provider value={{ isPopupOpen, togglePopup, closePopup, popupRefs }}>
       {children}
     </PopupContext.Provider>
   );
