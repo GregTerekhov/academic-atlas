@@ -29,9 +29,7 @@ export default function PlagiarismCheckbox({
         className='hidden'
       />
       <span
-        className={`inline-block h-10 w-10 rounded border border-accentPrimary-darker ${
-          checked ? 'bg-accent-gradient' : 'bg-transparent'
-        } flex items-center justify-center gap-x-4`}
+        className={`${checked ? 'bg-accent-gradient' : 'bg-transparent'} flex size-10 items-center justify-center gap-x-4 rounded border border-accentPrimary-darker`}
       >
         {checked && (
           <SvgIconUI

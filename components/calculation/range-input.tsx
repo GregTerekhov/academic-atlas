@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { Uniqueness, WorkType } from 'types';
-import { couldChooseUniqueness } from 'helpers';
+import { couldChooseUniqueness, getMinimalUniqueness } from 'helpers';
 
 import RangePercents from './range-percents';
 
@@ -20,21 +20,17 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
 
   useEffect(() => {
     if (isChecked) {
-      if (value < Uniqueness.Standard && workType === WorkType.TeamPapers) {
-        onChange(Uniqueness.Standard);
-      } else if (value < Uniqueness.Higher && couldChooseHigherUniqueness) {
-        onChange(Uniqueness.Higher);
+      const minimalUniqueness = getMinimalUniqueness(workType);
+      if (value < minimalUniqueness) {
+        onChange(minimalUniqueness);
       }
     } else {
       onChange(Uniqueness.Zero);
     }
-  }, [isChecked, onChange, couldChooseHigherUniqueness, value, workType]);
+  }, [isChecked, onChange, value, workType]);
 
   const addTextMinimalValue = (): JSX.Element | null => {
-    const isShowMinimal =
-      isChecked &&
-      (value === Uniqueness.Standard ||
-        (couldChooseHigherUniqueness && value === Uniqueness.Higher));
+    const isShowMinimal = isChecked && couldChooseHigherUniqueness;
     return isShowMinimal ? <span>(мінімальний)</span> : null;
   };
 

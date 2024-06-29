@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { type Slide } from 'types';
+import { type ISlide } from 'types';
 import { getCarouselFeedbackStyles } from 'helpers';
 
 import { RatingIcons } from './subcomponents';
@@ -12,7 +12,7 @@ interface ICarouselFeedbackProps<T> {
 
 const TOTAL_ICONS = 5;
 
-export default function CarouselFeedback<T extends Slide>({
+export default function CarouselFeedback<T extends ISlide>({
   slide,
   isActive,
 }: ICarouselFeedbackProps<T>) {

@@ -85,18 +85,26 @@ export const uniquenessMultiplier = (
 
   const { uniquenessPercentage: defaultUniqueness } = workTypeData;
 
-  if (defaultUniqueness === Uniqueness.Higher && customUniqueness > Uniqueness.Higher) {
-    return CalculationMultiplier.IncreasedStandard;
+  if (defaultUniqueness === undefined) {
+    return CalculationMultiplier.NoMultiplier;
   }
 
-  if (defaultUniqueness === Uniqueness.Standard) {
-    if (customUniqueness - Uniqueness.Standard >= 30) {
-      return CalculationMultiplier.IncreasedStandard;
-    }
-    if (customUniqueness - Uniqueness.Standard >= 10) {
-      return CalculationMultiplier.Standard;
-    }
-  }
+  const thresholds: { [key in Uniqueness]: { increased: number; standard: number } } = {
+    [Uniqueness.Zero]: { increased: 0, standard: 0 },
+    [Uniqueness.TeamPapers]: { increased: 40, standard: 20 },
+    [Uniqueness.Standard]: { increased: 40, standard: 30 },
+    [Uniqueness.Higher]: { increased: 0, standard: 0 },
+    [Uniqueness.Highest]: { increased: 0, standard: 0 },
+  };
+
+  const threshold = thresholds[defaultUniqueness];
+
+  if (!threshold) return CalculationMultiplier.NoMultiplier;
+
+  const difference = customUniqueness - defaultUniqueness;
+
+  if (difference >= threshold.increased) return CalculationMultiplier.IncreasedStandard;
+  if (difference >= threshold.standard) return CalculationMultiplier.Standard;
 
   return CalculationMultiplier.NoMultiplier;
 };
@@ -110,5 +118,27 @@ export const checkCalculationField = (data: ICalculationData): boolean => {
 };
 
 export const couldChooseUniqueness = (workType: WorkType): boolean => {
-  return [WorkType.Abstracts, WorkType.BachelorTheses, WorkType.Diplomas].includes(workType);
+  return [
+    WorkType.BachelorTheses,
+    WorkType.MasterTheses,
+    WorkType.Diplomas,
+    WorkType.Abstracts,
+    WorkType.TeamPapers,
+  ].includes(workType);
+};
+
+export const getMinimalUniqueness = (workType: WorkType): number => {
+  switch (workType) {
+    case WorkType.TeamPapers:
+      return Uniqueness.TeamPapers;
+    case WorkType.Diplomas:
+    case WorkType.BachelorTheses:
+      return Uniqueness.Standard;
+    case WorkType.MasterTheses:
+      return Uniqueness.Higher;
+    case WorkType.Abstracts:
+      return Uniqueness.Highest;
+    default:
+      return Uniqueness.Zero;
+  }
 };
