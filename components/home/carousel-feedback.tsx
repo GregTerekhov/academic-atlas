@@ -26,6 +26,7 @@ export default function CarouselFeedback<T extends ISlide>({
     ));
   };
 
+  const { imageAlt, imageSrc, title, description, memberRating } = slide;
   const { slideClass, imageContainerClass, imageClass, nameClass, feedbackClass } =
     getCarouselFeedbackStyles(isActive);
 
@@ -35,18 +36,17 @@ export default function CarouselFeedback<T extends ISlide>({
         className={`${imageContainerClass} mx-auto overflow-hidden rounded-full border-[3px] border-solid border-accentPrimary-darker`}
       >
         <Image
-          src={slide.memberImage}
-          alt={slide.memberAlt}
+          src={imageSrc}
+          alt={imageAlt}
           width={120}
           height={120}
           className={imageClass}
+          priority={false}
         />
       </div>
-      <p className={`${nameClass} text-center`}>{slide.memberName}</p>
-      <p className={`${feedbackClass} mb-4`}>{slide.memberFeedback}</p>
-      <div className='flex items-center justify-center gap-x-4'>
-        {getRatingIcons(slide.memberRating)}
-      </div>
+      <p className={`${nameClass} text-center`}>{title}</p>
+      <p className={`${feedbackClass} mb-4`}>{description}</p>
+      <div className='flex items-center justify-center gap-x-4'>{getRatingIcons(memberRating)}</div>
     </div>
   );
 }

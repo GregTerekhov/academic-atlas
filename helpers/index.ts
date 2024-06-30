@@ -7,6 +7,7 @@ export * from './cookiesHelper';
 export * from './componentsData';
 export * from './layoutsData';
 export * from './layoutsHelper';
+export * from './mapArray';
 export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './themeHelper';

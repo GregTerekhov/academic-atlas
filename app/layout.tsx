@@ -22,11 +22,11 @@ export const metadata: Metadata = {
 
 const THEME_STORAGE_KEY = 'theme-preference';
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+interface IRootLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function RootLayout({ children }: Readonly<IRootLayoutProps>) {
   const theme = cookies().get(THEME_STORAGE_KEY)?.value;
 
   return (

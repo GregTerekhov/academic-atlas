@@ -16,69 +16,82 @@ import {
   QuestionTitle,
   WorkType,
   ILegalInfoArticle,
+  StatisticCount,
+  StatisticLabel,
+  IStatisticItem,
 } from '../types';
 
 export const getBenefits = (): IBenefitsItem[] => {
   return [
     {
-      icon: IconName.Benefits1,
+      id: 'uniqueness-item',
+      iconName: IconName.Benefits1,
       label: BenefitLabel.Uniqueness,
     },
     {
-      icon: IconName.Benefits2,
+      id: 'guarantee-item',
+      iconName: IconName.Benefits2,
       label: BenefitLabel.Guarantee,
     },
     {
-      icon: IconName.Benefits3,
+      id: 'corrections-item',
+      iconName: IconName.Benefits3,
       label: BenefitLabel.Correction,
     },
     {
-      icon: IconName.Benefits4,
+      id: 'support-item',
+      iconName: IconName.Benefits4,
       label: BenefitLabel.Support,
     },
   ];
 };
 
 export const getFeedbackSlides = (): ISlide[] => {
+  //FIXME: --- add real feedbacks, names and photo
   return [
     {
-      memberName: 'Дарина Заєць',
-      memberFeedback:
+      id: '1',
+      title: 'Дарина Заєць',
+      description:
         "Дякую за чудові послуги! Робота виконана якісно та вчасно, співпраця була дуже продуктивною. Ваш професіоналізм та увага до деталей вражають. Обов'язково звернусь ще раз і рекомендую іншим!",
-      memberImage: '/images/customer-2.webp',
-      memberAlt: 'Daryna Zaec',
+      imageSrc: '/images/customer-2.webp',
+      imageAlt: 'Daryna Zaec',
       memberRating: 5,
     },
     {
-      memberName: 'Андрій Білка',
-      memberFeedback:
+      id: '2',
+      title: 'Андрій Білка',
+      description:
         'Дякую за відмінне обслуговування! Робота виконана на вищому рівні, співпраця була ефективною і комфортною. Рекомендую всім, хто шукає якісні послуги!',
-      memberImage: '/images/customer-1.webp',
-      memberAlt: 'Andrii Bilka',
+      imageSrc: '/images/customer-1.webp',
+      imageAlt: 'Andrii Bilka',
       memberRating: 4,
     },
     {
-      memberName: 'Петро Вовк',
-      memberFeedback:
+      id: '3',
+      title: 'Петро Вовк',
+      description:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: '/images/customer-3.webp',
-      memberAlt: 'Petro Vovk',
+      imageSrc: '/images/customer-3.webp',
+      imageAlt: 'Petro Vovk',
       memberRating: 5,
     },
     {
-      memberName: 'Данило Ведмідь',
-      memberFeedback:
+      id: '4',
+      title: 'Данило Ведмідь',
+      description:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: '/images/customer-1.webp',
-      memberAlt: 'Danylo Wedmid',
+      imageSrc: '/images/customer-1.webp',
+      imageAlt: 'Danylo Wedmid',
       memberRating: 5,
     },
     {
-      memberName: 'Семен Лисиця',
-      memberFeedback:
+      id: '5',
+      title: 'Семен Лисиця',
+      description:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      memberImage: '/images/customer-3.webp',
-      memberAlt: 'Semen Lysytsia',
+      imageSrc: '/images/customer-3.webp',
+      imageAlt: 'Semen Lysytsia',
       memberRating: 4,
     },
   ];
@@ -185,24 +198,22 @@ export const getServices = (): IServiceItem[] => {
 export const getAboutUsData = (): IAboutUs[] => {
   return [
     {
-      id: 1,
-      header: 'Хто ми?',
+      id: '1',
+      title: 'Хто ми?',
       description:
         'Ми - платформа, що спеціалізується на виконанні наукових робіт на замовлення. Наша мета - надавати якісні та професійні послуги нашим клієнтам, допомагаючи їм досягти успіху в їхніх навчальних цілях',
-      imageData: {
-        src: '/images/partnership-who-we-are.webp',
-        alt: 'a couple arm pointing on a laptop',
-      },
+
+      imageSrc: '/images/partnership-who-we-are.webp',
+      imageAlt: 'a couple arm pointing on a laptop',
     },
     {
-      id: 2,
-      header: 'Кого ми шукаємо?',
+      id: '2',
+      title: 'Кого ми шукаємо?',
       description:
         'Ми запрошуємо талановитих та відповідальних виконавців, готових долучитися до нашої команди. Якщо ви експерт у вашій галузі, володієте високим рівнем професіоналізму та бажаєте працювати в команді, це місце для вас',
-      imageData: {
-        src: '/images/partnership-what-we-are-looking-for.webp',
-        alt: 'people sitting at the desktop',
-      },
+
+      imageSrc: '/images/partnership-what-we-are-looking-for.webp',
+      imageAlt: 'people sitting at the desktop',
     },
   ];
 };
@@ -210,22 +221,22 @@ export const getAboutUsData = (): IAboutUs[] => {
 export const getPartnershipBenefits = (): IPartnershipBenefits[] => {
   return [
     {
-      id: 1,
+      id: '1',
       title: 'Конкурентна винагорода',
-      desc: 'Ми пропонуємо справедливу оплату за виконану роботу',
-      iconId: IconName.BenefitPartnership1,
+      description: 'Ми пропонуємо справедливу оплату за виконану роботу',
+      iconName: IconName.BenefitPartnership1,
     },
     {
-      id: 2,
+      id: '2',
       title: 'Гнучкий графік',
-      desc: 'Обирайте час роботи, який буде для вас найзручнішим',
-      iconId: IconName.BenefitPartnership2,
+      description: 'Обирайте час роботи, який буде для вас найзручнішим',
+      iconName: IconName.BenefitPartnership2,
     },
     {
-      id: 3,
+      id: '3',
       title: 'Ваш розвиток',
-      desc: 'Розвивайтеся та вдосконалюйте навички з проектами',
-      iconId: IconName.BenefitPartnership3,
+      description: 'Розвивайтеся та вдосконалюйте навички з проектами',
+      iconName: IconName.BenefitPartnership3,
     },
   ];
 };
@@ -233,33 +244,38 @@ export const getPartnershipBenefits = (): IPartnershipBenefits[] => {
 export const getWorkflowData = (): IWorkflow[] => {
   return [
     {
-      count: '1',
-      header: 'Реєстрація',
-      desc: 'Приєднуйтесь до нашої платформи через Telegram, заповнивши профіль з вашим досвідом та спеціалізацією',
+      id: '1',
+      title: 'Реєстрація',
+      description:
+        'Приєднуйтесь до нашої платформи через Telegram, заповнивши профіль з вашим досвідом та спеціалізацією',
       gridMarkup: 'lg:row-start-1 lg:row-end-3',
     },
     {
-      count: '2',
-      header: 'Отримання завдань',
-      desc: "Якщо замовлення відповідає вашій експертизі, наш менеджер зв'яжеться з вами для узгодження деталей",
+      id: '2',
+      title: 'Отримання завдань',
+      description:
+        "Якщо замовлення відповідає вашій експертизі, наш менеджер зв'яжеться з вами для узгодження деталей",
       gridMarkup: 'lg:row-start-2 lg:row-end-4 lg:col-start-2',
     },
     {
-      count: '3',
-      header: 'Виконання замовлення',
-      desc: 'Після прийняття замовлення, виконуйте його з відповідальністю та уважності до деталей',
+      id: '3',
+      title: 'Виконання замовлення',
+      description:
+        'Після прийняття замовлення, виконуйте його з відповідальністю та уважності до деталей',
       gridMarkup: 'lg:row-start-3 lg:row-end-5',
     },
     {
-      count: '4',
-      header: 'Отримання оплати',
-      desc: 'Після успішного виконання замовлення, оплата буде здійснена відповідно до обговорених умов',
+      id: '4',
+      title: 'Отримання оплати',
+      description:
+        'Після успішного виконання замовлення, оплата буде здійснена відповідно до обговорених умов',
       gridMarkup: 'lg:row-start-4 lg:row-end-6 lg:col-start-2',
     },
     {
-      count: '5',
-      header: 'Комунікація та підтримка',
-      desc: 'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни, за потреби',
+      id: '5',
+      title: 'Комунікація та підтримка',
+      description:
+        'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни, за потреби',
       gridMarkup: 'lg:row-start-5 lg:row-end-7',
     },
   ];
@@ -268,19 +284,22 @@ export const getWorkflowData = (): IWorkflow[] => {
 export const getRequirements = (): IRequirements[] => {
   return [
     {
-      id: 1,
+      id: '1',
       title: 'Якість та терміни',
-      desc: 'Ми надаємо високоякісні послуги. Виконавці повинні працювати вчасно та відповідально',
+      description:
+        'Ми надаємо високоякісні послуги. Виконавці повинні працювати вчасно та відповідально',
     },
     {
-      id: 2,
+      id: '2',
       title: 'Фаховість',
-      desc: 'Ми шукаємо фахівців з високим рівнем знань та досвідом. Вища освіта або значний досвід роботи – перевага',
+      description:
+        'Ми шукаємо фахівців з високим рівнем знань та досвідом. Вища освіта або значний досвід роботи – перевага',
     },
     {
-      id: 3,
+      id: '3',
       title: 'Навички співпраці',
-      desc: 'Командна робота та врахування потреб клієнтів – це ключовий аспект успішної співпраці',
+      description:
+        'Командна робота та врахування потреб клієнтів – це ключовий аспект успішної співпраці',
     },
   ];
 };
@@ -288,15 +307,15 @@ export const getRequirements = (): IRequirements[] => {
 export const getAccession = (): IAccession[] => {
   return [
     {
-      step: '1',
+      id: '1',
       desc: 'Відправте інформацію про ваш досвід та спеціалізацію нашому менеджеру через офіційний Telegram-бот',
     },
     {
-      step: '2',
+      id: '2',
       desc: 'Наш менеджер зв`яжеться з вами для узгодження подальших інструкцій та деталей',
     },
     {
-      step: '3',
+      id: '3',
       desc: 'Станьте частиною команди виконавців та допоможіть нашим клієнтам досягти цілей разом з нами',
     },
   ];
@@ -462,5 +481,25 @@ export const getLegalInfoArticles = (): ILegalInfoArticle[] => {
         one: 'Всі пропозиції або питання щодо цієї Політики слід повідомляти до нашої служби підтримки користувачів за електронною поштою AcademicAtlas@ukr.net.',
       },
     },
+  ];
+};
+
+export const getDesktopStatistics = (): IStatisticItem[] => {
+  return [
+    { id: '1', count: StatisticCount.Year, label: StatisticLabel.Year },
+    {
+      id: '2',
+      count: StatisticCount.Expert,
+      label: StatisticLabel.Expert,
+      showOnLargeScreen: true,
+    },
+    { id: '3', count: StatisticCount.Service, label: StatisticLabel.Service },
+    {
+      id: '4',
+      count: StatisticCount.Speciality,
+      label: StatisticLabel.Speciality,
+      showOnLargeScreen: true,
+    },
+    { id: '5', count: StatisticCount.Work, label: StatisticLabel.Work, hideOnSmallScreen: true },
   ];
 };

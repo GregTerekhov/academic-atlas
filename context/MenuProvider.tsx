@@ -22,6 +22,12 @@ interface IMenuContext {
 const MenuContext = createContext<IMenuContext | undefined>(undefined);
 
 export const MenuProvider = ({ children }: { children: ReactNode }) => {
+  // const [menuState, setMenuState] = useState({
+  //   isNavMenuOpen: false,
+  //   isCalcMenuOpen: false,
+  //   showCalculationMenu: false,
+  // }); // FIXME: --- for processing to a single state object
+
   const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const [isCalcMenuOpen, setIsCalcMenuOpen] = useState(false);
   const [showCalculationMenu, setShowCalculationMenu] = useState(false);
@@ -34,11 +40,7 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
     useCalculation();
 
   useEffect(() => {
-    if (isNavMenuOpen || isCalcMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = isNavMenuOpen || isCalcMenuOpen ? 'hidden' : 'auto';
   }, [isCalcMenuOpen, isNavMenuOpen]);
 
   useEffect(() => {

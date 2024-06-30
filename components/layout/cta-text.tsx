@@ -10,10 +10,7 @@ export default function CallToActionText({
   ctaText = CtaText.NoText,
 }: ICallToActionTextProps) {
   const marginClass = ctaStyle && ctaStyle.includes('no-margin') ? 'm-0' : 'mb-6 md:mb-8 lg:mb-16';
+  const combinedClass = `${ctaStyle ?? ''} ${marginClass} text-medium md:text-xl lg:text-2xl`;
 
-  return (
-    <p className={`${ctaStyle || ''} ${marginClass} text-medium md:text-xl lg:text-2xl`}>
-      {ctaText}
-    </p>
-  );
+  return <p className={combinedClass}>{ctaText}</p>;
 }
