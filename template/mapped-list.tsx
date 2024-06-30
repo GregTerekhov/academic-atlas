@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 
 import { mapArray } from 'helpers';
 
@@ -8,6 +8,10 @@ interface IMappedListProps<T> {
   children: (item: T) => ReactNode;
 }
 
-export default function MappedList<T>({ items, className, children }: IMappedListProps<T>) {
+function MappedListComponent<T>({ items, className, children }: IMappedListProps<T>) {
   return <ul className={className}>{mapArray(items, children)}</ul>;
 }
+
+const MappedList = memo(MappedListComponent) as typeof MappedListComponent;
+
+export default MappedList;
