@@ -11,18 +11,7 @@ export default function PriceResult() {
   const { calculationData } = useCalculation();
   const { workType, executionTime, expertiseArea, uniqueness } = calculationData;
 
-  const selectedWorkType = workType;
-  const selectedExpertiseArea = expertiseArea;
-  const selectedExecutionTime = executionTime;
-  const selectedUniqueness = uniqueness;
-
-  const calculatedPrice = calculatePrice(
-    selectedWorkType,
-    selectedExpertiseArea,
-    selectedExecutionTime,
-    selectedUniqueness,
-  );
-
+  const calculatedPrice = calculatePrice(workType, expertiseArea, executionTime, uniqueness);
   const { renderedPrice } = usePriceRenderFormatting(calculatedPrice);
 
   return (
