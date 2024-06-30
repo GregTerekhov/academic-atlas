@@ -2,6 +2,7 @@
 
 import { useCalculation } from 'context/CalculationProvider';
 import { calculatePrice } from 'helpers/calculatePrice';
+import { usePriceRenderFormatting } from 'hooks/usePriceRenderFormatting';
 import { ButtonType, CalculationTitle, IconName, IconSize, PrimaryButtonLabel } from 'types';
 
 import { PrimaryButtonUI, SvgIconUI } from 'ui';
@@ -21,9 +22,8 @@ export default function PriceResult() {
     selectedExecutionTime,
     selectedUniqueness,
   );
-  const finalPrice = Math.round(calculatedPrice);
 
-  console.log(`Final Price: ${finalPrice}`);
+  const { renderedPrice } = usePriceRenderFormatting(calculatedPrice);
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function PriceResult() {
         {CalculationTitle.CalculationResult}
       </h2>
       <p className='mb-8 text-center text-4xl text-whiteBase md:mb-10 md:text-5xl lg:text-7xl'>
-        від {finalPrice} грн
+        від {renderedPrice} грн
       </p>
       <p className='lg:text-bg mb-8 text-center text-sm text-whiteBase max-md:leading-130 md:mb-10 md:text-medium'>
         Для замовлення, зв’яжіться з нами у телеграм
