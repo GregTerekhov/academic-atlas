@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import { type ISlide } from 'types';
-import { getCarouselFeedbackStyles } from 'helpers';
+import { getCarouselFeedbackStyles, slideImageSettings } from 'helpers';
 
 import { RatingIcons } from './subcomponents';
 
@@ -26,9 +26,11 @@ export default function CarouselFeedback<T extends ISlide>({
     ));
   };
 
+  const { width, height, className } = slideImageSettings;
+
   const { imageAlt, imageSrc, title, description, memberRating } = slide;
   const { slideClass, imageContainerClass, imageClass, nameClass, feedbackClass } =
-    getCarouselFeedbackStyles(isActive);
+    getCarouselFeedbackStyles(isActive, className);
 
   return (
     <div className={`${slideClass} rounded-[18px]`}>
@@ -38,8 +40,8 @@ export default function CarouselFeedback<T extends ISlide>({
         <Image
           src={imageSrc}
           alt={imageAlt}
-          width={120}
-          height={120}
+          width={width}
+          height={height}
           className={imageClass}
           priority={false}
         />

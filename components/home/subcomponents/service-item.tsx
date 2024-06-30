@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { type IServiceItem, WorkType } from 'types';
+import { serviceImageSettings } from 'helpers';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -10,6 +11,7 @@ export default function ServiceItem({
   serviceTitle,
   gridPosition,
 }: Readonly<ServiceItemProps>) {
+  const { width, height, className } = serviceImageSettings;
   return (
     <li
       className={`${gridPosition} group relative w-full overflow-hidden rounded-xl border border-accentSecondary hocus:border-transparent hocus:bg-whiteBase/10 hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary max-md:h-[120px]`}
@@ -23,9 +25,9 @@ export default function ServiceItem({
         <Image
           src={imageSrc}
           alt={imageAlt}
-          width={152}
-          height={80}
-          className='absolute top-0 w-full object-cover max-sm:h-auto md:h-full'
+          width={width}
+          height={height}
+          className={className}
         />
         {/*OLD_STYLES: className='absolute top-0 h-20 w-full max-sm:h-auto max-sm:object-cover md:h-full md:w-full md:max-lg:object-cover lg:h-[149px] lg:w-[293px]' */}
         <div className='p-2 lg:p-6'>

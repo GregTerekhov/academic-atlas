@@ -20,6 +20,7 @@ import {
   StatisticCount,
   StatisticLabel,
 } from '../types';
+import { imageSettings } from './imageSettings';
 
 export const getBenefits = (): IBenefitsItem[] => {
   return [
@@ -47,6 +48,13 @@ export const getBenefits = (): IBenefitsItem[] => {
 };
 
 export const getFeedbackSlides = (): ISlide[] => {
+  const {
+    slideMemberFirst,
+    slideMemberSecond,
+    slideMemberThird,
+    slideMemberFourth,
+    slideMemberFifth,
+  } = imageSettings;
   //FIXME: --- add real feedbacks, names and photo
   return [
     {
@@ -54,8 +62,8 @@ export const getFeedbackSlides = (): ISlide[] => {
       title: 'Дарина Заєць',
       description:
         "Дякую за чудові послуги! Робота виконана якісно та вчасно, співпраця була дуже продуктивною. Ваш професіоналізм та увага до деталей вражають. Обов'язково звернусь ще раз і рекомендую іншим!",
-      imageSrc: '/images/customer-2.webp',
-      imageAlt: 'Daryna Zaec',
+      imageSrc: slideMemberFirst.src,
+      imageAlt: slideMemberFirst.alt,
       memberRating: 5,
     },
     {
@@ -63,8 +71,8 @@ export const getFeedbackSlides = (): ISlide[] => {
       title: 'Андрій Білка',
       description:
         'Дякую за відмінне обслуговування! Робота виконана на вищому рівні, співпраця була ефективною і комфортною. Рекомендую всім, хто шукає якісні послуги!',
-      imageSrc: '/images/customer-1.webp',
-      imageAlt: 'Andrii Bilka',
+      imageSrc: slideMemberSecond.src,
+      imageAlt: slideMemberSecond.alt,
       memberRating: 4,
     },
     {
@@ -72,8 +80,8 @@ export const getFeedbackSlides = (): ISlide[] => {
       title: 'Петро Вовк',
       description:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      imageSrc: '/images/customer-3.webp',
-      imageAlt: 'Petro Vovk',
+      imageSrc: slideMemberThird.src,
+      imageAlt: slideMemberThird.alt,
       memberRating: 5,
     },
     {
@@ -81,8 +89,8 @@ export const getFeedbackSlides = (): ISlide[] => {
       title: 'Данило Ведмідь',
       description:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      imageSrc: '/images/customer-1.webp',
-      imageAlt: 'Danylo Wedmid',
+      imageSrc: slideMemberFourth.src,
+      imageAlt: slideMemberFourth.alt,
       memberRating: 5,
     },
     {
@@ -90,8 +98,8 @@ export const getFeedbackSlides = (): ISlide[] => {
       title: 'Семен Лисиця',
       description:
         'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      imageSrc: '/images/customer-3.webp',
-      imageAlt: 'Semen Lysytsia',
+      imageSrc: slideMemberFifth.src,
+      imageAlt: slideMemberFifth.alt,
       memberRating: 4,
     },
   ];
@@ -128,67 +136,78 @@ export const getOrderSteps = (): IOrderStep[] => {
 };
 
 export const getServices = (): IServiceItem[] => {
+  const {
+    serviceFirstItem,
+    serviceSecondItem,
+    serviceThirdItem,
+    serviceFourthItem,
+    serviceFifthItem,
+    serviceSixthItem,
+    serviceSeventhItem,
+    serviceEighthItem,
+    serviceNinthItem,
+  } = imageSettings;
   return [
     {
       id: 'diplomas',
-      imageSrc: '/images/services-1.webp',
-      imageAlt: 'Three notebooks',
+      imageSrc: serviceFirstItem.src,
+      imageAlt: serviceFirstItem.alt,
       serviceTitle: WorkType.Diplomas,
       gridPosition: 'md:col-start-1 md:col-end-3 md:row-start-1 md:row-end-3',
     },
     {
       id: 'teamPapers',
-      imageSrc: '/images/services-3.webp',
-      imageAlt: 'Three notebooks, a pen and glasses',
+      imageSrc: serviceSecondItem.src,
+      imageAlt: serviceSecondItem.alt,
       serviceTitle: WorkType.TeamPapers,
       gridPosition: 'md:col-start-3 md:col-end-5 md:row-start-1',
     },
     {
       id: 'bachelorTheses',
-      imageSrc: '/images/services-2.webp',
-      imageAlt: 'Open book and notebook',
+      imageSrc: serviceThirdItem.src,
+      imageAlt: serviceThirdItem.alt,
       serviceTitle: WorkType.BachelorTheses,
       gridPosition: '',
     },
     {
       id: 'masterTheses',
-      imageSrc: '/images/services-4.webp',
-      imageAlt: 'A pile of books',
+      imageSrc: serviceFourthItem.src,
+      imageAlt: serviceFourthItem.alt,
       serviceTitle: WorkType.MasterTheses,
       gridPosition: '',
     },
     {
       id: 'testPapers',
-      imageSrc: '/images/services-9.webp',
-      imageAlt: 'A person draws diagrams',
+      imageSrc: serviceFifthItem.src,
+      imageAlt: serviceFifthItem.alt,
       serviceTitle: WorkType.TestPapers,
       gridPosition: 'md:col-start-4 md:col-end-5 md:row-start-2 md:row-end-4',
     },
     {
       id: 'abstracts',
-      imageSrc: '/images/services-5.webp',
-      imageAlt: 'A person moves a pen across the text of a book',
+      imageSrc: serviceSixthItem.src,
+      imageAlt: serviceSixthItem.alt,
       serviceTitle: WorkType.Abstracts,
       gridPosition: '',
     },
     {
       id: 'practicalWorks',
-      imageSrc: '/images/services-6.webp',
-      imageAlt: 'Geometric ruler, red marker and calculations',
+      imageSrc: serviceSeventhItem.src,
+      imageAlt: serviceSeventhItem.alt,
       serviceTitle: WorkType.PracticalWorks,
       gridPosition: 'md:col-start-1 md:row-start-3 md:row-end-5',
     },
     {
       id: 'presentations',
-      imageSrc: '/images/services-7.webp',
-      imageAlt: 'A pile of books',
+      imageSrc: serviceEighthItem.src,
+      imageAlt: serviceEighthItem.alt,
       serviceTitle: WorkType.Presentations,
       gridPosition: '',
     },
     {
       id: 'caseStudyReports',
-      imageSrc: '/images/services-8.webp',
-      imageAlt: 'Glasses on the book',
+      imageSrc: serviceNinthItem.src,
+      imageAlt: serviceNinthItem.alt,
       serviceTitle: WorkType.CaseStudyReports,
       gridPosition: 'md:col-start-2 md:col-end-4 md:row-start-4',
     },
@@ -196,6 +215,7 @@ export const getServices = (): IServiceItem[] => {
 };
 
 export const getAboutUsData = (): IAboutUs[] => {
+  const { partnershipAboutUs1, partnershipAboutUs2 } = imageSettings;
   return [
     {
       id: '1',
@@ -203,8 +223,8 @@ export const getAboutUsData = (): IAboutUs[] => {
       description:
         'Ми - платформа, що спеціалізується на виконанні наукових робіт на замовлення. Наша мета - надавати якісні та професійні послуги нашим клієнтам, допомагаючи їм досягти успіху в їхніх навчальних цілях',
 
-      imageSrc: '/images/partnership-who-we-are.webp',
-      imageAlt: 'a couple arm pointing on a laptop',
+      imageSrc: partnershipAboutUs1.src,
+      imageAlt: partnershipAboutUs1.alt,
     },
     {
       id: '2',
@@ -212,8 +232,8 @@ export const getAboutUsData = (): IAboutUs[] => {
       description:
         'Ми запрошуємо талановитих та відповідальних виконавців, готових долучитися до нашої команди. Якщо ви експерт у вашій галузі, володієте високим рівнем професіоналізму та бажаєте працювати в команді, це місце для вас',
 
-      imageSrc: '/images/partnership-what-we-are-looking-for.webp',
-      imageAlt: 'people sitting at the desktop',
+      imageSrc: partnershipAboutUs2.src,
+      imageAlt: partnershipAboutUs2.alt,
     },
   ];
 };
@@ -377,13 +397,14 @@ export const getFAQQuestions = (): IQuestions[] => {
 };
 
 export const getHeroGrid = (): IHeroGrid[] => {
+  const { heroMatrixTop, heroMatrixMiddle, heroMatrixBottom } = imageSettings;
   return [
     {
       id: 'top-left',
       className:
         'overflow-hidden rounded-bl-[30px] rounded-tr-[30px] bg-whiteBase/20 lg:rounded-bl-[60px] lg:rounded-tr-[60px]',
-      imageSrc: '/images/top-left-matrix-grid.webp',
-      imageAlt: 'A person is typing on a laptop',
+      imageSrc: heroMatrixTop.src,
+      imageAlt: heroMatrixTop.alt,
     },
     {
       id: 'top-right',
@@ -396,8 +417,8 @@ export const getHeroGrid = (): IHeroGrid[] => {
     {
       id: 'middle-center',
       className: 'bg-whiteBase/20',
-      imageSrc: '/images/center-matrix-grid.webp',
-      imageAlt: 'A woman searches the bookshelves',
+      imageSrc: heroMatrixMiddle.src,
+      imageAlt: heroMatrixMiddle.alt,
     },
     {
       id: 'middle-right',
@@ -411,8 +432,8 @@ export const getHeroGrid = (): IHeroGrid[] => {
       id: 'bottom-right',
       className:
         'col-start-3 overflow-hidden rounded-bl-[30px] rounded-tr-[30px] bg-whiteBase/20  lg:rounded-bl-[60px] lg:rounded-tr-[60px]',
-      imageSrc: '/images/right-bottom-matrix-grid.webp',
-      imageAlt: 'A guy smiles with his arms crossed',
+      imageSrc: heroMatrixBottom.src,
+      imageAlt: heroMatrixBottom.alt,
     },
   ];
 };

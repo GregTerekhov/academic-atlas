@@ -5,6 +5,7 @@ export * from './calculationHelper';
 export * from './carouselHelper';
 export * from './cookiesHelper';
 export * from './componentsData';
+export * from './imageSettings';
 export * from './layoutsData';
 export * from './layoutsHelper';
 export * from './mapArray';
