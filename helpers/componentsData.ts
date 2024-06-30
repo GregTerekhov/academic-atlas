@@ -10,15 +10,15 @@ import {
   type IAboutUs,
   type IQuestions,
   type IHeroGrid,
+  type ILegalInfoArticle,
+  type IStatisticItem,
   BenefitLabel,
   IconName,
   QuestionAnswer,
   QuestionTitle,
   WorkType,
-  ILegalInfoArticle,
   StatisticCount,
   StatisticLabel,
-  IStatisticItem,
 } from '../types';
 
 export const getBenefits = (): IBenefitsItem[] => {
