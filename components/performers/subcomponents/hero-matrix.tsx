@@ -1,12 +1,13 @@
 import Image from 'next/image';
 
 import { IHeroGrid } from 'types';
-import { getHeroGrid } from 'helpers';
+import { getHeroGrid, heroMatrixImageSettings } from 'helpers';
 
 import { MappedListTemplate } from 'template';
 
-function HeroMatrix() {
+export default function HeroMatrix() {
   const cells = getHeroGrid();
+  const { width, height, className: imageClass } = heroMatrixImageSettings;
 
   const cellSize = 'size-20 lg:size-44';
 
@@ -24,9 +25,9 @@ function HeroMatrix() {
             <Image
               src={imageSrc}
               alt={imageAlt}
-              width={80}
-              height={80}
-              className='lg:size-44'
+              width={width}
+              height={height}
+              className={imageClass}
             />
           )}
         </li>
@@ -34,5 +35,3 @@ function HeroMatrix() {
     </MappedListTemplate>
   );
 }
-
-export default HeroMatrix;
