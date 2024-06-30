@@ -51,7 +51,7 @@ export const commonComponents = plugin(function ({ addComponents, theme }) {
         left: '0',
         height: '100%',
         width: '100%',
-        content: '',
+        content: "''",
       },
     },
   });
