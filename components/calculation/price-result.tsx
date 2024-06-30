@@ -8,11 +8,12 @@ import { PrimaryButtonUI, SvgIconUI } from 'ui';
 
 export default function PriceResult() {
   const { calculationData } = useCalculation();
+  const { workType, executionTime, expertiseArea, uniqueness } = calculationData;
 
-  const selectedWorkType = calculationData.workType;
-  const selectedExpertiseArea = calculationData.expertiseArea;
-  const selectedExecutionTime = calculationData.executionTime;
-  const selectedUniqueness = calculationData.uniqueness;
+  const selectedWorkType = workType;
+  const selectedExpertiseArea = expertiseArea;
+  const selectedExecutionTime = executionTime;
+  const selectedUniqueness = uniqueness;
 
   const calculatedPrice = calculatePrice(
     selectedWorkType,
@@ -22,7 +23,7 @@ export default function PriceResult() {
   );
   const finalPrice = Math.round(calculatedPrice);
 
-  console.log(`Final Price: ${calculationData.expertiseArea}`);
+  console.log(`Final Price: ${finalPrice}`);
 
   return (
     <>
