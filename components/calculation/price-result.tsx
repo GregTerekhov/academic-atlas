@@ -2,7 +2,7 @@
 
 import { useCalculation } from 'context/CalculationProvider';
 import { calculatePrice } from 'helpers/calculatePrice';
-import { usePriceRenderFormatting } from 'hooks/usePriceRenderFormatting';
+import { priceRenderFormatting } from 'helpers';
 import { ButtonType, CalculationTitle, IconName, IconSize, PrimaryButtonLabel } from 'types';
 
 import { PrimaryButtonUI, SvgIconUI } from 'ui';
@@ -12,7 +12,7 @@ export default function PriceResult() {
   const { workType, executionTime, expertiseArea, uniqueness } = calculationData;
 
   const calculatedPrice = calculatePrice(workType, expertiseArea, executionTime, uniqueness);
-  const { renderedPrice } = usePriceRenderFormatting(calculatedPrice);
+  const { renderedPrice } = priceRenderFormatting(calculatedPrice);
 
   return (
     <>
