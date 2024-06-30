@@ -22,7 +22,7 @@ export const feedbackBreakpoints: Breakpoints = {
   },
 };
 
-export const getCarouselFeedbackStyles = (isActive: boolean) => {
+export const getCarouselFeedbackStyles = (isActive: boolean, className: string) => {
   return {
     slideClass: isActive
       ? 'swiper-slide-active max-sm:!w-[calc(100vw - 48px)] sm:!w-[301px] border-2 border-accentPrimary bg-background-gradient p-4 max-md:!mr-0 md:!w-[436px] md:p-8 lg:!w-[496px] lg:p-12'
@@ -30,7 +30,7 @@ export const getCarouselFeedbackStyles = (isActive: boolean) => {
     imageContainerClass: isActive
       ? 'mb-4 size-[120px] md:mb-6 md:size-[160px]'
       : 'mb-4 size-[120px]',
-    imageClass: isActive ? 'md:w-40' : 'md:w-[120px]',
+    imageClass: isActive ? 'md:w-40' : className,
     nameClass: isActive
       ? 'mb-6 text-medium md:mb-8 md:text-big lg:text-xl'
       : 'md:mb-4 md:text-base lg:mb-6 lg:text-medium',

@@ -32,10 +32,10 @@ export default function RootLayout({ children }: Readonly<IRootLayoutProps>) {
   return (
     <html
       lang='uk'
-      className={theme}
+      className={`${theme} ${philosopher.className}`}
       style={{ colorScheme: theme }}
     >
-      <body className={philosopher.className}>
+      <body>
         <ProviderWrapper
           theme={theme}
           storageKey={THEME_STORAGE_KEY}

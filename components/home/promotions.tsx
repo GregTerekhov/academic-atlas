@@ -2,12 +2,14 @@ import Image from 'next/image';
 
 import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
-import { idValues } from 'helpers';
+import { idValues, imageSettings } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 
 export default function Promotions() {
+  const { promotions } = imageSettings;
+
   return (
     <SectionTemplate
       title={SectionTitle.Promotions}
@@ -18,11 +20,11 @@ export default function Promotions() {
       ctaText={CtaText.MainPromotions}
     >
       <Image
-        src='/images/notes.webp'
-        alt='Notes'
-        width={216}
-        height={144}
-        className='size-auto max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-auto md:w-[224px] md:-translate-y-1/2 lg:h-auto lg:w-[416px]'
+        src={promotions.src}
+        alt={promotions.alt}
+        width={promotions.width}
+        height={promotions.height}
+        className={promotions.className}
       />
       <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
     </SectionTemplate>

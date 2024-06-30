@@ -1,9 +1,13 @@
 import Image from 'next/image';
 
 import { CtaText, SectionTitle } from 'types';
+import { imageSettings } from 'helpers';
+
 import { SectionTemplate } from 'template';
 
 export default function Hero() {
+  const { faqHero } = imageSettings;
+
   return (
     <SectionTemplate
       title={SectionTitle.FAQHero}
@@ -16,11 +20,11 @@ export default function Hero() {
       minHeight='lg:min-h-[792px]'
     >
       <Image
-        src='/images/faq-hero.webp'
-        alt='Girl with a book and question marks symbolizing frequently asked questions and answers'
-        width={192}
-        height={208}
-        className='max-md:mx-auto md:absolute md:right-10 md:top-1/2 md:h-[260px] md:w-[240px] md:-translate-y-1/2 lg:h-[584px] lg:w-[537px]'
+        src={faqHero.src}
+        alt={faqHero.alt}
+        width={faqHero.width}
+        height={faqHero.height}
+        className={faqHero.className}
       />
     </SectionTemplate>
   );
