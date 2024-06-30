@@ -5,7 +5,7 @@ import { Autoplay } from 'swiper/modules';
 
 import { type Breakpoints, type ISlide } from 'types';
 
-import { CarouselFeedback } from 'components';
+import { CarouselWrapper } from 'template';
 
 import 'swiper/css/bundle';
 
@@ -26,8 +26,6 @@ export default function Carousel<T extends ISlide>({ slides, breakpoints }: ICar
       mousewheel={{ invert: true }}
       slideToClickedSlide={true}
       watchSlidesProgress={true}
-      // url= //FIXME: --- додати значення для SSR
-      // userAgent={} //FIXME: --- додати значення для SSR
       autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
       breakpoints={breakpoints}
       lazyPreloadPrevNext={1}
@@ -40,10 +38,10 @@ export default function Carousel<T extends ISlide>({ slides, breakpoints }: ICar
         });
       }}
     >
-      {slides.map((slide, index) => (
-        <SwiperSlide key={index}>
+      {slides.map((slide) => (
+        <SwiperSlide key={slide.id}>
           {({ isActive }) => (
-            <CarouselFeedback
+            <CarouselWrapper
               slide={slide}
               isActive={isActive}
             />

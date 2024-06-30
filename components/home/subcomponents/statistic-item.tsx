@@ -1,6 +1,6 @@
 import { StatisticCount, StatisticLabel } from 'types';
 
-interface IStatisticItem {
+interface IStatisticItemProps {
   count: StatisticCount;
   label: StatisticLabel;
   hideOnSmallScreen?: boolean;
@@ -14,7 +14,7 @@ export default function StatisticItem({
   hideOnSmallScreen,
   hideOnLargeScreen,
   showOnLargeScreen,
-}: IStatisticItem) {
+}: IStatisticItemProps) {
   const getFiguresTextStyle = () => {
     switch (true) {
       case hideOnSmallScreen:

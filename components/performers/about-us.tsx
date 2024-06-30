@@ -1,6 +1,9 @@
+import { IAboutUs } from 'types';
+
 import { getAboutUsData } from 'helpers';
 
 import { Container } from 'layout';
+import { MappedListTemplate } from 'template';
 import { AboutUsItem } from './subcomponents';
 
 export default function AboutUs() {
@@ -9,17 +12,20 @@ export default function AboutUs() {
   return (
     <section className='py-8 md:py-16 lg:py-[114px]'>
       <Container>
-        <ul className='space-y-8 max-lg:max-w-[512px] md:space-y-6 md:max-lg:mx-auto lg:px-[72px]'>
-          {Array.isArray(aboutUsData) &&
-            aboutUsData.map(({ id, header, description, imageData }) => (
-              <AboutUsItem
-                key={id}
-                header={header}
-                description={description}
-                imageData={imageData}
-              />
-            ))}
-        </ul>
+        <MappedListTemplate<IAboutUs>
+          items={aboutUsData}
+          className='space-y-8 max-lg:max-w-[512px] md:space-y-6 md:max-lg:mx-auto lg:px-[72px]'
+        >
+          {({ id, title, description, imageSrc, imageAlt }) => (
+            <AboutUsItem
+              key={id}
+              header={title}
+              description={description}
+              src={imageSrc}
+              alt={imageAlt}
+            />
+          )}
+        </MappedListTemplate>
       </Container>
     </section>
   );

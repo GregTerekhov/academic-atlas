@@ -6,14 +6,6 @@ export enum ThemeVariants {
   LIGHT = 'light',
 }
 
-export interface IServiceItem {
-  id?: string;
-  imageSrc: string;
-  imageAlt: string;
-  serviceTitle: WorkType;
-  gridPosition: string;
-}
-
 export enum StatisticCount {
   Year = '15+',
   Service = '40+',
@@ -37,69 +29,61 @@ export enum BenefitLabel {
   Support = 'Підтримка до захисту',
 }
 
-export interface IBenefitsItem {
-  icon: IconName;
-  label: BenefitLabel;
-}
-
-export interface ISlide {
-  memberName: string;
-  memberFeedback: string;
-  memberImage: string;
-  memberAlt: string;
-  memberRating: number;
-  memberFeedbackDate?: Date; //FIXME: --- add date or delete this point
-}
-
-export interface IOrderStep {
-  id: string;
-  step: string;
-  iconName: IconName;
-}
-
 export enum AriaLabelTrigger {
   Default = 'Open navigation Menu',
   CloseNavigation = 'Close navigation menu',
   CloseCalculation = 'Close calculation menu',
 }
 
-export interface IAboutUs {
-  id: number;
-  header: string;
-  description: string;
-  imageData: {
-    src: string;
-    alt: string;
-  };
+export interface IBaseId {
+  id: string;
 }
 
-export interface IPartnershipBenefits {
-  id: number;
+interface IBaseTitleDescription {
   title: string;
-  desc: string;
-  iconId: IconName;
+  description: string;
 }
 
-export interface IWorkflow {
-  count: string;
-  header: string;
-  desc: string;
+interface IBaseIcon {
+  iconName: IconName;
+}
+
+interface IBaseImageData {
+  imageSrc: string;
+  imageAlt: string;
+}
+
+export interface IServiceItem extends IBaseId, IBaseImageData {
+  serviceTitle: WorkType;
+  gridPosition: string;
+}
+
+export interface IBenefitsItem extends IBaseId, IBaseIcon {
+  label: BenefitLabel;
+}
+
+export interface ISlide extends IBaseId, IBaseTitleDescription, IBaseImageData {
+  memberRating: number;
+  memberFeedbackDate?: Date; //FIXME: --- add date or delete this point
+}
+
+export interface IOrderStep extends IBaseId, IBaseIcon {
+  step: string;
+}
+
+export interface IAboutUs extends IBaseId, IBaseTitleDescription, IBaseImageData {}
+export interface IPartnershipBenefits extends IBaseId, IBaseIcon, IBaseTitleDescription {}
+export interface IRequirements extends IBaseId, IBaseTitleDescription {}
+
+export interface IWorkflow extends IBaseId, IBaseTitleDescription {
   gridMarkup: string;
 }
 
-export interface IRequirements {
-  id: number;
-  title: string;
+export interface IAccession extends IBaseId {
   desc: string;
 }
 
-export interface IAccession {
-  step: string;
-  desc: string;
-}
-
-export interface IHeroGrid {
-  id: string;
+export interface IHeroGrid extends IBaseId {
   className: string;
   imageSrc?: string;
   imageAlt?: string;
@@ -116,4 +100,13 @@ export interface ILegalInfoArticle {
     five?: string;
     six?: string;
   };
+}
+
+export interface IStatisticItem {
+  id: string;
+  count: StatisticCount;
+  label: StatisticLabel;
+  hideOnSmallScreen?: boolean;
+  hideOnLargeScreen?: boolean;
+  showOnLargeScreen?: boolean;
 }

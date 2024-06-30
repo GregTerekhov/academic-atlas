@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { PositionInLayout } from 'types';
 
-import { getFooterLinks } from 'helpers';
+import { getFooterLinks, mapArray } from 'helpers';
 
 import { CalculationModalTrigger } from './subcomponents';
 
@@ -18,17 +18,16 @@ export default function FooterMenu() {
         <li>
           <CalculationModalTrigger position={PositionInLayout.Footer} />
         </li>
-        {Array.isArray(footerMenuLinks) &&
-          footerMenuLinks.map(({ path, label }) => (
-            <li key={label}>
-              <Link
-                href={path}
-                className='generalText hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary'
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
+        {mapArray(footerMenuLinks, ({ path, label }) => (
+          <li key={label}>
+            <Link
+              href={path}
+              className='generalText hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary'
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

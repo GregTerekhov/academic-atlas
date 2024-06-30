@@ -1,10 +1,10 @@
 import Image from 'next/image';
 
-import { SectionTitle } from 'types';
+import { IOrderStep, SectionTitle } from 'types';
 
 import { getOrderSteps, idValues } from 'helpers';
 
-import { SectionTemplate } from 'template';
+import { MappedListTemplate, SectionTemplate } from 'template';
 import { OverviewItem } from './subcomponents';
 
 export default function ServiceOverview() {
@@ -25,16 +25,18 @@ export default function ServiceOverview() {
             className='h-auto w-auto md:h-[512px] md:w-[402px]'
           />
         </div>
-        <ul className='space-y-6 max-md:bg-center max-md:px-2 md:w-[430px] md:space-y-8 md:bg-left lg:w-[631px] lg:space-y-12'>
-          {Array.isArray(orderSteps) &&
-            orderSteps.map(({ id, step, iconName }) => (
-              <OverviewItem
-                key={id}
-                step={step}
-                iconName={iconName}
-              />
-            ))}
-        </ul>
+        <MappedListTemplate<IOrderStep>
+          items={orderSteps}
+          className='space-y-6 max-md:bg-center max-md:px-2 md:w-[430px] md:space-y-8 md:bg-left lg:w-[631px] lg:space-y-12'
+        >
+          {({ id, step, iconName }) => (
+            <OverviewItem
+              key={id}
+              step={step}
+              iconName={iconName}
+            />
+          )}
+        </MappedListTemplate>
       </div>
     </SectionTemplate>
   );

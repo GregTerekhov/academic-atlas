@@ -12,7 +12,6 @@ interface IUseDropdown {
 }
 
 export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdown) => {
-  // const [selectedLabel, setSelectedLabel] = useState<T>(label);
   const [selectedLabel, setSelectedLabel] = useState<DropdownOption>(initialLabel);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -27,7 +26,6 @@ export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdow
     setIsOptionSelected(false);
   };
 
-  // const handleOptionClick = (option: T) => {
   const handleOptionClick = (option: DropdownOption) => {
     setSelectedLabel(option);
     setIsOptionSelected(true);

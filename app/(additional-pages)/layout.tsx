@@ -1,10 +1,10 @@
 import { Breadcrumbs } from 'components';
 
-export default function NestedLayout({
-  children,
-}: Readonly<{
+interface INestedLayoutProps {
   children: React.ReactNode;
-}>) {
+}
+
+export default function NestedLayout({ children }: Readonly<INestedLayoutProps>) {
   return (
     <>
       <Breadcrumbs />

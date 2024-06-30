@@ -1,8 +1,8 @@
-import { SectionTitle } from 'types';
+import { IPartnershipBenefits, SectionTitle } from 'types';
 
 import { getPartnershipBenefits } from 'helpers';
 
-import { SectionTemplate } from 'template';
+import { MappedListTemplate, SectionTemplate } from 'template';
 import { PartnershipBenefitsItem } from './subcomponents';
 
 export default function Benefits() {
@@ -10,17 +10,19 @@ export default function Benefits() {
 
   return (
     <SectionTemplate title={SectionTitle.PartnershipBenefits}>
-      <ul className='max-md:space-y-6 md:flex md:gap-x-8 lg:gap-x-10'>
-        {Array.isArray(benefitsData) &&
-          benefitsData.map(({ id, title, desc, iconId }) => (
-            <PartnershipBenefitsItem
-              key={id}
-              title={title}
-              desc={desc}
-              iconId={iconId}
-            />
-          ))}
-      </ul>
+      <MappedListTemplate<IPartnershipBenefits>
+        items={benefitsData}
+        className='max-md:space-y-6 md:flex md:gap-x-8 lg:gap-x-10'
+      >
+        {({ id, title, description, iconName }) => (
+          <PartnershipBenefitsItem
+            key={id}
+            title={title}
+            desc={description}
+            iconId={iconName}
+          />
+        )}
+      </MappedListTemplate>
     </SectionTemplate>
   );
 }
