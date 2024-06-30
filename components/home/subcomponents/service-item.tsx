@@ -2,12 +2,14 @@ import Image from 'next/image';
 
 import { type IServiceItem, WorkType } from 'types';
 
+type ServiceItemProps = Omit<IServiceItem, 'id'>;
+
 export default function ServiceItem({
   imageSrc,
   imageAlt,
   serviceTitle,
   gridPosition,
-}: Readonly<IServiceItem>) {
+}: Readonly<ServiceItemProps>) {
   return (
     <li
       className={`${gridPosition} group relative w-full overflow-hidden rounded-xl border border-accentSecondary hocus:border-transparent hocus:bg-whiteBase/10 hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary max-md:h-[120px]`}

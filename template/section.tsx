@@ -21,14 +21,14 @@ interface ISectionTemplate {
 export default function Section({
   title,
   children,
-  isBigTitle = false,
   id,
   titleStyle,
   noAlignment,
   ctaStyle,
+  minHeight,
+  isBigTitle = false,
   ctaText = CtaText.NoText,
   hasCtaText = false,
-  minHeight,
 }: Readonly<ISectionTemplate>) {
   const sectionClasses = getSectionClasses(title);
   const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);

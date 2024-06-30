@@ -75,10 +75,8 @@ export interface ICalculationData {
   executionTime: ExecutionTime;
 }
 export interface IDropdownData {
-  // export interface IDropdownData<T> {
   typeId: string;
   option: DropdownOption;
-  // option: T;
   uniquenessPercentage?: Uniqueness;
   basePrice?: BasePrice;
 }

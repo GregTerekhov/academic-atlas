@@ -1,3 +1,5 @@
+import { IBaseId } from './components';
+
 export enum QuestionTitle {
   Team1 = 'Чому варто замовляти роботи у нас?',
   Team2 = 'Як можна замовити роботу у нас?',
@@ -24,8 +26,7 @@ export enum QuestionAnswer {
   Team10 = 'По завершенню виконання – менеджер звяжеться. Після оплати залишку – відправляємо матеріали замовлення в повному обсязі на Email або в Telegram.',
 }
 
-export interface IQuestions {
-  id: string;
+export interface IQuestions extends IBaseId {
   title: QuestionTitle;
   answer: QuestionAnswer;
 }

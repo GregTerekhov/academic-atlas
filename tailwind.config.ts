@@ -48,6 +48,9 @@ const config: Config = {
       maxHeight: {
         mobileMenu: 'calc(100vh - 80px)',
         tabletMenu: 'calc(100vh - 96px)',
+        mobileSkeleton: 'calc(100vh - 482px)',
+        tabletSkeleton: 'calc(100vh - 418px)',
+        desktopSkeleton: 'calc(100vh - 432px)',
       },
       colors: {
         transparent: 'transparent',

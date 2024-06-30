@@ -1,9 +1,10 @@
 'use client';
 
-import { PositionInLayout, IconName } from 'types';
+import { PositionInLayout, IconName, IContactLink } from 'types';
 
 import { getLinkData } from 'helpers';
 
+import { MappedListTemplate } from 'template';
 import { ContactItem } from './subcomponents';
 
 interface IContactsProps {
@@ -31,21 +32,23 @@ export default function Contacts({ variant }: IContactsProps) {
             Наші контакти
           </p>
         )}
-        <ul className={getListStyle()}>
-          {Array.isArray(adaptedContacts) &&
-            adaptedContacts.map(({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
-              <ContactItem
-                key={iconName}
-                href={href}
-                iconName={iconName}
-                iconSize={iconSize}
-                defaultSize={defaultSize}
-                labelClass={labelClass}
-                label={label}
-                variant={variant}
-              />
-            ))}
-        </ul>
+        <MappedListTemplate<IContactLink>
+          items={adaptedContacts}
+          className={getListStyle()}
+        >
+          {({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
+            <ContactItem
+              key={iconName}
+              href={href}
+              iconName={iconName}
+              iconSize={iconSize}
+              defaultSize={defaultSize}
+              labelClass={labelClass}
+              label={label}
+              variant={variant}
+            />
+          )}
+        </MappedListTemplate>
       </address>
     </>
   );

@@ -3,7 +3,7 @@ import { IconName, IconSize } from 'types';
 import { SvgIconUI } from 'ui';
 
 interface IRequirementsItemProps {
-  key?: number;
+  key?: string;
   title: string;
   desc: string;
 }

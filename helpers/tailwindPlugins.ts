@@ -43,7 +43,6 @@ export const commonComponents = plugin(function ({ addComponents, theme }) {
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      padding: '80px 0',
       color: theme('colors.whiteBase'),
 
       '&::before': {
@@ -53,10 +52,6 @@ export const commonComponents = plugin(function ({ addComponents, theme }) {
         height: '100%',
         width: '100%',
         content: '',
-      },
-
-      '@media (min-width: 1440px)': {
-        padding: '104px 0',
       },
     },
   });
