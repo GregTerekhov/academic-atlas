@@ -11,24 +11,7 @@ import Menu from './menu';
 import PriceCalculator from '../calculation/product-price-calculator';
 
 export default function ToggleMenuTrigger() {
-  const {
-    isNavMenuOpen,
-    isCalcMenuOpen,
-    showCalculationMenu,
-    toggleNavMenu,
-    toggleCalcMenu,
-    closeMenu,
-  } = useMenu();
-
-  const handleToggleMenu = (): void => {
-    if (isCalcMenuOpen) {
-      toggleCalcMenu();
-    } else if (showCalculationMenu) {
-      closeMenu();
-    } else {
-      toggleNavMenu();
-    }
-  };
+  const { isNavMenuOpen, isCalcMenuOpen, showCalculationMenu, handleToggleMenu } = useMenu();
 
   const dynamicAriaLabel = getAriaLabelSwitcher(isNavMenuOpen, isCalcMenuOpen);
 
