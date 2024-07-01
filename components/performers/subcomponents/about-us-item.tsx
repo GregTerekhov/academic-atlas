@@ -1,6 +1,5 @@
-import Image from 'next/image';
-
 import { partnershipAboutImageSettings } from 'helpers';
+import { ImageUI } from 'ui';
 interface IAboutUsItemProps {
   header: string;
   description: string;
@@ -18,7 +17,7 @@ export default function AboutUsItem({ header, description, src, alt }: IAboutUsI
         <p className='generalText my-6'>{description}</p>
       </div>
       <div className='relative overflow-hidden rounded-lg bg-cover before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentSecondary/10 before:content-[""] lg:w-[512px]'>
-        <Image
+        <ImageUI
           src={src}
           alt={alt}
           height={width}

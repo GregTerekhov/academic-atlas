@@ -1,9 +1,8 @@
-import Image from 'next/image';
-
 import { type ISlide } from 'types';
 import { getCarouselFeedbackStyles, slideImageSettings } from 'helpers';
 
 import { RatingIcons } from './subcomponents';
+import { ImageUI } from 'ui';
 
 interface ICarouselFeedbackProps<T> {
   slide: T;
@@ -37,13 +36,12 @@ export default function CarouselFeedback<T extends ISlide>({
       <div
         className={`${imageContainerClass} mx-auto overflow-hidden rounded-full border-[3px] border-solid border-accentPrimary-darker`}
       >
-        <Image
+        <ImageUI
           src={imageSrc}
           alt={imageAlt}
           width={width}
           height={height}
           className={imageClass}
-          priority={false}
         />
       </div>
       <p className={`${nameClass} text-center`}>{title}</p>

@@ -1,9 +1,8 @@
-import Image from 'next/image';
-
 import { IHeroGrid } from 'types';
 import { getHeroGrid, heroMatrixImageSettings } from 'helpers';
 
 import { MappedListTemplate } from 'template';
+import { ImageUI } from 'ui';
 
 export default function HeroMatrix() {
   const cells = getHeroGrid();
@@ -22,7 +21,7 @@ export default function HeroMatrix() {
           className={`${className} ${cellSize}`}
         >
           {imageSrc && imageAlt && (
-            <Image
+            <ImageUI
               src={imageSrc}
               alt={imageAlt}
               width={width}

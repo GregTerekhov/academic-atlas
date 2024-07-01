@@ -37,13 +37,16 @@ export enum IconName {
   Benefits2 = 'guarantee',
   Benefits3 = 'corrections',
   Benefits4 = 'support',
+  BenefitPartnership1 = 'reward',
+  BenefitPartnership2 = 'schedule',
+  BenefitPartnership3 = 'progress',
   Burger = 'burger',
   Call = 'call',
   Check = 'checkmark',
   Close = 'close',
   Email = 'email',
-  Fire = 'fire',
   Expand = 'expand',
+  Fire = 'fire',
   Logo = 'logo',
   Moon = 'moon',
   Overview1 = 'speaking',
@@ -56,12 +59,9 @@ export enum IconName {
   Question = 'question',
   RatingDown = 'star',
   RatingUp = 'star-full',
+  Requirements = 'requirements',
   Sun = 'sun',
   Telegram = 'telegram',
-  Requirements = 'requirements',
-  BenefitPartnership1 = 'reward',
-  BenefitPartnership2 = 'schedule',
-  BenefitPartnership3 = 'progress',
 }
 
 export interface Breakpoints {
@@ -80,4 +80,19 @@ export enum PrimaryButtonLabel {
 
 export interface IDropdownRef {
   resetSelectedLabel: () => void;
+}
+
+export enum ImageSize {
+  Little80 = 80,
+  Little120 = 120,
+  Small144 = 144,
+  Small152 = 152,
+  Small180 = 180,
+  Medium192 = 192,
+  Medium200 = 200,
+  Medium208 = 208,
+  Medium216 = 216,
+  Big327 = 327,
+  Big402 = 402,
+  Big512 = 512,
 }
