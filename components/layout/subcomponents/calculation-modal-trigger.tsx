@@ -54,7 +54,6 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
       >
         {MenuLinks.Cost}
       </button>
-      {/* check the need to use a template for the menu */}
       <div className='hidden lg:block'>
         <ModalTemplate
           id={popupId}

@@ -51,5 +51,12 @@ export const useScrollController = () => {
     };
   }, []);
 
-  return { buttonRef, isVisible };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  return { buttonRef, isVisible, scrollToTop };
 };

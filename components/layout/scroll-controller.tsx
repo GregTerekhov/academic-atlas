@@ -6,14 +6,7 @@ import { ButtonType, IconName, IconSize } from 'types';
 import { SvgIconUI } from 'ui';
 
 export default function ScrollController() {
-  const { buttonRef, isVisible } = useScrollController();
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
+  const { buttonRef, isVisible, scrollToTop } = useScrollController();
 
   return (
     <button
