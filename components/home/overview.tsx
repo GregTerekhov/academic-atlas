@@ -1,29 +1,30 @@
-import Image from 'next/image';
-
 import { IOrderStep, SectionTitle } from 'types';
 
-import { getOrderSteps, idValues, imageSettings } from 'helpers';
+import { getOrderSteps, getIdValues, imageSettings } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
 import { OverviewItem } from './subcomponents';
+import { ImageUI } from 'ui';
 
 export default function ServiceOverview() {
   const orderSteps = getOrderSteps();
+  const { Overview } = getIdValues();
   const { serviceOverview } = imageSettings;
+  const { src, alt, width, height, className } = serviceOverview;
 
   return (
     <SectionTemplate
       title={SectionTitle.HowItWorks}
-      id={idValues.Overview ?? ''}
+      id={Overview ?? ''}
     >
       <div className='flex items-center max-lg:bg-opacity-75 max-lg:bg-service-overview max-lg:bg-no-repeat md:max-lg:justify-end md:max-lg:bg-contain lg:justify-center lg:gap-x-16'>
         <div className='hidden lg:block'>
-          <Image
-            src={serviceOverview.src}
-            alt={serviceOverview.alt}
-            width={serviceOverview.width}
-            height={serviceOverview.height}
-            className={serviceOverview.className}
+          <ImageUI
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            className={className}
           />
         </div>
         <MappedListTemplate<IOrderStep>

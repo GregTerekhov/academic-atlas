@@ -1,17 +1,18 @@
 import { SectionTitle } from 'types';
 
-import { feedbackBreakpoints, getFeedbackSlides, idValues } from 'helpers';
+import { feedbackBreakpoints, getFeedbackSlides, getIdValues } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { CarouselUI } from 'ui';
 
 export default function Feedback() {
   const feedbackSlides = getFeedbackSlides();
+  const { Feedback } = getIdValues();
 
   return (
     <SectionTemplate
       title={SectionTitle.CustomerReviews}
-      id={idValues.Feedback ?? ''}
+      id={Feedback ?? ''}
     >
       <CarouselUI
         slides={feedbackSlides}

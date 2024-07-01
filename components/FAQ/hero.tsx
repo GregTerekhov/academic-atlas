@@ -1,12 +1,12 @@
-import Image from 'next/image';
-
 import { CtaText, SectionTitle } from 'types';
 import { imageSettings } from 'helpers';
 
 import { SectionTemplate } from 'template';
+import { ImageUI } from 'ui';
 
 export default function Hero() {
   const { faqHero } = imageSettings;
+  const { src, alt, width, height, className } = faqHero;
 
   return (
     <SectionTemplate
@@ -19,12 +19,12 @@ export default function Hero() {
       ctaText={CtaText.FAQHero}
       minHeight='lg:min-h-[792px]'
     >
-      <Image
-        src={faqHero.src}
-        alt={faqHero.alt}
-        width={faqHero.width}
-        height={faqHero.height}
-        className={faqHero.className}
+      <ImageUI
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
       />
     </SectionTemplate>
   );

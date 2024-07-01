@@ -15,6 +15,14 @@ enum CalculationMultiplier {
   IT = 1.8,
 }
 
+enum RoundingValue {
+  ZeroBreakpoint = 0,
+  TwentyFiveBreakpoint = 25,
+  FiftyBreakpoint = 50,
+  SeventyFiveBreakpoint = 75,
+  HundredBreakpoint = 100,
+}
+
 const humanitiesAndEconomics = new Set([
   ExpertiseArea.Education,
   ExpertiseArea.CultureAndArt,
@@ -141,4 +149,21 @@ export const getMinimalUniqueness = (workType: WorkType): number => {
     default:
       return Uniqueness.Zero;
   }
+};
+
+export const roundPriceToInterval = (calculatedPrice: number) => {
+  const priceToRound = Math.round(calculatedPrice);
+  const lastTwoDigits = priceToRound % RoundingValue.HundredBreakpoint;
+
+  let renderedPrice: number = RoundingValue.ZeroBreakpoint;
+
+  if (lastTwoDigits <= RoundingValue.TwentyFiveBreakpoint) {
+    renderedPrice = priceToRound - lastTwoDigits;
+  } else if (lastTwoDigits <= RoundingValue.SeventyFiveBreakpoint) {
+    renderedPrice = priceToRound + (RoundingValue.FiftyBreakpoint - lastTwoDigits);
+  } else {
+    renderedPrice = priceToRound + (RoundingValue.HundredBreakpoint - lastTwoDigits);
+  }
+
+  return renderedPrice;
 };

@@ -1,7 +1,7 @@
-import Image from 'next/image';
-
 import { type IServiceItem, WorkType } from 'types';
 import { serviceImageSettings } from 'helpers';
+
+import { ImageUI } from 'ui';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -22,7 +22,7 @@ export default function ServiceItem({
         href='#' //FIXME: --- add necessary link to backend
         className='flex h-full w-full flex-col justify-end'
       >
-        <Image
+        <ImageUI
           src={imageSrc}
           alt={imageAlt}
           width={width}

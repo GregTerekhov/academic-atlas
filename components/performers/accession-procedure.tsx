@@ -1,16 +1,16 @@
-import Image from 'next/image';
-
 import { IAccession, PrimaryButtonLabel, SectionTitle } from 'types';
 
 import { getAccession, imageSettings } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
-import { PrimaryButtonUI } from 'ui';
+import { ImageUI, PrimaryButtonUI } from 'ui';
 import { AccessionItem } from './subcomponents';
 
 export default function Accession() {
   const accessionData = getAccession();
   const { partnershipAccession } = imageSettings;
+
+  const { src, alt, width, height, className } = partnershipAccession;
 
   return (
     <SectionTemplate title={SectionTitle.PartnershipAccession}>
@@ -28,12 +28,12 @@ export default function Accession() {
               />
             )}
           </MappedListTemplate>
-          <Image
-            src={partnershipAccession.src}
-            height={partnershipAccession.width}
-            width={partnershipAccession.height}
-            alt={partnershipAccession.alt}
-            className={partnershipAccession.className}
+          <ImageUI
+            src={src}
+            height={width}
+            width={height}
+            alt={alt}
+            className={className}
           />
         </div>
         <div className='flex items-center justify-center'>

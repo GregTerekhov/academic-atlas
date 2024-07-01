@@ -37,20 +37,6 @@ export enum Paths {
   Partnership = '/partnership',
 }
 
-export interface ILinks {
-  label: MenuLinks;
-  path: UrlObject | Paths;
-}
-
-export interface IContactLink {
-  href: string;
-  iconName: IconName;
-  defaultSize: IconSize;
-  iconSize: string;
-  labelClass: string;
-  label: string;
-}
-
 export enum SectionTitle {
   Hero = 'hero',
   OurServices = 'our-services',
@@ -106,4 +92,22 @@ export enum CtaText {
 export enum CalculationTitle {
   CalculationForm = 'Дізнатися орієнтовну вартість',
   CalculationResult = 'Орієнтовна вартість',
+}
+
+export interface ILinks {
+  label: MenuLinks;
+  path: UrlObject | Paths;
+}
+
+export interface IContactLink {
+  href: string;
+  iconName: IconName;
+  defaultSize: IconSize;
+  iconSize: string;
+  labelClass: string;
+  label: string;
+}
+
+export interface IChildrenProps {
+  children: React.ReactNode;
 }

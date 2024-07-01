@@ -13,11 +13,15 @@ import {
 import { useCalculation } from './CalculationProvider';
 import { checkCalculationField } from 'helpers';
 
+interface IPopupRefs {
+  [key: string]: React.RefObject<HTMLDivElement>;
+}
+
 interface IPopupContext {
   isPopupOpen: (id: string) => boolean;
   togglePopup: (id: string) => void;
   closePopup: (id: string) => void;
-  popupRefs: React.MutableRefObject<{ [key: string]: React.RefObject<HTMLDivElement> }>;
+  popupRefs: React.MutableRefObject<IPopupRefs>;
 }
 
 const PopupContext = createContext<IPopupContext | undefined>(undefined);
@@ -29,7 +33,7 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
   const { calculationData, resetCalculation, handleResetCostResult, handleCheckboxChange } =
     useCalculation();
 
-  const popupRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>({});
+  const popupRefs = useRef<IPopupRefs>({});
 
   useEffect(() => {
     const isNotDefaultData = checkCalculationField(calculationData);

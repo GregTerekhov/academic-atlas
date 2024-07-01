@@ -1,30 +1,31 @@
-import Image from 'next/image';
-
 import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
-import { idValues, imageSettings } from 'helpers';
+import { getIdValues, imageSettings } from 'helpers';
 
 import { SectionTemplate } from 'template';
-import { PrimaryButtonUI } from 'ui';
+import { ImageUI, PrimaryButtonUI } from 'ui';
 
 export default function Promotions() {
   const { promotions } = imageSettings;
+  const { Promotions } = getIdValues();
+
+  const { src, alt, width, height, className } = promotions;
 
   return (
     <SectionTemplate
       title={SectionTitle.Promotions}
-      id={idValues.Promotions ?? ''}
+      id={Promotions ?? ''}
       noAlignment='text-start'
       hasCtaText
       ctaStyle='md:w-[421px] lg:w-[572px]'
       ctaText={CtaText.MainPromotions}
     >
-      <Image
-        src={promotions.src}
-        alt={promotions.alt}
-        width={promotions.width}
-        height={promotions.height}
-        className={promotions.className}
+      <ImageUI
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
       />
       <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
     </SectionTemplate>

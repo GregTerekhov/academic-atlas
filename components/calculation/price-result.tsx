@@ -1,9 +1,9 @@
 'use client';
 
-import { useCalculation } from 'context/CalculationProvider';
-import { calculatePrice } from 'helpers/calculatePrice';
-import { priceRenderFormatting } from 'helpers';
 import { ButtonType, CalculationTitle, IconName, IconSize, PrimaryButtonLabel } from 'types';
+
+import { useCalculation } from 'context';
+import { calculatePrice, roundPriceToInterval } from 'helpers';
 
 import { PrimaryButtonUI, SvgIconUI } from 'ui';
 
@@ -12,7 +12,7 @@ export default function PriceResult() {
   const { workType, executionTime, expertiseArea, uniqueness } = calculationData;
 
   const calculatedPrice = calculatePrice(workType, expertiseArea, executionTime, uniqueness);
-  const { renderedPrice } = priceRenderFormatting(calculatedPrice);
+  const renderedPrice = roundPriceToInterval(calculatedPrice);
 
   return (
     <>

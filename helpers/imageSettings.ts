@@ -1,17 +1,4 @@
-enum ImageSize {
-  Little80 = 80,
-  Little120 = 120,
-  Small144 = 144,
-  Small152 = 152,
-  Small180 = 180,
-  Medium192 = 192,
-  Medium200 = 200,
-  Medium208 = 208,
-  Medium216 = 216,
-  Big327 = 327,
-  Big402 = 402,
-  Big512 = 512,
-}
+import { ImageSize } from '../types';
 
 export const slideImageSettings = {
   width: ImageSize.Little120,
