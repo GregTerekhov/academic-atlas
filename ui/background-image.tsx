@@ -5,12 +5,6 @@ interface BackgroundImageProps {
   desktopSrc: string;
   tabletSrc: string;
   mobileSrc: string;
-  desktopWidth: number;
-  desktopHeight: number;
-  tabletWidth: number;
-  tabletHeight: number;
-  mobileWidth: number;
-  mobileHeight: number;
   desktopDarkSrc?: string;
   tabletDarkSrc?: string;
   mobileDarkSrc?: string;
@@ -22,25 +16,19 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
   desktopSrc,
   tabletSrc,
   mobileSrc,
-  desktopWidth,
-  desktopHeight,
-  tabletWidth,
-  tabletHeight,
-  mobileWidth,
-  mobileHeight,
   desktopDarkSrc,
   tabletDarkSrc,
   mobileDarkSrc,
+  priority = false,
 }) => {
-  const common = { alt, sizes: '100vw' };
+  const common = { alt, sizes: '100vw', priority };
 
   const {
     props: { srcSet: desktop },
   } = getImageProps({
     ...common,
-    width: desktopWidth,
-    height: desktopHeight,
-    quality: 80,
+    width: 1440,
+    height: 1080,
     src: desktopSrc,
   });
 
@@ -48,9 +36,8 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
     props: { srcSet: tablet },
   } = getImageProps({
     ...common,
-    width: tabletWidth,
-    height: tabletHeight,
-    quality: 70,
+    width: 768,
+    height: 1080,
     src: tabletSrc,
   });
 
@@ -58,44 +45,40 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
     props: { srcSet: mobile, ...rest },
   } = getImageProps({
     ...common,
-    width: mobileWidth,
-    height: mobileHeight,
-    quality: 70,
+    width: 375,
+    height: 1080,
     src: mobileSrc,
   });
 
   const desktopDark = desktopDarkSrc
     ? getImageProps({
         ...common,
-        width: desktopWidth,
-        height: desktopHeight,
-        quality: 80,
         src: desktopDarkSrc,
+        width: 1440,
+        height: 1080,
       }).props.srcSet
     : desktop;
 
   const tabletDark = tabletDarkSrc
     ? getImageProps({
         ...common,
-        width: tabletWidth,
-        height: tabletHeight,
-        quality: 70,
         src: tabletDarkSrc,
+        width: 768,
+        height: 800,
       }).props.srcSet
     : tablet;
 
   const mobileDark = mobileDarkSrc
     ? getImageProps({
         ...common,
-        width: mobileWidth,
-        height: mobileHeight,
-        quality: 70,
         src: mobileDarkSrc,
+        width: 350,
+        height: 1334,
       }).props.srcSet
     : mobile;
 
   return (
-    <picture>
+    <picture className='z-minus-1 absolute inset-0 h-full w-full'>
       <source
         media='(min-width: 1440px)'
         srcSet={desktop}
@@ -123,8 +106,7 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
       <img
         {...rest}
         alt={alt}
-        // style={{ width: '100%', height: 'auto', position: 'absolute', top: 0, left: 0, zIndex: -1 }}
-        className='z-minus-1 absolute left-0 top-0 h-auto w-full'
+        className='h-full w-full'
       />
     </picture>
   );

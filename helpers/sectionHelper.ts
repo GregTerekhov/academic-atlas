@@ -2,24 +2,46 @@ import { SectionTitle } from '../types';
 
 const getBackgrounds = (): Partial<Record<SectionTitle, string>> => {
   return {
-    [SectionTitle.Hero]: 'bg-hero',
-    [SectionTitle.FindOutCost]: 'bg-find-out-cost',
-    [SectionTitle.Performers]: 'bg-performers',
-    [SectionTitle.Promotions]: 'bg-promotions',
-    [SectionTitle.NotFound]: 'bg-notFound',
-    [SectionTitle.PartnershipHero]: 'bg-performers-hero',
-    [SectionTitle.PartnershipBenefits]: 'bg-partnership-benefits',
-    [SectionTitle.PartnershipRequirements]: 'bg-partnership-requirements',
-    [SectionTitle.FAQOrder]: 'bg-faq-order',
+    [SectionTitle.Hero]: 'hero',
+    [SectionTitle.FindOutCost]: 'find-out-cost',
+    [SectionTitle.Performers]: 'performers',
+    [SectionTitle.Promotions]: 'promotions',
+    [SectionTitle.NotFound]: 'notFound',
+    [SectionTitle.PartnershipHero]: 'performers-hero',
+    [SectionTitle.PartnershipBenefits]: 'partnership-benefits',
+    [SectionTitle.PartnershipRequirements]: 'partnership-requirements',
+    [SectionTitle.FAQOrder]: 'faq-order',
   };
 };
 
-export const getSectionClasses = (title: SectionTitle) => {
-  const backgroundVariants = getBackgrounds();
+// export const getSectionClasses = (title: SectionTitle) => {
+//   const backgroundVariants = getBackgrounds();
 
-  return backgroundVariants[title]
-    ? `${backgroundVariants[title]} backgroundSection before:bg-accentSecondary/10 py-20 lg:py-[104px]`
-    : 'bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]';
+//   return backgroundVariants[title]
+//     ? `${backgroundVariants[title]} backgroundSection before:bg-accentSecondary/10 py-20 lg:py-[104px]`
+//     : 'bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]';
+// };
+
+const getBackgroundImagePaths = (baseName: string, device: string, theme: string): string => {
+  return `/backgroundImage/${baseName}-${device}-${theme}.webp`;
+};
+
+export const generateBackgroundImagePaths = (section: SectionTitle) => {
+  const baseName = getBackgrounds()[section];
+  if (!baseName) return null;
+
+  const devices = ['desktop', 'tablet', 'mobile'];
+  const themes = ['light', 'dark'];
+
+  const paths: Record<string, string> = {};
+
+  devices.forEach((device) => {
+    themes.forEach((theme) => {
+      paths[`${device}-${theme}`] = getBackgroundImagePaths(baseName, device, theme);
+    });
+  });
+
+  return paths;
 };
 
 export const getTitleClasses = (
