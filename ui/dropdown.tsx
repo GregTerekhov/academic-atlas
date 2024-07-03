@@ -55,7 +55,7 @@ function Dropdown(
             {/* FIXME: --- fix height*/}
             <MappedListTemplate<IOption>
               items={options}
-              className='w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm dark:bg-background-gradient max-md:leading-130 md:text-base lg:text-medium'
+              className='bg-background-light-gradient dark:bg-background-dark-gradient w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm max-md:leading-130 md:text-base lg:text-medium'
             >
               {({ typeId, option }) => (
                 <li key={typeId}>
