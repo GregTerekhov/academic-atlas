@@ -78,6 +78,7 @@ const config: Config = {
         'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c)',
         'section-overlay-dark': 'linear-gradient(to left, #1b1b1b4d, #1b1b1b)',
         'section-overlay-light': 'linear-gradient(to left, #1b1b1b33, #1b1b1ba6)',
+        'partnership-hero': "url('/backgroundImage/partnership-hero.webp')",
       },
     },
   },
