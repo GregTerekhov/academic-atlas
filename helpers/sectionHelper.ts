@@ -2,24 +2,43 @@ import { SectionTitle } from '../types';
 
 const getBackgrounds = (): Partial<Record<SectionTitle, string>> => {
   return {
-    [SectionTitle.Hero]: 'bg-hero',
-    [SectionTitle.FindOutCost]: 'bg-find-out-cost',
-    [SectionTitle.Performers]: 'bg-performers',
-    [SectionTitle.Promotions]: 'bg-promotions',
-    [SectionTitle.NotFound]: 'bg-notFound',
-    [SectionTitle.PartnershipHero]: 'bg-performers-hero',
-    [SectionTitle.PartnershipBenefits]: 'bg-partnership-benefits',
-    [SectionTitle.PartnershipRequirements]: 'bg-partnership-requirements',
-    [SectionTitle.FAQOrder]: 'bg-faq-order',
+    [SectionTitle.Hero]: 'hero',
+    [SectionTitle.FindOutCost]: 'find-out-cost',
+    [SectionTitle.Performers]: 'performers',
+    [SectionTitle.Promotions]: 'promotions',
+    [SectionTitle.NotFound]: 'notFound',
+    [SectionTitle.PartnershipHero]: 'performers-hero',
+    [SectionTitle.PartnershipBenefits]: 'partnership-benefits',
+    [SectionTitle.PartnershipRequirements]: 'partnership-requirements',
+    [SectionTitle.FAQOrder]: 'faq-order',
   };
+};
+
+const getBackgroundImagePaths = (baseName: string, device: string): string => {
+  return `/backgroundImage/${baseName}-${device}.webp`;
+};
+
+export const generateBackgroundImagePaths = (section: SectionTitle) => {
+  const baseName = getBackgrounds()[section];
+  if (!baseName) return null;
+
+  const devices = ['largeDesktop', 'desktop', 'tablet', 'mobile'];
+
+  const paths: Record<string, string> = {};
+
+  devices.forEach((device) => {
+    paths[`${device}`] = getBackgroundImagePaths(baseName, device);
+  });
+
+  return paths;
 };
 
 export const getSectionClasses = (title: SectionTitle) => {
   const backgroundVariants = getBackgrounds();
 
   return backgroundVariants[title]
-    ? `${backgroundVariants[title]} backgroundSection before:bg-accentSecondary/10 py-20 lg:py-[104px]`
-    : 'bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]';
+    ? `relative overflow-hidden py-20 lg:py-[120px]`
+    : `bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[120px]`;
 };
 
 export const getTitleClasses = (

@@ -6,3 +6,4 @@ export { default as ImageUI } from './image';
 export { default as PrimaryButtonUI } from './primary-button';
 export { default as SvgIconUI } from './svg-icon';
 export { default as SwitchUI } from './switch';
+export { default as BackgroundImageUI } from './background-image';

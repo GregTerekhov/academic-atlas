@@ -1,9 +1,12 @@
+'use client';
+
 import { SectionTitle, SectionDescriptions, CtaText } from 'types';
 
-import { getSectionClasses, getTitleClasses } from 'helpers';
+import { generateBackgroundImagePaths, getSectionClasses, getTitleClasses } from 'helpers';
 
 import { Container } from 'layout';
 import { CallToActionText } from 'components';
+import { BackgroundImageUI } from 'ui';
 
 interface ISectionTemplate {
   title: SectionTitle;
@@ -25,19 +28,33 @@ export default function Section({
   titleStyle,
   noAlignment,
   ctaStyle,
-  minHeight,
+  minHeight = '',
   isBigTitle = false,
   ctaText = CtaText.NoText,
   hasCtaText = false,
 }: Readonly<ISectionTemplate>) {
   const sectionClasses = getSectionClasses(title);
   const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
+  const backgroundImagePaths = generateBackgroundImagePaths(title);
 
   return (
     <section
       id={id}
       className={`${sectionClasses} ${minHeight}`}
     >
+      {backgroundImagePaths && (
+        <BackgroundImageUI
+          alt={SectionDescriptions[title]}
+          largeDesktopSrc={backgroundImagePaths.largeDesktop}
+          desktopSrc={backgroundImagePaths.desktop}
+          tabletSrc={backgroundImagePaths.tablet}
+          mobileSrc={backgroundImagePaths.mobile}
+          priority={true}
+        />
+      )}
+      {backgroundImagePaths && (
+        <div className='bg-section-overlay-light dark:bg-section-overlay-dark absolute inset-0 h-full w-full bg-accentSecondary/10 dark:bg-accentSecondary/5'></div>
+      )}
       <Container>
         {isBigTitle ? (
           <h1 className={titleClass}>{SectionDescriptions[title]}</h1>
