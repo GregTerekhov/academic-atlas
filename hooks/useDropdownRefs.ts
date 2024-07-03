@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { type IDropdownRef } from '../types';
 
-export const useDropdownRefs = () => {
+export const useDropdownRefs = (
+  registerDropdownRefs: (refs: Record<string, IDropdownRef | null>) => void,
+) => {
   const workTypeRef = useRef<IDropdownRef | null>(null);
   const expertiseAreaRef = useRef<IDropdownRef | null>(null);
   const executionTimeRef = useRef<IDropdownRef | null>(null);
-  const [dropdownRefs, setDropdownRefs] = useState<Record<string, IDropdownRef | null>>({});
 
   useEffect(() => {
     const refs: Record<string, IDropdownRef | null> = {
@@ -17,30 +18,12 @@ export const useDropdownRefs = () => {
       executionTimeRef: executionTimeRef.current,
     };
 
-    const registerDropdownRefs = (refs: Record<string, IDropdownRef | null>) => {
-      setDropdownRefs((prevRefs) => {
-        if (JSON.stringify(prevRefs) === JSON.stringify(refs)) {
-          return prevRefs;
-        }
-        return refs;
-      });
-    };
-
     registerDropdownRefs(refs);
-  }, [setDropdownRefs]);
-
-  const resetAllDropdownLabels = () => {
-    Object.values(dropdownRefs).forEach((ref) => {
-      if (ref) {
-        ref.resetSelectedLabel();
-      }
-    });
-  };
+  }, [registerDropdownRefs]);
 
   return {
     workTypeRef,
     expertiseAreaRef,
     executionTimeRef,
-    resetAllDropdownLabels,
   };
 };

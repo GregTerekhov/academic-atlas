@@ -14,10 +14,10 @@ interface IModalProps {
 export default function Modal({ closeModal, id, children, modalRef, isOpen }: IModalProps) {
   return (
     isOpen(id) && (
-      <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-auto bg-darkBase/75 transition-colors'>
+      <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-auto bg-disabled-background/50 transition-colors dark:bg-darkBase/75'>
         <div
           ref={modalRef}
-          className='relative rounded-[20px] border-2 border-solid border-accentPrimary bg-whiteBase p-14 dark:bg-background-gradient dark:text-whiteBase lg:w-[752px]'
+          className='bg-background-light-gradient dark:bg-background-dark-gradient relative rounded-[20px] border-2 border-solid border-accentPrimary bg-whiteBase p-14 dark:text-whiteBase lg:w-[752px]'
         >
           <button
             type={ButtonType.Button}

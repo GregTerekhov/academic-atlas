@@ -41,7 +41,7 @@ export default function RootLayout({ children }: Readonly<IRootLayoutProps>) {
           storageKey={THEME_STORAGE_KEY}
         >
           <Header />
-          <main className='relative bg-whiteBase dark:bg-background-gradient'>
+          <main className='bg-background-light-gradient dark:bg-background-dark-gradient relative'>
             {children}
             <ScrollController />
           </main>

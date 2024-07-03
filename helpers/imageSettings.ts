@@ -56,9 +56,9 @@ export const imageSettings = {
   serviceOverview: {
     src: '/backgroundImage/service-overview.webp',
     alt: 'A sheet of paper and a magnifying glass',
-    width: ImageSize.Big402,
-    height: ImageSize.Big512,
-    className: 'h-auto w-auto md:h-[512px] md:w-[402px]',
+    width: ImageSize.Medium200,
+    height: ImageSize.Big334,
+    className: 'h-auto w-auto md:w-[264px] md:h-[334px] lg:h-[512px] lg:w-[402px]',
   },
   promotions: {
     src: '/images/notes.webp',

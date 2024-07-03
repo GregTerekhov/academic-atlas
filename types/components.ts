@@ -55,7 +55,6 @@ interface IBaseImageData {
 
 export interface IServiceItem extends IBaseId, IBaseImageData {
   serviceTitle: WorkType;
-  gridPosition: string;
 }
 
 export interface IBenefitsItem extends IBaseId, IBaseIcon {

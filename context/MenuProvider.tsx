@@ -2,9 +2,11 @@
 
 import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
+import { type IDropdownRef } from '../types';
+
 import { useCalculation } from './CalculationProvider';
 import { checkCalculationField } from 'helpers';
-import { useDropdownRefs, useHandleClickOutside } from 'hooks';
+import { useHandleClickOutside } from 'hooks';
 
 interface IMenuContext {
   isCalcMenuOpen: boolean;
@@ -15,11 +17,13 @@ interface IMenuContext {
   closeMenu: () => void;
   changeMenuContent: () => void;
   handleToggleMenu: () => void;
+  registerDropdownRefs: (refs: Record<string, IDropdownRef | null>) => void;
 }
 
 const MenuContext = createContext<IMenuContext | undefined>(undefined);
 
 export const MenuProvider = ({ children }: { children: ReactNode }) => {
+  const [dropdownRefs, setDropdownRefs] = useState<Record<string, IDropdownRef | null>>({});
   const [menuState, setMenuState] = useState({
     isNavMenuOpen: false,
     isCalcMenuOpen: false,
@@ -29,7 +33,6 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { resetAllDropdownLabels } = useDropdownRefs();
   const { calculationData, resetCalculation, handleResetCostResult, handleCheckboxChange } =
     useCalculation();
 
@@ -43,6 +46,23 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
     setIsValidData(isNotDefaultData);
   }, [calculationData]);
+
+  const registerDropdownRefs = (refs: Record<string, IDropdownRef | null>) => {
+    setDropdownRefs((prevRefs) => {
+      if (JSON.stringify(prevRefs) === JSON.stringify(refs)) {
+        return prevRefs;
+      }
+      return refs;
+    });
+  };
+
+  const resetAllDropdownLabels = () => {
+    Object.values(dropdownRefs).forEach((ref) => {
+      if (ref) {
+        ref.resetSelectedLabel();
+      }
+    });
+  };
 
   const toggleNavMenu = () => {
     setMenuState((prevState) => ({ ...prevState, isNavMenuOpen: !prevState.isNavMenuOpen }));
@@ -99,6 +119,7 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
         toggleNavMenu,
         closeMenu,
         handleToggleMenu,
+        registerDropdownRefs,
       }}
     >
       {children}
