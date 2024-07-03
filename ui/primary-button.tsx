@@ -17,7 +17,7 @@ export default function PrimaryButton({
 }: IPrimaryButtonProps) {
   const disabledStyle = isDisabled
     ? 'bg-none text-disabled-foreground bg-disabled-background/50'
-    : 'bg-accent-gradient hocus:bg-none hocus:bg-whiteBase/10 hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary-darker text-whiteBase';
+    : 'bg-accent-gradient hocus:bg-none hocus:bg-whiteBase/10 hocus:outline-none hocus:ring-[2px] hocus:ring-accentPrimary-darker text-whiteBase transition-colors duration-500';
 
   const buttonClass = `${disabledStyle} ${hasIcon ? 'gap-x-4 md:mx-auto' : 'gap-x-0'} flex h-16 items-center justify-center rounded-[20px] text-big font-bold w-full md:w-80 lg:text-xl`;
 

@@ -48,9 +48,9 @@ const config: Config = {
       maxHeight: {
         mobileMenu: 'calc(100vh - 80px)',
         tabletMenu: 'calc(100vh - 96px)',
-        mobileSkeleton: 'calc(100vh - 482px)',
-        tabletSkeleton: 'calc(100vh - 418px)',
-        desktopSkeleton: 'calc(100vh - 432px)',
+        mobileSkeleton: 'calc(100vh - 402px)',
+        tabletSkeleton: 'calc(100vh - 322px)',
+        desktopSkeleton: 'calc(100vh - 320px)',
       },
       colors: {
         transparent: 'transparent',
@@ -75,9 +75,11 @@ const config: Config = {
       },
       backgroundImage: {
         'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
-        'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c)',
         'section-overlay-dark': 'linear-gradient(to left, #1b1b1b4d, #1b1b1b)',
         'section-overlay-light': 'linear-gradient(to left, #1b1b1b33, #1b1b1ba6)',
+        'background-light-gradient': 'linear-gradient(to bottom right, #2091f915, #fefefe )',
+        'background-dark-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
+        'service-overview': "url('/backgroundImage/service-overview.webp')",
         'partnership-hero': "url('/backgroundImage/partnership-hero.webp')",
       },
     },

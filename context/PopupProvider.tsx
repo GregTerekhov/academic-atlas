@@ -50,7 +50,7 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
 
       const isPopupOpen = !openPopups[id];
 
-      if (!isPopupOpen) {
+      if (isPopupOpen) {
         document.body.style.overflow = 'hidden';
       } else {
         document.body.style.overflow = 'auto';
