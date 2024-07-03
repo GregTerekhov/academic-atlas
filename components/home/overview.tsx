@@ -17,8 +17,9 @@ export default function ServiceOverview() {
       title={SectionTitle.HowItWorks}
       id={Overview ?? ''}
     >
-      <div className='flex items-center max-lg:bg-opacity-75 max-lg:bg-service-overview max-lg:bg-no-repeat md:max-lg:justify-end md:max-lg:bg-contain lg:justify-center lg:gap-x-16'>
-        <div className='hidden lg:block'>
+      <div className='top-5 flex h-full w-full items-center max-lg:bg-service-overview max-md:absolute max-md:bg-center max-md:bg-no-repeat max-md:opacity-20'></div>
+      <div className='gap-x-0 md:flex lg:gap-x-16'>
+        <div className='hidden md:block'>
           <ImageUI
             src={src}
             alt={alt}

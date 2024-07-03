@@ -93,6 +93,7 @@ export enum ImageSize {
   Medium208 = 208,
   Medium216 = 216,
   Big327 = 327,
+  Big334 = 334,
   Big402 = 402,
   Big512 = 512,
 }
