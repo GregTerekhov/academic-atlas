@@ -2,26 +2,31 @@ import { getImageProps } from 'next/image';
 
 interface BackgroundImageProps {
   alt: string;
+  largeDesktopSrc: string;
   desktopSrc: string;
   tabletSrc: string;
   mobileSrc: string;
-  desktopDarkSrc?: string;
-  tabletDarkSrc?: string;
-  mobileDarkSrc?: string;
   priority?: boolean;
 }
 
 const BackgroundImage: React.FC<BackgroundImageProps> = ({
   alt,
+  largeDesktopSrc,
   desktopSrc,
   tabletSrc,
   mobileSrc,
-  desktopDarkSrc,
-  tabletDarkSrc,
-  mobileDarkSrc,
   priority = false,
 }) => {
   const common = { alt, sizes: '100vw', priority };
+
+  const {
+    props: { srcSet: largeDesktop },
+  } = getImageProps({
+    ...common,
+    width: 2000,
+    height: 1080,
+    src: largeDesktopSrc,
+  });
 
   const {
     props: { srcSet: desktop },
@@ -50,35 +55,12 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
     src: mobileSrc,
   });
 
-  const desktopDark = desktopDarkSrc
-    ? getImageProps({
-        ...common,
-        src: desktopDarkSrc,
-        width: 1440,
-        height: 1080,
-      }).props.srcSet
-    : desktop;
-
-  const tabletDark = tabletDarkSrc
-    ? getImageProps({
-        ...common,
-        src: tabletDarkSrc,
-        width: 768,
-        height: 800,
-      }).props.srcSet
-    : tablet;
-
-  const mobileDark = mobileDarkSrc
-    ? getImageProps({
-        ...common,
-        src: mobileDarkSrc,
-        width: 350,
-        height: 1334,
-      }).props.srcSet
-    : mobile;
-
   return (
-    <picture className='z-minus-1 absolute inset-0 h-full w-full'>
+    <picture className='z-minus-1 absolute inset-0 mx-auto h-full w-full max-w-[4000px]'>
+      <source
+        media='(min-width: 2000px)'
+        srcSet={largeDesktop}
+      />
       <source
         media='(min-width: 1440px)'
         srcSet={desktop}
@@ -91,22 +73,10 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
         media='(min-width: 375px)'
         srcSet={mobile}
       />
-      <source
-        media='(min-width: 1440px) and (prefers-color-scheme: dark)'
-        srcSet={desktopDark}
-      />
-      <source
-        media='(min-width: 768px) and (prefers-color-scheme: dark)'
-        srcSet={tabletDark}
-      />
-      <source
-        media='(min-width: 375px) and (prefers-color-scheme: dark)'
-        srcSet={mobileDark}
-      />
       <img
         {...rest}
         alt={alt}
-        className='h-full w-full'
+        className='h-full w-full object-cover'
       />
     </picture>
   );

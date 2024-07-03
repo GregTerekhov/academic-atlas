@@ -14,34 +14,39 @@ const getBackgrounds = (): Partial<Record<SectionTitle, string>> => {
   };
 };
 
-// export const getSectionClasses = (title: SectionTitle) => {
-//   const backgroundVariants = getBackgrounds();
-
-//   return backgroundVariants[title]
-//     ? `${backgroundVariants[title]} backgroundSection before:bg-accentSecondary/10 py-20 lg:py-[104px]`
-//     : 'bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]';
-// };
-
-const getBackgroundImagePaths = (baseName: string, device: string, theme: string): string => {
-  return `/backgroundImage/${baseName}-${device}-${theme}.webp`;
+const getBackgroundImagePaths = (baseName: string, device: string): string => {
+  return `/backgroundImage/${baseName}-${device}.webp`;
 };
 
 export const generateBackgroundImagePaths = (section: SectionTitle) => {
   const baseName = getBackgrounds()[section];
   if (!baseName) return null;
 
-  const devices = ['desktop', 'tablet', 'mobile'];
-  const themes = ['light', 'dark'];
+  const devices = ['largeDesktop', 'desktop', 'tablet', 'mobile'];
 
   const paths: Record<string, string> = {};
 
   devices.forEach((device) => {
-    themes.forEach((theme) => {
-      paths[`${device}-${theme}`] = getBackgroundImagePaths(baseName, device, theme);
-    });
+    paths[`${device}`] = getBackgroundImagePaths(baseName, device);
   });
 
   return paths;
+};
+
+export const getSectionClasses = (title: SectionTitle, theme: string) => {
+  const backgroundVariants = getBackgrounds();
+  const baseClass = 'relative overflow-hidden py-20 lg:py-[120px]';
+
+  if (backgroundVariants[title]) {
+    const backgroundOverlayClass =
+      theme === 'dark'
+        ? 'bg-[rgba(32, 145, 249, 0.1)] bg-gradient-dark '
+        : 'bg-[rgba(32, 145, 249, 0.05)] bg-gradient-dark opacity-65';
+
+    return `${backgroundOverlayClass} ${baseClass}`;
+  }
+
+  return `bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]`;
 };
 
 export const getTitleClasses = (

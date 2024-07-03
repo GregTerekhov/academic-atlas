@@ -1,8 +1,8 @@
 'use client';
 
-import { SectionTitle, SectionDescriptions, CtaText } from 'types';
+import { SectionTitle, SectionDescriptions, CtaText, ThemeVariants } from 'types';
 
-import { generateBackgroundImagePaths, getTitleClasses } from 'helpers';
+import { generateBackgroundImagePaths, getSectionClasses, getTitleClasses } from 'helpers';
 
 import { Container } from 'layout';
 import { CallToActionText } from 'components';
@@ -29,36 +29,36 @@ export default function Section({
   titleStyle,
   noAlignment,
   ctaStyle,
-  minHeight,
+  minHeight = '',
   isBigTitle = false,
   ctaText = CtaText.NoText,
   hasCtaText = false,
 }: Readonly<ISectionTemplate>) {
   const { theme } = useTheme();
-  const sectionClasses = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
+  const validTheme = theme === ThemeVariants.DARK ? ThemeVariants.DARK : ThemeVariants.LIGHT;
+  const sectionClasses = getSectionClasses(title, validTheme);
   const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
   const backgroundImagePaths = generateBackgroundImagePaths(title);
 
   return (
     <section
       id={id}
-      className={`${minHeight} relative overflow-hidden py-20 lg:py-32`}
+      className={`${sectionClasses} ${minHeight}`}
     >
       {backgroundImagePaths && (
         <BackgroundImageUI
           alt={SectionDescriptions[title]}
-          desktopSrc={backgroundImagePaths[`desktop-${theme}`]}
-          tabletSrc={backgroundImagePaths[`tablet-${theme}`]}
-          mobileSrc={backgroundImagePaths[`mobile-${theme}`]}
-          desktopDarkSrc={backgroundImagePaths[`desktop-${theme}`]}
-          tabletDarkSrc={backgroundImagePaths[`tablet-${theme}`]}
-          mobileDarkSrc={backgroundImagePaths[`mobile-${theme}`]}
+          largeDesktopSrc={backgroundImagePaths.largeDesktop}
+          desktopSrc={backgroundImagePaths.desktop}
+          tabletSrc={backgroundImagePaths.tablet}
+          mobileSrc={backgroundImagePaths.mobile}
           priority={true}
         />
       )}
+      {/* <div className='absolute inset-0 bg-gradient-to-l from-transparent via-black to-black opacity-50'></div> */}
       <Container>
         {isBigTitle ? (
-          <h1 className={`${sectionClasses} ${titleClass}`}>{SectionDescriptions[title]}</h1>
+          <h1 className={titleClass}>{SectionDescriptions[title]}</h1>
         ) : (
           <h2 className={titleClass}>{SectionDescriptions[title]}</h2>
         )}
