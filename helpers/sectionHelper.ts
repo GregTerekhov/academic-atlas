@@ -33,17 +33,11 @@ export const generateBackgroundImagePaths = (section: SectionTitle) => {
   return paths;
 };
 
-export const getSectionClasses = (title: SectionTitle, theme: string) => {
+export const getSectionClasses = (title: SectionTitle) => {
   const backgroundVariants = getBackgrounds();
-  const baseClass = 'relative overflow-hidden py-20 lg:py-[120px]';
 
   if (backgroundVariants[title]) {
-    const backgroundOverlayClass =
-      theme === 'dark'
-        ? 'bg-[rgba(32, 145, 249, 0.1)] bg-gradient-dark '
-        : 'bg-[rgba(32, 145, 249, 0.05)] bg-gradient-dark opacity-65';
-
-    return `${backgroundOverlayClass} ${baseClass}`;
+    return `relative overflow-hidden py-20 lg:py-[120px]`;
   }
 
   return `bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]`;

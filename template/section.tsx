@@ -1,13 +1,12 @@
 'use client';
 
-import { SectionTitle, SectionDescriptions, CtaText, ThemeVariants } from 'types';
+import { SectionTitle, SectionDescriptions, CtaText } from 'types';
 
 import { generateBackgroundImagePaths, getSectionClasses, getTitleClasses } from 'helpers';
 
 import { Container } from 'layout';
 import { CallToActionText } from 'components';
 import { BackgroundImageUI } from 'ui';
-import { useTheme } from 'context/ThemeProvider';
 
 interface ISectionTemplate {
   title: SectionTitle;
@@ -34,9 +33,7 @@ export default function Section({
   ctaText = CtaText.NoText,
   hasCtaText = false,
 }: Readonly<ISectionTemplate>) {
-  const { theme } = useTheme();
-  const validTheme = theme === ThemeVariants.DARK ? ThemeVariants.DARK : ThemeVariants.LIGHT;
-  const sectionClasses = getSectionClasses(title, validTheme);
+  const sectionClasses = getSectionClasses(title);
   const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
   const backgroundImagePaths = generateBackgroundImagePaths(title);
 
@@ -55,7 +52,9 @@ export default function Section({
           priority={true}
         />
       )}
-      {/* <div className='absolute inset-0 bg-gradient-to-l from-transparent via-black to-black opacity-50'></div> */}
+      {backgroundImagePaths && (
+        <div className='bg-section-overlay-light dark:bg-section-overlay-dark absolute inset-0 h-full w-full bg-accentSecondary/10 dark:bg-accentSecondary/5'></div>
+      )}
       <Container>
         {isBigTitle ? (
           <h1 className={titleClass}>{SectionDescriptions[title]}</h1>

@@ -56,7 +56,7 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
   });
 
   return (
-    <picture className='z-minus-1 absolute inset-0 mx-auto h-full w-full max-w-[4000px]'>
+    <picture className='absolute inset-0 mx-auto h-full w-full max-w-[4000px]'>
       <source
         media='(min-width: 2000px)'
         srcSet={largeDesktop}
