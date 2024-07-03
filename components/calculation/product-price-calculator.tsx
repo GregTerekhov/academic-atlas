@@ -9,7 +9,7 @@ import {
   WorkType,
 } from 'types';
 
-import { useCalculation } from 'context';
+import { useCalculation, useMenu } from 'context';
 import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
 import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck } from 'hooks';
 
@@ -20,6 +20,7 @@ import ThemeInput from './theme-input';
 import PriceResult from './price-result';
 
 export default function PriceCalculator() {
+  const { registerDropdownRefs } = useMenu();
   const {
     isChecked,
     rangeValue,
@@ -35,7 +36,7 @@ export default function PriceCalculator() {
   const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
 
-  const { workTypeRef, executionTimeRef, expertiseAreaRef } = useDropdownRefs();
+  const { workTypeRef, executionTimeRef, expertiseAreaRef } = useDropdownRefs(registerDropdownRefs);
 
   const selectWorkType = (option: DropdownOption) => {
     if (typeof option === 'string') {
