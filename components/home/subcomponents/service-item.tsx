@@ -1,4 +1,4 @@
-import { type IServiceItem, WorkType } from 'types';
+import { type IServiceItem, PrimaryButtonLabel, WorkType } from 'types';
 import { serviceImageSettings } from 'helpers';
 
 import { ImageUI } from 'ui';
@@ -9,6 +9,7 @@ export default function ServiceItem({
   imageSrc,
   imageAlt,
   serviceTitle,
+  priority = false,
 }: Readonly<ServiceItemProps>) {
   const { width, height, className } = serviceImageSettings;
   return (
@@ -25,6 +26,7 @@ export default function ServiceItem({
           width={width}
           height={height}
           className={className}
+          priority={priority}
         />
         <div className='relative bg-darkBase/50 p-2 lg:p-6'>
           <div className='max-lg:p-1 max-lg:backdrop-blur-[2px]'>
@@ -32,7 +34,7 @@ export default function ServiceItem({
               {`${serviceTitle} ${serviceTitle === WorkType.Diplomas ? 'та коледжів' : ''}`}
             </h3>
             <span className='text-base font-bold text-whiteBase group-hover:text-accentPrimary md:text-lg lg:text-xl'>
-              Замовити
+              {PrimaryButtonLabel.Ordering}
             </span>
           </div>
         </div>

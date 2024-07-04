@@ -97,3 +97,14 @@ export enum ImageSize {
   Big402 = 402,
   Big512 = 512,
 }
+
+export enum BackgroundImageSizes {
+  ExtraLargeWidth = 2000,
+  DesktopWidth = 1440,
+  TabletWidth = 768,
+  MobileWidth = 375,
+  MobileHeight = 1080,
+  TabletHeight = 1600,
+  DesktopHeight = 1800,
+  ExtraLargeHeight = 4000,
+}

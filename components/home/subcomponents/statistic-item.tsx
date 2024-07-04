@@ -27,7 +27,7 @@ export default function StatisticItem({
 
   return (
     <p className={`generalText flex flex-col items-center justify-center ${figuresStyle}`}>
-      <strong className='gradientText'>{count}</strong> {label}
+      <strong className='font-philosopher gradientText'>{count}</strong> {label}
     </p>
   );
 }

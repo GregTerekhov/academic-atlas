@@ -1,18 +1,12 @@
-import { Philosopher } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import type { Metadata } from 'next';
 
 import { Footer, Header } from 'layout';
 import { ProviderWrapper, ScrollController } from 'components';
+import { mulish, philosopher } from './fonts';
 
 import './globals.css';
-
-const philosopher = Philosopher({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  fallback: ['system-ui', 'arial'],
-});
 
 export const metadata: Metadata = {
   title: 'Academic Atlas',
@@ -32,7 +26,7 @@ export default function RootLayout({ children }: Readonly<IRootLayoutProps>) {
   return (
     <html
       lang='uk'
-      className={`${theme} ${philosopher.className}`}
+      className={`${theme} ${mulish.className} ${philosopher.variable}`}
       style={{ colorScheme: theme }}
     >
       <body>
@@ -41,7 +35,7 @@ export default function RootLayout({ children }: Readonly<IRootLayoutProps>) {
           storageKey={THEME_STORAGE_KEY}
         >
           <Header />
-          <main className='bg-background-light-gradient dark:bg-background-dark-gradient relative'>
+          <main className='relative bg-background-light-gradient dark:bg-background-dark-gradient'>
             {children}
             <ScrollController />
           </main>

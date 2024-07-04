@@ -16,11 +16,11 @@
   }
 
   h1 {
-    @apply text-balance text-3xl font-bold leading-130 md:text-5xl lg:text-7xl;
+    @apply font-philosopher text-balance text-3xl font-bold leading-130 md:text-5xl lg:text-7xl;
   }
 
   h2 {
-    @apply text-center text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
+    @apply font-philosopher text-center text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
   }
 }
 

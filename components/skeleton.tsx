@@ -2,7 +2,7 @@ import { Container } from 'layout';
 
 export default function Skeleton() {
   return (
-    <section className='max-h-mobileSkeleton py-20 md:max-h-tabletSkeleton md:py-24 lg:max-h-desktopSkeleton lg:py-28'>
+    <section className='my-auto h-screen max-h-mobileSkeleton min-h-screen py-20 md:max-h-tabletSkeleton md:py-24 lg:max-h-desktopSkeleton lg:py-28'>
       <Container>
         <div className='flex h-full w-full items-center max-md:flex-col max-md:justify-center md:justify-between'>
           <div>

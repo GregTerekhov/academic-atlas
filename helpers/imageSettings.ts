@@ -71,26 +71,32 @@ export const imageSettings = {
   serviceFirstItem: {
     src: '/images/services-1.webp',
     alt: 'Three notebooks',
+    priority: true,
   },
   serviceSecondItem: {
     src: '/images/services-3.webp',
     alt: 'Three notebooks, a pen and glasses',
+    priority: true,
   },
   serviceThirdItem: {
     src: '/images/services-2.webp',
     alt: 'Open book and notebook',
+    priority: true,
   },
   serviceFourthItem: {
     src: '/images/services-4.webp',
     alt: 'A pile of books',
+    priority: true,
   },
   serviceFifthItem: {
     src: '/images/services-9.webp',
     alt: 'A person draws diagrams',
+    priority: true,
   },
   serviceSixthItem: {
     src: '/images/services-5.webp',
     alt: 'A person moves a pen across the text of a book',
+    priority: true,
   },
   serviceSeventhItem: {
     src: '/images/services-6.webp',

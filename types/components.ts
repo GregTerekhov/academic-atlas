@@ -55,6 +55,7 @@ interface IBaseImageData {
 
 export interface IServiceItem extends IBaseId, IBaseImageData {
   serviceTitle: WorkType;
+  priority?: boolean | undefined;
 }
 
 export interface IBenefitsItem extends IBaseId, IBaseIcon {
