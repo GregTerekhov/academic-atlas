@@ -19,7 +19,7 @@ export default function PriceResult() {
       <h2 className='mb-8 !text-1.5xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'>
         {CalculationTitle.CalculationResult}
       </h2>
-      <p className='mb-8 text-center text-4xl text-whiteBase md:mb-10 md:text-5xl lg:text-7xl'>
+      <p className='font-philosopher mb-8 text-center text-4xl text-whiteBase md:mb-10 md:text-5xl lg:text-7xl'>
         від {renderedPrice} грн*
       </p>
       <p className='generalText mb-8 flex max-w-[550px] items-center justify-center text-center'>
