@@ -8,8 +8,8 @@ export default function NotFound() {
     <SectionTemplate
       isBigTitle
       title={SectionTitle.NotFound}
-      titleStyle='bg-accent-gradient bg-clip-text text-monstrousSm text-transparent md:text-[160px] lg:text-monstrousLg text-center font-bold drop-shadow-[1px_3px_3px_#f8a401]'
-      minHeight='max-h-mobileSkeleton md:max-h-tabletSkeleton lg:max-h-desktopSkeleton h-screen flex flex-col items-center justify-center'
+      titleStyle='bg-accent-gradient bg-clip-text text-monstrousSm text-transparent md:text-[160px] lg:text-monstrousLg text-center font-bold [-webkit-text-stroke-width:7px]'
+      minHeight='flex flex-col items-center justify-center md:min-h-screen md:max-lg:max-h-tabletSkeleton'
     >
       <h2 className='mb-6 flex flex-col md:mb-8 lg:mb-10'>
         <span>Ой!</span>
