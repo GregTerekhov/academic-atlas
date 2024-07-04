@@ -48,26 +48,26 @@ export default function BackgroundImage({
   const largeDesktopSrcSet = createImageSrcSet(
     common,
     largeDesktopSrc,
-    BackgroundImageSizes.ExtraLarge,
-    BackgroundImageSizes.CommonHeight,
+    BackgroundImageSizes.ExtraLargeWidth,
+    BackgroundImageSizes.ExtraLargeHeight,
   );
   const desktopSrcSet = createImageSrcSet(
     common,
     desktopSrc,
-    BackgroundImageSizes.Desktop,
-    BackgroundImageSizes.CommonHeight,
+    BackgroundImageSizes.DesktopWidth,
+    BackgroundImageSizes.DesktopHeight,
   );
   const tabletSrcSet = createImageSrcSet(
     common,
     tabletSrc,
-    BackgroundImageSizes.Tablet,
-    BackgroundImageSizes.CommonHeight,
+    BackgroundImageSizes.TabletWidth,
+    BackgroundImageSizes.TabletHeight,
   );
   const mobileSrcSet = createImageSrcSet(
     common,
     mobileSrc,
-    BackgroundImageSizes.Mobile,
-    BackgroundImageSizes.CommonHeight,
+    BackgroundImageSizes.MobileWidth,
+    BackgroundImageSizes.MobileHeight,
   );
 
   return (

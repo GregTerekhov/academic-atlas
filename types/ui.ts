@@ -99,9 +99,12 @@ export enum ImageSize {
 }
 
 export enum BackgroundImageSizes {
-  ExtraLarge = 2000,
-  Desktop = 1440,
-  Tablet = 768,
-  Mobile = 375,
-  CommonHeight = 1080,
+  ExtraLargeWidth = 2000,
+  DesktopWidth = 1440,
+  TabletWidth = 768,
+  MobileWidth = 375,
+  MobileHeight = 1080,
+  TabletHeight = 1600,
+  DesktopHeight = 1800,
+  ExtraLargeHeight = 4000,
 }
