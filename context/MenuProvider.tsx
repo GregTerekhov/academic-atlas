@@ -89,9 +89,11 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
   const closeMenu = () => {
     setMenuState({ isNavMenuOpen: false, isCalcMenuOpen: false, showCalculationMenu: false });
-    handleResetCostResult();
-    resetAllDropdownLabels();
-    handleCheckboxChange(false);
+    if (menuState.isCalcMenuOpen || menuState.showCalculationMenu) {
+      handleResetCostResult();
+      resetAllDropdownLabels();
+      handleCheckboxChange(false);
+    }
 
     if (isValidData) {
       resetCalculation();
