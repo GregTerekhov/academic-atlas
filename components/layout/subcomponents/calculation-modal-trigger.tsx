@@ -9,6 +9,7 @@ import { useHandleClickOutside } from 'hooks';
 
 import { ModalTemplate } from 'template';
 import PriceCalculator from '../../calculation/product-price-calculator';
+import MobileMenu from 'template/mobile-menu';
 
 interface IMenuTriggerProps {
   position: PositionInLayout;
@@ -16,7 +17,7 @@ interface IMenuTriggerProps {
 
 export default function CalculationModalTrigger({ position }: IMenuTriggerProps) {
   const { isPopupOpen, popupRefs, closePopup, togglePopup } = usePopup();
-  const { toggleCalcMenu, changeMenuContent } = useMenu();
+  const { isCalcMenuOpen, toggleCalcMenu, changeMenuContent } = useMenu();
   const popupId = PopupID.FooterMenu;
 
   if (!popupRefs.current[popupId]) {
@@ -36,7 +37,7 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
   };
 
   const commonButtonStyles =
-    'hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary';
+    'hidden hocus:text-accentSecondary dark:text-whiteBase dark:hocus:text-accentSecondary';
 
   return (
     <>
@@ -54,6 +55,11 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
       >
         {MenuLinks.Cost}
       </button>
+      <div className='hidden max-lg:block'>
+        <MobileMenu isOpen={isCalcMenuOpen}>
+          <PriceCalculator />
+        </MobileMenu>
+      </div>
       <div className='hidden lg:block'>
         <ModalTemplate
           id={popupId}

@@ -38,7 +38,9 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
       htmlFor={id}
       className='flex flex-col'
     >
-      <span className='generalText mb-4 inline-block'>
+      <span
+        className={`${!isChecked ? 'text-disabled-foreground' : ''} generalText mb-4 inline-block`}
+      >
         Оберіть відсоток унікальності {addTextMinimalValue()}
       </span>
       <input
@@ -56,7 +58,10 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
           background: `linear-gradient(to right, #f8a401 ${value}%, rgba(47, 47, 47, 0.5) ${value}%)`,
         }}
       />
-      <RangePercents value={value} />
+      <RangePercents
+        value={value}
+        isChecked={isChecked}
+      />
       <style jsx>{`
         .range-input::-webkit-slider-thumb {
           width: 32px;

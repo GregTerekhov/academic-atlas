@@ -53,7 +53,7 @@ export default function Section({
         />
       )}
       {backgroundImagePaths && (
-        <div className='absolute inset-0 h-full w-full bg-accentSecondary/10 bg-section-overlay-light dark:bg-accentSecondary/5 dark:bg-section-overlay-dark'></div>
+        <div className='absolute inset-0 h-full w-full bg-accentPrimary/10 bg-section-overlay-light dark:bg-accentPrimary/5 dark:bg-section-overlay-dark'></div>
       )}
       <Container>
         {isBigTitle ? (

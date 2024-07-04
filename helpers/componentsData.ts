@@ -399,11 +399,11 @@ export const getHeroGrid = (): IHeroGrid[] => {
     },
     {
       id: 'top-right',
-      className: 'col-start-3 rounded-t-[30px] bg-accentSecondary-darker/20 lg:rounded-t-[60px]',
+      className: 'col-start-3 rounded-t-[30px] bg-accentPrimary-darker/20 lg:rounded-t-[60px]',
     },
     {
       id: 'middle-left',
-      className: 'row-start-2 rounded-ss-[50px] bg-accentSecondary/20 lg:rounded-ss-[100px]',
+      className: 'row-start-2 rounded-ss-[50px] bg-accentPrimary/20 lg:rounded-ss-[100px]',
     },
     {
       id: 'middle-center',
@@ -413,7 +413,7 @@ export const getHeroGrid = (): IHeroGrid[] => {
     },
     {
       id: 'middle-right',
-      className: 'rounded-ee-[50px] bg-accentPrimary/20 lg:rounded-ee-[100px]',
+      className: 'rounded-ee-[50px] bg-accentSecondary/20 lg:rounded-ee-[100px]',
     },
     {
       id: 'bottom-left',
