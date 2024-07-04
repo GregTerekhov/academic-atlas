@@ -1,42 +1,39 @@
 import { SectionTitle } from '../types';
 
-const getBackgrounds = (): Partial<Record<SectionTitle, string>> => {
-  return {
-    [SectionTitle.Hero]: 'hero',
-    [SectionTitle.FindOutCost]: 'find-out-cost',
-    [SectionTitle.Performers]: 'performers',
-    [SectionTitle.Promotions]: 'promotions',
-    [SectionTitle.NotFound]: 'notFound',
-    [SectionTitle.PartnershipHero]: 'performers-hero',
-    [SectionTitle.PartnershipBenefits]: 'partnership-benefits',
-    [SectionTitle.PartnershipRequirements]: 'partnership-requirements',
-    [SectionTitle.FAQOrder]: 'faq-order',
-  };
+const BACKGROUNDS: Partial<Record<SectionTitle, string>> = {
+  [SectionTitle.Hero]: 'hero',
+  [SectionTitle.FindOutCost]: 'find-out-cost',
+  [SectionTitle.Performers]: 'performers',
+  [SectionTitle.Promotions]: 'promotions',
+  [SectionTitle.NotFound]: 'notFound',
+  [SectionTitle.PartnershipHero]: 'performers-hero',
+  [SectionTitle.PartnershipBenefits]: 'partnership-benefits',
+  [SectionTitle.PartnershipRequirements]: 'partnership-requirements',
+  [SectionTitle.FAQOrder]: 'faq-order',
 };
+
+const DEVICES = ['largeDesktop', 'desktop', 'tablet', 'mobile'];
 
 const getBackgroundImagePaths = (baseName: string, device: string): string => {
   return `/backgroundImage/${baseName}-${device}.webp`;
 };
 
 export const generateBackgroundImagePaths = (section: SectionTitle) => {
-  const baseName = getBackgrounds()[section];
+  const baseName = BACKGROUNDS[section];
   if (!baseName) return null;
 
-  const devices = ['largeDesktop', 'desktop', 'tablet', 'mobile'];
+  return DEVICES.reduce(
+    (paths, device) => {
+      paths[device] = getBackgroundImagePaths(baseName, device);
 
-  const paths: Record<string, string> = {};
-
-  devices.forEach((device) => {
-    paths[`${device}`] = getBackgroundImagePaths(baseName, device);
-  });
-
-  return paths;
+      return paths;
+    },
+    {} as Record<string, string>,
+  );
 };
 
 export const getSectionClasses = (title: SectionTitle) => {
-  const backgroundVariants = getBackgrounds();
-
-  return backgroundVariants[title]
+  return BACKGROUNDS[title]
     ? `relative overflow-hidden py-20 lg:py-[120px]`
     : `bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[120px]`;
 };

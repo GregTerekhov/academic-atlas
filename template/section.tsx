@@ -1,5 +1,3 @@
-'use client';
-
 import { SectionTitle, SectionDescriptions, CtaText } from 'types';
 
 import { generateBackgroundImagePaths, getSectionClasses, getTitleClasses } from 'helpers';
@@ -19,6 +17,7 @@ interface ISectionTemplate {
   ctaText?: CtaText;
   hasCtaText?: boolean;
   minHeight?: string;
+  priority?: boolean;
 }
 
 export default function Section({
@@ -32,6 +31,7 @@ export default function Section({
   isBigTitle = false,
   ctaText = CtaText.NoText,
   hasCtaText = false,
+  priority = false,
 }: Readonly<ISectionTemplate>) {
   const sectionClasses = getSectionClasses(title);
   const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
@@ -49,11 +49,11 @@ export default function Section({
           desktopSrc={backgroundImagePaths.desktop}
           tabletSrc={backgroundImagePaths.tablet}
           mobileSrc={backgroundImagePaths.mobile}
-          priority={true}
+          priority={priority}
         />
       )}
       {backgroundImagePaths && (
-        <div className='bg-section-overlay-light dark:bg-section-overlay-dark absolute inset-0 h-full w-full bg-accentSecondary/10 dark:bg-accentSecondary/5'></div>
+        <div className='absolute inset-0 h-full w-full bg-accentSecondary/10 bg-section-overlay-light dark:bg-accentSecondary/5 dark:bg-section-overlay-dark'></div>
       )}
       <Container>
         {isBigTitle ? (
