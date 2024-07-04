@@ -14,7 +14,7 @@ export default function ThemeSwitcher() {
       <SvgIconUI
         id={theme === ThemeVariants.LIGHT ? IconName.Sun : IconName.Moon}
         size={{ width: IconSize.BG, height: IconSize.BG }}
-        className='fill-accentSecondary'
+        className='fill-accentPrimary'
       />
     </SwitchUI>
   );

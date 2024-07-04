@@ -16,7 +16,7 @@ export default function AboutUsItem({ header, description, src, alt }: IAboutUsI
         <h2 className='text-start'>{header}</h2>
         <p className='generalText my-6'>{description}</p>
       </div>
-      <div className='relative overflow-hidden rounded-lg bg-cover before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentSecondary/10 before:content-[""] lg:w-[512px]'>
+      <div className='relative overflow-hidden rounded-lg bg-cover before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentPrimary/10 before:content-[""] lg:w-[512px]'>
         <ImageUI
           src={src}
           alt={alt}
