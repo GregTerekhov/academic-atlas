@@ -18,12 +18,13 @@ export default function Services() {
         items={serviceItems}
         className='max-md:space-y-4 md:grid md:grid-cols-3 md:grid-rows-3 md:gap-6 lg:gap-9'
       >
-        {({ id, imageSrc, imageAlt, serviceTitle }) => (
+        {({ id, imageSrc, imageAlt, serviceTitle, priority }) => (
           <ServiceItem
             key={id}
             imageSrc={imageSrc}
             imageAlt={imageAlt}
             serviceTitle={serviceTitle}
+            priority={priority}
           />
         )}
       </MappedListTemplate>
