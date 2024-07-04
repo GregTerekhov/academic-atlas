@@ -54,5 +54,10 @@ export const commonComponents = plugin(function ({ addComponents, theme }) {
         content: "''",
       },
     },
+    '.blockItem': {
+      borderRadius: '20px',
+      borderWidth: `1px`,
+      borderColor: theme('colors.accentPrimary[DEFAULT]'),
+    },
   });
 });
