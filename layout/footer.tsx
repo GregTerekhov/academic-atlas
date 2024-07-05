@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
         <Link
           href={Paths.LegalInfo}
-          className='mx-auto block text-center text-xs text-whiteBase hocus:text-accentSecondary md:text-sm lg:text-base'
+          className='mx-auto block text-center text-xs text-whiteBase hocus:text-accentPrimary md:text-sm lg:text-base'
         >
           {MenuLinks.LegalInfo} та умови використання
         </Link>

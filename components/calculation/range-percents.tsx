@@ -1,12 +1,13 @@
 interface IRangePercents {
   value: number;
+  isChecked: boolean;
 }
 
-export default function RangePercents({ value }: IRangePercents) {
+export default function RangePercents({ value, isChecked }: IRangePercents) {
   return (
     <datalist
       id='percents'
-      className='flex w-full justify-between text-xs [writing-mode:horizontal-tb]'
+      className={`${!isChecked ? 'text-disabled-foreground' : ''} flex w-full justify-between text-xs [writing-mode:horizontal-tb]`}
     >
       <option
         value='0'

@@ -43,7 +43,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
               <Link
                 href={path}
                 onClick={(e) => handleMainLinkClick(e, label)}
-                className={`${isActive ? 'text-accentPrimary' : 'dark:text-whiteBase'} text-medium hocus:text-accentPrimary dark:hocus:text-accentPrimary md:text-big`}
+                className={`${isActive ? 'text-accentSecondary' : 'dark:text-whiteBase'} text-medium hocus:text-accentSecondary dark:hocus:text-accentSecondary md:text-big`}
               >
                 {isNavMenuOpen ? (
                   <button

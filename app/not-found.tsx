@@ -16,7 +16,7 @@ export default function NotFound() {
       isBigTitle
       title={SectionTitle.NotFound}
       titleStyle='bg-accent-gradient bg-clip-text text-monstrousSm text-transparent md:text-[160px] lg:text-monstrousLg text-center font-bold [-webkit-text-stroke-width:7px]'
-      minHeight='flex flex-col items-center justify-center md:min-h-screen md:max-lg:max-h-tabletSkeleton'
+      minHeight='flex flex-col items-center justify-center min-h-mobileScreen md:min-h-tabletScreen lg:min-h-desktopScreen'
     >
       <h2 className='mb-6 flex flex-col md:mb-8 lg:mb-10'>
         <span>Ой!</span>
