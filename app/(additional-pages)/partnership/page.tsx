@@ -1,3 +1,6 @@
+import type { Metadata } from 'next';
+import { MetadataTexts } from 'types';
+
 import {
   AboutCompany,
   Accession,
@@ -6,6 +9,12 @@ import {
   Requirements,
   WorkflowSteps,
 } from 'components';
+
+export const metadata: Metadata = {
+  title: MetadataTexts.partnership.title,
+  description: MetadataTexts.partnership.description,
+  keywords: MetadataTexts.partnership.keywords,
+};
 
 export default function Partnership() {
   return (

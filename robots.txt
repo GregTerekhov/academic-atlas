@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /legal-info
+Allow: /
+ 
+Sitemap: https://academicatlas.com/sitemap.xml    //FIXME: --- add real path
