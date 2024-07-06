@@ -12,15 +12,6 @@ export const metadata: Metadata = {
   title: 'Academic Atlas',
   description:
     "Professional writing services for master's theses, course papers, lab reports, and scientific articles. Get instant cost estimates based on type, specialty, deadline, and uniqueness percentage. High-quality, original work tailored to your academic needs.",
-  icons: {
-    icon: [
-      {
-        type: 'image/svg+xml',
-        url: 'images/icon.svg',
-        // sizes: '48x48', //TOFIX: заготовка для адаптива. хотя похоже, что сво-во media не работает как стили, и адаптив здесь не применить
-      },
-    ],
-  },
 };
 
 const THEME_STORAGE_KEY = 'theme-preference';
