@@ -24,7 +24,7 @@ const createImageSrcSet = (
   height: number,
 ) => {
   const {
-    props: { srcSet, ...rest }, //FIXME --- А що ми маємо передавати в rest?
+    props: { srcSet, ...rest },
   } = getImageProps({
     ...common,
     src,
@@ -85,7 +85,7 @@ export default function BackgroundImage({
         srcSet={tabletSrcSet.srcSet}
       />
       <source
-        media='(min-width: 375px)'
+        media='(max-width: 767px)'
         srcSet={mobileSrcSet.srcSet}
       />
       <img

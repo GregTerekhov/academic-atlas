@@ -1,7 +1,15 @@
-import { SectionTitle } from 'types';
+import { MetadataTexts, SectionTitle } from 'types';
 
 import { SectionTemplate } from 'template';
 import { NotFoundNavigation } from 'components';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: MetadataTexts.notFound.title,
+  description: MetadataTexts.notFound.description,
+  keywords: MetadataTexts.notFound.keywords,
+  // openGraph: MetadataTexts.notFound.openGraph,    //FIXME: --- uncomment
+};
 
 export default function NotFound() {
   return (

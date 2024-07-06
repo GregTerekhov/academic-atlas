@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import { getLegalInfoArticles, mapArray } from 'helpers';
 import { SectionTemplate } from 'template';
-import { SectionTitle } from 'types';
+import { MetadataTexts, SectionTitle } from 'types';
+
+export const metadata: Metadata = {
+  title: MetadataTexts.legal.title,
+  description: MetadataTexts.legal.description,
+  keywords: MetadataTexts.legal.keywords,
+  // openGraph: MetadataTexts.legal.openGraph,  //FIXME: --- uncomment
+};
 
 export default function LegalInfo() {
   const legalInfoArticle = getLegalInfoArticles();

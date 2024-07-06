@@ -1,18 +1,10 @@
 import { cookies } from 'next/headers';
 
-import type { Metadata } from 'next';
-
 import { Footer, Header } from 'layout';
 import { ProviderWrapper, ScrollController } from 'components';
 import { mulish, philosopher } from './fonts';
 
 import './globals.css';
-
-export const metadata: Metadata = {
-  title: 'Academic Atlas',
-  description:
-    "Professional writing services for master's theses, course papers, lab reports, and scientific articles. Get instant cost estimates based on type, specialty, deadline, and uniqueness percentage. High-quality, original work tailored to your academic needs.",
-};
 
 const THEME_STORAGE_KEY = 'theme-preference';
 

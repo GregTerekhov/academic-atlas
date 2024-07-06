@@ -1,0 +1,20 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://academicatlas.com</loc>    //FIXME: --- add real path
+    <lastmod>2023-07-04T12:00:00+00:00</lastmod>  //FIXME: --- change date
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://academicatlas.com/partnership</loc>   //FIXME: --- add real path
+    <lastmod>2023-07-04T12:00:00+00:00</lastmod>   //FIXME: --- change date
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://academicatlas.com/faq</loc>   //FIXME: --- add real path
+    <lastmod>2023-07-04T12:00:00+00:00</lastmod>    //FIXME: --- change date
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
