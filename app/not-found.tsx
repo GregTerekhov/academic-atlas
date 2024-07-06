@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: MetadataTexts.notFound.title,
   description: MetadataTexts.notFound.description,
   keywords: MetadataTexts.notFound.keywords,
+  // openGraph: MetadataTexts.notFound.openGraph,    //FIXME: --- uncomment
 };
 
 export default function NotFound() {

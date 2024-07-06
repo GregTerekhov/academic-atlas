@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: MetadataTexts.home.title,
   description: MetadataTexts.home.description,
   keywords: MetadataTexts.home.keywords,
+  // openGraph: MetadataTexts.home.openGraph,    //FIXME: --- uncomment
 };
 
 export default function Home() {

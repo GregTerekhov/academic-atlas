@@ -114,34 +114,109 @@ export interface IChildrenProps {
 
 export const MetadataTexts = {
   home: {
-    title: 'AcademicAtlas | Виконання студентських робіт на замовлення',
+    title: 'AcademicAtlas | Professional Student Writing Services',
     description:
-      'Найкращі послуги з виконання курсових, дипломних, магістерських робіт, наукових статей та інших студентських завдань. Швидко, якісно, надійно.',
+      "Professional writing services for master's theses, course papers, lab reports, and scientific articles. Get instant cost estimates based on type, specialty, deadline, and uniqueness percentage. High-quality, original work tailored to your academic needs.",
     keywords:
-      'курсові роботи, дипломні роботи, магістерські роботи, наукові статті, лабораторні роботи, контрольні роботи, презентації, звіти з практики',
+      "course papers, theses, master's theses, scientific articles, lab reports, control works, presentations, practice reports",
+    openGraph: {
+      title: 'AcademicAtlas | Professional Student Writing Services',
+      description:
+        'Professional writing services for masters theses, course papers, lab reports, and scientific articles. Get instant cost estimates based on type, specialty, deadline, and uniqueness percentage. High-quality, original work tailored to your academic needs.',
+      // url: 'https://AcademicAtlas.com',   //FIXME: --- add real path
+      type: 'website',
+      images: [
+        {
+          // url: 'https://AcademicAtlas.com/images/og-image.jpg',  //FIXME: --- add image
+          width: 1200,
+          height: 630,
+          alt: 'AcademicAtlas',
+        },
+      ],
+    },
   },
   faq: {
-    title: 'AcademicAtlas | Часті запитання',
+    title: 'AcademicAtlas | FAQ',
     description:
-      'Відповіді на часті запитання про наші послуги з виконання студентських робіт. Дізнайтеся більше про процес замовлення, терміни виконання та інші деталі.',
-    keywords: 'Часті запитання, виконання студентських робіт, AcademicAtlas',
+      'Answers to frequently asked questions about our custom academic work services. Learn more about the ordering process, deadlines, and other details.',
+    keywords: 'frequently asked questions, custom academic work, AcademicAtlas',
+    openGraph: {
+      title: 'AcademicAtlas | FAQ',
+      description:
+        'Answers to frequently asked questions about our custom academic work services. Learn more about the ordering process, deadlines, and other details.',
+      // url: 'https://AcademicAtlas.com/faq',   //FIXME: --- add real path
+      type: 'article',
+      images: [
+        {
+          // url: 'https://AcademicAtlas.com/images/faq-og-image.jpg',   //FIXME: --- add image
+          width: 1200,
+          height: 630,
+          alt: 'FAQ - AcademicAtlas',
+        },
+      ],
+    },
   },
   partnership: {
-    title: 'AcademicAtlas | Виконавцям',
+    title: 'AcademicAtlas | Partnership',
     description:
-      'Дізнайтеся про вимоги та переваги приєднання до нашої команди фахівців з виконання студентських робіт. Ми шукаємо талановитих та мотивованих професіоналів.',
-    keywords: 'Приєднання до команди, вакансії, AcademicAtlas',
+      'Learn about the requirements and benefits of joining our team of academic work specialists. We are looking for talented and motivated professionals.',
+    keywords: 'Join team, vacancies, AcademicAtlas',
+    openGraph: {
+      title: 'AcademicAtlas | Partnership',
+      description:
+        'Learn about the requirements and benefits of joining our team of academic work specialists. We are looking for talented and motivated professionals.',
+      // url: 'https://AcademicAtlas.com/partnership',  //FIXME: --- add real path
+      type: 'article',
+      images: [
+        {
+          // url: 'https://AcademicAtlas.com/images/partnership-og-image.jpg',  //FIXME: --- add image
+          width: 1200,
+          height: 630,
+          alt: 'Partnership - AcademicAtlas',
+        },
+      ],
+    },
   },
   legal: {
-    title: 'AcademicAtlas | Політика конфіденційності',
+    title: 'AcademicAtlas | Privacy Policy',
     description:
-      'Прочитайте нашу політику конфіденційності, щоб дізнатися, як ми обробляємо ваші персональні дані. Ми забезпечуємо захист ваших особистих даних.',
-    keywords: 'Політика конфіденційності, захист даних, AcademicAtlas',
+      'Read our privacy policy to learn how we handle your personal data. We ensure the protection of your personal information.',
+    keywords: 'Privacy policy, data protection, AcademicAtlas',
+    openGraph: {
+      title: 'AcademicAtlas | Privacy Policy',
+      description:
+        'Read our privacy policy to learn how we handle your personal data. We ensure the protection of your personal information.',
+      // url: 'https://AcademicAtlas.com/legal',   //FIXME: --- add real path
+      type: 'article',
+      images: [
+        {
+          // url: 'https://AcademicAtlas.com/images/legal-og-image.jpg',   //FIXME: --- add image
+          width: 1200,
+          height: 630,
+          alt: 'Legal - AcademicAtlas',
+        },
+      ],
+    },
   },
   notFound: {
-    title: 'AcademicAtlas | Сторінка не знайдена',
+    title: 'AcademicAtlas | Page Not Found',
     description:
-      'На жаль, сторінка, яку ви шукаєте, не знайдена. Можливо, ви ввели неправильну адресу або сторінка була видалена.',
-    keywords: '404, сторінка не знайдена, AcademicAtlas',
+      'Unfortunately, the page you are looking for was not found. You might have entered an incorrect address or the page has been removed.',
+    keywords: '404, page not found, AcademicAtlas',
+    openGraph: {
+      title: 'AcademicAtlas | Page Not Found',
+      description:
+        'Unfortunately, the page you are looking for was not found. You might have entered an incorrect address or the page has been removed.',
+      // url: 'https://AcademicAtlas.com/',   //FIXME: --- add real path
+      type: 'article',
+      images: [
+        {
+          // url: 'https://AcademicAtlas.com/images/404-og-image.jpg',    //FIXME: --- add image
+          width: 1200,
+          height: 630,
+          alt: '404 - Page Not Found',
+        },
+      ],
+    },
   },
 };
