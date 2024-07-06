@@ -44,7 +44,7 @@ export default function CarouselFeedback<T extends ISlide>({
           className={imageClass}
         />
       </div>
-      <p className={`${nameClass} text-center`}>{title}</p>
+      <p className={`${nameClass} text-center font-bold`}>{title}</p>
       <p className={`${feedbackClass} mb-4`}>{description}</p>
       <div className='flex items-center justify-center gap-x-4'>{getRatingIcons(memberRating)}</div>
     </div>

@@ -48,59 +48,51 @@ export const getBenefits = (): IBenefitsItem[] => {
 };
 
 export const getFeedbackSlides = (): ISlide[] => {
-  const {
-    slideMemberFirst,
-    slideMemberSecond,
-    slideMemberThird,
-    slideMemberFourth,
-    slideMemberFifth,
-  } = imageSettings;
-  //FIXME: --- add real feedbacks, names and photo
+  const { slideMemberFirst, slideMemberSecond, slideMemberThird, slideMemberFifth } = imageSettings;
+  //FIXME: --- add photo
   return [
     {
       id: '1',
-      title: 'Дарина Заєць',
+      title: 'Анна Парфенюк',
       description:
-        "Дякую за чудові послуги! Робота виконана якісно та вчасно, співпраця була дуже продуктивною. Ваш професіоналізм та увага до деталей вражають. Обов'язково звернусь ще раз і рекомендую іншим!",
+        'Замовляла магістерську роботу по програмній інженерії. Дуже задоволена сервісом. Все зроблено на найвищому рівні',
       imageSrc: slideMemberFirst.src,
       imageAlt: slideMemberFirst.alt,
       memberRating: 5,
     },
     {
       id: '2',
-      title: 'Андрій Білка',
-      description:
-        'Дякую за відмінне обслуговування! Робота виконана на вищому рівні, співпраця була ефективною і комфортною. Рекомендую всім, хто шукає якісні послуги!',
+      title: 'Владислав Бурківський',
+      description: 'Замовляв курсову роботу по кібербезпеці, все зроблено вчасно і якісно ',
       imageSrc: slideMemberSecond.src,
       imageAlt: slideMemberSecond.alt,
       memberRating: 4,
     },
     {
       id: '3',
-      title: 'Петро Вовк',
-      description:
-        'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
+      title: 'Вадим Зосименко',
+      description: 'Потрібна була курсова за короткий термін. Впоралися чудово! Дякую!',
       imageSrc: slideMemberThird.src,
       imageAlt: slideMemberThird.alt,
       memberRating: 5,
     },
     {
       id: '4',
-      title: 'Данило Ведмідь',
+      title: 'Ірина Сидорчук',
       description:
-        'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
-      imageSrc: slideMemberFourth.src,
-      imageAlt: slideMemberFourth.alt,
+        'Замовляла магістерську роботу по психології на цьому сайті, і результат перевершив всі мої очікування! Виконавці дійсно професіонали своєї справи: робота була виконана вчасно, з урахуванням усіх моїх побажань і вимог. Рекомендую на всі 100',
+      imageSrc: slideMemberFirst.src,
+      imageAlt: slideMemberFirst.alt,
       memberRating: 5,
     },
     {
       id: '5',
-      title: 'Семен Лисиця',
+      title: 'Володимир Шелест',
       description:
-        'Дуже задоволений якістю наданих послуг! Професійний підхід, оперативність і увага до деталей роблять співпрацю приємною і результативною. Рекомендую!',
+        'Дуже задоволений сервісом цього сайту! Замовляв курсову роботу з досить складною темою по філології, і команда виконавців впоралась чудово. Рекомендую всім, хто шукає якісні послуги з написання навчальних робіт',
       imageSrc: slideMemberFifth.src,
       imageAlt: slideMemberFifth.alt,
-      memberRating: 4,
+      memberRating: 5,
     },
   ];
 };
@@ -213,7 +205,6 @@ export const getAboutUsData = (): IAboutUs[] => {
       title: 'Хто ми?',
       description:
         'Ми - платформа, що спеціалізується на виконанні наукових робіт на замовлення. Наша мета - надавати якісні та професійні послуги нашим клієнтам, допомагаючи їм досягти успіху в їхніх навчальних цілях',
-
       imageSrc: partnershipAboutUs1.src,
       imageAlt: partnershipAboutUs1.alt,
     },
@@ -222,7 +213,6 @@ export const getAboutUsData = (): IAboutUs[] => {
       title: 'Кого ми шукаємо?',
       description:
         'Ми запрошуємо талановитих та відповідальних виконавців, готових долучитися до нашої команди. Якщо ви експерт у вашій галузі, володієте високим рівнем професіоналізму та бажаєте працювати в команді, це місце для вас',
-
       imageSrc: partnershipAboutUs2.src,
       imageAlt: partnershipAboutUs2.alt,
     },
@@ -335,54 +325,54 @@ export const getAccession = (): IAccession[] => {
 export const getFAQQuestions = (): IQuestions[] => {
   return [
     {
-      id: 'TeamPaper 1',
-      title: QuestionTitle.Team1,
-      answer: QuestionAnswer.Team1,
+      id: 'Question 1',
+      title: QuestionTitle.Issue1,
+      answer: QuestionAnswer.Answer1,
     },
     {
-      id: 'TeamPaper 2',
-      title: QuestionTitle.Team2,
-      answer: QuestionAnswer.Team2,
+      id: 'Question 2',
+      title: QuestionTitle.Issue2,
+      answer: QuestionAnswer.Answer2,
     },
     {
-      id: 'TeamPaper 3',
-      title: QuestionTitle.Team3,
-      answer: QuestionAnswer.Team3,
+      id: 'Question 3',
+      title: QuestionTitle.Issue3,
+      answer: QuestionAnswer.Answer3,
     },
     {
-      id: 'TeamPaper 4',
-      title: QuestionTitle.Team4,
-      answer: QuestionAnswer.Team4,
+      id: 'Question 4',
+      title: QuestionTitle.Issue4,
+      answer: QuestionAnswer.Answer4,
     },
     {
-      id: 'TeamPaper 5',
-      title: QuestionTitle.Team5,
-      answer: QuestionAnswer.Team5,
+      id: 'Question 5',
+      title: QuestionTitle.Issue5,
+      answer: QuestionAnswer.Answer5,
     },
     {
-      id: 'TeamPaper 6',
-      title: QuestionTitle.Team6,
-      answer: QuestionAnswer.Team6,
+      id: 'Question 6',
+      title: QuestionTitle.Issue6,
+      answer: QuestionAnswer.Answer6,
     },
     {
-      id: 'TeamPaper 7',
-      title: QuestionTitle.Team7,
-      answer: QuestionAnswer.Team7,
+      id: 'Question 7',
+      title: QuestionTitle.Issue7,
+      answer: QuestionAnswer.Answer7,
     },
     {
-      id: 'TeamPaper 8',
-      title: QuestionTitle.Team8,
-      answer: QuestionAnswer.Team8,
+      id: 'Question 8',
+      title: QuestionTitle.Issue8,
+      answer: QuestionAnswer.Answer8,
     },
     {
-      id: 'TeamPaper 9',
-      title: QuestionTitle.Team9,
-      answer: QuestionAnswer.Team9,
+      id: 'Question 9',
+      title: QuestionTitle.Issue9,
+      answer: QuestionAnswer.Answer9,
     },
     {
-      id: 'TeamPaper 10',
-      title: QuestionTitle.Team10,
-      answer: QuestionAnswer.Team10,
+      id: 'Question 10',
+      title: QuestionTitle.Issue10,
+      answer: QuestionAnswer.Answer10,
     },
   ];
 };
