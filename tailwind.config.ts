@@ -48,12 +48,14 @@ const config: Config = {
       lineHeight: {
         130: '1.3',
       },
+      minHeight: {
+        mobileScreen: 'calc(100vh - 482px)',
+        tabletScreen: 'calc(100vh - 418px)',
+        desktopScreen: 'calc(100vh - 432px)',
+      },
       maxHeight: {
         mobileMenu: 'calc(100vh - 80px)',
         tabletMenu: 'calc(100vh - 96px)',
-        mobileSkeleton: 'calc(100vh - 482px)',
-        tabletSkeleton: 'calc(100vh - 418px)',
-        desktopSkeleton: 'calc(100vh - 432px)',
       },
       colors: {
         transparent: 'transparent',
@@ -68,12 +70,12 @@ const config: Config = {
           background: '#2f2f2f',
         },
         accentPrimary: {
-          DEFAULT: '#f8a401',
-          darker: '#d12600',
-        },
-        accentSecondary: {
           DEFAULT: '#2091f9',
           darker: '#3048a5',
+        },
+        accentSecondary: {
+          DEFAULT: '#f8a401',
+          darker: '#d12600',
         },
       },
       backgroundImage: {

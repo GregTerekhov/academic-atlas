@@ -7,7 +7,7 @@ export default function Header() {
   const commonWrapperStyles = 'hidden items-center gap-x-8';
 
   return (
-    <header className='bg-background-light-gradient dark:bg-background-dark-gradient fixed left-0 top-0 z-20 max-h-20 w-full border-b-[0.5px] border-accentSecondary bg-whiteBase py-2 dark:border-whiteBase md:max-h-24 md:py-4 lg:max-h-28'>
+    <header className='fixed left-0 top-0 z-20 max-h-20 w-full border-b-[0.5px] border-accentPrimary bg-whiteBase bg-background-light-gradient py-2 dark:border-whiteBase dark:bg-background-dark-gradient md:max-h-24 md:py-4 lg:max-h-28'>
       <Container>
         <div className='flex items-center justify-between'>
           <Logo position={PositionInLayout.Header} />

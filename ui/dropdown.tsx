@@ -50,19 +50,19 @@ function Dropdown(
         handleToggle={toggleDropdown}
       />
       {isDropdownOpen && (
-        <div className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg ring-[2px] ring-accentPrimary lg:max-h-[314px]'>
+        <div className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg ring-[2px] ring-accentSecondary lg:max-h-[314px]'>
           <CustomScroll className='max-h-[248px]'>
             {/* FIXME: --- fix height*/}
             <MappedListTemplate<IOption>
               items={options}
-              className='bg-background-light-gradient dark:bg-background-dark-gradient w-full space-y-6 rounded-b-lg bg-whiteBase p-4 text-sm max-md:leading-130 md:text-base lg:text-medium'
+              className='w-full space-y-6 rounded-b-lg bg-whiteBase bg-background-light-gradient p-4 text-sm dark:bg-background-dark-gradient max-md:leading-130 md:text-base lg:text-medium'
             >
               {({ typeId, option }) => (
                 <li key={typeId}>
                   <button
                     type={ButtonType.Button}
                     onClick={() => handleOptionClick(option)}
-                    className='hover:text-accentPrimary'
+                    className='hover:text-accentSecondary'
                   >
                     {option}
                   </button>
