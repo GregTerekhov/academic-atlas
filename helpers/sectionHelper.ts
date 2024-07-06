@@ -35,7 +35,7 @@ export const generateBackgroundImagePaths = (section: SectionTitle) => {
 export const getSectionClasses = (title: SectionTitle) => {
   return BACKGROUNDS[title]
     ? `relative overflow-hidden py-20 lg:py-[120px]`
-    : `bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[120px]`;
+    : `bg-transparent py-20 text-darkBase dark:text-whiteBase md:py-24 lg:py-[120px]`;
 };
 
 export const getTitleClasses = (

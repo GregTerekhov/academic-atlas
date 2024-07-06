@@ -19,7 +19,7 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       label: '+380 63 20 761 20',
     },
     {
-      href: 'https://web.telegram.org/k/#@AcademicAtlas_Official',
+      href: 'https://t.me/AcademicAtlasBot',
       iconName: IconName.Telegram,
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',

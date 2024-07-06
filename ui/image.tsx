@@ -5,9 +5,9 @@ import { ImageSize } from 'types';
 interface IImageProps {
   src: string;
   alt: string;
-  width?: ImageSize;
-  height?: ImageSize;
-  className?: string;
+  width: ImageSize;
+  height: ImageSize;
+  className: string;
   priority?: boolean;
 }
 
