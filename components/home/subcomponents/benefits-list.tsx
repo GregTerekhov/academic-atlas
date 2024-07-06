@@ -10,7 +10,7 @@ export default function BenefitsList() {
   return (
     <MappedListTemplate<IBenefitsItem>
       items={benefits}
-      className='flex max-md:flex-wrap max-md:justify-center max-md:gap-6 md:justify-between'
+      className='flex justify-between max-lg:flex-wrap max-md:gap-6 md:max-lg:gap-y-6'
     >
       {({ id, iconName, label }) => (
         <BenefitsItem
