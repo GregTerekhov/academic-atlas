@@ -1,9 +1,14 @@
+'use client';
+
 import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
 import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
+import { encodeTelegramData } from 'helpers/telegramDataReceive';
 
 export default function Hero() {
+  const { accumulateUserData, base64String } = encodeTelegramData();
+
   return (
     <SectionTemplate
       title={SectionTitle.Hero}
@@ -14,7 +19,16 @@ export default function Hero() {
       ctaText={CtaText.MainHero}
       priority
     >
-      <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
+      <a
+        href={`https://t.me/AcademicAtlasBot?start=${base64String}`}
+        target='blank'
+        rel='noopener noreferrer'
+        onClick={() => {
+          accumulateUserData({ command: 'order' });
+        }}
+      >
+        <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
+      </a>
     </SectionTemplate>
   );
 }

@@ -10,7 +10,7 @@ import {
 } from 'types';
 
 import { useCalculation, useMenu } from 'context';
-import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
+import { encodeTelegramData, getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
 import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck } from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';
@@ -35,6 +35,8 @@ export default function PriceCalculator() {
   } = useCalculation();
   const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
+
+  const { accumulateUserData } = encodeTelegramData();
 
   const { workTypeRef, executionTimeRef, expertiseAreaRef } = useDropdownRefs(registerDropdownRefs);
 
@@ -116,7 +118,16 @@ export default function PriceCalculator() {
             )}
             <div className='md:flex md:items-center md:justify-center'>
               <PrimaryButtonUI
-                handleClick={handleShowCostResult}
+                handleClick={() => {
+                  handleShowCostResult();
+                  accumulateUserData({
+                    command: 'order',
+                    workType: calculationData.workType,
+                    expertiseArea: calculationData.expertiseArea,
+                    executionTime: calculationData.executionTime,
+                    uniqueness: calculationData.uniqueness,
+                  });
+                }}
                 isDisabled={isButtonDisabled}
               >
                 {PrimaryButtonLabel.CostCalculation}

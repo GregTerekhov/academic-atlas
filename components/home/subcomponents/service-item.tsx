@@ -1,5 +1,7 @@
+'use client';
+
 import { type IServiceItem, PrimaryButtonLabel, WorkType } from 'types';
-import { serviceImageSettings } from 'helpers';
+import { encodeTelegramData, serviceImageSettings } from 'helpers';
 
 import { ImageUI } from 'ui';
 
@@ -12,11 +14,19 @@ export default function ServiceItem({
   priority = false,
 }: Readonly<ServiceItemProps>) {
   const { width, height, className } = serviceImageSettings;
+
+  const { accumulateUserData, base64String } = encodeTelegramData();
+
   return (
-    <li className='blockItem group relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[120px] md:h-[280px]'>
+    <li className='group blockItem relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[120px] md:h-[280px]'>
       <a
-        href='#' //FIXME: --- add necessary link to backend
-        className='absolute flex h-full w-full flex-col justify-end '
+        href={`https://t.me/AcademicAtlasBot?start=${base64String}`}
+        target='blank'
+        rel='noopener noreferrer'
+        className='absolute flex h-full w-full flex-col justify-end'
+        onClick={() => {
+          accumulateUserData({ command: 'order', workType: serviceTitle });
+        }}
       >
         <ImageUI
           src={imageSrc}
