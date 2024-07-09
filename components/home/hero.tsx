@@ -24,7 +24,7 @@ export default function Hero() {
         target='blank'
         rel='noopener noreferrer'
         onClick={() => {
-          accumulateUserData({ command: 'order' });
+          accumulateUserData();
         }}
       >
         <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>

@@ -25,7 +25,7 @@ export default function ServiceItem({
         rel='noopener noreferrer'
         className='absolute flex h-full w-full flex-col justify-end'
         onClick={() => {
-          accumulateUserData({ command: 'order', workType: serviceTitle });
+          accumulateUserData({ workType: serviceTitle });
         }}
       >
         <ImageUI

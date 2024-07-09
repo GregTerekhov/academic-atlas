@@ -120,8 +120,8 @@ export default function PriceCalculator() {
               <PrimaryButtonUI
                 handleClick={() => {
                   handleShowCostResult();
+
                   accumulateUserData({
-                    command: 'order',
                     workType: calculationData.workType,
                     expertiseArea: calculationData.expertiseArea,
                     executionTime: calculationData.executionTime,
