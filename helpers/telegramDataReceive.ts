@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ExecutionTime, ExpertiseArea, WorkType } from 'types';
+import { ExecutionTime, ExpertiseArea, WorkType } from '../types';
 
 interface IAccumulatedData {
   workType?: string;
@@ -41,13 +41,13 @@ export const encodeTelegramData = () => {
           uniqueness: data.uniqueness,
         });
       }
+    } else {
+      setTelegramData({ command: 'order' });
     }
   };
 
   const dataToString = JSON.stringify(telegramData);
-
-  const encodeURI = encodeURIComponent(dataToString);
-  const base64String = btoa(encodeURI);
+  const base64String = btoa(dataToString);
 
   return { accumulateUserData, base64String };
 };
