@@ -19,15 +19,15 @@ export default function StatisticItem({
         return 'hidden lg:flex';
 
       default:
-        return '';
+        return 'flex';
     }
   };
 
   const figuresStyle = getFiguresTextStyle();
 
   return (
-    <p className={`generalText flex flex-col items-center justify-center ${figuresStyle}`}>
-      <strong className='font-philosopher gradientText'>{count}</strong> {label}
+    <p className={`generalText flex-col items-center justify-center ${figuresStyle}`}>
+      <strong className='gradientText font-philosopher max-sm:text-3xl'>{count}</strong> {label}
     </p>
   );
 }

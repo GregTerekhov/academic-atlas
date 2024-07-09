@@ -21,7 +21,7 @@ export default function Contacts({ variant }: IContactsProps) {
   const getListStyle = () => {
     return variant === PositionInLayout.Header
       ? 'max-lg:block max-lg:space-y-6 lg:flex lg:flex-row-reverse lg:gap-x-6'
-      : 'max-md:flex max-md:items-center max-md:gap-x-4 md:space-y-4 lg:w-[304px]';
+      : 'max-md:flex max-sm:flex-col max-md:items-center max-sm:gap-y-4 sm:max-md:gap-x-4 md:space-y-4 lg:w-[304px]';
   };
 
   return (
