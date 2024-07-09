@@ -26,7 +26,7 @@ export default function ToggleMenuTrigger() {
         <SvgIconUI
           id={isNavMenuOpen || isCalcMenuOpen ? IconName.Close : IconName.Burger}
           size={{ width: IconSize.L, height: IconSize.L }}
-          className='fill-darkBase dark:fill-whiteBase lg:group-hover:fill-accentSecondary'
+          className='fill-darkBase/75 dark:fill-whiteBase lg:group-hover:fill-accentSecondary'
         />
       </button>
 

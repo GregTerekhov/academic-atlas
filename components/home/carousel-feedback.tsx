@@ -34,7 +34,7 @@ export default function CarouselFeedback<T extends ISlide>({
   return (
     <div className={`${slideClass} rounded-[18px]`}>
       <div
-        className={`${imageContainerClass} mx-auto overflow-hidden rounded-full border-[3px] border-solid border-accentSecondary-darker`}
+        className={`${imageContainerClass} mx-auto overflow-hidden rounded-full border-[3px] border-solid dark:border-accentSecondary-darker`}
       >
         <ImageUI
           src={imageSrc}

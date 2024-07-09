@@ -16,7 +16,7 @@ export default function Services() {
     >
       <MappedListTemplate<IServiceItem>
         items={serviceItems}
-        className='max-md:space-y-4 md:grid md:grid-cols-3 md:grid-rows-3 md:gap-6 lg:gap-9'
+        className='max-md:space-y-4 md:grid md:grid-cols-3 md:grid-rows-3 md:gap-[17px] lg:gap-9'
       >
         {({ id, imageSrc, imageAlt, serviceTitle, priority }) => (
           <ServiceItem

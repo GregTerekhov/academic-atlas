@@ -37,7 +37,7 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
   };
 
   const commonButtonStyles =
-    'hidden hocus:text-accentSecondary dark:text-whiteBase dark:hocus:text-accentSecondary';
+    'hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentSecondary';
 
   return (
     <>

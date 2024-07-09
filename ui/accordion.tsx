@@ -29,7 +29,7 @@ export default function Accordion({ children, title }: Readonly<IAccordionProps>
   };
 
   return (
-    <li className='border-b border-whiteBase bg-transparent py-4 md:py-6'>
+    <li className='border-b border-darkBase bg-transparent py-4 dark:border-whiteBase md:py-6'>
       <AccordionHeader
         title={title}
         isOpen={isOpen}
