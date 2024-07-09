@@ -7,7 +7,7 @@ export default function WorkflowBackground() {
       <SvgIconUI
         id={IconName.PartnershipStepMd}
         size={{ width: IconSize.WorkflowMdWidth, height: IconSize.WorkflowMdHeight }}
-        className='absolute hidden fill-accentSecondary md:left-1/2 md:top-[82px] md:-translate-x-1/2 max-lg:md:block'
+        className='absolute left-1/2 top-20 hidden -translate-x-1/2 fill-accentSecondary md:max-lg:block'
       />
       <SvgIconUI
         id={IconName.PartnershipStepLg}
