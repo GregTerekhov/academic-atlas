@@ -32,10 +32,10 @@ export const getCarouselFeedbackStyles = (isActive: boolean, className: string) 
       : 'mb-4 size-[120px]',
     imageClass: isActive ? 'md:w-40' : className,
     nameClass: isActive
-      ? 'mb-6 text-medium md:mb-8 md:text-big lg:text-xl'
+      ? 'max-sm:min-h-12 mb-6 text-base sm:text-medium md:mb-8 md:text-big lg:text-xl'
       : 'md:mb-4 md:text-base lg:mb-6 lg:text-medium',
     feedbackClass: isActive
-      ? 'generalText max-sm:min-h-[146px] sm:min-h-[110px] md:mb-6 md:min-h-24 lg:min-h-[150px]'
-      : 'max-lg:leading-130 md:text-sm md:max-lg:min-h-[91px] lg:text-base',
+      ? 'generalText max-sm:min-h-[182px] sm:min-h-[128px] md:mb-6 md:min-h-36 lg:min-h-[210px]'
+      : 'max-lg:leading-130 max-sm:min-h-[182px] text-sm md:max-lg:min-h-32 lg:text-base lg:min-h-48',
   };
 };

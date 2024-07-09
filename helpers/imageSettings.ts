@@ -3,7 +3,7 @@ import { ImageSize } from '../types';
 export const slideImageSettings = {
   width: ImageSize.Little120,
   height: ImageSize.Little120,
-  className: 'md:w-[120px]',
+  className: 'size-[120px]',
 };
 
 export const serviceImageSettings = {
@@ -26,7 +26,7 @@ export const heroMatrixImageSettings = {
 
 export const imageSettings = {
   faqHero: {
-    src: '/images/faq-hero.webp',
+    src: '/images/faq-hero.png',
     alt: 'Girl with a book and question marks symbolizing frequently asked questions and answers',
     width: ImageSize.Medium192,
     height: ImageSize.Medium208,
@@ -35,33 +35,41 @@ export const imageSettings = {
   },
   slideMemberFirst: {
     src: '/images/customer-2.webp',
-    alt: 'Daryna Zaec',
+    alt: 'Anna Parfeniuk',
   },
   slideMemberSecond: {
     src: '/images/customer-1.webp',
-    alt: 'Andrii Bilka',
+    alt: 'Vladyslav Burkivskii',
   },
   slideMemberThird: {
-    src: '/images/customer-3.webp',
-    alt: 'Petro Vovk',
+    src: '/images/customer-5.webp',
+    alt: 'Vadym Zosymenko',
   },
   slideMemberFourth: {
-    src: '/images/customer-1.webp',
-    alt: 'Danylo Wedmid',
+    src: '/images/customer-6.webp',
+    alt: 'Iryna Sydorchuk',
   },
   slideMemberFifth: {
     src: '/images/customer-3.webp',
-    alt: 'Semen Lysytsia',
+    alt: 'Volodymyr Shelest',
+  },
+  slideMemberSixth: {
+    src: '/images/customer-7.webp',
+    alt: 'Karolina Zubrytska',
+  },
+  slideMemberSeventh: {
+    src: '/images/customer-4.webp',
+    alt: 'Volodymyr Shkvarnytskii',
   },
   serviceOverview: {
-    src: '/backgroundImage/service-overview.webp',
+    src: '/backgroundImage/service-overview.png',
     alt: 'A sheet of paper and a magnifying glass',
     width: ImageSize.Medium200,
     height: ImageSize.Big334,
     className: 'h-auto w-auto md:w-[264px] md:h-[334px] lg:h-[512px] lg:w-[402px]',
   },
   promotions: {
-    src: '/images/notes.webp',
+    src: '/images/notes.png',
     alt: 'Notes',
     width: ImageSize.Medium216,
     height: ImageSize.Small144,
@@ -119,8 +127,8 @@ export const imageSettings = {
       'rounded-xl object-cover object-center md:h-[220px] md:w-[292px] lg:h-[287px] lg:w-[516px]',
   },
   partnershipAboutUs1: {
-    src: '/images/partnership-who-we-are.webp',
-    alt: 'A couple arm pointing on a laptop',
+    src: '/images/partnership-who-we-are.jpg', //FIXME: --- change to webp
+    alt: 'A couple arm pointing on a laptop', //FIXME: --- add appropriate values
   },
   partnershipAboutUs2: {
     src: '/images/partnership-what-we-are-looking-for.webp',
@@ -135,7 +143,7 @@ export const imageSettings = {
     alt: 'A woman searches the bookshelves',
   },
   heroMatrixBottom: {
-    src: '/images/right-bottom-matrix-grid.webp',
-    alt: 'A guy smiles with his arms crossed',
+    src: '/images/right-bottom-matrix-grid.jpg', //FIXME: --- change to webp
+    alt: 'A guy smiles with his arms crossed', //FIXME: --- add appropriate values
   },
 };
