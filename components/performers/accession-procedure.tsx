@@ -37,7 +37,7 @@ export default function Accession() {
           />
         </div>
         <div className='flex items-center justify-center'>
-          <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+          <PrimaryButtonUI isOnLightBackground>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
         </div>
       </div>
     </SectionTemplate>

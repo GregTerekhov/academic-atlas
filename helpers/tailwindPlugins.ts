@@ -20,7 +20,7 @@ export const commonComponents = plugin(function ({ addComponents, theme }) {
       },
     },
     '.gradientText': {
-      backgroundImage: theme('backgroundImage.accent-gradient'),
+      backgroundImage: theme('backgroundImage.accent-darkGradient'),
       fontSize: theme('fontSize[6xl]'),
       lineHeight: theme('lineHeight.130'),
       letterSpacing: '2px',
