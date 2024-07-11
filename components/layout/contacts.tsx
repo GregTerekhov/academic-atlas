@@ -28,7 +28,7 @@ export default function Contacts({ variant }: IContactsProps) {
     <>
       <address className='not-italic'>
         {variant === PositionInLayout.Footer && (
-          <p className='mb-4 hidden text-darkBase dark:text-whiteBase max-md:block max-md:text-center'>
+          <p className='mb-4 hidden text-darkBase dark:text-whiteBase max-md:block max-md:text-center max-sm:text-xs'>
             Наші контакти
           </p>
         )}

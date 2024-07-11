@@ -26,7 +26,9 @@ export default function StatisticItem({
   const figuresStyle = getFiguresTextStyle();
 
   return (
-    <p className={`generalText flex-col items-center justify-center ${figuresStyle}`}>
+    <p
+      className={`generalText flex-col items-center justify-center max-sm:text-center ${figuresStyle}`}
+    >
       <strong className='gradientText bg-accent-lightGradient font-philosopher dark:bg-accent-darkGradient max-sm:text-3xl'>
         {count}
       </strong>{' '}

@@ -16,7 +16,9 @@ export default function WorkflowItem({ count, header, desc, gridMarkup }: IWorkf
         </p>
       </div>
       <div className='md:text-center'>
-        <h3 className='mb-2 text-medium font-bold md:text-big lg:text-xl'>{header}</h3>
+        <h3 className='mb-2 text-medium font-bold max-sm:text-base md:text-big lg:text-xl'>
+          {header}
+        </h3>
         <p className='generalText'>{desc}</p>
       </div>
     </li>

@@ -28,14 +28,14 @@ export const getCarouselFeedbackStyles = (isActive: boolean, className: string) 
       ? 'swiper-slide-active max-sm:!w-[calc(100vw - 48px)] sm:!w-[301px] border-2 border-accentPrimary dark:border-accentSecondary bg-accentPrimary/10 md:max-lg:bg-whiteBase dark:bg-whiteBase/10 md:max-lg:dark:bg-background-dark-gradient md:max-lg:bg-background-light-gradient p-4 max-md:!mr-0 md:!w-[436px] md:p-8 lg:!w-[496px] lg:p-12'
       : 'border border-accentPrimary md:!w-[320px] p-3 md:p-6 md:max-lg:blur-[1px] lg:!w-[336px] lg:p-8',
     imageContainerClass: isActive
-      ? 'mb-4 size-[120px] md:mb-6 md:size-[160px] border-accentSecondary'
-      : 'mb-4 size-[120px] border-accentPrimary',
+      ? 'md:mb-6 md:size-[160px] border-accentSecondary'
+      : 'border-accentPrimary',
     imageClass: isActive ? 'md:w-40' : className,
     nameClass: isActive
       ? 'max-sm:min-h-12 mb-6 text-base sm:text-medium md:mb-8 md:text-big lg:text-xl'
-      : 'md:mb-4 md:text-base lg:mb-6 lg:text-medium',
+      : 'md:mb-4 md:text-base lg:mb-6 lg:text-medium mb-2',
     feedbackClass: isActive
-      ? 'generalText max-sm:min-h-[182px] sm:min-h-[128px] md:mb-6 md:min-h-36 lg:min-h-[210px]'
-      : 'max-lg:leading-130 max-sm:min-h-[182px] text-sm md:max-lg:min-h-32 lg:text-base lg:min-h-48',
+      ? 'generalText max-sm:min-h-[132px] sm:min-h-[128px] md:mb-6 md:min-h-36 lg:min-h-[210px]'
+      : 'max-lg:leading-130 max-sm:min-h-[132px] max-sm:text-xs text-sm md:max-lg:min-h-32 lg:text-base lg:min-h-48',
   };
 };

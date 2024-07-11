@@ -44,7 +44,7 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
       <button
         type={ButtonType.Button}
         onClick={onCostLinkClick}
-        className={`${position === PositionInLayout.Footer ? 'text-start text-sm md:text-base' : 'text-medium md:text-big'} ${commonButtonStyles} max-lg:block`}
+        className={`${position === PositionInLayout.Footer ? 'text-start text-sm max-sm:text-xs md:text-base' : 'text-medium md:text-big'} ${commonButtonStyles} max-lg:block`}
       >
         {MenuLinks.Cost}
       </button>
