@@ -39,7 +39,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
       className='flex flex-col'
     >
       <span
-        className={`${!isChecked ? 'text-disabled-foreground' : ''} generalText mb-4 inline-block`}
+        className={`${!isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase'} generalText mb-4 inline-block`}
       >
         Оберіть відсоток унікальності {addTextMinimalValue()}
       </span>

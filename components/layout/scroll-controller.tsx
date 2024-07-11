@@ -14,12 +14,12 @@ export default function ScrollController() {
       type={ButtonType.Button}
       aria-label='Scroll up button'
       onClick={scrollToTop}
-      className={`fixed bottom-4 right-10 z-10 ${isVisible ? 'opacity-100 md:flex' : 'hidden opacity-0'} hidden size-10 items-center justify-center rounded-full border border-accentSecondary bg-whiteBase/10 transition-opacity hover:bg-accentSecondary/30 lg:right-20 lg:size-16`}
+      className={`fixed bottom-4 right-10 z-10 ${isVisible ? 'opacity-100 md:flex' : 'hidden opacity-0'} hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 transition-opacity hocus:bg-accentPrimary/10 dark:border-accentSecondary dark:hocus:bg-accentSecondary/30 lg:right-20 lg:size-16`}
     >
       <SvgIconUI
         id={IconName.Arrow}
         size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-        className='fill-accentSecondary lg:size-9'
+        className='fill-accentPrimary dark:fill-accentSecondary lg:size-9'
       />
     </button>
   );

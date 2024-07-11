@@ -39,7 +39,7 @@ export default function PlagiarismCheckbox({
           />
         )}
       </span>
-      <span className='generalText'>{label}</span>
+      <span className='generalText text-darkBase dark:text-whiteBase'>{label}</span>
     </label>
   );
 }
