@@ -1,53 +1,49 @@
-'use client';
-
-import { useState } from 'react';
 import { ExecutionTime, ExpertiseArea, WorkType } from '../types';
 
-interface IAccumulatedData {
-  workType?: string;
-  expertiseArea?: string;
-  executionTime?: string;
+export interface IEncryptedData {
+  command: 'order' | 'join';
+  workType?: string | undefined;
+  expertiseArea?: string | undefined;
+  executionTime?: string | undefined;
   uniqueness?: number | undefined;
 }
 
-interface IEncryptedData extends IAccumulatedData {
-  command: 'order' | 'join';
-}
+//DATA GATHERING FUNCTION GROUP
+export const getWorkTypeKeys = (val: WorkType): string | undefined =>
+  Object.keys(WorkType).find((key) => WorkType[key as keyof typeof WorkType] === val);
 
-export const encodeTelegramData = () => {
-  const [telegramData, setTelegramData] = useState<IEncryptedData | null>();
+export const getExpertiseAreaKeys = (val: ExpertiseArea): string | undefined =>
+  Object.keys(ExpertiseArea).find(
+    (key) => ExpertiseArea[key as keyof typeof ExpertiseArea] === val,
+  );
 
-  const accumulateUserData = (data?: IAccumulatedData) => {
-    const getWorkTypeData = Object.entries(WorkType);
-    const getExpertiseAreaData = Object.entries(ExpertiseArea);
-    const getExecutionTimeData = Object.entries(ExecutionTime);
+export const getExecutionTimeKeys = (val: ExecutionTime): string | undefined =>
+  Object.keys(ExecutionTime).find(
+    (key) => ExecutionTime[key as keyof typeof ExecutionTime] === val,
+  );
 
-    if (data && data.hasOwnProperty('workType') && !data.hasOwnProperty('uniqueness')) {
-      const workData = getWorkTypeData.find((vals) => vals[1] === data.workType);
-      if (workData) {
-        setTelegramData({ command: 'order', workType: workData[0] });
-      }
-    } else if (data && data.hasOwnProperty('workType') && data.hasOwnProperty('expertiseArea')) {
-      const workData = getWorkTypeData.find((vals) => vals[1] === data.workType);
-      const areaData = getExpertiseAreaData.find((vals) => vals[1] === data.expertiseArea);
-      const timeData = getExecutionTimeData.find((vals) => vals[1] === data.executionTime);
+//GENERATE UNIVERSAL DATA OBJECT
+export const createServiceObject = (objectData: IEncryptedData | undefined) => {
+  if (objectData) {
+    const { command, workType, expertiseArea, executionTime, uniqueness } = objectData;
 
-      if (workData && areaData && timeData) {
-        setTelegramData({
-          command: 'order',
-          workType: workData[0],
-          expertiseArea: areaData[0],
-          executionTime: timeData[0],
-          uniqueness: data.uniqueness,
-        });
-      }
+    if (uniqueness && workType && expertiseArea && executionTime) {
+      return { command, workType, expertiseArea, executionTime, uniqueness };
+    } else if (!expertiseArea && workType) {
+      return { command, workType };
     } else {
-      setTelegramData({ command: 'order' });
+      return { command };
     }
-  };
+  }
+  return;
+};
 
-  const dataToString = JSON.stringify(telegramData);
-  const base64String = btoa(dataToString);
-
-  return { accumulateUserData, base64String };
+//ENCODE UNIVERSAL DATA OBJECT
+export const encodeTelegramData = (telegramData: IEncryptedData | undefined) => {
+  if (telegramData) {
+    const dataToString = JSON.stringify(telegramData);
+    const base64String = btoa(dataToString);
+    return base64String;
+  }
+  return;
 };

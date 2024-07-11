@@ -13,4 +13,4 @@ export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './themeHelper';
 export * from './uiHelper';
-export { encodeTelegramData } from './telegramDataReceive';
+export * from './telegramDataReceive';

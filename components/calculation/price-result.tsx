@@ -3,15 +3,31 @@
 import { ButtonType, CalculationTitle, IconName, IconSize, PrimaryButtonLabel } from 'types';
 
 import { useCalculation } from 'context';
-import { calculatePrice, encodeTelegramData, roundPriceToInterval } from 'helpers';
+import {
+  calculatePrice,
+  createServiceObject,
+  encodeTelegramData,
+  getExecutionTimeKeys,
+  getExpertiseAreaKeys,
+  getWorkTypeKeys,
+  IEncryptedData,
+  roundPriceToInterval,
+} from 'helpers';
 
 import { PrimaryButtonUI, SvgIconUI } from 'ui';
+import { useState } from 'react';
 
 export default function PriceResult() {
   const { calculationData } = useCalculation();
   const { workType, executionTime, expertiseArea, uniqueness } = calculationData;
 
-  const { base64String } = encodeTelegramData();
+  const [getTelegramData, setGetTelegramData] = useState<IEncryptedData>();
+  const defineTypeOfWorksKey = getWorkTypeKeys(workType);
+  const defineTimeForExecutionKey = getExecutionTimeKeys(executionTime);
+  const defineAreaOfExpertiseKey = getExpertiseAreaKeys(expertiseArea);
+
+  const universalDataObject = createServiceObject(getTelegramData);
+  const base64String = encodeTelegramData(universalDataObject);
 
   const calculatedPrice = calculatePrice(workType, expertiseArea, executionTime, uniqueness);
   const renderedPrice = roundPriceToInterval(calculatedPrice);
@@ -39,6 +55,15 @@ export default function PriceResult() {
         <PrimaryButtonUI
           type={ButtonType.Submit}
           hasIcon
+          handleClick={() =>
+            setGetTelegramData({
+              command: 'order',
+              workType: defineTypeOfWorksKey,
+              expertiseArea: defineTimeForExecutionKey,
+              executionTime: defineAreaOfExpertiseKey,
+              uniqueness,
+            })
+          }
         >
           <SvgIconUI
             id={IconName.Telegram}

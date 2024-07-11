@@ -1,9 +1,16 @@
 'use client';
 
 import { type IServiceItem, PrimaryButtonLabel, WorkType } from 'types';
-import { encodeTelegramData, serviceImageSettings } from 'helpers';
+import {
+  createServiceObject,
+  encodeTelegramData,
+  getWorkTypeKeys,
+  IEncryptedData,
+  serviceImageSettings,
+} from 'helpers';
 
 import { ImageUI } from 'ui';
+import { useState } from 'react';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -15,7 +22,11 @@ export default function ServiceItem({
 }: Readonly<ServiceItemProps>) {
   const { width, height, className } = serviceImageSettings;
 
-  const { accumulateUserData, base64String } = encodeTelegramData();
+  const [getTelegramData, setGetTelegramData] = useState<IEncryptedData>();
+  const setTypeOfWorks = getWorkTypeKeys(serviceTitle);
+
+  const universalDataObject = createServiceObject(getTelegramData);
+  const base64String = encodeTelegramData(universalDataObject);
 
   return (
     <li className='group blockItem relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[120px] md:h-[280px]'>
@@ -25,7 +36,7 @@ export default function ServiceItem({
         rel='noopener noreferrer'
         className='absolute flex h-full w-full flex-col justify-end'
         onClick={() => {
-          accumulateUserData({ workType: serviceTitle });
+          setGetTelegramData({ command: 'order', workType: setTypeOfWorks });
         }}
       >
         <ImageUI

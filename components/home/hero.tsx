@@ -4,10 +4,14 @@ import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
 import { SectionTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
-import { encodeTelegramData } from 'helpers/telegramDataReceive';
+import { createServiceObject, encodeTelegramData, IEncryptedData } from 'helpers';
+import { useState } from 'react';
 
 export default function Hero() {
-  const { accumulateUserData, base64String } = encodeTelegramData();
+  const [getTelegramData, setGetTelegramData] = useState<IEncryptedData>();
+
+  const universalDataObject = createServiceObject(getTelegramData);
+  const base64String = encodeTelegramData(universalDataObject);
 
   return (
     <SectionTemplate
@@ -24,7 +28,7 @@ export default function Hero() {
         target='blank'
         rel='noopener noreferrer'
         onClick={() => {
-          accumulateUserData();
+          setGetTelegramData({ command: 'order' });
         }}
       >
         <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
