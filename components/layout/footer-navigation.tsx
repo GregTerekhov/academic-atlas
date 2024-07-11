@@ -22,7 +22,7 @@ export default function FooterMenu() {
           <li key={label}>
             <Link
               href={path}
-              className='generalText hocus:text-accentSecondary dark:text-whiteBase dark:hocus:text-accentSecondary'
+              className='generalText hocus:text-accentPrimary  dark:hocus:text-accentSecondary'
             >
               {label}
             </Link>

@@ -10,7 +10,7 @@ export default function AboutUs() {
   const aboutUsData = getAboutUsData();
 
   return (
-    <section className='py-8 md:py-16 lg:py-[114px]'>
+    <section className='py-20 md:py-24 lg:py-[104px]'>
       <Container>
         <MappedListTemplate<IAboutUs>
           items={aboutUsData}

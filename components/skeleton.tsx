@@ -2,9 +2,9 @@ import { Container } from 'layout';
 
 export default function Skeleton() {
   return (
-    <section className='min-h-mobileScreen md:min-h-tabletScreen lg:min-h-desktopScreen my-auto py-20 md:py-24 lg:py-28'>
+    <section className='my-auto min-h-mobileScreen py-20 md:min-h-tabletScreen md:py-24 lg:min-h-desktopScreen lg:py-28'>
       <Container>
-        <div className='flex h-full w-full items-center max-md:flex-col max-md:justify-center md:justify-between'>
+        <div className='flex h-full w-full items-center max-md:flex-col max-md:justify-center md:justify-between md:gap-6'>
           <div>
             <div className='mb-5 h-8 w-full rounded-3xl bg-whiteBase/20 md:mb-7 md:h-12 md:w-[396px] lg:mb-9 lg:h-[60px] lg:w-[546px]'></div>
             <div className='lg:h-[60px]lg:w-[546px] mb-4 h-8 w-full rounded-3xl bg-whiteBase/20 md:mb-6 md:h-12 md:w-[440px] lg:mb-8'></div>

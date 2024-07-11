@@ -39,10 +39,10 @@ export default function ContactItem({
         <SvgIconUI
           id={iconName}
           size={{ width: defaultSize, height: defaultSize }}
-          className={`${iconSize} fill-darkBase group-hover:fill-accentSecondary dark:fill-whiteBase`}
+          className={`${iconSize} fill-darkBase/75 group-hover:fill-accentPrimary dark:fill-whiteBase dark:group-hover:fill-accentSecondary`}
         />
         <span
-          className={`${labelClass} hidden group-hover:text-accentSecondary dark:text-whiteBase`}
+          className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase dark:group-hover:text-accentSecondary`}
         >
           {label}
         </span>

@@ -27,6 +27,8 @@ export default function DynamicImage({
       height={height}
       className={className}
       priority={priority}
+      blurDataURL='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOUlgQAAFUANhyb7cwAAAAASUVORK5CYII='
+      placeholder='blur'
     />
   );
 }

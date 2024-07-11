@@ -30,14 +30,14 @@ export default function Accession() {
           </MappedListTemplate>
           <ImageUI
             src={src}
-            height={width}
-            width={height}
+            height={height}
+            width={width}
             alt={alt}
             className={className}
           />
         </div>
         <div className='flex items-center justify-center'>
-          <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+          <PrimaryButtonUI isOnLightBackground>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
         </div>
       </div>
     </SectionTemplate>

@@ -6,7 +6,7 @@ import { HeroMatrix } from './subcomponents';
 
 export default function Hero() {
   return (
-    <section className='backgroundSection max-md:bg-partnership-hero max-md:py-20 max-md:before:bg-accentPrimary/10 md:pt-16 lg:pt-[104px]'>
+    <section className='pt-20 md:pt-24 lg:pt-[104px]'>
       <Container>
         <div className='md:flex md:items-start md:gap-x-9 lg:items-center'>
           <div>
@@ -16,7 +16,7 @@ export default function Hero() {
             <p className='mb-6 text-medium md:mb-8 md:text-xl lg:mb-16 lg:text-2xl'>
               {CtaText.PartnershipHero}
             </p>
-            <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+            <PrimaryButtonUI isOnLightBackground>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
           </div>
           <HeroMatrix />
         </div>
