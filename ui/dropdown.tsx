@@ -52,7 +52,6 @@ function Dropdown(
       {isDropdownOpen && (
         <div className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg ring-[2px] ring-accentPrimary dark:ring-accentSecondary lg:max-h-[314px]'>
           <CustomScroll className='max-h-[248px]'>
-            {/* FIXME: --- fix height*/}
             <MappedListTemplate<IOption>
               items={options}
               className='w-full space-y-6 rounded-b-lg bg-whiteBase bg-background-light-gradient p-4 text-sm dark:bg-background-dark-gradient max-md:leading-130 md:text-base lg:text-medium'
@@ -62,7 +61,7 @@ function Dropdown(
                   <button
                     type={ButtonType.Button}
                     onClick={() => handleOptionClick(option)}
-                    className='text-start hover:text-accentPrimary dark:hover:text-accentSecondary'
+                    className='text-start text-darkBase hover:text-accentPrimary dark:text-whiteBase dark:hover:text-accentSecondary'
                   >
                     {option}
                   </button>

@@ -56,6 +56,7 @@ const config: Config = {
       maxHeight: {
         mobileMenu: 'calc(100vh - 80px)',
         tabletMenu: 'calc(100vh - 96px)',
+        scroll: 'calc(100% - 32px)',
       },
       colors: {
         transparent: 'transparent',

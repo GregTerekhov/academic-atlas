@@ -30,8 +30,8 @@ export default function Accession() {
           </MappedListTemplate>
           <ImageUI
             src={src}
-            height={width}
-            width={height}
+            height={height}
+            width={width}
             alt={alt}
             className={className}
           />

@@ -17,7 +17,7 @@ export const useButtonDisabled = (calculationData: ICalculationData, isChecked: 
       (workTypeObject &&
         workTypeObject.uniquenessPercentage === Uniqueness.Zero &&
         expertiseArea &&
-        executionTime) ||
+        !!executionTime) ||
       isChecked;
 
     setIsButtonDisabled(!liftedDisableState);
