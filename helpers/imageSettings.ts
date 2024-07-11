@@ -77,62 +77,62 @@ export const imageSettings = {
       'size-auto max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-auto md:w-[224px] md:-translate-y-1/2 lg:h-auto lg:w-[416px]',
   },
   serviceFirstItem: {
-    src: '/images/services-1.webp',
+    src: '/images/services-01.webp',
     alt: 'Three notebooks',
     priority: true,
   },
   serviceSecondItem: {
-    src: '/images/services-3.webp',
-    alt: 'Three notebooks, a pen and glasses',
+    src: '/images/services-02.webp',
+    alt: 'Glasses on a stack of books',
     priority: true,
   },
   serviceThirdItem: {
-    src: '/images/services-2.webp',
-    alt: 'Open book and notebook',
+    src: '/images/services-03.webp',
+    alt: 'A person writes with a pen on paper',
     priority: true,
   },
   serviceFourthItem: {
-    src: '/images/services-4.webp',
-    alt: 'A pile of books',
+    src: '/images/services-04.webp',
+    alt: 'Open book on the table',
     priority: true,
   },
   serviceFifthItem: {
-    src: '/images/services-9.webp',
-    alt: 'A person draws diagrams',
+    src: '/images/services-05.webp',
+    alt: 'A stack of notebooks with bookmarks',
     priority: true,
   },
   serviceSixthItem: {
-    src: '/images/services-5.webp',
-    alt: 'A person moves a pen across the text of a book',
+    src: '/images/services-06.webp',
+    alt: 'A person typing on a laptop keyboard',
     priority: true,
   },
   serviceSeventhItem: {
-    src: '/images/services-6.webp',
-    alt: 'Geometric ruler, red marker and calculations',
+    src: '/images/services-07.webp',
+    alt: 'A person holding an open book on the background of a workbook',
   },
   serviceEighthItem: {
-    src: '/images/services-7.webp',
-    alt: 'A pile of books',
-  },
-  serviceNinthItem: {
-    src: '/images/services-8.webp',
+    src: '/images/services-08.webp',
     alt: 'Glasses on the book',
   },
+  serviceNinthItem: {
+    src: '/images/services-09.webp',
+    alt: 'A pile of books',
+  },
   partnershipAccession: {
-    src: '/images/partnership-accession.webp',
+    src: '/images/accession.webp',
     alt: 'People grabs each other wrist to holding up one another',
-    width: ImageSize.Medium200,
-    height: ImageSize.Big327,
+    width: ImageSize.Big327,
+    height: ImageSize.Medium200,
     className:
       'rounded-xl object-cover object-center md:h-[220px] md:w-[292px] lg:h-[287px] lg:w-[516px]',
   },
   partnershipAboutUs1: {
-    src: '/images/partnership-who-we-are.jpg', //FIXME: --- change to webp
-    alt: 'A couple arm pointing on a laptop', //FIXME: --- add appropriate values
+    src: '/images/who-we-are.webp',
+    alt: 'Working meeting at the table',
   },
   partnershipAboutUs2: {
-    src: '/images/partnership-what-we-are-looking-for.webp',
-    alt: 'People sitting at the desktop',
+    src: '/images/who-we-are-looking-for.webp',
+    alt: 'People at the meeting write in notebooks',
   },
   heroMatrixTop: {
     src: '/images/top-left-matrix-grid.webp',
@@ -144,6 +144,6 @@ export const imageSettings = {
   },
   heroMatrixBottom: {
     src: '/images/right-bottom-matrix-grid.jpg', //FIXME: --- change to webp
-    alt: 'A guy smiles with his arms crossed', //FIXME: --- add appropriate values
+    alt: 'A woman holds a mug with her right hand and is about to write something in a notebook with her left',
   },
 };
