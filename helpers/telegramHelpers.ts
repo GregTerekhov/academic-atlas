@@ -24,7 +24,7 @@ export const getExecutionTimeKey = (executionTime: ExecutionTime): string | unde
   );
 };
 
-export const createServiceObject = (data: IEncryptedData): IEncryptedData => {
+const createServiceObject = (data: IEncryptedData): IEncryptedData => {
   const { uniqueness, workType, executionTime, expertiseArea, command } = data;
 
   if (uniqueness && expertiseArea && executionTime && workType) {
