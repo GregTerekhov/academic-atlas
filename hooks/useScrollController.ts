@@ -16,6 +16,7 @@ export const useScrollController = () => {
     const handleScroll = () => {
       const headerHeight = header.getBoundingClientRect()?.height ?? 0;
       const viewportHeight = window.innerHeight - headerHeight;
+
       if (window.scrollY > viewportHeight) {
         setIsVisible(true);
       } else {
