@@ -22,7 +22,7 @@ export const feedbackBreakpoints: Breakpoints = {
   },
 };
 
-export const getCarouselFeedbackStyles = (isActive: boolean, className: string) => {
+export const getCarouselFeedbackStyles = (isActive: boolean) => {
   return {
     slideClass: isActive
       ? 'swiper-slide-active max-sm:!w-[calc(100vw - 48px)] sm:!w-[301px] border-2 border-accentPrimary dark:border-accentSecondary bg-accentPrimary/10 md:max-lg:bg-whiteBase dark:bg-whiteBase/10 md:max-lg:dark:bg-background-dark-gradient md:max-lg:bg-background-light-gradient p-4 max-md:!mr-0 md:!w-[436px] md:p-8 lg:!w-[496px] lg:p-12'
@@ -30,9 +30,9 @@ export const getCarouselFeedbackStyles = (isActive: boolean, className: string) 
     imageContainerClass: isActive
       ? 'md:mb-6 md:size-[160px] border-accentSecondary'
       : 'border-accentPrimary',
-    imageClass: isActive ? 'md:w-40' : className,
+    imageClass: isActive ? 'size-[120px] md:size-40' : 'size-[120px]',
     nameClass: isActive
-      ? 'max-sm:min-h-12 mb-6 text-base sm:text-medium md:mb-8 md:text-big lg:text-xl'
+      ? 'max-sm:min-h-12 max-sm:mb-3 mb-6 text-base sm:text-medium md:mb-8 md:text-big lg:text-xl'
       : 'md:mb-4 md:text-base lg:mb-6 lg:text-medium mb-2',
     feedbackClass: isActive
       ? 'generalText max-sm:min-h-[132px] sm:min-h-[128px] md:mb-6 md:min-h-36 lg:min-h-[210px]'

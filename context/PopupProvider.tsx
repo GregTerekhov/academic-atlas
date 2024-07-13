@@ -1,17 +1,8 @@
 'use client';
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useRef,
-  ReactNode,
-  useEffect,
-  useCallback,
-} from 'react';
+import { createContext, useContext, useState, useRef, ReactNode, useCallback } from 'react';
 
 import { useCalculation } from './CalculationProvider';
-import { checkCalculationField } from 'helpers';
 
 interface IPopupRefs {
   [key: string]: React.RefObject<HTMLDivElement>;
@@ -28,18 +19,10 @@ const PopupContext = createContext<IPopupContext | undefined>(undefined);
 
 export const PopupProvider = ({ children }: { children: ReactNode }) => {
   const [openPopups, setOpenPopups] = useState<{ [key: string]: boolean }>({});
-  const [isValidData, setIsValidData] = useState(false);
 
-  const { calculationData, resetCalculation, handleResetCostResult, handleCheckboxChange } =
-    useCalculation();
+  const { resetCalculation, handleResetCostResult, handleCheckboxChange } = useCalculation();
 
   const popupRefs = useRef<IPopupRefs>({});
-
-  useEffect(() => {
-    const isNotDefaultData = checkCalculationField(calculationData);
-
-    setIsValidData(isNotDefaultData);
-  }, [calculationData]);
 
   const togglePopup = useCallback(
     (id: string) => {
@@ -56,28 +39,24 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
         document.body.style.overflow = 'auto';
         handleResetCostResult();
         handleCheckboxChange(false);
-        if (isValidData) {
-          resetCalculation();
-        }
+        resetCalculation();
       }
     },
-    [handleCheckboxChange, handleResetCostResult, isValidData, openPopups, resetCalculation],
+    [handleCheckboxChange, handleResetCostResult, openPopups, resetCalculation],
   );
 
   const closePopup = useCallback(
     (id: string) => {
       handleResetCostResult();
       handleCheckboxChange(false);
+      resetCalculation();
       setOpenPopups((prev) => ({
         ...prev,
         [id]: false,
       }));
       document.body.style.overflow = 'auto';
-      if (isValidData) {
-        resetCalculation();
-      }
     },
-    [handleCheckboxChange, handleResetCostResult, isValidData, resetCalculation],
+    [handleCheckboxChange, handleResetCostResult, resetCalculation],
   );
 
   const isPopupOpen = useCallback((id: string) => !!openPopups[id], [openPopups]);

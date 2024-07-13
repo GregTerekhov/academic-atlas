@@ -9,6 +9,7 @@ import { useDropdown } from 'hooks';
 import { MappedListTemplate } from 'template';
 import CustomScroll from './custom-scroll';
 import { DropdownTrigger } from './subcomponents';
+
 interface IOption {
   typeId: string;
   option: DropdownOption;

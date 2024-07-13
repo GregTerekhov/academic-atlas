@@ -3,7 +3,6 @@ import { ImageSize } from '../types';
 export const slideImageSettings = {
   width: ImageSize.Little120,
   height: ImageSize.Little120,
-  className: 'size-[120px]',
 };
 
 export const serviceImageSettings = {
@@ -34,31 +33,31 @@ export const imageSettings = {
       'max-md:mx-auto md:absolute md:right-10 md:top-1/2 md:h-[260px] md:w-[240px] md:-translate-y-1/2 lg:h-[584px] lg:w-[537px]',
   },
   slideMemberFirst: {
-    src: '/images/customer-2.webp',
+    src: '/images/customer-01.webp',
     alt: 'Anna Parfeniuk',
   },
   slideMemberSecond: {
-    src: '/images/customer-1.webp',
+    src: '/images/customer-02.webp',
     alt: 'Vladyslav Burkivskii',
   },
   slideMemberThird: {
-    src: '/images/customer-5.webp',
+    src: '/images/customer-03.webp',
     alt: 'Vadym Zosymenko',
   },
   slideMemberFourth: {
-    src: '/images/customer-6.webp',
+    src: '/images/customer-04.webp',
     alt: 'Iryna Sydorchuk',
   },
   slideMemberFifth: {
-    src: '/images/customer-3.webp',
+    src: '/images/customer-05.webp',
     alt: 'Volodymyr Shelest',
   },
   slideMemberSixth: {
-    src: '/images/customer-7.webp',
+    src: '/images/customer-06.webp',
     alt: 'Karolina Zubrytska',
   },
   slideMemberSeventh: {
-    src: '/images/customer-4.webp',
+    src: '/images/customer-07.webp',
     alt: 'Volodymyr Shkvarnytskii',
   },
   serviceOverview: {
@@ -66,7 +65,7 @@ export const imageSettings = {
     alt: 'A sheet of paper and a magnifying glass',
     width: ImageSize.Medium200,
     height: ImageSize.Big334,
-    className: 'h-auto w-auto md:w-[264px] md:h-[334px] lg:h-[512px] lg:w-[402px]',
+    className: 'md:w-[264px] md:h-auto lg:h-[512px] lg:w-[402px] h-auto w-auto',
   },
   promotions: {
     src: '/images/notes.png',

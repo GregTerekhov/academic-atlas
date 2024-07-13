@@ -11,6 +11,7 @@ export * from './layoutsHelper';
 export * from './mapArray';
 export * from './sectionHelper';
 export * from './tailwindPlugins';
+export * from './telegramHelpers';
 export * from './themeHelper';
 export * from './uiHelper';
 export * from './telegramDataReceive';
