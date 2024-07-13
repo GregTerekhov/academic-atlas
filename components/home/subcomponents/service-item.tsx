@@ -57,7 +57,7 @@ export default function ServiceItem({
             </span>
           </div>
         </div>
-      </a>
+      </TelegramLinkTemplate>
     </li>
   );
 }
