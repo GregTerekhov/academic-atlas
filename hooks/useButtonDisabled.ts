@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-import { type ICalculationData, Uniqueness } from '../types';
+import {
+  ExecutionTime,
+  ExpertiseArea,
+  type ICalculationData,
+  Uniqueness,
+  WorkType,
+} from '../types';
 import { getWorkType } from '../helpers';
 
 export const useButtonDisabled = (calculationData: ICalculationData, isChecked: boolean) => {
@@ -14,10 +20,10 @@ export const useButtonDisabled = (calculationData: ICalculationData, isChecked: 
     const workTypeObject = getWorkType().find((work) => work.option === workType);
 
     const liftedDisableState =
-      (workTypeObject &&
-        workTypeObject.uniquenessPercentage === Uniqueness.Zero &&
-        expertiseArea &&
-        !!executionTime) ||
+      (workTypeObject?.uniquenessPercentage === Uniqueness.Zero &&
+        workType !== WorkType.Default &&
+        expertiseArea !== ExpertiseArea.Default &&
+        executionTime !== ExecutionTime.Default) ||
       isChecked;
 
     setIsButtonDisabled(!liftedDisableState);

@@ -12,13 +12,11 @@ export const useDropdownRefs = (
   const executionTimeRef = useRef<IDropdownRef | null>(null);
 
   useEffect(() => {
-    const refs: Record<string, IDropdownRef | null> = {
+    registerDropdownRefs({
       workTypeRef: workTypeRef.current,
       expertiseAreaRef: expertiseAreaRef.current,
       executionTimeRef: executionTimeRef.current,
-    };
-
-    registerDropdownRefs(refs);
+    });
   }, [registerDropdownRefs]);
 
   return {
