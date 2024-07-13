@@ -1,7 +1,13 @@
-import { CtaText, PrimaryButtonLabel, SectionDescriptions, SectionTitle } from 'types';
+import {
+  CtaText,
+  PrimaryButtonLabel,
+  SectionDescriptions,
+  SectionTitle,
+  TelegramScenario,
+} from 'types';
 
 import { Container } from 'layout';
-import { PrimaryButtonUI } from 'ui';
+import { TelegramButton } from 'template';
 import { HeroMatrix } from './subcomponents';
 
 export default function Hero() {
@@ -16,7 +22,11 @@ export default function Hero() {
             <p className='mb-6 text-medium md:mb-8 md:text-xl lg:mb-16 lg:text-2xl'>
               {CtaText.PartnershipHero}
             </p>
-            <PrimaryButtonUI isOnLightBackground>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+            <TelegramButton
+              command={TelegramScenario.Join}
+              label={PrimaryButtonLabel.Accession}
+              isOnLightBackground
+            />
           </div>
           <HeroMatrix />
         </div>

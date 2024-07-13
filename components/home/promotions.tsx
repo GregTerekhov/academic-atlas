@@ -1,9 +1,9 @@
-import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
+import { CtaText, PrimaryButtonLabel, SectionTitle, TelegramScenario } from 'types';
 
 import { getIdValues, imageSettings } from 'helpers';
 
-import { SectionTemplate, TelegramLinkTemplate } from 'template';
-import { ImageUI, PrimaryButtonUI } from 'ui';
+import { SectionTemplate, TelegramButton } from 'template';
+import { ImageUI } from 'ui';
 
 export default function Promotions() {
   const { promotions } = imageSettings;
@@ -27,9 +27,10 @@ export default function Promotions() {
         height={height}
         className={className}
       />
-      <TelegramLinkTemplate telegramBotData={{ command: 'order' }}>
-        <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
-      </TelegramLinkTemplate>
+      <TelegramButton
+        command={TelegramScenario.Order}
+        label={PrimaryButtonLabel.Ordering}
+      />
     </SectionTemplate>
   );
 }
