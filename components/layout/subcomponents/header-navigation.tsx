@@ -9,6 +9,7 @@ import { useMenu } from 'context';
 import { getAdaptedLinks, mapArray } from 'helpers';
 
 import CalculationModalTrigger from './calculation-modal-trigger';
+import { useEffect, useState } from 'react';
 
 interface INavigationProps {
   isDesktop?: boolean;
@@ -17,10 +18,16 @@ interface INavigationProps {
 export default function Navigation({ isDesktop }: INavigationProps) {
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
   const pathname = usePathname();
+  const [activeLink, setActiveLink] = useState<string>(pathname);
 
-  const handleMainLinkClick = (
+  useEffect(() => {
+    setActiveLink(pathname + window.location.hash);
+  }, [pathname]);
+
+  const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     label: MenuLinks,
+    path: string,
   ) => {
     if (label === MenuLinks.Main && pathname === Paths.Main) {
       e.preventDefault();
@@ -28,6 +35,9 @@ export default function Navigation({ isDesktop }: INavigationProps) {
         top: 0,
         behavior: 'smooth',
       });
+      setActiveLink(Paths.Main);
+    } else {
+      setActiveLink(path);
     }
   };
 
@@ -37,12 +47,13 @@ export default function Navigation({ isDesktop }: INavigationProps) {
     <nav>
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
         {mapArray(adaptedLinks, ({ path, label }) => {
-          const isActive = pathname === path;
+          const isActive = activeLink === path;
+          console.log(`activeLink: ${activeLink}, path: ${path}, isActive: ${isActive}`);
           return (
             <li key={label}>
               <Link
                 href={path}
-                onClick={(e) => handleMainLinkClick(e, label)}
+                onClick={(e) => handleLinkClick(e, label, path)}
                 className={`${isActive ? 'text-accentSecondary' : 'dark:text-whiteBase'} text-medium hocus:text-accentSecondary dark:hocus:text-accentSecondary md:text-big`}
               >
                 {isNavMenuOpen ? (

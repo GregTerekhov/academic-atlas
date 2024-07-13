@@ -62,11 +62,11 @@ export const getFooterLinks = (): ILinks[] => {
       label: MenuLinks.Promotions,
     },
     {
-      path: { pathname: Paths.FAQ },
+      path: Paths.FAQ ,
       label: MenuLinks.FAQ,
     },
     {
-      path: { pathname: Paths.Partnership },
+      path: Paths.Partnership,
       label: MenuLinks.Partnership,
     },
   ];
@@ -95,11 +95,11 @@ const getHeaderLinks = (): ILinks[] => {
       label: MenuLinks.Feedback,
     },
     {
-      path: { pathname: Paths.FAQ },
+      path: Paths.FAQ ,
       label: MenuLinks.FAQ,
     },
     {
-      path: { pathname: Paths.Partnership },
+      path: Paths.Partnership,
       label: MenuLinks.Partnership,
     },
   ];
