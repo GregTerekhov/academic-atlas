@@ -1,6 +1,6 @@
 import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
-import { SectionTemplate } from 'template';
+import { SectionTemplate, TelegramLinkTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
 
 export default function Hero() {
@@ -14,7 +14,9 @@ export default function Hero() {
       ctaText={CtaText.MainHero}
       priority
     >
-      <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
+      <TelegramLinkTemplate telegramBotData={{ command: 'order' }}>
+        <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
+      </TelegramLinkTemplate>
     </SectionTemplate>
   );
 }
