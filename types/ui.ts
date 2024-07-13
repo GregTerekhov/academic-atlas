@@ -2,7 +2,6 @@ import { SwiperOptions } from 'swiper/types';
 
 export enum ButtonType {
   Button = 'button',
-  Submit = 'submit',
 }
 
 export type SvgSizes = {
