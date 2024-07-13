@@ -1,5 +1,5 @@
-import { getPrimaryButtonStyles } from 'helpers/uiHelper';
 import { ButtonType } from 'types';
+import { getPrimaryButtonStyles } from 'helpers';
 
 interface IPrimaryButtonProps {
   children: React.ReactNode;
