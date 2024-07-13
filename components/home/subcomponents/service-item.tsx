@@ -1,16 +1,8 @@
-'use client';
-
 import { type IServiceItem, PrimaryButtonLabel, WorkType } from 'types';
-import {
-  createServiceObject,
-  encodeTelegramData,
-  getWorkTypeKeys,
-  IEncryptedData,
-  serviceImageSettings,
-} from 'helpers';
+import { getWorkTypeKeys, serviceImageSettings } from 'helpers';
 
 import { ImageUI } from 'ui';
-import { useState } from 'react';
+import { TelegramLinkTemplate } from 'template/index';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -22,22 +14,13 @@ export default function ServiceItem({
 }: Readonly<ServiceItemProps>) {
   const { width, height, className } = serviceImageSettings;
 
-  const [getTelegramData, setGetTelegramData] = useState<IEncryptedData>();
-  const setTypeOfWorks = getWorkTypeKeys(serviceTitle);
-
-  const universalDataObject = createServiceObject(getTelegramData);
-  const base64String = encodeTelegramData(universalDataObject);
+  const typeOfWorks = getWorkTypeKeys(serviceTitle);
 
   return (
     <li className='group blockItem relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[120px] md:h-[280px]'>
-      <a
-        href={`https://t.me/AcademicAtlasBot?start=${base64String}`}
-        target='blank'
-        rel='noopener noreferrer'
-        className='absolute flex h-full w-full flex-col justify-end'
-        onClick={() => {
-          setGetTelegramData({ command: 'order', workType: setTypeOfWorks });
-        }}
+      <TelegramLinkTemplate
+        telegramBotData={{ command: 'order', workType: typeOfWorks }}
+        className={'absolute flex h-full w-full flex-col justify-end'}
       >
         <ImageUI
           src={imageSrc}
@@ -57,7 +40,7 @@ export default function ServiceItem({
             </span>
           </div>
         </div>
-      </a>
+      </TelegramLinkTemplate>
     </li>
   );
 }

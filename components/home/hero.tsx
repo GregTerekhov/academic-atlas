@@ -1,18 +1,9 @@
-'use client';
-
 import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
-import { SectionTemplate } from 'template';
+import { SectionTemplate, TelegramLinkTemplate } from 'template';
 import { PrimaryButtonUI } from 'ui';
-import { createServiceObject, encodeTelegramData, IEncryptedData } from 'helpers';
-import { useState } from 'react';
 
 export default function Hero() {
-  const [getTelegramData, setGetTelegramData] = useState<IEncryptedData>();
-
-  const universalDataObject = createServiceObject(getTelegramData);
-  const base64String = encodeTelegramData(universalDataObject);
-
   return (
     <SectionTemplate
       title={SectionTitle.Hero}
@@ -23,16 +14,9 @@ export default function Hero() {
       ctaText={CtaText.MainHero}
       priority
     >
-      <a
-        href={`https://t.me/AcademicAtlasBot?start=${base64String}`}
-        target='blank'
-        rel='noopener noreferrer'
-        onClick={() => {
-          setGetTelegramData({ command: 'order' });
-        }}
-      >
+      <TelegramLinkTemplate telegramBotData={{ command: 'order' }}>
         <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
-      </a>
+      </TelegramLinkTemplate>
     </SectionTemplate>
   );
 }

@@ -1,33 +1,24 @@
-'use client';
-
 import { ButtonType, CalculationTitle, IconName, IconSize, PrimaryButtonLabel } from 'types';
 
 import { useCalculation } from 'context';
 import {
   calculatePrice,
-  createServiceObject,
-  encodeTelegramData,
   getExecutionTimeKeys,
   getExpertiseAreaKeys,
   getWorkTypeKeys,
-  IEncryptedData,
   roundPriceToInterval,
 } from 'helpers';
 
 import { PrimaryButtonUI, SvgIconUI } from 'ui';
-import { useState } from 'react';
+import { TelegramLinkTemplate } from 'template/index';
 
 export default function PriceResult() {
   const { calculationData } = useCalculation();
   const { workType, executionTime, expertiseArea, uniqueness } = calculationData;
 
-  const [getTelegramData, setGetTelegramData] = useState<IEncryptedData>();
-  const defineTypeOfWorksKey = getWorkTypeKeys(workType);
-  const defineTimeForExecutionKey = getExecutionTimeKeys(executionTime);
-  const defineAreaOfExpertiseKey = getExpertiseAreaKeys(expertiseArea);
-
-  const universalDataObject = createServiceObject(getTelegramData);
-  const base64String = encodeTelegramData(universalDataObject);
+  const typeOfWorksKey = getWorkTypeKeys(workType);
+  const timeForExecutionKey = getExecutionTimeKeys(executionTime);
+  const areaOfExpertiseKey = getExpertiseAreaKeys(expertiseArea);
 
   const calculatedPrice = calculatePrice(workType, expertiseArea, executionTime, uniqueness);
   const renderedPrice = roundPriceToInterval(calculatedPrice);
@@ -47,23 +38,19 @@ export default function PriceResult() {
       <p className='lg:text-bg mb-8 text-center text-sm text-whiteBase max-md:leading-130 md:mb-10 md:text-medium'>
         Для замовлення та уточнення питань зв’яжіться з нами у телеграм
       </p>
-      <a
-        href={`https://t.me/AcademicAtlasBot?start=${base64String}`}
-        target='blank'
-        rel='noopener noreferrer'
+
+      <TelegramLinkTemplate
+        telegramBotData={{
+          command: 'order',
+          workType: typeOfWorksKey,
+          expertiseArea: areaOfExpertiseKey,
+          executionTime: timeForExecutionKey,
+          uniqueness,
+        }}
       >
         <PrimaryButtonUI
           type={ButtonType.Submit}
           hasIcon
-          handleClick={() =>
-            setGetTelegramData({
-              command: 'order',
-              workType: defineTypeOfWorksKey,
-              expertiseArea: defineTimeForExecutionKey,
-              executionTime: defineAreaOfExpertiseKey,
-              uniqueness,
-            })
-          }
         >
           <SvgIconUI
             id={IconName.Telegram}
@@ -72,7 +59,7 @@ export default function PriceResult() {
           />
           {PrimaryButtonLabel.SwitchToTelegram}
         </PrimaryButtonUI>
-      </a>
+      </TelegramLinkTemplate>
     </div>
   );
 }

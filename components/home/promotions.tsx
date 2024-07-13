@@ -1,25 +1,11 @@
-'use client';
-
 import { CtaText, PrimaryButtonLabel, SectionTitle } from 'types';
 
-import {
-  createServiceObject,
-  encodeTelegramData,
-  getIdValues,
-  IEncryptedData,
-  imageSettings,
-} from 'helpers';
+import { getIdValues, imageSettings } from 'helpers';
 
-import { SectionTemplate } from 'template';
+import { SectionTemplate, TelegramLinkTemplate } from 'template';
 import { ImageUI, PrimaryButtonUI } from 'ui';
-import { useState } from 'react';
 
 export default function Promotions() {
-  const [getTelegramData, setGetTelegramData] = useState<IEncryptedData>();
-
-  const universalDataObject = createServiceObject(getTelegramData);
-  const base64String = encodeTelegramData(universalDataObject);
-
   const { promotions } = imageSettings;
   const { Promotions } = getIdValues();
 
@@ -41,16 +27,9 @@ export default function Promotions() {
         height={height}
         className={className}
       />
-      <a
-        href={`https://t.me/AcademicAtlasBot?start=${base64String}`}
-        target='blank'
-        rel='noopener noreferrer'
-        onClick={() => {
-          setGetTelegramData({ command: 'order' });
-        }}
-      >
+      <TelegramLinkTemplate telegramBotData={{ command: 'order' }}>
         <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
-      </a>
+      </TelegramLinkTemplate>
     </SectionTemplate>
   );
 }
