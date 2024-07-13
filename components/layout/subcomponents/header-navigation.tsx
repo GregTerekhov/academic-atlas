@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation';
 
 import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
 
-import { useMenu } from 'context';
+import { useActiveLink, useMenu } from 'context';
 import { getAdaptedLinks, mapArray } from 'helpers';
 
 import CalculationModalTrigger from './calculation-modal-trigger';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface INavigationProps {
   isDesktop?: boolean;
@@ -18,11 +18,36 @@ interface INavigationProps {
 export default function Navigation({ isDesktop }: INavigationProps) {
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
   const pathname = usePathname();
-  const [activeLink, setActiveLink] = useState<string>(pathname);
+  const { activeLink, setActiveLink } = useActiveLink();
 
   useEffect(() => {
-    setActiveLink(pathname + window.location.hash);
-  }, [pathname]);
+    const handleScroll = () => {
+      const sections = document.querySelectorAll<HTMLElement>('section');
+      let foundActive = false;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (
+          !foundActive &&
+          rect.top <= window.innerHeight / 2 &&
+          rect.bottom >= window.innerHeight / 2
+        ) {
+          const id = section.getAttribute('id');
+          if (id) {
+            setActiveLink(`${window.location.pathname}#${id}`);
+            foundActive = true;
+          }
+        }
+      });
+
+      if (!foundActive) {
+        setActiveLink(window.location.pathname);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pathname, setActiveLink]);
 
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -36,6 +61,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
         behavior: 'smooth',
       });
       setActiveLink(Paths.Main);
+      window.history.pushState(null, '', '/');
     } else {
       setActiveLink(path);
     }
@@ -48,7 +74,6 @@ export default function Navigation({ isDesktop }: INavigationProps) {
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
         {mapArray(adaptedLinks, ({ path, label }) => {
           const isActive = activeLink === path;
-          console.log(`activeLink: ${activeLink}, path: ${path}, isActive: ${isActive}`);
           return (
             <li key={label}>
               <Link
