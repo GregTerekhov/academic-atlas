@@ -25,11 +25,11 @@ export default function CarouselFeedback<T extends ISlide>({
     ));
   };
 
-  const { width, height, className } = slideImageSettings;
+  const { width, height } = slideImageSettings;
 
   const { imageAlt, imageSrc, title, description, memberRating } = slide;
   const { slideClass, imageContainerClass, imageClass, nameClass, feedbackClass } =
-    getCarouselFeedbackStyles(isActive, className);
+    getCarouselFeedbackStyles(isActive);
 
   return (
     <div className={`${slideClass} rounded-[18px]`}>
@@ -41,7 +41,7 @@ export default function CarouselFeedback<T extends ISlide>({
           alt={imageAlt}
           width={width}
           height={height}
-          className={imageClass}
+          className={`${imageClass} h-auto w-auto`}
         />
       </div>
       <p className={`${nameClass} text-center font-bold`}>{title}</p>
