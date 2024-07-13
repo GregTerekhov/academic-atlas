@@ -25,7 +25,7 @@ export default function StatisticList() {
           label={StatisticLabel.Work}
         />
       </li>
-      <li className='flex max-md:justify-between md:max-lg:justify-center md:max-lg:gap-x-[134px]'>
+      <li className='flex items-start max-md:justify-between md:max-lg:justify-center md:max-lg:gap-x-[134px]'>
         <StatisticItem
           count={StatisticCount.Expert}
           label={StatisticLabel.Expert}

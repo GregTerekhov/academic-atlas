@@ -33,7 +33,7 @@ const config: Config = {
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['/node_modules/', '/.next/'],
+  coveragePathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
@@ -181,7 +181,7 @@ const config: Config = {
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
-    '/node_modules/(?!(swiper)/)',
+    '<rootDir>/node_modules/(?!(swiper)/)',
     //   "\\.pnp\\.[^\\/]+$"
   ],
 

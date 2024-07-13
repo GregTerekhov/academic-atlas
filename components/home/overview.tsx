@@ -17,7 +17,7 @@ export default function ServiceOverview() {
       title={SectionTitle.HowItWorks}
       id={Overview ?? ''}
     >
-      <div className='top-5 flex h-full w-full items-center max-lg:bg-service-overview max-md:absolute max-md:bg-center max-md:bg-no-repeat max-md:opacity-20'></div>
+      <div className='absolute left-1/2 top-0 hidden h-full w-full max-w-[232px] -translate-x-1/2 items-center justify-center bg-service-overview bg-cover bg-center bg-no-repeat opacity-50 dark:opacity-20 max-md:flex'></div>
       <div className='gap-x-0 md:flex lg:gap-x-16'>
         <div className='hidden md:block'>
           <ImageUI
@@ -30,7 +30,7 @@ export default function ServiceOverview() {
         </div>
         <MappedListTemplate<IOrderStep>
           items={orderSteps}
-          className='space-y-6 max-md:bg-center max-md:px-2 md:w-[430px] md:space-y-8 md:bg-left lg:w-[631px] lg:space-y-12'
+          className='space-y-6 max-md:bg-center md:w-[430px] md:space-y-8 md:bg-left lg:w-[631px] lg:space-y-12'
         >
           {({ id, step, iconName }) => (
             <OverviewItem

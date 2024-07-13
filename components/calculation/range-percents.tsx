@@ -7,7 +7,7 @@ export default function RangePercents({ value, isChecked }: IRangePercents) {
   return (
     <datalist
       id='percents'
-      className={`${!isChecked ? 'text-disabled-foreground' : ''} flex w-full justify-between text-xs [writing-mode:horizontal-tb]`}
+      className={`${!isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase'} flex w-full justify-between text-xs [writing-mode:horizontal-tb]`}
     >
       <option
         value='0'

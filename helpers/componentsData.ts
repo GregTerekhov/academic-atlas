@@ -48,8 +48,15 @@ export const getBenefits = (): IBenefitsItem[] => {
 };
 
 export const getFeedbackSlides = (): ISlide[] => {
-  const { slideMemberFirst, slideMemberSecond, slideMemberThird, slideMemberFifth } = imageSettings;
-  //FIXME: --- add photo
+  const {
+    slideMemberFirst,
+    slideMemberSecond,
+    slideMemberThird,
+    slideMemberFourth,
+    slideMemberFifth,
+    slideMemberSixth,
+    slideMemberSeventh,
+  } = imageSettings;
   return [
     {
       id: '1',
@@ -81,8 +88,8 @@ export const getFeedbackSlides = (): ISlide[] => {
       title: 'Ірина Сидорчук',
       description:
         'Замовляла магістерську роботу по психології на цьому сайті, і результат перевершив всі мої очікування! Виконавці дійсно професіонали своєї справи: робота була виконана вчасно, з урахуванням усіх моїх побажань і вимог. Рекомендую на всі 100',
-      imageSrc: slideMemberFirst.src,
-      imageAlt: slideMemberFirst.alt,
+      imageSrc: slideMemberFourth.src,
+      imageAlt: slideMemberFourth.alt,
       memberRating: 5,
     },
     {
@@ -92,6 +99,23 @@ export const getFeedbackSlides = (): ISlide[] => {
         'Дуже задоволений сервісом цього сайту! Замовляв курсову роботу з досить складною темою по філології, і команда виконавців впоралась чудово. Рекомендую всім, хто шукає якісні послуги з написання навчальних робіт',
       imageSrc: slideMemberFifth.src,
       imageAlt: slideMemberFifth.alt,
+      memberRating: 5,
+    },
+    {
+      id: '6',
+      title: 'Кароліна Зубрицька',
+      description: 'Сервіс просто супер! Задоволена на всі 100%',
+      imageSrc: slideMemberSixth.src,
+      imageAlt: slideMemberSixth.alt,
+      memberRating: 5,
+    },
+    {
+      id: '7',
+      title: 'Володимир Шкварницький',
+      description:
+        'Дипломна робота по галузевому машинобудуванні написана бездоганно. Дуже задоволений результатом',
+      imageSrc: slideMemberSeventh.src,
+      imageAlt: slideMemberSeventh.alt,
       memberRating: 5,
     },
   ];
@@ -148,20 +172,20 @@ export const getServices = (): IServiceItem[] => {
     },
     {
       id: 'bachelorTheses',
-      imageSrc: serviceThirdItem.src,
-      imageAlt: serviceThirdItem.alt,
+      imageSrc: serviceSecondItem.src,
+      imageAlt: serviceSecondItem.alt,
       serviceTitle: WorkType.BachelorTheses,
     },
     {
       id: 'masterTheses',
-      imageSrc: serviceFourthItem.src,
-      imageAlt: serviceFourthItem.alt,
+      imageSrc: serviceThirdItem.src,
+      imageAlt: serviceThirdItem.alt,
       serviceTitle: WorkType.MasterTheses,
     },
     {
       id: 'teamPapers',
-      imageSrc: serviceSecondItem.src,
-      imageAlt: serviceSecondItem.alt,
+      imageSrc: serviceFourthItem.src,
+      imageAlt: serviceFourthItem.alt,
       serviceTitle: WorkType.TeamPapers,
     },
     {
@@ -172,26 +196,26 @@ export const getServices = (): IServiceItem[] => {
     },
     {
       id: 'practicalWorks',
-      imageSrc: serviceSeventhItem.src,
-      imageAlt: serviceSeventhItem.alt,
+      imageSrc: serviceSixthItem.src,
+      imageAlt: serviceSixthItem.alt,
       serviceTitle: WorkType.PracticalWorks,
     },
     {
       id: 'abstracts',
-      imageSrc: serviceSixthItem.src,
-      imageAlt: serviceSixthItem.alt,
+      imageSrc: serviceSeventhItem.src,
+      imageAlt: serviceSeventhItem.alt,
       serviceTitle: WorkType.Abstracts,
     },
     {
       id: 'caseStudyReports',
-      imageSrc: serviceNinthItem.src,
-      imageAlt: serviceNinthItem.alt,
+      imageSrc: serviceEighthItem.src,
+      imageAlt: serviceEighthItem.alt,
       serviceTitle: WorkType.CaseStudyReports,
     },
     {
       id: 'presentations',
-      imageSrc: serviceEighthItem.src,
-      imageAlt: serviceEighthItem.alt,
+      imageSrc: serviceNinthItem.src,
+      imageAlt: serviceNinthItem.alt,
       serviceTitle: WorkType.Presentations,
     },
   ];
@@ -262,21 +286,21 @@ export const getWorkflowData = (): IWorkflow[] => {
       id: '3',
       title: 'Виконання замовлення',
       description:
-        'Після прийняття замовлення, виконуйте його з відповідальністю та уважності до деталей',
+        'Після прийняття замовлення виконуйте його з відповідальністю та уважністю до деталей',
       gridMarkup: 'lg:row-start-3 lg:row-end-5',
     },
     {
       id: '4',
       title: 'Отримання оплати',
       description:
-        'Після успішного виконання замовлення, оплата буде здійснена відповідно до обговорених умов',
+        'Після успішного виконання замовлення оплата буде здійснена відповідно до обговорених умов',
       gridMarkup: 'lg:row-start-4 lg:row-end-6 lg:col-start-2',
     },
     {
       id: '5',
       title: 'Комунікація та підтримка',
       description:
-        'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни, за потреби',
+        'Забезпечуйте відкриту комунікацію з клієнтами та готовність вносити зміни за потреби',
       gridMarkup: 'lg:row-start-5 lg:row-end-7',
     },
   ];
@@ -407,7 +431,8 @@ export const getHeroGrid = (): IHeroGrid[] => {
     },
     {
       id: 'bottom-left',
-      className: 'rounded-b-[30px] bg-whiteBase/20 lg:rounded-b-[60px]',
+      className:
+        'rounded-b-[30px] bg-disabled-background/10 dark:bg-whiteBase/20 lg:rounded-b-[60px]',
     },
     {
       id: 'bottom-right',

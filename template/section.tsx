@@ -40,7 +40,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`${sectionClasses} ${minHeight}`}
+      className={`${sectionClasses} ${minHeight} relative py-20 lg:py-[120px]`}
     >
       {backgroundImagePaths && (
         <BackgroundImageUI

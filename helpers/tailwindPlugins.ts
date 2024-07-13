@@ -10,6 +10,11 @@ export const commonComponents = plugin(function ({ addComponents, theme }) {
       fontSize: theme('fontSize.sm'),
       lineHeight: theme('lineHeight.130'),
 
+      '@media (max-width: 374px)': {
+        fontSize: theme('fontSize.xs'),
+        lineHeight: theme('lineHeight.130'),
+      },
+
       '@media (min-width: 768px)': {
         fontSize: theme('fontSize.base'),
         lineHeight: '1.5',
@@ -20,7 +25,6 @@ export const commonComponents = plugin(function ({ addComponents, theme }) {
       },
     },
     '.gradientText': {
-      backgroundImage: theme('backgroundImage.accent-gradient'),
       fontSize: theme('fontSize[6xl]'),
       lineHeight: theme('lineHeight.130'),
       letterSpacing: '2px',

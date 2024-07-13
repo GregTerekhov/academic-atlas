@@ -4,23 +4,19 @@
 
 @layer base {
   html {
-    @apply scroll-smooth bg-whiteBase;
-  }
-
-  html.dark {
-    @apply scroll-smooth bg-gradient-to-br from-darkBase to-darkBase-light;
+    @apply scroll-smooth;
   }
 
   body {
-    @apply h-full pt-20 text-darkBase dark:text-whiteBase md:pt-24 lg:pt-28;
+    @apply h-full bg-background-light-gradient pt-20 text-darkBase dark:bg-background-dark-gradient dark:text-whiteBase md:pt-24 lg:pt-28;
   }
 
   h1 {
-    @apply font-philosopher text-balance text-3xl font-bold leading-130 md:text-5xl lg:text-7xl;
+    @apply text-balance font-philosopher text-3xl font-bold leading-130 md:text-5xl lg:text-7xl;
   }
 
   h2 {
-    @apply font-philosopher text-center text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
+    @apply text-center font-philosopher text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
   }
 }
 

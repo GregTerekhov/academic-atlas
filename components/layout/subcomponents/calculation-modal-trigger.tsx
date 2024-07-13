@@ -37,14 +37,14 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
   };
 
   const commonButtonStyles =
-    'hidden hocus:text-accentSecondary dark:text-whiteBase dark:hocus:text-accentSecondary';
+    'hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentSecondary';
 
   return (
     <>
       <button
         type={ButtonType.Button}
         onClick={onCostLinkClick}
-        className={`${position === PositionInLayout.Footer ? 'text-sm md:text-base' : 'text-medium md:text-big'} ${commonButtonStyles} max-lg:block`}
+        className={`${position === PositionInLayout.Footer ? 'text-start text-sm max-sm:text-xs md:text-base' : 'text-medium md:text-big'} ${commonButtonStyles} max-lg:block`}
       >
         {MenuLinks.Cost}
       </button>
