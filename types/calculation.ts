@@ -69,6 +69,11 @@ export enum BasePrice {
   CaseStudyReports = 1400,
 }
 
+export enum TelegramScenario {
+  Order = 'order',
+  Join = 'join',
+}
+
 export interface ICalculationData {
   workType: WorkType;
   expertiseArea: ExpertiseArea;
