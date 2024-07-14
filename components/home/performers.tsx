@@ -2,10 +2,12 @@ import Link from 'next/link';
 
 import { CtaText, Paths, PrimaryButtonLabel, SectionTitle } from 'types';
 
+import { getPrimaryButtonStyles } from 'helpers';
+
 import { SectionTemplate } from 'template';
-import { PrimaryButtonUI } from 'ui';
 
 export default function Performers() {
+  const linkClass = getPrimaryButtonStyles();
   return (
     <SectionTemplate
       title={SectionTitle.Performers}
@@ -15,8 +17,11 @@ export default function Performers() {
       ctaText={CtaText.MainPerformers}
     >
       <div className='md:flex md:items-center md:justify-center'>
-        <Link href={Paths.Partnership}>
-          <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+        <Link
+          href={Paths.Partnership}
+          className={`${linkClass} py-[17px]`}
+        >
+          {PrimaryButtonLabel.Accession}
         </Link>
       </div>
     </SectionTemplate>

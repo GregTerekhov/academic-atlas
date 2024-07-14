@@ -72,7 +72,7 @@ export default function PriceCalculator() {
               <li>
                 <DropdownUI
                   ref={workTypeRef}
-                  label={calculationData.workType}
+                  label={WorkType.Default}
                   options={workTypes}
                   onOptionSelect={selectWorkType}
                 />
@@ -80,7 +80,7 @@ export default function PriceCalculator() {
               <li>
                 <DropdownUI
                   ref={expertiseAreaRef}
-                  label={calculationData.expertiseArea}
+                  label={ExpertiseArea.Default}
                   options={expertiseAreas}
                   onOptionSelect={selectExpertiseArea}
                 />
@@ -88,7 +88,7 @@ export default function PriceCalculator() {
               <li>
                 <DropdownUI
                   ref={executionTimeRef}
-                  label={calculationData.executionTime}
+                  label={ExecutionTime.Default}
                   options={executionTimes}
                   onOptionSelect={selectExecutionTime}
                 />

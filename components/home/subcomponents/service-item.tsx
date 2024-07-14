@@ -1,10 +1,9 @@
 'use client';
 
-import { type IServiceItem, PrimaryButtonLabel, WorkType } from 'types';
+import { type IServiceItem, PrimaryButtonLabel, TelegramScenario, WorkType } from 'types';
 import { getAndEncodeDataObject, serviceImageSettings } from 'helpers';
 
 import { ImageUI } from 'ui';
-// import { TelegramLinkTemplate } from 'template/index';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -17,7 +16,7 @@ export default function ServiceItem({
   const { width, height, className } = serviceImageSettings;
 
   const handleLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
-    const base64String = getAndEncodeDataObject('order', serviceTitle);
+    const base64String = getAndEncodeDataObject(TelegramScenario.Order, serviceTitle);
 
     if (!base64String) {
       e.preventDefault();
@@ -26,8 +25,6 @@ export default function ServiceItem({
 
     e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
   };
-
-  // const typeOfWorks = getWorkTypeKeys(serviceTitle);
 
   return (
     <li className='group blockItem relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[180px] md:h-[280px]'>

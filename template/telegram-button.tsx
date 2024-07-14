@@ -1,16 +1,19 @@
 'use client';
 
-import { PrimaryButtonLabel } from 'types';
-import { getAndEncodeDataObject } from 'helpers';
-
-import { PrimaryButtonUI } from 'ui';
+import { PrimaryButtonLabel, TelegramScenario } from 'types';
+import { getAndEncodeDataObject, getPrimaryButtonStyles } from 'helpers';
 
 interface ITelegramButtonProps {
-  command: 'order' | 'join';
+  command: TelegramScenario;
   label: PrimaryButtonLabel;
+  isOnLightBackground?: boolean;
 }
 
-export default function TelegramButton({ command, label }: ITelegramButtonProps) {
+export default function TelegramButton({
+  command,
+  label,
+  isOnLightBackground = false,
+}: ITelegramButtonProps) {
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     const base64String = getAndEncodeDataObject(command);
 
@@ -21,17 +24,18 @@ export default function TelegramButton({ command, label }: ITelegramButtonProps)
 
     e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
   };
+
+  const linkClass = getPrimaryButtonStyles(isOnLightBackground);
+
   return (
-    <PrimaryButtonUI>
-      <a
-        href='#'
-        target='_blank'
-        rel='noopener noreferrer'
-        onClick={handleClick}
-        className='flex h-full w-full items-center justify-center'
-      >
-        {label}
-      </a>
-    </PrimaryButtonUI>
+    <a
+      href='#'
+      target='_blank'
+      rel='noopener noreferrer'
+      onClick={handleClick}
+      className={`${linkClass} py-[17px]`}
+    >
+      {label}
+    </a>
   );
 }

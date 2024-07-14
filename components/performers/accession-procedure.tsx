@@ -1,9 +1,9 @@
-import { IAccession, PrimaryButtonLabel, SectionTitle } from 'types';
+import { IAccession, PrimaryButtonLabel, SectionTitle, TelegramScenario } from 'types';
 
 import { getAccession, imageSettings } from 'helpers';
 
-import { MappedListTemplate, SectionTemplate } from 'template';
-import { ImageUI, PrimaryButtonUI } from 'ui';
+import { MappedListTemplate, SectionTemplate, TelegramButton } from 'template';
+import { ImageUI } from 'ui';
 import { AccessionItem } from './subcomponents';
 
 export default function Accession() {
@@ -37,7 +37,11 @@ export default function Accession() {
           />
         </div>
         <div className='flex items-center justify-center'>
-          <PrimaryButtonUI isOnLightBackground>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+          <TelegramButton
+            command={TelegramScenario.Join}
+            label={PrimaryButtonLabel.Accession}
+            isOnLightBackground
+          />
         </div>
       </div>
     </SectionTemplate>
