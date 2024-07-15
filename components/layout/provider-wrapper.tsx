@@ -3,7 +3,6 @@ import {
   MenuProvider,
   PopupProvider,
   ThemeProvider,
-  ActiveLinkProvider,
 } from 'context';
 
 interface IProviderWrapperProps {
@@ -25,7 +24,7 @@ export default function ProviderWrapper({
       <CalculationProvider>
         <MenuProvider>
           <PopupProvider>
-            <ActiveLinkProvider>{children}</ActiveLinkProvider>
+           {children}
           </PopupProvider>
         </MenuProvider>
       </CalculationProvider>

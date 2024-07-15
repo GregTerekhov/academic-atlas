@@ -1,15 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import { throttle } from 'lodash';
 
 import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
-
-import { useActiveLink, useMenu } from 'context';
+import { useMenu } from 'context';
 import { getAdaptedLinks, mapArray } from 'helpers';
-
 import CalculationModalTrigger from './calculation-modal-trigger';
-import { useEffect } from 'react';
 
 interface INavigationProps {
   isDesktop?: boolean;
@@ -18,50 +17,90 @@ interface INavigationProps {
 export default function Navigation({ isDesktop }: INavigationProps) {
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
   const pathname = usePathname();
-  const { activeLink, setActiveLink } = useActiveLink();
+  const router = useRouter();
+  const [activeLink, setActiveLink] = useState<Paths | string>(Paths.Main);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const sections = useRef<{ id: string; path: string }[]>([]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll<HTMLElement>('section');
-      let foundActive = false;
+    const updateActiveLink = () => {
+      setActiveLink(window.location.pathname + window.location.hash);
+    };
 
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        if (
-          !foundActive &&
-          rect.top <= window.innerHeight / 2 &&
-          rect.bottom >= window.innerHeight / 2
-        ) {
-          const id = section.getAttribute('id');
+    updateActiveLink();
+
+   const handleScroll = throttle(() => {
+     if (window.scrollY === 0) {
+       setActiveLink(pathname as Paths);
+       window.history.pushState(null, '', pathname);
+     }
+   }, 200);
+
+    const handleIntersection = throttle((entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
           if (id) {
-            setActiveLink(`${window.location.pathname}#${id}`);
-            foundActive = true;
+            const section = sections.current.find((section) => section.id === id);
+            if (section) {
+              setActiveLink(section.path);
+            }
           }
         }
       });
+    }, 200);
 
-      if (!foundActive) {
-        setActiveLink(window.location.pathname);
-      }
-    };
+    observer.current = new IntersectionObserver(handleIntersection, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5,
+    });
+
+    const sectionElements = document.querySelectorAll<HTMLElement>('section');
+    sectionElements.forEach((section) => {
+      observer.current?.observe(section);
+    });
+
+    const adaptedLinks = getAdaptedLinks(isDesktop);
+    sections.current = adaptedLinks.map(({ path }) => {
+      const id = path.split('#')[1];
+      return { id: id ?? '', path };
+    });
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname, setActiveLink]);
+    window.addEventListener('hashchange', updateActiveLink);
+    window.addEventListener('popstate', updateActiveLink);
+
+    return () => {
+      if (observer.current) {
+        sectionElements.forEach((section) => {
+          observer.current?.unobserve(section);
+        });
+        observer.current.disconnect();
+      }
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hashchange', updateActiveLink);
+      window.removeEventListener('popstate', updateActiveLink);
+    };
+  }, [pathname, isDesktop]);
 
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     label: MenuLinks,
-    path: string,
+    path: Paths | string,
   ) => {
-    if (label === MenuLinks.Main && pathname === Paths.Main) {
+    if (label === MenuLinks.Main) {
       e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-      setActiveLink(Paths.Main);
-      window.history.pushState(null, '', '/');
+      if (pathname !== Paths.Main) {
+        router.push(Paths.Main);
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+        setActiveLink(Paths.Main);
+        window.history.pushState(null, '', '/');
+      }
     } else {
       setActiveLink(path);
     }
