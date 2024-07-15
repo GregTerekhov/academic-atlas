@@ -12,7 +12,7 @@ export default function WorkflowSteps() {
     <SectionTemplate title={SectionTitle.PartnershipWorkflow}>
       <MappedListTemplate<IWorkflow>
         items={workflowData}
-        className='max-md:space-y-6 md:max-lg:space-y-2 lg:relative lg:grid lg:grid-rows-6 lg:gap-x-24 lg:gap-y-14 lg:px-8'
+        className='max-md:space-y-6 md:max-lg:space-y-2 lg:grid lg:grid-rows-6 lg:gap-x-24 lg:gap-y-14 lg:px-8'
       >
         {({ id, title, description, gridMarkup }) => (
           <WorkflowItem

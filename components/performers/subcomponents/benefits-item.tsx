@@ -17,7 +17,7 @@ export default function PartnershipBenefitsItem({
       <div className='max-md:size-10'>
         <SvgIconUI
           id={iconId}
-          size={{ width: IconSize.L, height: IconSize.L }}
+          size={{ width: IconSize.HalfL, height: IconSize.HalfL }}
           className='mx-auto fill-accentPrimary-darker md:size-14 lg:size-20'
         />
       </div>
