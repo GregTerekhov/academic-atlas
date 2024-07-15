@@ -14,4 +14,3 @@ export * from './tailwindPlugins';
 export * from './telegramHelpers';
 export * from './themeHelper';
 export * from './uiHelper';
-export * from './telegramDataReceive';

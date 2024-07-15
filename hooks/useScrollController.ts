@@ -28,15 +28,12 @@ export const useScrollController = () => {
       (entries) => {
         entries.forEach((entry) => {
           const offset = 16;
-          const footerTop = entry.boundingClientRect.top;
-          const viewportHeight = window.innerHeight;
+          button.style.bottom = `${offset}px`;
 
           if (entry.isIntersecting) {
             button.style.position = 'absolute';
-            button.style.bottom = `${viewportHeight - footerTop + offset}px`;
           } else {
             button.style.position = 'fixed';
-            button.style.bottom = `${offset}px`;
           }
         });
       },

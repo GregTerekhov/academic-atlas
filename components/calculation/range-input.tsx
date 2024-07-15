@@ -1,10 +1,11 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { WorkType } from 'types';
 import { couldChooseUniqueness, getMinimalUniqueness } from 'helpers';
 
 import RangePercents from './range-percents';
-import { useEffect, useState } from 'react';
 
 interface IRangeInputProps {
   id: string;
