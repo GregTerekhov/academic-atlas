@@ -10,8 +10,8 @@ interface IRequirementsItemProps {
 
 export default function RequirementsItem({ title, desc }: IRequirementsItemProps) {
   return (
-    <li className='blockItem p-4 backdrop-blur-lg dark:bg-whiteBase/10 lg:basis-1/3 lg:p-6'>
-      <div className='mb-2 mr-auto flex items-center gap-x-4 lg:gap-x-2'>
+    <li className='blockItem space-y-2 p-4 backdrop-blur-lg dark:bg-whiteBase/10 md:max-lg:space-y-4 lg:basis-1/3 lg:p-6'>
+      <div className='flex items-center gap-x-2'>
         <div className='max-md:size-6'>
           <SvgIconUI
             id={IconName.Requirements}

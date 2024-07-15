@@ -43,17 +43,17 @@ export default function Section({
       className={`${sectionClasses} ${minHeight} relative py-20 lg:py-[120px]`}
     >
       {backgroundImagePaths && (
-        <BackgroundImageUI
-          alt={SectionDescriptions[title]}
-          largeDesktopSrc={backgroundImagePaths.largeDesktop}
-          desktopSrc={backgroundImagePaths.desktop}
-          tabletSrc={backgroundImagePaths.tablet}
-          mobileSrc={backgroundImagePaths.mobile}
-          priority={priority}
-        />
-      )}
-      {backgroundImagePaths && (
-        <div className='absolute inset-0 h-full w-full bg-accentPrimary/10 bg-section-overlay-light dark:bg-accentPrimary/5 dark:bg-section-overlay-dark'></div>
+        <>
+          <BackgroundImageUI
+            alt={SectionDescriptions[title]}
+            largeDesktopSrc={backgroundImagePaths.largeDesktop}
+            desktopSrc={backgroundImagePaths.desktop}
+            tabletSrc={backgroundImagePaths.tablet}
+            mobileSrc={backgroundImagePaths.mobile}
+            priority={priority}
+          />
+          <div className='absolute inset-0 h-full w-full bg-accentPrimary/10 bg-section-overlay-light dark:bg-accentPrimary/5 dark:bg-section-overlay-dark'></div>
+        </>
       )}
       <Container>
         {isBigTitle ? (
