@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { throttle } from 'lodash';
 
 import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
 import { useMenu } from 'context';
 import { getAdaptedLinks, mapArray } from 'helpers';
 import CalculationModalTrigger from './calculation-modal-trigger';
+import { initMultiObserver } from 'helpers';
 
 interface INavigationProps {
   isDesktop?: boolean;
@@ -29,37 +29,23 @@ export default function Navigation({ isDesktop }: INavigationProps) {
 
     updateActiveLink();
 
-   const handleScroll = throttle(() => {
-     if (window.scrollY === 0) {
-       setActiveLink(pathname as Paths);
-       window.history.pushState(null, '', pathname);
-     }
-   }, 200);
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setActiveLink(pathname as Paths);
+        window.history.pushState(null, '', pathname);
+      }
+    };
 
-    const handleIntersection = throttle((entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
-          if (id) {
-            const section = sections.current.find((section) => section.id === id);
-            if (section) {
-              setActiveLink(section.path);
-            }
+    observer.current = initMultiObserver(
+      sections.current.map((section) => ({
+        id: section.id,
+        callback: (entry) => {
+          if (entry.isIntersecting) {
+            setActiveLink(section.path);
           }
-        }
-      });
-    }, 200);
-
-    observer.current = new IntersectionObserver(handleIntersection, {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.5,
-    });
-
-    const sectionElements = document.querySelectorAll<HTMLElement>('section');
-    sectionElements.forEach((section) => {
-      observer.current?.observe(section);
-    });
+        },
+      })),
+    );
 
     const adaptedLinks = getAdaptedLinks(isDesktop);
     sections.current = adaptedLinks.map(({ path }) => {
@@ -73,9 +59,6 @@ export default function Navigation({ isDesktop }: INavigationProps) {
 
     return () => {
       if (observer.current) {
-        sectionElements.forEach((section) => {
-          observer.current?.unobserve(section);
-        });
         observer.current.disconnect();
       }
       window.removeEventListener('scroll', handleScroll);
@@ -118,7 +101,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
               <Link
                 href={path}
                 onClick={(e) => handleLinkClick(e, label, path)}
-                className={`${isActive ? 'text-accentSecondary' : 'dark:text-whiteBase'} text-medium hocus:text-accentSecondary dark:hocus:text-accentSecondary md:text-big`}
+                className={`${isActive ? 'text-accentPrimary dark:text-accentSecondary' : 'dark:text-whiteBase'} text-medium hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-big`}
               >
                 {isNavMenuOpen ? (
                   <button
