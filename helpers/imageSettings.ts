@@ -76,45 +76,45 @@ export const imageSettings = {
       'size-auto max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-auto md:w-[224px] md:-translate-y-1/2 lg:h-auto lg:w-[416px]',
   },
   serviceFirstItem: {
-    src: '/images/services-01.webp',
+    src: '/images/services-001.webp',
     alt: 'Three notebooks',
     priority: true,
   },
   serviceSecondItem: {
-    src: '/images/services-02.webp',
+    src: '/images/services-002.webp',
     alt: 'Glasses on a stack of books',
     priority: true,
   },
   serviceThirdItem: {
-    src: '/images/services-03.webp',
+    src: '/images/services-003.webp',
     alt: 'A person writes with a pen on paper',
     priority: true,
   },
   serviceFourthItem: {
-    src: '/images/services-04.webp',
-    alt: 'Open book on the table',
+    src: '/images/services-004.webp',
+    alt: 'A Phone and a notebook on the table against the background of a flower pot',
     priority: true,
   },
   serviceFifthItem: {
-    src: '/images/services-05.webp',
+    src: '/images/services-005.webp',
     alt: 'A stack of notebooks with bookmarks',
     priority: true,
   },
   serviceSixthItem: {
-    src: '/images/services-06.webp',
-    alt: 'A person typing on a laptop keyboard',
+    src: '/images/services-006.webp',
+    alt: 'Glasses on an open notebook next to the laptop',
     priority: true,
   },
   serviceSeventhItem: {
-    src: '/images/services-07.webp',
+    src: '/images/services-007.webp',
     alt: 'A person holding an open book on the background of a workbook',
   },
   serviceEighthItem: {
-    src: '/images/services-08.webp',
+    src: '/images/services-008.webp',
     alt: 'Glasses on the book',
   },
   serviceNinthItem: {
-    src: '/images/services-09.webp',
+    src: '/images/services-009.webp',
     alt: 'A pile of books',
   },
   partnershipAccession: {
