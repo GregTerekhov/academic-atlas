@@ -14,10 +14,7 @@ import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
 import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck } from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';
-import PlagiarismCheckbox from './plagiarism-checkbox';
-import RangeInput from './range-input';
-import ThemeInput from './theme-input';
-import PriceResult from './price-result';
+import { PlagiarismCheckbox, PriceResult, RangeInput, ThemeInput } from './subcomponents';
 
 export default function PriceCalculator() {
   const { registerDropdownRefs } = useMenu();
@@ -26,9 +23,7 @@ export default function PriceCalculator() {
     rangeValue,
     hasSubmitData,
     calculationData,
-    handleExecutionTimeChange,
-    handleExpertiseAreaChange,
-    handleWorkTypeChange,
+    handleOptionChange,
     handleShowCostResult,
     handleCheckboxChange,
     handleRangeChange,
@@ -40,17 +35,17 @@ export default function PriceCalculator() {
 
   const selectWorkType = (option: DropdownOption) => {
     if (typeof option === 'string') {
-      handleWorkTypeChange(option as WorkType);
+      handleOptionChange('workType', option as WorkType);
     }
   };
   const selectExpertiseArea = (option: DropdownOption) => {
     if (typeof option === 'string') {
-      handleExpertiseAreaChange(option as ExpertiseArea);
+      handleOptionChange('expertiseArea', option as ExpertiseArea);
     }
   };
   const selectExecutionTime = (option: DropdownOption) => {
     if (typeof option === 'string') {
-      handleExecutionTimeChange(option as ExecutionTime);
+      handleOptionChange('executionTime', option as ExecutionTime);
     }
   };
 
@@ -118,6 +113,7 @@ export default function PriceCalculator() {
               <PrimaryButtonUI
                 handleClick={handleShowCostResult}
                 isDisabled={isButtonDisabled}
+                isOnLightBackground
               >
                 {PrimaryButtonLabel.CostCalculation}
               </PrimaryButtonUI>
