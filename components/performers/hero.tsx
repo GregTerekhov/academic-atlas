@@ -12,7 +12,7 @@ import { HeroMatrix } from './subcomponents';
 
 export default function Hero() {
   return (
-    <section className="max-md:bg-partnership-hero-light dark:max-md:bg-partnership-hero-dark relative max-w-[4000px] before:absolute before:left-0 before:top-0 before:h-full before:w-full before:content-[''] max-md:bg-cover max-md:bg-center max-md:py-20 max-md:before:bg-accentSecondary/10 md:pt-16 lg:pt-[104px]">
+    <section className="max-md:bg-partnership-hero-light dark:max-md:bg-partnership-hero-dark relative max-w-[4000px] before:absolute before:left-0 before:top-0 before:h-full before:w-full before:content-[''] max-md:bg-cover max-md:bg-center max-md:py-20 md:pt-16 lg:pt-[104px]">
       <Container>
         <div className='md:flex md:items-start md:gap-x-9 lg:items-center'>
           <div>
