@@ -16,9 +16,10 @@ interface ICalculationContext {
   isChecked: boolean;
   rangeValue: Uniqueness;
   hasSubmitData: boolean;
-  handleWorkTypeChange: (option: WorkType) => void;
-  handleExpertiseAreaChange: (option: ExpertiseArea) => void;
-  handleExecutionTimeChange: (option: ExecutionTime) => void;
+  handleOptionChange: <T extends keyof ICalculationData>(
+    field: T,
+    option: ICalculationData[T],
+  ) => void;
   handleThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
   resetCalculation: () => void;
   handleShowCostResult: () => void;
@@ -64,16 +65,11 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     setRangeValue(newRangeValue);
   }, [calculationData.workType, isChecked]);
 
-  const handleWorkTypeChange = (option: WorkType) => {
-    setCalculationData((prevData) => ({ ...prevData, workType: option }));
-  };
-
-  const handleExpertiseAreaChange = (option: ExpertiseArea) => {
-    setCalculationData((prevData) => ({ ...prevData, expertiseArea: option }));
-  };
-
-  const handleExecutionTimeChange = (option: ExecutionTime) => {
-    setCalculationData((prevData) => ({ ...prevData, executionTime: option }));
+  const handleOptionChange = <T extends keyof ICalculationData>(
+    field: T,
+    option: ICalculationData[T],
+  ) => {
+    setCalculationData((prevData) => ({ ...prevData, [field]: option }));
   };
 
   const handleThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +87,7 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
       workType: WorkType.Default,
       expertiseArea: ExpertiseArea.Default,
       executionTime: ExecutionTime.Default,
+      uniqueness: Uniqueness.Zero,
       theme: '',
     });
   };
@@ -114,9 +111,7 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
         isChecked,
         rangeValue,
         calculationData,
-        handleWorkTypeChange,
-        handleExpertiseAreaChange,
-        handleExecutionTimeChange,
+        handleOptionChange,
         handleThemeChange,
         resetCalculation,
         handleShowCostResult,
