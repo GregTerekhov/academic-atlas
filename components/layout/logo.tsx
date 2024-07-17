@@ -24,6 +24,7 @@ export default function Logo({ position }: ISvgIconProps) {
     if (isScroll) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '/');
     }
     if (isOpenMenuOnMainPage) {
       closeMenu();

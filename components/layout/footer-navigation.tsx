@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 
 import { PositionInLayout } from 'types';
@@ -22,7 +23,7 @@ export default function FooterMenu() {
           <li key={label}>
             <Link
               href={path}
-              className='generalText hocus:text-accentPrimary  dark:hocus:text-accentSecondary'
+              className='generalText hocus:text-accentPrimary dark:hocus:text-accentSecondary'
             >
               {label}
             </Link>

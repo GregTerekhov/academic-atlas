@@ -5,10 +5,16 @@ interface IPrimaryButtonProps {
   children: React.ReactNode;
   handleClick?: () => void;
   isDisabled?: boolean;
+  isOnLightBackground?: boolean;
 }
 
-export default function PrimaryButton({ children, handleClick, isDisabled }: IPrimaryButtonProps) {
-  const buttonClass = getPrimaryButtonStyles(false, isDisabled);
+export default function PrimaryButton({
+  children,
+  handleClick,
+  isDisabled,
+  isOnLightBackground = false,
+}: IPrimaryButtonProps) {
+  const buttonClass = getPrimaryButtonStyles(isOnLightBackground, isDisabled);
 
   return (
     <button

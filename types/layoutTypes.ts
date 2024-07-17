@@ -1,4 +1,3 @@
-import { UrlObject } from 'url';
 import { IconName, IconSize } from './ui';
 
 export enum MenuLinks {
@@ -96,7 +95,7 @@ export enum CalculationTitle {
 
 export interface ILinks {
   label: MenuLinks;
-  path: UrlObject | Paths;
+  path: Paths;
 }
 
 export interface IContactLink {

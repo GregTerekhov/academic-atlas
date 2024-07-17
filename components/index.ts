@@ -19,7 +19,6 @@ export { default as NotFoundNavigation } from './not-found-controls';
 export { default as OrderingFAQ } from './FAQ/ordering';
 export { default as Performers } from './home/performers';
 export { default as PriceCalculator } from './calculation/product-price-calculator';
-export { default as PriceResult } from './calculation/price-result';
 export { default as Promotions } from './home/promotions';
 export { default as ProviderWrapper } from './layout/provider-wrapper';
 export { default as Requirements } from './performers/requirements';
