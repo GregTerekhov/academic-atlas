@@ -1,4 +1,9 @@
-import { CalculationProvider, MenuProvider, PopupProvider, ThemeProvider } from 'context';
+import {
+  CalculationProvider,
+  MenuProvider,
+  PopupProvider,
+  ThemeProvider,
+} from 'context';
 
 interface IProviderWrapperProps {
   children: React.ReactNode;
@@ -18,7 +23,9 @@ export default function ProviderWrapper({
     >
       <CalculationProvider>
         <MenuProvider>
-          <PopupProvider>{children}</PopupProvider>
+          <PopupProvider>
+           {children}
+          </PopupProvider>
         </MenuProvider>
       </CalculationProvider>
     </ThemeProvider>
