@@ -96,6 +96,7 @@ export enum CalculationTitle {
 export interface ILinks {
   label: MenuLinks;
   path: Paths;
+  id?: string | undefined;
 }
 
 export interface IContactLink {
