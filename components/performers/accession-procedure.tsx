@@ -41,6 +41,7 @@ export default function Accession() {
             command={TelegramScenario.Join}
             label={PrimaryButtonLabel.Accession}
             isOnLightBackground
+            ariaLabel='Приєднатися до команди виконавців'
           />
         </div>
       </div>

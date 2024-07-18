@@ -26,6 +26,7 @@ export default function Hero() {
               command={TelegramScenario.Join}
               label={PrimaryButtonLabel.Accession}
               isOnLightBackground
+              ariaLabel='Перейти до телеграм-боту щоб замовити роботу'
             />
           </div>
           <HeroMatrix />

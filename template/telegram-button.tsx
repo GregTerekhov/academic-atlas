@@ -6,6 +6,7 @@ import { getAndEncodeDataObject, getPrimaryButtonStyles } from 'helpers';
 interface ITelegramButtonProps {
   command: TelegramScenario;
   label: PrimaryButtonLabel;
+  ariaLabel?: string;
   isOnLightBackground?: boolean;
 }
 
@@ -13,6 +14,7 @@ export default function TelegramButton({
   command,
   label,
   isOnLightBackground = false,
+  ariaLabel,
 }: ITelegramButtonProps) {
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     const base64String = getAndEncodeDataObject(command);
@@ -29,6 +31,8 @@ export default function TelegramButton({
 
   return (
     <a
+      aria-describedby='telegram-bot-description'
+      aria-label={ariaLabel}
       href='#'
       target='_blank'
       rel='noopener noreferrer'

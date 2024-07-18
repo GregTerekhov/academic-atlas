@@ -6,6 +6,7 @@ interface IPrimaryButtonProps {
   handleClick?: () => void;
   isDisabled?: boolean;
   isOnLightBackground?: boolean;
+  ariaLabel?: string;
 }
 
 export default function PrimaryButton({
@@ -13,11 +14,14 @@ export default function PrimaryButton({
   handleClick,
   isDisabled,
   isOnLightBackground = false,
+  ariaLabel,
 }: IPrimaryButtonProps) {
   const buttonClass = getPrimaryButtonStyles(isOnLightBackground, isDisabled);
 
   return (
     <button
+      aria-describedby='primary-button-description'
+      aria-label={ariaLabel}
       type={ButtonType.Button}
       onClick={handleClick}
       className={`${buttonClass} h-16`}
