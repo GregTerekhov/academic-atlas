@@ -47,10 +47,10 @@
 @media screen and (min-width: 1440px) {
   .swiper-slide-visible.swiper-slide-prev,
   .swiper-slide-visible.swiper-slide-next {
-    width: 336px !important;
+    width: 334px !important;
   }
 
   .swiper-slide-fully-visible.swiper-slide-active {
-    width: 496px !important;
+    width: 494px !important;
   }
 }
