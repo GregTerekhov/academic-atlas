@@ -10,13 +10,17 @@ import {
   ServiceOverview,
   Services,
 } from 'components';
-import { MetadataTexts } from 'types';
+
+import { MetadataTexts } from 'helpers';
+
+const { home } = MetadataTexts;
+const { title, description, keywords } = home;
 
 export const metadata: Metadata = {
-  title: MetadataTexts.home.title,
-  description: MetadataTexts.home.description,
-  keywords: MetadataTexts.home.keywords,
-  // openGraph: MetadataTexts.home.openGraph,    //FIXME: --- uncomment
+  title,
+  description,
+  keywords,
+  // openGraph,    //FIXME: --- uncomment
 };
 
 export default function Home() {

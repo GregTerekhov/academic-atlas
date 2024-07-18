@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { MetadataTexts } from 'types';
 
+import { MetadataTexts } from 'helpers';
 import {
   AboutCompany,
   Accession,
@@ -10,11 +10,14 @@ import {
   WorkflowSteps,
 } from 'components';
 
+const { partnership } = MetadataTexts;
+const { title, description, keywords } = partnership;
+
 export const metadata: Metadata = {
-  title: MetadataTexts.partnership.title,
-  description: MetadataTexts.partnership.description,
-  keywords: MetadataTexts.partnership.keywords,
-  // openGraph: MetadataTexts.partnership.openGraph,    //FIXME: --- uncomment
+  title,
+  description,
+  keywords,
+  // openGraph,    //FIXME: --- uncomment
 };
 
 export default function Partnership() {

@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
+
+import { MetadataTexts } from 'helpers';
 import { FAQList, HeroFAQ, OrderingFAQ } from 'components';
-import { MetadataTexts } from 'types';
+
+const { faq } = MetadataTexts;
+const { title, description, keywords } = faq;
 
 export const metadata: Metadata = {
-  title: MetadataTexts.faq.title,
-  description: MetadataTexts.faq.description,
-  keywords: MetadataTexts.faq.keywords,
-  // openGraph: MetadataTexts.faq.openGraph,    //FIXME: --- uncomment
+  title,
+  description,
+  keywords,
+  // openGraph,    //FIXME: --- uncomment
 };
 
 export default function Faq() {
