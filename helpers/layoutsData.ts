@@ -7,6 +7,7 @@ import {
   Paths,
   PositionInLayout,
 } from '../types';
+import { getIdValues } from './anchorLinks';
 
 export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
   return [
@@ -62,7 +63,7 @@ export const getFooterLinks = (): ILinks[] => {
       label: MenuLinks.Promotions,
     },
     {
-      path: Paths.FAQ ,
+      path: Paths.FAQ,
       label: MenuLinks.FAQ,
     },
     {
@@ -73,29 +74,34 @@ export const getFooterLinks = (): ILinks[] => {
 };
 
 const getHeaderLinks = (): ILinks[] => {
+  const { Services, AboutUs, Promotions, Feedback } = getIdValues();
   return [
     {
       path: Paths.Main,
       label: MenuLinks.Main,
     },
     {
+      id: Services,
       path: Paths.Services,
       label: MenuLinks.Services,
     },
     {
+      id: AboutUs,
       path: Paths.AboutUs,
       label: MenuLinks.AboutUs,
     },
     {
+      id: Promotions,
       path: Paths.Promotions,
       label: MenuLinks.Promotions,
     },
     {
+      id: Feedback,
       path: Paths.Feedback,
       label: MenuLinks.Feedback,
     },
     {
-      path: Paths.FAQ ,
+      path: Paths.FAQ,
       label: MenuLinks.FAQ,
     },
     {
