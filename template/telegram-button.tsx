@@ -7,8 +7,8 @@ import { AriaDescriptionUI } from 'ui/index';
 interface ITelegramButtonProps {
   command: TelegramScenario;
   label: PrimaryButtonLabel;
-  ariaId: string;
-  ariaDescription: string;
+  ariaId?: string;
+  ariaDescription?: string;
   isOnLightBackground?: boolean;
 }
 

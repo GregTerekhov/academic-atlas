@@ -1,6 +1,6 @@
 interface IAriaDescription {
-  description: string;
-  id: string;
+  description?: string | undefined;
+  id?: string | undefined;
 }
 
 export default function AriaDescription({ description, id }: IAriaDescription) {
