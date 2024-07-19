@@ -16,7 +16,7 @@ const NotFoundNavigation = () => {
     <ul className='mt-10 gap-x-20 max-md:space-y-6 md:flex md:justify-center md:gap-x-8 lg:gap-x-20'>
       <li>
         <PrimaryButtonUI
-          ariaLabel='Кнопка для повернення на минулу сторінку'
+          ariaId='come-back-page'
           ariaDescription='Ця кнопка поверне вас на попередню сторінку'
           handleClick={() => router.back()}
         >

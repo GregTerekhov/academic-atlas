@@ -6,6 +6,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
+import { getWorkType } from './calculationData';
 
 enum CalculationMultiplier {
   NoMultiplier = 1,
@@ -55,9 +56,7 @@ const technicalSciences = new Set([
   ExpertiseArea.Transport,
 ]);
 
-export const expertiseMultiplier = (
-  selectedExpertiseArea: ExpertiseArea,
-): CalculationMultiplier => {
+const expertiseMultiplier = (selectedExpertiseArea: ExpertiseArea): CalculationMultiplier => {
   switch (true) {
     case humanitiesAndEconomics.has(selectedExpertiseArea):
       return CalculationMultiplier.Standard;
@@ -71,9 +70,7 @@ export const expertiseMultiplier = (
   }
 };
 
-export const executionTimeMultiplier = (
-  selectedExecutionTime: ExecutionTime,
-): CalculationMultiplier => {
+const executionTimeMultiplier = (selectedExecutionTime: ExecutionTime): CalculationMultiplier => {
   switch (true) {
     case selectedExecutionTime === ExecutionTime.MediumTerm:
       return CalculationMultiplier.IncreasedStandard;
@@ -85,7 +82,7 @@ export const executionTimeMultiplier = (
   }
 };
 
-export const uniquenessMultiplier = (
+const uniquenessMultiplier = (
   workTypeData: IDropdownData,
   customUniqueness?: number,
 ): CalculationMultiplier => {
@@ -166,4 +163,23 @@ export const roundPriceToInterval = (calculatedPrice: number) => {
   }
 
   return renderedPrice;
+};
+
+export const calculatePrice = (
+  selectedWorkType: WorkType,
+  selectedExpertiseArea: ExpertiseArea,
+  selectedExecutionTime: ExecutionTime,
+  customUniqueness?: number,
+): number => {
+  const workTypeData = getWorkType().find((workType) => workType.option === selectedWorkType);
+  if (!workTypeData || !workTypeData.basePrice) {
+    throw new Error('Invalid work type selected');
+  }
+  let basePrice = workTypeData.basePrice;
+
+  basePrice *= expertiseMultiplier(selectedExpertiseArea);
+  basePrice *= executionTimeMultiplier(selectedExecutionTime);
+  basePrice *= uniquenessMultiplier(workTypeData, customUniqueness);
+
+  return basePrice;
 };

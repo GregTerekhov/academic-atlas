@@ -11,7 +11,9 @@ import { useIntersectionObserver } from './useIntersectionObserver';
 export const useActiveLink = (isDesktop: boolean) => {
   const pathname = usePathname();
 
-  const [activeLink, setActiveLink] = useState<string>(pathname);
+  const initialLink = pathname || `${window.location.hash}`;
+
+  const [activeLink, setActiveLink] = useState<string>(initialLink);
   const sections = useRef<{ id: string; path: string }[]>([]);
   const sectionRefs = useRef<Element[]>([]);
 
@@ -23,7 +25,8 @@ export const useActiveLink = (isDesktop: boolean) => {
     });
 
     const updateActiveLink = () => {
-      setActiveLink(window.location.pathname + window.location.hash);
+      setActiveLink(pathname);
+      // setActiveLink(window.location.pathname + window.location.hash);
     };
 
     updateActiveLink();
