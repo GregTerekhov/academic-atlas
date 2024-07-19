@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --thumb-color-light: linear-gradient(to right, #2091f9, #3048a5);
+  --thumb-color-dark: linear-gradient(to right, #f8a401, #d12600);
+  --thumb-color-disabled: #959595;
+}
+
 @layer base {
   html {
     @apply scroll-smooth;
@@ -53,4 +59,29 @@
   .swiper-slide-fully-visible.swiper-slide-active {
     width: 494px !important;
   }
+}
+
+.range-input::-webkit-slider-thumb {
+  width: 32px;
+  height: 32px;
+  background: var(--thumb-color);
+  border-radius: 50%;
+  margin-top: -12px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.range-input::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  background: var(--thumb-color);
+  margin-top: -12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.range-input:disabled::-webkit-slider-thumb,
+.range-input:disabled::-moz-range-thumb {
+  background: var(--thumb-color-disabled);
+  cursor: not-allowed;
 }
