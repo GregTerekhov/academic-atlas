@@ -47,7 +47,12 @@ export default function LegalInfo() {
                     {value.includes('AcademicAtlas@ukr.net') ? (
                       <>
                         {value.split('AcademicAtlas@ukr.net')[0]}
-                        <a href='mailto:AcademicAtlas@ukr.net'>AcademicAtlas@ukr.net</a>
+                        <a
+                          aria-label='Пошта сайту AcademicAtlas'
+                          href='mailto:AcademicAtlas@ukr.net'
+                        >
+                          AcademicAtlas@ukr.net
+                        </a>
                         {value.split('AcademicAtlas@ukr.net')[1]}
                       </>
                     ) : (

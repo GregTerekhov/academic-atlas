@@ -6,6 +6,8 @@ interface IPrimaryButtonProps {
   handleClick?: () => void;
   isDisabled?: boolean;
   isOnLightBackground?: boolean;
+  ariaLabel?: string;
+  ariaDescription?: string;
 }
 
 export default function PrimaryButton({
@@ -13,17 +15,29 @@ export default function PrimaryButton({
   handleClick,
   isDisabled,
   isOnLightBackground = false,
+  ariaLabel,
+  ariaDescription,
 }: IPrimaryButtonProps) {
   const buttonClass = getPrimaryButtonStyles(isOnLightBackground, isDisabled);
 
   return (
-    <button
-      type={ButtonType.Button}
-      onClick={handleClick}
-      className={`${buttonClass} h-16`}
-      disabled={isDisabled}
-    >
-      {children}
-    </button>
+    <>
+      <button
+        aria-describedby='primary-button-description'
+        aria-label={ariaLabel}
+        type={ButtonType.Button}
+        onClick={handleClick}
+        className={`${buttonClass} h-16`}
+        disabled={isDisabled}
+      >
+        {children}
+      </button>
+      <p
+        className='sr-only'
+        id='telegram-bot-description'
+      >
+        {ariaDescription}
+      </p>
+    </>
   );
 }
