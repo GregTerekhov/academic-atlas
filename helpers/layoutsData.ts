@@ -9,7 +9,7 @@ import {
 } from '../types';
 import { getIdValues } from './anchorLinks';
 
-export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
+const getLinkData = (variant: PositionInLayout): IContactLink[] => {
   return [
     {
       href: 'tel:+380632076120',
@@ -38,6 +38,14 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       label: 'AcademicAtlas@ukr.net',
     },
   ];
+};
+
+export const getAdaptedContacts = (variant: PositionInLayout) => {
+  const linkData = getLinkData(variant);
+
+  return variant === PositionInLayout.Footer
+    ? linkData
+    : linkData.filter((link) => link.iconName !== IconName.Call);
 };
 
 export const getFooterLinks = (): ILinks[] => {
