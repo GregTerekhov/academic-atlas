@@ -1,30 +1,31 @@
 import { ButtonType } from 'types';
 import { getPrimaryButtonStyles } from 'helpers';
 
+import AriaDescription from './aria-description';
+
 interface IPrimaryButtonProps {
   children: React.ReactNode;
+  ariaDescription: string;
+  ariaId: string;
   handleClick?: () => void;
   isDisabled?: boolean;
   isOnLightBackground?: boolean;
-  ariaLabel?: string;
-  ariaDescription?: string;
 }
 
 export default function PrimaryButton({
   children,
+  ariaDescription,
+  ariaId,
   handleClick,
   isDisabled,
   isOnLightBackground = false,
-  ariaLabel,
-  ariaDescription,
 }: IPrimaryButtonProps) {
   const buttonClass = getPrimaryButtonStyles(isOnLightBackground, isDisabled);
 
   return (
     <>
       <button
-        aria-describedby='primary-button-description'
-        aria-label={ariaLabel}
+        aria-describedby={ariaId}
         type={ButtonType.Button}
         onClick={handleClick}
         className={`${buttonClass} h-16`}
@@ -32,12 +33,10 @@ export default function PrimaryButton({
       >
         {children}
       </button>
-      <p
-        className='sr-only'
-        id='telegram-bot-description'
-      >
-        {ariaDescription}
-      </p>
+      <AriaDescription
+        id={ariaId}
+        description={ariaDescription}
+      />
     </>
   );
 }

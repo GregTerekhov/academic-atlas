@@ -3,6 +3,7 @@
 import {
   type DropdownOption,
   CalculationTitle,
+  DropdownAriaId,
   ExecutionTime,
   ExpertiseArea,
   PrimaryButtonLabel,
@@ -70,6 +71,7 @@ export default function PriceCalculator() {
                   label={WorkType.Default}
                   options={workTypes}
                   onOptionSelect={selectWorkType}
+                  ariaId={DropdownAriaId.WORK_TYPE}
                 />
               </li>
               <li>
@@ -78,6 +80,7 @@ export default function PriceCalculator() {
                   label={ExpertiseArea.Default}
                   options={expertiseAreas}
                   onOptionSelect={selectExpertiseArea}
+                  ariaId={DropdownAriaId.EXPERTISE_AREA}
                 />
               </li>
               <li>
@@ -86,6 +89,7 @@ export default function PriceCalculator() {
                   label={ExecutionTime.Default}
                   options={executionTimes}
                   onOptionSelect={selectExecutionTime}
+                  ariaId={DropdownAriaId.EXECUTION_TIME}
                 />
               </li>
               <li>
@@ -114,6 +118,8 @@ export default function PriceCalculator() {
                 handleClick={handleShowCostResult}
                 isDisabled={isButtonDisabled}
                 isOnLightBackground
+                ariaId='cost-output-button'
+                ariaDescription='Кнопка виведення результатів розрахунку вартості роботи згідно з введеними даними'
               >
                 {PrimaryButtonLabel.CostCalculation}
               </PrimaryButtonUI>

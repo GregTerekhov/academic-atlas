@@ -8,7 +8,7 @@ import {
   roundPriceToInterval,
 } from 'helpers';
 
-import { SvgIconUI } from 'ui';
+import { AriaDescriptionUI, SvgIconUI } from 'ui';
 
 export default function PriceResult() {
   const { calculationData } = useCalculation();
@@ -56,15 +56,21 @@ export default function PriceResult() {
         onClick={handleLinkClick}
         target='_blank'
         rel='noopener noreferrer'
+        aria-describedby='price-button'
         className={`${linkClass} group flex h-full w-full items-center justify-center gap-x-4 py-4 max-sm:gap-x-2`}
       >
         <SvgIconUI
           id={IconName.Telegram}
           size={{ width: IconSize.BG, height: IconSize.BG }}
           className='fill-whiteBase group-hover:fill-accentPrimary dark:group-hover:fill-whiteBase'
+          ariaHidden={false}
         />
         {PrimaryButtonLabel.SwitchToTelegram}
       </a>
+      <AriaDescriptionUI
+        id='price-button'
+        description='Перехід в телеграм-бот зі збереженням введених попередньо даними в модулі розрахунку вартості'
+      />
     </div>
   );
 }
