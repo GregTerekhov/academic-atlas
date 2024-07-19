@@ -17,6 +17,7 @@ const NotFoundNavigation = () => {
       <li>
         <PrimaryButtonUI
           ariaLabel='Кнопка для повернення на минулу сторінку'
+          ariaDescription='Ця кнопка поверне вас на попередню сторінку'
           handleClick={() => router.back()}
         >
           {PrimaryButtonLabel.ToPreviousPage}

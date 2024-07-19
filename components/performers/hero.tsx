@@ -27,6 +27,7 @@ export default function Hero() {
               label={PrimaryButtonLabel.Accession}
               isOnLightBackground
               ariaLabel='Перейти до телеграм-боту щоб замовити роботу'
+              ariaDescription='Це посилання відкриє нову вкладку з Telegram-ботом, де ви зможете замовити послугу.'
             />
           </div>
           <HeroMatrix />
