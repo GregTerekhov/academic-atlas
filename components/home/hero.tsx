@@ -16,6 +16,8 @@ export default function Hero() {
       <TelegramButton
         command={TelegramScenario.Order}
         label={PrimaryButtonLabel.Ordering}
+        ariaId='telegram-bot-hero'
+        ariaDescription='Кнопка переходу до Telegram-боту в верхній секції'
       />
     </SectionTemplate>
   );

@@ -27,12 +27,20 @@ export default function PriceControls() {
   return (
     <>
       <div className='hidden items-center justify-center lg:flex'>
-        <PrimaryButtonUI handleClick={() => togglePopup(popupId)}>
+        <PrimaryButtonUI
+          handleClick={() => togglePopup(popupId)}
+          ariaId='calculation-module'
+          ariaDescription='Кнопка відкриття модулю калькуляції вартості роботи'
+        >
           {PrimaryButtonLabel.CostCalculation}
         </PrimaryButtonUI>
       </div>
       <div className='hidden items-center justify-center max-lg:flex'>
-        <PrimaryButtonUI handleClick={toggleCalcMenu}>
+        <PrimaryButtonUI
+          handleClick={toggleCalcMenu}
+          ariaId='calculation-module'
+          ariaDescription='Кнопка відкриття модулю калькуляції вартості роботи'
+        >
           {PrimaryButtonLabel.CostCalculation}
         </PrimaryButtonUI>
       </div>

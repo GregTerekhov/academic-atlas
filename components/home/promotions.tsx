@@ -9,7 +9,7 @@ export default function Promotions() {
   const { promotions } = imageSettings;
   const { Promotions } = getIdValues();
 
-  const { src, alt, width, height, className } = promotions;
+  const { src, width, height, className } = promotions;
 
   return (
     <SectionTemplate
@@ -22,7 +22,7 @@ export default function Promotions() {
     >
       <ImageUI
         src={src}
-        alt={alt}
+        alt=''
         width={width}
         height={height}
         className={className}
@@ -30,6 +30,8 @@ export default function Promotions() {
       <TelegramButton
         command={TelegramScenario.Order}
         label={PrimaryButtonLabel.Ordering}
+        ariaId='telegram-bot-promotions'
+        ariaDescription='Кнопка переходу до Telegram-боту з секції Акції'
       />
     </SectionTemplate>
   );
