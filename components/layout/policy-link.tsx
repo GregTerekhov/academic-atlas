@@ -14,7 +14,7 @@ export default function LegacyLink() {
       aria-label='Посилання переходу на сторінку Політики конфіденційності та умов використання'
       aria-current={pathname === Paths.LegalInfo ? 'page' : undefined}
     >
-      {MenuLinks.LegalInfo} та умови використання
+      {MenuLinks.LegalInfo}
     </Link>
   );
 }
