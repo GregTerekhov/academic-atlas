@@ -10,16 +10,24 @@ import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
 import { useActiveLink } from 'hooks';
 
 import CalculationModalTrigger from './calculation-modal-trigger';
+import { useEffect, useState } from 'react';
 
 interface INavigationProps {
   isDesktop?: boolean;
 }
 export default function Navigation({ isDesktop }: INavigationProps) {
+  const [currentHash, setCurrentHash] = useState('');
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
   const pathname = usePathname();
   const router = useRouter();
 
   const { activeLink, setActiveLink } = useActiveLink(isDesktop ?? false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentHash(window.location.hash);
+    }
+  }, [pathname]);
 
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -49,8 +57,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
     <nav aria-label='Основне меню'>
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
         {mapArray(adaptedLinks, ({ path, label }) => {
-          const isActive =
-            activeLink === path || (pathname === Paths.Main && window.location.hash === path);
+          const isActive = activeLink === path || (pathname === Paths.Main && currentHash === path);
           return (
             <li key={label}>
               <Link
