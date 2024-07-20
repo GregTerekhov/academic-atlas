@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
 
 import { useMenu } from 'context';
-import { getAdaptedLinks, mapArray } from 'helpers';
+import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
 import { useActiveLink } from 'hooks';
 
 import CalculationModalTrigger from './calculation-modal-trigger';
@@ -51,18 +51,12 @@ export default function Navigation({ isDesktop }: INavigationProps) {
         {mapArray(adaptedLinks, ({ path, label }) => {
           const isActive =
             activeLink === path || (pathname === Paths.Main && window.location.hash === path);
-          const ariaCurrent = isActive
-            ? pathname === Paths.Main && path.startsWith('#')
-              ? 'location'
-              : 'page'
-            : undefined;
-
           return (
             <li key={label}>
               <Link
                 href={path}
                 onClick={(e) => handleLinkClick(e, label, path)}
-                aria-current={ariaCurrent}
+                aria-current={getMenuAriaCurrent(path, pathname, isActive)}
                 className={`${isActive ? 'text-accentPrimary dark:text-accentSecondary' : 'dark:text-whiteBase'} text-medium hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-big`}
               >
                 {isNavMenuOpen ? (
