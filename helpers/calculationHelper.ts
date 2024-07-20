@@ -56,6 +56,14 @@ const technicalSciences = new Set([
   ExpertiseArea.Transport,
 ]);
 
+const thresholds: { [key in Uniqueness]: { increased: number; standard: number } } = {
+  [Uniqueness.Zero]: { increased: 0, standard: 0 },
+  [Uniqueness.TeamPapers]: { increased: 40, standard: 20 },
+  [Uniqueness.Standard]: { increased: 40, standard: 30 },
+  [Uniqueness.Higher]: { increased: 0, standard: 0 },
+  [Uniqueness.Highest]: { increased: 0, standard: 0 },
+};
+
 const expertiseMultiplier = (selectedExpertiseArea: ExpertiseArea): CalculationMultiplier => {
   switch (true) {
     case humanitiesAndEconomics.has(selectedExpertiseArea):
@@ -93,14 +101,6 @@ const uniquenessMultiplier = (
   if (defaultUniqueness === undefined) {
     return CalculationMultiplier.NoMultiplier;
   }
-
-  const thresholds: { [key in Uniqueness]: { increased: number; standard: number } } = {
-    [Uniqueness.Zero]: { increased: 0, standard: 0 },
-    [Uniqueness.TeamPapers]: { increased: 40, standard: 20 },
-    [Uniqueness.Standard]: { increased: 40, standard: 30 },
-    [Uniqueness.Higher]: { increased: 0, standard: 0 },
-    [Uniqueness.Highest]: { increased: 0, standard: 0 },
-  };
 
   const threshold = thresholds[defaultUniqueness];
 
@@ -165,13 +165,18 @@ export const roundPriceToInterval = (calculatedPrice: number) => {
   return renderedPrice;
 };
 
+export const findSelectedObject = (selectedWorkType: WorkType) => {
+  return getWorkType().find((workType) => workType.option === selectedWorkType);
+};
+
 export const calculatePrice = (
   selectedWorkType: WorkType,
   selectedExpertiseArea: ExpertiseArea,
   selectedExecutionTime: ExecutionTime,
   customUniqueness?: number,
 ): number => {
-  const workTypeData = getWorkType().find((workType) => workType.option === selectedWorkType);
+  const workTypeData = findSelectedObject(selectedWorkType);
+
   if (!workTypeData || !workTypeData.basePrice) {
     throw new Error('Invalid work type selected');
   }
