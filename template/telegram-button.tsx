@@ -7,8 +7,8 @@ import { AriaDescriptionUI } from 'ui/index';
 interface ITelegramButtonProps {
   command: TelegramScenario;
   label: PrimaryButtonLabel;
-  ariaId?: string;
-  ariaDescription?: string;
+  ariaId?: string; //FIXME: --- remove the optionality
+  ariaDescription?: string; //FIXME: --- remove the optionality
   isOnLightBackground?: boolean;
 }
 
