@@ -1,8 +1,7 @@
 'use client';
 
 import { PositionInLayout, IContactLink } from 'types';
-
-import { getAdaptedContacts } from 'helpers';
+import { getAdaptedContacts } from 'data';
 
 import { MappedListTemplate } from 'template';
 import { ContactItem } from './subcomponents';

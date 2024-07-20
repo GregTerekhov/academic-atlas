@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { MetadataTexts } from 'helpers';
+import { MetadataTexts } from 'data';
 import { FAQList, HeroFAQ, OrderingFAQ } from 'components';
 
 const { faq } = MetadataTexts;

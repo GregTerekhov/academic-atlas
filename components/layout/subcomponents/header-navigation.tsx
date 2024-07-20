@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
+import { getAdaptedLinks } from 'data';
 
 import { useMenu } from 'context';
-import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
+import { getMenuAriaCurrent, mapArray } from 'helpers';
 import { useActiveLink } from 'hooks';
 
 import CalculationModalTrigger from './calculation-modal-trigger';

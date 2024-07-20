@@ -1,5 +1,7 @@
 import { IHeroGrid } from 'types';
-import { getHeroGrid, heroMatrixImageSettings } from 'helpers';
+import { getHeroGrid } from 'data';
+
+import { heroMatrixImageSettings } from 'helpers';
 
 import { MappedListTemplate } from 'template';
 import { ImageUI } from 'ui';

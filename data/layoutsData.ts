@@ -7,7 +7,7 @@ import {
   Paths,
   PositionInLayout,
 } from '../types';
-import { getIdValues } from './anchorLinks';
+import { getIdValues } from '../helpers';
 
 const getLinkData = (variant: PositionInLayout): IContactLink[] => {
   return [

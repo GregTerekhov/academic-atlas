@@ -11,9 +11,9 @@ import {
   PrimaryButtonLabel,
   WorkType,
 } from 'types';
+import { getExecutionTime, getExpertiseArea, getWorkType } from 'data';
 
 import { useCalculation, useMenu } from 'context';
-import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
 import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck } from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';

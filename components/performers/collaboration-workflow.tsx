@@ -1,6 +1,5 @@
 import { IWorkflow, SectionTitle } from 'types';
-
-import { getWorkflowData } from 'helpers';
+import { getWorkflowData } from 'data';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
 import { WorkflowBackground, WorkflowItem } from './subcomponents';

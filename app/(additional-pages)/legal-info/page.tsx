@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { SectionTitle } from 'types';
+import { getLegalInfoArticles, MetadataTexts } from 'data';
 
-import { getLegalInfoArticles, mapArray, MetadataTexts } from 'helpers';
+import { mapArray } from 'helpers';
 import { SectionTemplate } from 'template';
 
 const { legal } = MetadataTexts;

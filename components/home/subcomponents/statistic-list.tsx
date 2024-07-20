@@ -1,5 +1,7 @@
 import { StatisticCount, StatisticLabel } from 'types';
-import { getDesktopStatistics, mapArray } from 'helpers';
+import { getDesktopStatistics } from 'data';
+
+import { mapArray } from 'helpers';
 
 import StatisticItem from './statistic-item';
 

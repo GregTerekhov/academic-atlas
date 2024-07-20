@@ -11,7 +11,7 @@ import {
   Services,
 } from 'components';
 
-import { MetadataTexts } from 'helpers';
+import { MetadataTexts } from 'data';
 
 const { home } = MetadataTexts;
 const { title, description, keywords } = home;

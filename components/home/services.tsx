@@ -1,6 +1,7 @@
 import { IServiceItem, SectionTitle } from 'types';
+import { getServices } from 'data';
 
-import { getServices, getIdValues } from 'helpers';
+import { getIdValues } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
 import { ServiceItem } from './subcomponents';

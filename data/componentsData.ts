@@ -20,7 +20,7 @@ import {
   StatisticCount,
   StatisticLabel,
 } from '../types';
-import { imageSettings } from './imageSettings';
+import { imageSettings } from '../helpers';
 
 export const getBenefits = (): IBenefitsItem[] => {
   return [
