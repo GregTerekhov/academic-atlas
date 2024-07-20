@@ -1,14 +1,14 @@
 'use client';
 
-import { PrimaryButtonLabel, TelegramScenario } from 'types';
+import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
 import { getAndEncodeDataObject, getPrimaryButtonStyles } from 'helpers';
 import { AriaDescriptionUI } from 'ui/index';
 
 interface ITelegramButtonProps {
   command: TelegramScenario;
   label: PrimaryButtonLabel;
-  ariaId?: string; //FIXME: --- remove the optionality
-  ariaDescription?: string; //FIXME: --- remove the optionality
+  ariaId?: AriaId; //FIXME: --- remove the optionality
+  ariaDescription?: AriaDescription; //FIXME: --- remove the optionality
   isOnLightBackground?: boolean;
 }
 

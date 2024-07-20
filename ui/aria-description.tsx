@@ -1,9 +1,11 @@
+import { AriaDescription, AriaId } from 'types';
+
 interface IAriaDescription {
-  description?: string | undefined; //FIXME: --- remove the optionality and undefined type
-  id?: string | undefined; //FIXME: --- remove the optionality and undefined type
+  description?: AriaDescription | undefined; //FIXME: --- remove the optionality and undefined type
+  id?: AriaId | undefined; //FIXME: --- remove the optionality and undefined type
 }
 
-export default function AriaDescription({ description, id }: IAriaDescription) {
+export default function AriaDescriptionText({ description, id }: IAriaDescription) {
   return (
     <span
       className='sr-only'

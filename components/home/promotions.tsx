@@ -1,4 +1,11 @@
-import { CtaText, PrimaryButtonLabel, SectionTitle, TelegramScenario } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  CtaText,
+  PrimaryButtonLabel,
+  SectionTitle,
+  TelegramScenario,
+} from 'types';
 
 import { getIdValues, imageSettings } from 'helpers';
 
@@ -30,8 +37,8 @@ export default function Promotions() {
       <TelegramButton
         command={TelegramScenario.Order}
         label={PrimaryButtonLabel.Ordering}
-        ariaId='telegram-bot-promotions'
-        ariaDescription='Кнопка переходу до Telegram-боту з секції Акції'
+        ariaId={AriaId.DefaultPromotionsOrdering}
+        ariaDescription={AriaDescription.DefaultPromotionsOrdering}
       />
     </SectionTemplate>
   );

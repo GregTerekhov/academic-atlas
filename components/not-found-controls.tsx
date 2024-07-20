@@ -1,10 +1,10 @@
 'use client';
 
-import { getPrimaryButtonStyles } from 'helpers';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { Paths, PrimaryButtonLabel } from 'types';
+import { AriaDescription, AriaId, Paths, PrimaryButtonLabel } from 'types';
+import { getPrimaryButtonStyles } from 'helpers';
 
 import { PrimaryButtonUI } from 'ui';
 
@@ -16,8 +16,8 @@ const NotFoundNavigation = () => {
     <ul className='mt-10 gap-x-20 max-md:space-y-6 md:flex md:justify-center md:gap-x-8 lg:gap-x-20'>
       <li>
         <PrimaryButtonUI
-          ariaId='come-back-page'
-          ariaDescription='Ця кнопка поверне вас на попередню сторінку'
+          ariaId={AriaId.ComeBack404}
+          ariaDescription={AriaDescription.ComeBack404}
           handleClick={() => router.back()}
         >
           {PrimaryButtonLabel.ToPreviousPage}

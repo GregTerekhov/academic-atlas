@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 
+import { AriaDescription, AriaId } from 'types';
 import { useCalculation } from 'context';
+
 import { AriaDescriptionUI } from 'ui';
 
 export default function ThemeInput() {
@@ -27,9 +29,8 @@ export default function ThemeInput() {
         aria-describedby='theme-description'
       />
       <AriaDescriptionUI
-        id='theme-description'
-        description='В цьому полі ви можете ввести тему вашої роботи. Зверніть увагу, що це поле не є
-        обов`язковим для розрахунку вартості вашої роботи'
+        id={AriaId.ThemeInput}
+        description={AriaDescription.ThemeInput}
       />
     </label>
   );

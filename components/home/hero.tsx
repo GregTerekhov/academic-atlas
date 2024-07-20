@@ -1,4 +1,11 @@
-import { CtaText, PrimaryButtonLabel, SectionTitle, TelegramScenario } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  CtaText,
+  PrimaryButtonLabel,
+  SectionTitle,
+  TelegramScenario,
+} from 'types';
 
 import { SectionTemplate, TelegramButton } from 'template';
 
@@ -16,8 +23,8 @@ export default function Hero() {
       <TelegramButton
         command={TelegramScenario.Order}
         label={PrimaryButtonLabel.Ordering}
-        ariaId='telegram-bot-hero'
-        ariaDescription='Кнопка переходу до Telegram-боту в верхній секції'
+        ariaId={AriaId.DefaultOrdering}
+        ariaDescription={AriaDescription.DefaultOrdering}
       />
     </SectionTemplate>
   );

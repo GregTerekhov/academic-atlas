@@ -2,7 +2,7 @@
 
 import { createRef } from 'react';
 
-import { PopupID, PrimaryButtonLabel } from 'types';
+import { AriaDescription, AriaId, PopupID, PrimaryButtonLabel } from 'types';
 
 import { useMenu, usePopup } from 'context';
 import { useHandleClickOutside } from 'hooks';
@@ -29,8 +29,8 @@ export default function PriceControls() {
       <div className='hidden items-center justify-center lg:flex'>
         <PrimaryButtonUI
           handleClick={() => togglePopup(popupId)}
-          ariaId='calculation-module'
-          ariaDescription='Кнопка відкриття модулю калькуляції вартості роботи'
+          ariaId={AriaId.CalculationModule}
+          ariaDescription={AriaDescription.CalculationModule}
         >
           {PrimaryButtonLabel.CostCalculation}
         </PrimaryButtonUI>
@@ -38,8 +38,8 @@ export default function PriceControls() {
       <div className='hidden items-center justify-center max-lg:flex'>
         <PrimaryButtonUI
           handleClick={toggleCalcMenu}
-          ariaId='calculation-module'
-          ariaDescription='Кнопка відкриття модулю калькуляції вартості роботи'
+          ariaId={AriaId.CalculationModule}
+          ariaDescription={AriaDescription.CalculationModule}
         >
           {PrimaryButtonLabel.CostCalculation}
         </PrimaryButtonUI>

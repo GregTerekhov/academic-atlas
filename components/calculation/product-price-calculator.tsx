@@ -2,6 +2,8 @@
 
 import {
   type DropdownOption,
+  AriaDescription,
+  AriaId,
   CalculationTitle,
   DropdownAriaId,
   ExecutionTime,
@@ -118,8 +120,8 @@ export default function PriceCalculator() {
                 handleClick={handleShowCostResult}
                 isDisabled={isButtonDisabled}
                 isOnLightBackground
-                ariaId='cost-output-button'
-                ariaDescription='Кнопка виведення результатів розрахунку вартості роботи згідно з введеними даними'
+                ariaId={AriaId.CostOutput}
+                ariaDescription={AriaDescription.CostOutput}
               >
                 {PrimaryButtonLabel.CostCalculation}
               </PrimaryButtonUI>

@@ -1,4 +1,12 @@
-import { CalculationTitle, IconName, IconSize, PrimaryButtonLabel, TelegramScenario } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  CalculationTitle,
+  IconName,
+  IconSize,
+  PrimaryButtonLabel,
+  TelegramScenario,
+} from 'types';
 
 import { useCalculation } from 'context';
 import {
@@ -68,8 +76,8 @@ export default function PriceResult() {
         {PrimaryButtonLabel.SwitchToTelegram}
       </a>
       <AriaDescriptionUI
-        id='price-button'
-        description='Перехід в телеграм-бот зі збереженням введених попередньо даними в модулі розрахунку вартості'
+        id={AriaId.ComplexOrdering}
+        description={AriaDescription.ComplexOrdering}
       />
     </div>
   );
