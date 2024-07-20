@@ -24,10 +24,10 @@ export default function ThemeInput() {
         onBlur={() => setIsBlurred(true)}
         onChange={handleThemeChange}
         autoComplete='off'
-        aria-describedby='theme-input'
+        aria-describedby='theme-description'
       />
       <AriaDescriptionUI
-        id='theme-input'
+        id='theme-description'
         description='В цьому полі ви можете ввести тему вашої роботи. Зверніть увагу, що це поле не є
         обов`язковим для розрахунку вартості вашої роботи'
       />

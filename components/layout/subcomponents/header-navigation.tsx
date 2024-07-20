@@ -47,10 +47,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
   const adaptedLinks = getAdaptedLinks(isDesktop);
   return (
     <nav aria-label='Основне меню'>
-      <ul
-        className='max-lg:space-y-6 lg:flex lg:gap-x-8'
-        role='menubar'
-      >
+      <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
         {mapArray(adaptedLinks, ({ path, label }) => {
           const isActive =
             activeLink === path || (pathname === Paths.Main && window.location.hash === path);
@@ -61,14 +58,10 @@ export default function Navigation({ isDesktop }: INavigationProps) {
             : undefined;
 
           return (
-            <li
-              key={label}
-              role='none'
-            >
+            <li key={label}>
               <Link
                 href={path}
                 onClick={(e) => handleLinkClick(e, label, path)}
-                role='menuitem'
                 aria-current={ariaCurrent}
                 className={`${isActive ? 'text-accentPrimary dark:text-accentSecondary' : 'dark:text-whiteBase'} text-medium hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-big`}
               >
