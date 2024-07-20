@@ -4,9 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Paths, PositionInLayout } from 'types';
-import { getFooterLinks } from 'data';
 
-import { mapArray } from 'helpers';
+import { getFooterLinks, mapArray } from 'helpers';
 
 import { CalculationModalTrigger } from './subcomponents';
 

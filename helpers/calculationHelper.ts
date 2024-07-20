@@ -6,7 +6,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
-import { getWorkType } from '../data';
+import { getWorkType } from './calculationData';
 
 enum CalculationMultiplier {
   NoMultiplier = 1,

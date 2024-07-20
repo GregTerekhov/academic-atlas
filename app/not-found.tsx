@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import { SectionTitle } from 'types';
-import { MetadataTexts } from 'data';
+import { MetadataTexts } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { NotFoundNavigation } from 'components';

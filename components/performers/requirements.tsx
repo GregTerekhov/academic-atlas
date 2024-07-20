@@ -1,5 +1,6 @@
 import { IRequirements, SectionTitle } from 'types';
-import { getRequirements } from 'data';
+
+import { getRequirements } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
 import { RequirementsItem } from './subcomponents';

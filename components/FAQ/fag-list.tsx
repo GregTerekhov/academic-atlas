@@ -1,5 +1,5 @@
 import { IQuestions } from 'types';
-import { getFAQQuestions } from 'data';
+import { getFAQQuestions } from 'helpers';
 
 import { Container } from 'layout';
 import { MappedListTemplate } from 'template';

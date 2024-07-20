@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { MetadataTexts } from 'data';
+import { MetadataTexts } from 'helpers';
 import {
   AboutCompany,
   Accession,

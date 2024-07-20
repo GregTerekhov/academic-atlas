@@ -1,7 +1,6 @@
 import { SectionTitle } from 'types';
-import { getFeedbackSlides } from 'data';
 
-import { feedbackBreakpoints, getIdValues } from 'helpers';
+import { feedbackBreakpoints, getFeedbackSlides, getIdValues } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { CarouselUI } from 'ui';

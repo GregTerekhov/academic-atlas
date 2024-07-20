@@ -1,6 +1,6 @@
 import { IAboutUs } from 'types';
 
-import { getAboutUsData } from 'data';
+import { getAboutUsData } from 'helpers';
 
 import { Container } from 'layout';
 import { MappedListTemplate } from 'template';

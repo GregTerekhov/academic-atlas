@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { debounce } from 'lodash';
 
 import { Paths } from '../types';
-import { getAdaptedLinks } from '../data';
+import { getAdaptedLinks } from 'helpers';
 import { useIntersectionObserver } from './useIntersectionObserver';
 
 export const useActiveLink = (isDesktop: boolean) => {
