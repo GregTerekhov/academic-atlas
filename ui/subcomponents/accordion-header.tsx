@@ -21,6 +21,7 @@ export default function AccordionHeader({
 }: AccordionHeaderProps) {
   return (
     <div
+      id={`accordion-header-${id}`}
       role='button'
       onClick={onToggle}
       className='group mb-2 flex w-full cursor-pointer items-center justify-between'
@@ -31,13 +32,13 @@ export default function AccordionHeader({
         onToggle(e);
         onKeyDown(e);
       }}
-      id={`accordion-header-${id}`}
     >
       <div className='mr-4 size-9 md:mr-5 md:size-10'>
         <SvgIcon
           id={IconName.Question}
           className='mx-auto fill-accentPrimary dark:fill-accentSecondary md:size-10'
           size={{ width: IconSize.HalfL, height: IconSize.HalfL }}
+          ariaHidden={true}
         />
       </div>
       <h2
@@ -56,7 +57,8 @@ export default function AccordionHeader({
               : 'fill-darkBase dark:fill-whiteBase'
           }`}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-          // ariaLabel={isOpen ? 'Згорнути зміст' : 'Розгорнути зміст'}
+          ariaLabel={isOpen ? 'Згорнути зміст' : 'Розгорнути зміст'}
+          ariaHidden={false}
         />
       </div>
     </div>

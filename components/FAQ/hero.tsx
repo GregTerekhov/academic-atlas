@@ -25,7 +25,6 @@ export default function Hero() {
         width={width}
         height={height}
         className={className}
-        aria-label={alt}
       />
     </SectionTemplate>
   );

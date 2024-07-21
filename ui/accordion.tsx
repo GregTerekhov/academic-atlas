@@ -48,6 +48,7 @@ export default function Accordion({ children, title, id }: Readonly<IAccordionPr
         id={`accordion-content-${id}`}
         aria-labelledby={`accordion-header-${id}`}
         role='region'
+        aria-hidden={!isOpen}
       >
         <p className='generalText'>{children}</p>
       </div>
