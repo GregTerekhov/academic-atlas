@@ -43,6 +43,7 @@ export default function Logo({ position }: ISvgIconProps) {
         size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
         className='fill-accentPrimary-darker dark:fill-whiteBase lg:size-20'
         ariaHidden={false}
+        ariaLabel='Логотип'
       />
     </Link>
   );
@@ -52,6 +53,8 @@ export default function Logo({ position }: ISvgIconProps) {
       id={IconName.Logo}
       size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
       className='fill-accentPrimary-darker dark:fill-whiteBase max-md:mx-auto max-md:size-20 lg:size-28'
+      ariaHidden={false}
+      ariaLabel='Логотип'
     />
   );
 

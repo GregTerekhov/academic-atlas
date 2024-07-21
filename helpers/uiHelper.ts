@@ -28,3 +28,17 @@ export const getPrimaryButtonStyles = (isOnLightBackground?: boolean, isDisabled
 
   return `${checkedDisabledStyles} flex items-center justify-center rounded-[20px] max-sm:text-medium text-big font-bold w-full md:w-80 lg:text-xl`;
 };
+
+export const getAccordionTitleStyles = (isOpen: boolean) => {
+  return `mr-2 flex-1 text-left group-hover:bg-accent-lightGradient group-hover:bg-clip-text group-hover:text-transparent dark:group-hover:bg-accent-darkGradient max-sm:text-medium ${
+    isOpen ? 'bg-none text-accentPrimary dark:text-accentSecondary' : ''
+  }`;
+};
+
+export const getAccordionExpandIconStyles = (isOpen: boolean) => {
+  const isExpanded = isOpen
+    ? 'rotate-180 transform fill-accentPrimary dark:fill-accentSecondary'
+    : 'fill-darkBase dark:fill-whiteBase';
+
+  return `${isExpanded} mx-auto transition-transform duration-200 group-hover:fill-accentPrimary-darker dark:group-hover:fill-accentSecondary-darker md:size-8`;
+};

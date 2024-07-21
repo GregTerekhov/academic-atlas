@@ -30,6 +30,7 @@ export default function Modal({ closeModal, id, children, modalRef, isOpen }: IM
               size={{ width: IconSize.M, height: IconSize.M }}
               className='fill-darkBase group-hover:fill-accentPrimary group-focus:fill-accentPrimary dark:fill-whiteBase dark:group-hover:fill-accentSecondary dark:group-focus:fill-accentSecondary'
               ariaHidden={false}
+              ariaLabel='Закриття модалки'
             />
           </button>
           {children}
