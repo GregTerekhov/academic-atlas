@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{secrets.DOCKERHUB_USERNAME}}/atlasnext:2
+          tags: lazlovalentin008/atlasnext:2
           file: Dockerfile.front
   deploy:
     needs: build
