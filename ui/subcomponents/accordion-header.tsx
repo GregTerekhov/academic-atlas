@@ -41,7 +41,7 @@ export default function AccordionHeader({
         />
       </div>
       <h2
-        id={`accordion-title-${id}`}
+        id={`accordion-header-${id}`}
         className={`mr-2 flex-1 text-left group-hover:bg-accent-lightGradient group-hover:bg-clip-text group-hover:text-transparent dark:group-hover:bg-accent-darkGradient max-sm:text-medium ${
           isOpen ? 'bg-none text-accentPrimary dark:text-accentSecondary' : ''
         }`}
