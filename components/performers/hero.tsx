@@ -15,6 +15,7 @@ import { HeroMatrix } from './subcomponents';
 export default function Hero() {
   return (
     <section className="max-md:bg-partnership-hero-light dark:max-md:bg-partnership-hero-dark relative max-w-[4000px] before:absolute before:left-0 before:top-0 before:h-full before:w-full before:content-[''] max-md:bg-cover max-md:bg-center max-md:py-20 md:pt-16 lg:pt-[104px]">
+      <div className='absolute inset-0 h-full w-full bg-accentPrimary/10 dark:bg-accentPrimary/5 dark:bg-section-overlay-dark'></div>
       <Container>
         <div className='md:flex md:items-start md:gap-x-9 lg:items-center'>
           <div>
