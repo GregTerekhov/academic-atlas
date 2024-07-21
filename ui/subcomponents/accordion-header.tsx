@@ -21,7 +21,7 @@ export default function AccordionHeader({
 }: AccordionHeaderProps) {
   return (
     <div
-      id={`accordion-header-${id}`}
+      aria-labelledby={`accordion-header-${id}`}
       role='button'
       onClick={onToggle}
       className='group mb-2 flex w-full cursor-pointer items-center justify-between'
