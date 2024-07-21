@@ -57,7 +57,7 @@ function Dropdown(
           id={`${ariaId}-list`}
           role='listbox'
           aria-labelledby={`${ariaId}-trigger`}
-          className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg ring-[2px] ring-accentPrimary dark:ring-accentSecondary lg:max-h-[314px]'
+          className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg bg-whiteBase bg-background-light-gradient ring-[2px] ring-accentPrimary dark:bg-background-dark-gradient dark:ring-accentSecondary lg:max-h-[314px]'
         >
           <CustomScroll className='max-h-[248px]'>
             <MappedListTemplate<IOption>

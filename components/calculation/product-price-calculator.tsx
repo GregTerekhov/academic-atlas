@@ -65,7 +65,7 @@ export default function PriceCalculator() {
           <h2 className='mb-8 !text-xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'>
             {CalculationTitle.CalculationForm}
           </h2>
-          <form>
+          <div>
             <ul className={`${shouldPlagiarismCheck ? 'md:mb-10' : 'md:mb-20'} mb-8 space-y-6`}>
               <li>
                 <DropdownUI
@@ -126,7 +126,7 @@ export default function PriceCalculator() {
                 {PrimaryButtonLabel.CostCalculation}
               </PrimaryButtonUI>
             </div>
-          </form>
+          </div>
         </>
       )}
     </>
