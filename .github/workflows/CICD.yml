@@ -29,9 +29,11 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
           push: true
           tags: lazlovalentin008/atlasnext:2
           file: Dockerfile.front
+
   deploy:
     needs: build
     runs-on: aws-ec2
