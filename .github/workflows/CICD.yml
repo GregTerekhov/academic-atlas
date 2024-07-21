@@ -30,6 +30,7 @@ jobs:
         with:
           push: true
           tags: ${{secrets.DOCKERHUB_USERNAME}}/atlasnext:2
+          file: Dockerfile.front
   deploy:
     needs: build
     runs-on: aws-ec2
