@@ -1,4 +1,11 @@
-import { CtaText, PrimaryButtonLabel, SectionTitle, TelegramScenario } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  CtaText,
+  PrimaryButtonLabel,
+  SectionTitle,
+  TelegramScenario,
+} from 'types';
 
 import { getIdValues, imageSettings } from 'helpers';
 
@@ -9,7 +16,7 @@ export default function Promotions() {
   const { promotions } = imageSettings;
   const { Promotions } = getIdValues();
 
-  const { src, alt, width, height, className } = promotions;
+  const { src, width, height, className } = promotions;
 
   return (
     <SectionTemplate
@@ -22,7 +29,7 @@ export default function Promotions() {
     >
       <ImageUI
         src={src}
-        alt={alt}
+        alt=''
         width={width}
         height={height}
         className={className}
@@ -30,6 +37,8 @@ export default function Promotions() {
       <TelegramButton
         command={TelegramScenario.Order}
         label={PrimaryButtonLabel.Ordering}
+        ariaId={AriaId.DefaultPromotionsOrdering}
+        ariaDescription={AriaDescription.DefaultPromotionsOrdering}
       />
     </SectionTemplate>
   );

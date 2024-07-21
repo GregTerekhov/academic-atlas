@@ -20,6 +20,7 @@ export default function Performers() {
         <Link
           href={Paths.Partnership}
           className={`${linkClass} py-[17px]`}
+          aria-label='Кнопка для переходу на сторінку для виконавців'
         >
           {PrimaryButtonLabel.Accession}
         </Link>

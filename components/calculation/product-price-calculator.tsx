@@ -2,7 +2,10 @@
 
 import {
   type DropdownOption,
+  AriaDescription,
+  AriaId,
   CalculationTitle,
+  DropdownAriaId,
   ExecutionTime,
   ExpertiseArea,
   PrimaryButtonLabel,
@@ -62,7 +65,7 @@ export default function PriceCalculator() {
           <h2 className='mb-8 !text-xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'>
             {CalculationTitle.CalculationForm}
           </h2>
-          <form>
+          <div>
             <ul className={`${shouldPlagiarismCheck ? 'md:mb-10' : 'md:mb-20'} mb-8 space-y-6`}>
               <li>
                 <DropdownUI
@@ -70,6 +73,7 @@ export default function PriceCalculator() {
                   label={WorkType.Default}
                   options={workTypes}
                   onOptionSelect={selectWorkType}
+                  ariaId={DropdownAriaId.WORK_TYPE}
                 />
               </li>
               <li>
@@ -78,6 +82,7 @@ export default function PriceCalculator() {
                   label={ExpertiseArea.Default}
                   options={expertiseAreas}
                   onOptionSelect={selectExpertiseArea}
+                  ariaId={DropdownAriaId.EXPERTISE_AREA}
                 />
               </li>
               <li>
@@ -86,6 +91,7 @@ export default function PriceCalculator() {
                   label={ExecutionTime.Default}
                   options={executionTimes}
                   onOptionSelect={selectExecutionTime}
+                  ariaId={DropdownAriaId.EXECUTION_TIME}
                 />
               </li>
               <li>
@@ -114,11 +120,13 @@ export default function PriceCalculator() {
                 handleClick={handleShowCostResult}
                 isDisabled={isButtonDisabled}
                 isOnLightBackground
+                ariaId={AriaId.CostOutput}
+                ariaDescription={AriaDescription.CostOutput}
               >
                 {PrimaryButtonLabel.CostCalculation}
               </PrimaryButtonUI>
             </div>
-          </form>
+          </div>
         </>
       )}
     </>

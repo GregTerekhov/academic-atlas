@@ -2,7 +2,7 @@
 
 import { forwardRef, Ref, useImperativeHandle } from 'react';
 
-import { ButtonType, DropdownOption, IDropdownRef } from 'types';
+import { ButtonType, DropdownAriaId, DropdownOption, IDropdownRef } from 'types';
 
 import { useDropdown } from 'hooks';
 
@@ -19,10 +19,11 @@ interface IDropdownProps {
   label: DropdownOption;
   options: IOption[];
   onOptionSelect: (option: DropdownOption) => void;
+  ariaId: DropdownAriaId;
 }
 
 function Dropdown(
-  { label, options, onOptionSelect }: IDropdownProps,
+  { label, options, onOptionSelect, ariaId }: IDropdownProps,
   ref: Ref<IDropdownRef | null>,
 ) {
   const {
@@ -49,9 +50,15 @@ function Dropdown(
         isOptionSelected={isOptionSelected}
         selectedLabel={selectedLabel}
         handleToggle={toggleDropdown}
+        ariaId={ariaId}
       />
       {isDropdownOpen && (
-        <div className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg ring-[2px] ring-accentPrimary dark:ring-accentSecondary lg:max-h-[314px]'>
+        <div
+          id={`${ariaId}-list`}
+          role='listbox'
+          aria-labelledby={`${ariaId}-trigger`}
+          className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg bg-whiteBase bg-background-light-gradient ring-[2px] ring-accentPrimary dark:bg-background-dark-gradient dark:ring-accentSecondary lg:max-h-[314px]'
+        >
           <CustomScroll className='max-h-[248px]'>
             <MappedListTemplate<IOption>
               items={options}
@@ -62,6 +69,8 @@ function Dropdown(
                   <button
                     type={ButtonType.Button}
                     onClick={() => handleOptionClick(option)}
+                    role='option'
+                    aria-selected={isOptionSelected}
                     className='text-start text-darkBase hover:text-accentPrimary dark:text-whiteBase dark:hover:text-accentSecondary'
                   >
                     {option}

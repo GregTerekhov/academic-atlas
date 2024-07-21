@@ -16,7 +16,7 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       iconName: IconName.Call,
       defaultSize: IconSize.L,
       iconSize: 'md:size-6 lg:size-5',
-      labelClass: 'md:inline lg:text-big',
+      labelClass: 'md:block lg:text-big',
       label: '+380 63 20 761 20',
     },
     {
@@ -25,7 +25,7 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
       labelClass:
-        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:inline lg:text-big',
+        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
       label: '@AcademicAtlas_Official',
     },
     {
@@ -34,10 +34,18 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
       labelClass:
-        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:inline lg:text-big',
+        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
       label: 'AcademicAtlas@ukr.net',
     },
   ];
+};
+
+export const getAdaptedContacts = (variant: PositionInLayout) => {
+  const linkData = getLinkData(variant);
+
+  return variant === PositionInLayout.Footer
+    ? linkData
+    : linkData.filter((link) => link.iconName !== IconName.Call);
 };
 
 export const getFooterLinks = (): ILinks[] => {

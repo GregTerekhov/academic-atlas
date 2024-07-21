@@ -30,9 +30,9 @@ export enum BenefitLabel {
 }
 
 export enum AriaLabelTrigger {
-  Default = 'Open navigation Menu',
-  CloseNavigation = 'Close navigation menu',
-  CloseCalculation = 'Close calculation menu',
+  Default = 'Кнопка відкриття навігаційного бургер-меню',
+  CloseNavigation = 'Кнопка закриття навігаційного бургер-меню',
+  CloseCalculation = 'Кнопка закриття меню калькуляції',
 }
 
 export interface IBaseId {

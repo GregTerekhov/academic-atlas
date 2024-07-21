@@ -40,6 +40,7 @@ export default function ContactItem({
           id={iconName}
           size={{ width: defaultSize, height: defaultSize }}
           className={`${iconSize} fill-darkBase/75 group-hover:fill-accentPrimary dark:fill-whiteBase dark:group-hover:fill-accentSecondary`}
+          ariaHidden={false}
         />
         <span
           className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase dark:group-hover:text-accentSecondary`}

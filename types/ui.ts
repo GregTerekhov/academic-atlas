@@ -107,3 +107,33 @@ export enum BackgroundImageSizes {
   DesktopHeight = 1800,
   ExtraLargeHeight = 4000,
 }
+
+export enum DropdownAriaId {
+  WORK_TYPE = 'work-type',
+  EXPERTISE_AREA = 'expertise-area',
+  EXECUTION_TIME = 'execution-time',
+}
+
+export enum AriaId {
+  Accession = 'accession',
+  AccessionProcedure = 'accession-procedure',
+  CalculationModule = 'calculation-module',
+  ComeBack404 = 'come-back-page',
+  ComplexOrdering = 'complex-ordering',
+  CostOutput = 'cost-output-button',
+  DefaultOrdering = 'default-ordering',
+  DefaultPromotionsOrdering = 'default-promotions-ordering',
+  ThemeInput = 'theme-description',
+}
+
+export enum AriaDescription {
+  Accession = 'Це посилання з ознайомчої секції на офіційний Telegram-бот, де ви зможете заповнити необхідні поля і приєднатися до команди виконавців.',
+  AccessionProcedure = 'Це посилання на офіційний Telegram-бот, де ви зможете заповнити необхідні поля і приєднатися до команди виконавців.',
+  CalculationModule = 'Кнопка відкриття модулю калькуляції вартості роботи',
+  ComeBack404 = 'Ця кнопка поверне вас на попередню сторінку',
+  ComplexOrdering = 'Перехід в телеграм-бот зі збереженням введених попередньо даними в модулі розрахунку вартості',
+  CostOutput = 'Кнопка виведення результатів розрахунку вартості роботи згідно з введеними даними',
+  DefaultOrdering = 'Кнопка переходу  з ознайомчої секції до Telegram-боту для оформленння замовлення',
+  DefaultPromotionsOrdering = 'Кнопка переходу з секції Акції до Telegram-боту для оформленння замовлення',
+  ThemeInput = 'В цьому полі ви можете ввести тему вашої роботи. Зверніть увагу, що це поле не є обов`язковим для розрахунку вартості вашої роботи',
+}

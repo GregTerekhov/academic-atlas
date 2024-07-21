@@ -11,6 +11,9 @@ interface IImageProps {
   priority?: boolean;
 }
 
+const BLUR_URL =
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOUlgQAAFUANhyb7cwAAAAASUVORK5CYII=';
+
 export default function DynamicImage({
   src,
   alt,
@@ -27,7 +30,7 @@ export default function DynamicImage({
       height={height}
       className={className}
       priority={priority}
-      blurDataURL='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOUlgQAAFUANhyb7cwAAAAASUVORK5CYII='
+      blurDataURL={BLUR_URL}
       placeholder='blur'
     />
   );
