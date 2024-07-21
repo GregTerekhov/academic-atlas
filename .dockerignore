@@ -13,8 +13,6 @@ README.md
 .gitignore
 .gitattributes
 package-lock.json ./
-Dockerfile.front
-.dockerignore
 __tests__
 .prettierrc
 .prettierignore
