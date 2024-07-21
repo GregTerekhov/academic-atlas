@@ -34,7 +34,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: lazlovalentin008/atlasnext:2
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/atlasnext:2
           file: Dockerfile
 
   deploy:
