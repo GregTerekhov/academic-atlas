@@ -1,0 +1,22 @@
+node_modules
+# Log files
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next
+.git
+.github
+README.md
+.gitignore
+.gitattributes
+package-lock.json ./
+Dockerfile.front
+.dockerignore
+__tests__
+.prettierrc
+.prettierignore
+jest.config.ts
+jest.setup.ts
