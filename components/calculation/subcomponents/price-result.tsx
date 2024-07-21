@@ -72,6 +72,7 @@ export default function PriceResult() {
           size={{ width: IconSize.BG, height: IconSize.BG }}
           className='fill-whiteBase group-hover:fill-accentPrimary dark:group-hover:fill-whiteBase'
           ariaHidden={false}
+          ariaLabel='Телеграм'
         />
         {PrimaryButtonLabel.SwitchToTelegram}
       </a>

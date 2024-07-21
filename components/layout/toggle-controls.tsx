@@ -27,6 +27,8 @@ export default function ToggleMenuTrigger() {
           id={isNavMenuOpen || isCalcMenuOpen ? IconName.Close : IconName.Burger}
           size={{ width: IconSize.L, height: IconSize.L }}
           className='fill-darkBase/75 dark:fill-whiteBase lg:group-hover:fill-accentSecondary'
+          ariaHidden={false}
+          ariaLabel='Бургер-меню'
         />
       </button>
 

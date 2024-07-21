@@ -19,6 +19,7 @@ export default function ThemeSwitcher() {
         size={{ width: IconSize.BG, height: IconSize.BG }}
         className='fill-accentPrimary'
         ariaHidden={false}
+        ariaLabel='Кольорова тема'
       />
     </SwitchUI>
   );

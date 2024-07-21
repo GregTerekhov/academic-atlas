@@ -32,7 +32,7 @@ export default function Contacts({ variant }: IContactsProps) {
           items={adaptedContacts}
           className={getListStyle()}
         >
-          {({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
+          {({ href, defaultSize, iconName, iconSize, label, labelClass, iconAriaLabel }) => (
             <ContactItem
               key={iconName}
               href={href}
@@ -42,6 +42,7 @@ export default function Contacts({ variant }: IContactsProps) {
               labelClass={labelClass}
               label={label}
               variant={variant}
+              iconAriaLabel={iconAriaLabel}
             />
           )}
         </MappedListTemplate>

@@ -106,6 +106,7 @@ export interface IContactLink {
   iconSize: string;
   labelClass: string;
   label: string;
+  iconAriaLabel: string;
 }
 
 export interface IChildrenProps {

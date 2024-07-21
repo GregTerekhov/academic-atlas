@@ -21,6 +21,7 @@ export default function ScrollController() {
         size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
         className='fill-accentPrimary dark:fill-accentSecondary lg:size-9'
         ariaHidden={false}
+        ariaLabel='Стрілка доверху'
       />
     </button>
   );
