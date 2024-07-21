@@ -9,6 +9,7 @@ type AccordionHeaderProps = Readonly<{
   isOpen: boolean;
   onToggle: (e: React.MouseEvent | React.KeyboardEvent) => void;
   onKeyDown: (e: React.KeyboardEvent) => void;
+  id: string;
 }>;
 
 export default function AccordionHeader({
@@ -16,6 +17,7 @@ export default function AccordionHeader({
   isOpen,
   onToggle,
   onKeyDown,
+  id,
 }: AccordionHeaderProps) {
   return (
     <div
@@ -23,10 +25,13 @@ export default function AccordionHeader({
       onClick={onToggle}
       className='group mb-2 flex w-full cursor-pointer items-center justify-between'
       tabIndex={0}
+      aria-expanded={isOpen}
+      aria-controls={`accordion-content-${id}`}
       onKeyDown={(e) => {
         onToggle(e);
         onKeyDown(e);
       }}
+      id={`accordion-header-${id}`}
     >
       <div className='mr-4 size-9 md:mr-5 md:size-10'>
         <SvgIcon
@@ -51,6 +56,7 @@ export default function AccordionHeader({
               : 'fill-darkBase dark:fill-whiteBase'
           }`}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
+          // ariaLabel={isOpen ? 'Згорнути зміст' : 'Розгорнути зміст'}
         />
       </div>
     </div>

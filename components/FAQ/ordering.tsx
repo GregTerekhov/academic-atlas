@@ -14,6 +14,7 @@ export default function Ordering() {
         <TelegramButton
           command={TelegramScenario.Order}
           label={PrimaryButtonLabel.Ordering}
+          // ariaLabel='Order via Telegram'
         />
       </div>
     </SectionTemplate>
