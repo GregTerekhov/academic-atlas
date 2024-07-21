@@ -1,17 +1,20 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useIntersectionObserver } from './useIntersectionObserver';
 
 export const useScrollController = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const footerRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const button = buttonRef.current;
-    const footer = document.querySelector('footer');
-    const header = document.querySelector('header');
+    footerRef.current = document.querySelector('footer');
+  }, []);
 
-    if (!button || !footer || !header) return;
+  useEffect(() => {
+    const header = document.querySelector('header');
+    if (!header) return;
 
     const handleScroll = () => {
       const headerHeight = header.getBoundingClientRect()?.height ?? 0;
@@ -24,30 +27,29 @@ export const useScrollController = () => {
       }
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const offset = 16;
-          button.style.bottom = `${offset}px`;
-
-          if (entry.isIntersecting) {
-            button.style.position = 'absolute';
-          } else {
-            button.style.position = 'fixed';
-          }
-        });
-      },
-      { root: null, threshold: 0 },
-    );
-
-    observer.observe(footer);
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      observer.disconnect();
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    const button = buttonRef.current;
+    if (!button) return;
+
+    const offset = 16;
+    entries.forEach((entry) => {
+      button.style.bottom = `${offset}px`;
+      button.style.position = entry.isIntersecting ? 'absolute' : 'fixed';
+    });
+  };
+
+  useIntersectionObserver(
+    footerRef.current ? [footerRef.current] : [],
+    { root: null, threshold: 0 },
+    handleIntersection,
+  );
 
   const scrollToTop = () => {
     window.scrollTo({

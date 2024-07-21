@@ -1,5 +1,4 @@
 export * from './anchorLinks';
-export * from './calculatePrice';
 export * from './calculationData';
 export * from './calculationHelper';
 export * from './carouselHelper';
@@ -9,9 +8,9 @@ export * from './imageSettings';
 export * from './layoutsData';
 export * from './layoutsHelper';
 export * from './mapArray';
+export * from './metadata';
 export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './telegramHelpers';
 export * from './themeHelper';
 export * from './uiHelper';
-export * from './observers';

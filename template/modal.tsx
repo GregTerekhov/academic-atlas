@@ -4,11 +4,11 @@ import { ButtonType, IconName, IconSize, PopupID } from 'types';
 import { SvgIconUI } from 'ui';
 
 interface IModalProps {
-  children: React.ReactNode;
-  closeModal: () => void;
-  modalRef: RefObject<HTMLDivElement>;
-  isOpen: (id: string) => boolean;
   id: PopupID;
+  children: React.ReactNode;
+  modalRef: RefObject<HTMLDivElement>;
+  closeModal: () => void;
+  isOpen: (id: string) => boolean;
 }
 
 export default function Modal({ closeModal, id, children, modalRef, isOpen }: IModalProps) {
@@ -23,11 +23,14 @@ export default function Modal({ closeModal, id, children, modalRef, isOpen }: IM
             type={ButtonType.Button}
             className='group absolute right-6 top-6 size-[30px]'
             onClick={closeModal}
+            aria-label='Кнопка закриття модального вікна'
           >
             <SvgIconUI
               id={IconName.Close}
               size={{ width: IconSize.M, height: IconSize.M }}
               className='fill-darkBase group-hover:fill-accentPrimary group-focus:fill-accentPrimary dark:fill-whiteBase dark:group-hover:fill-accentSecondary dark:group-focus:fill-accentSecondary'
+              ariaHidden={false}
+              ariaLabel='Закриття модалки'
             />
           </button>
           {children}

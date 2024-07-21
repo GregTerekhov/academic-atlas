@@ -18,6 +18,7 @@ export default function FAQList() {
           <AccordionUI
             key={id}
             title={title}
+            id={id}
           >
             {answer}
           </AccordionUI>

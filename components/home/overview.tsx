@@ -10,7 +10,7 @@ export default function ServiceOverview() {
   const orderSteps = getOrderSteps();
   const { Overview } = getIdValues();
   const { serviceOverview } = imageSettings;
-  const { src, alt, width, height, className } = serviceOverview;
+  const { src, width, height, className } = serviceOverview;
 
   return (
     <SectionTemplate
@@ -22,7 +22,7 @@ export default function ServiceOverview() {
         <div className='hidden md:block'>
           <ImageUI
             src={src}
-            alt={alt}
+            alt=''
             width={width}
             height={height}
             className={className}

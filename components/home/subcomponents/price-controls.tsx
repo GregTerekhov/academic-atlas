@@ -2,7 +2,7 @@
 
 import { createRef } from 'react';
 
-import { PopupID, PrimaryButtonLabel } from 'types';
+import { AriaDescription, AriaId, PopupID, PrimaryButtonLabel } from 'types';
 
 import { useMenu, usePopup } from 'context';
 import { useHandleClickOutside } from 'hooks';
@@ -27,12 +27,20 @@ export default function PriceControls() {
   return (
     <>
       <div className='hidden items-center justify-center lg:flex'>
-        <PrimaryButtonUI handleClick={() => togglePopup(popupId)}>
+        <PrimaryButtonUI
+          handleClick={() => togglePopup(popupId)}
+          ariaId={AriaId.CalculationModule}
+          ariaDescription={AriaDescription.CalculationModule}
+        >
           {PrimaryButtonLabel.CostCalculation}
         </PrimaryButtonUI>
       </div>
       <div className='hidden items-center justify-center max-lg:flex'>
-        <PrimaryButtonUI handleClick={toggleCalcMenu}>
+        <PrimaryButtonUI
+          handleClick={toggleCalcMenu}
+          ariaId={AriaId.CalculationModule}
+          ariaDescription={AriaDescription.CalculationModule}
+        >
           {PrimaryButtonLabel.CostCalculation}
         </PrimaryButtonUI>
       </div>

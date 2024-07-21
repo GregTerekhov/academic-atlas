@@ -9,7 +9,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
-import { getWorkType } from 'helpers';
+import { findSelectedObject } from 'helpers';
 
 interface ICalculationContext {
   calculationData: ICalculation;
@@ -48,7 +48,7 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
   });
 
   useEffect(() => {
-    const workTypeObject = getWorkType().find((work) => work.option === calculationData.workType);
+    const workTypeObject = findSelectedObject(calculationData.workType);
 
     const uniquenessMapping = {
       [Uniqueness.TeamPapers]: Uniqueness.TeamPapers,

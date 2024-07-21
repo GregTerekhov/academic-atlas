@@ -22,7 +22,7 @@ export default function Breadcrumbs() {
         .map(([key, value]) => [value, MenuLinks[key as keyof typeof MenuLinks]]),
     );
 
-    if (currentPath && pathMenuLinkMap.has(currentPath)) {
+    if (pathMenuLinkMap.has(currentPath)) {
       setDetermineCurrentPath(pathMenuLinkMap.get(currentPath) || '');
     } else {
       setDetermineCurrentPath('');

@@ -2,8 +2,8 @@ import { cookies } from 'next/headers';
 
 import { Footer, Header } from 'layout';
 import { ProviderWrapper, ScrollController } from 'components';
-import { mulish, philosopher } from './fonts';
 
+import { mulish, philosopher } from './fonts';
 import './globals.css';
 
 const THEME_STORAGE_KEY = 'theme-preference';

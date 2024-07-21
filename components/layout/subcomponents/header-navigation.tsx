@@ -2,70 +2,32 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
 
 import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
+
 import { useMenu } from 'context';
-import { getAdaptedLinks, mapArray } from 'helpers';
+import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
+import { useActiveLink } from 'hooks';
+
 import CalculationModalTrigger from './calculation-modal-trigger';
-import { initMultiObserver } from 'helpers';
+import { useEffect, useState } from 'react';
 
 interface INavigationProps {
   isDesktop?: boolean;
 }
-
 export default function Navigation({ isDesktop }: INavigationProps) {
+  const [currentHash, setCurrentHash] = useState('');
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
   const pathname = usePathname();
   const router = useRouter();
-  const [activeLink, setActiveLink] = useState<Paths | string>(Paths.Main);
-  const observer = useRef<IntersectionObserver | null>(null);
-  const sections = useRef<{ id: string; path: string }[]>([]);
+
+  const { activeLink, setActiveLink } = useActiveLink(isDesktop ?? false);
 
   useEffect(() => {
-    const updateActiveLink = () => {
-      setActiveLink(window.location.pathname + window.location.hash);
-    };
-
-    updateActiveLink();
-
-    const handleScroll = () => {
-      if (window.scrollY === 0) {
-        setActiveLink(pathname as Paths);
-        window.history.pushState(null, '', pathname);
-      }
-    };
-
-    observer.current = initMultiObserver(
-      sections.current.map((section) => ({
-        id: section.id,
-        callback: (entry) => {
-          if (entry.isIntersecting) {
-            setActiveLink(section.path);
-          }
-        },
-      })),
-    );
-
-    const adaptedLinks = getAdaptedLinks(isDesktop);
-    sections.current = adaptedLinks.map(({ path }) => {
-      const id = path.split('#')[1];
-      return { id: id ?? '', path };
-    });
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('hashchange', updateActiveLink);
-    window.addEventListener('popstate', updateActiveLink);
-
-    return () => {
-      if (observer.current) {
-        observer.current.disconnect();
-      }
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('hashchange', updateActiveLink);
-      window.removeEventListener('popstate', updateActiveLink);
-    };
-  }, [pathname, isDesktop]);
+    if (typeof window !== 'undefined') {
+      setCurrentHash(window.location.hash);
+    }
+  }, [pathname]);
 
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -74,6 +36,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
   ) => {
     if (label === MenuLinks.Main) {
       e.preventDefault();
+
       if (pathname !== Paths.Main) {
         router.push(Paths.Main);
       } else {
@@ -90,17 +53,17 @@ export default function Navigation({ isDesktop }: INavigationProps) {
   };
 
   const adaptedLinks = getAdaptedLinks(isDesktop);
-
   return (
-    <nav>
+    <nav aria-label='Основне меню'>
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
         {mapArray(adaptedLinks, ({ path, label }) => {
-          const isActive = activeLink === path;
+          const isActive = activeLink === path || (pathname === Paths.Main && currentHash === path);
           return (
             <li key={label}>
               <Link
                 href={path}
                 onClick={(e) => handleLinkClick(e, label, path)}
+                aria-current={getMenuAriaCurrent(path, pathname, isActive)}
                 className={`${isActive ? 'text-accentPrimary dark:text-accentSecondary' : 'dark:text-whiteBase'} text-medium hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-big`}
               >
                 {isNavMenuOpen ? (

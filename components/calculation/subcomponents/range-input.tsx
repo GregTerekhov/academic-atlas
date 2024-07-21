@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import { WorkType } from 'types';
+import { ThemeVariants, WorkType } from 'types';
+
+import { useTheme } from 'context';
 import { couldChooseUniqueness, getMinimalUniqueness } from 'helpers';
 
 import RangePercents from './range-percents';
@@ -20,9 +22,19 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
   const couldChooseHigherUniqueness = couldChooseUniqueness(workType);
   const minimalUniqueness = getMinimalUniqueness(workType);
 
+  const { theme } = useTheme();
+
   useEffect(() => {
     setShowMinimalText(isChecked && couldChooseHigherUniqueness);
-  }, [isChecked, couldChooseHigherUniqueness]);
+
+    const thumbColor = !isChecked
+      ? 'var(--thumb-color-disabled)'
+      : theme === ThemeVariants.DARK
+        ? 'var(--thumb-color-dark)'
+        : 'var(--thumb-color-light)';
+
+    document.documentElement.style.setProperty('--thumb-color', thumbColor);
+  }, [isChecked, couldChooseHigherUniqueness, theme]);
 
   const addTextMinimalValue = (): JSX.Element | null => {
     return showMinimalText ? <span>(мінімальний)</span> : null;
@@ -50,38 +62,23 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
         step={10}
         list='percents'
         disabled={!isChecked}
+        aria-label='Поле для обирання відсотка унікальності роботи'
         value={value}
         min={0}
         max={100}
         onChange={handleChange}
         className={`range-input h-3 appearance-none rounded-[10px] outline-none ${!isChecked ? 'cursor-not-allowed' : ''} mb-2 block`}
         style={{
-          background: `linear-gradient(to right, #f8a401 ${value}%, rgba(47, 47, 47, 0.5) ${value}%)`,
+          background:
+            theme === ThemeVariants.DARK
+              ? `linear-gradient(to right, #f8a401 ${value}%, rgba(47, 47, 47, 0.5) ${value}%)`
+              : `linear-gradient(to right, #2091f9 ${value}%, rgba(27, 27, 27, 0.1) ${value}%)`,
         }}
       />
       <RangePercents
         value={value}
         isChecked={isChecked}
       />
-      <style jsx>{`
-        .range-input::-webkit-slider-thumb {
-          width: 32px;
-          height: 32px;
-          background: ${!isChecked ? '#959595' : 'linear-gradient(to right, #f8a401, #d12600)'};
-          border-radius: 50%;
-          margin-top: -12px;
-          cursor: ${!isChecked ? 'not-allowed' : 'pointer'};
-          -webkit-appearance: none;
-        }
-        .range-input::-moz-range-thumb {
-          width: 32px;
-          height: 32px;
-          background: ${!isChecked ? '#959595' : 'linear-gradient(to right, #f8a401, #d12600)'};
-          margin-top: -12px;
-          border-radius: 50%;
-          cursor: ${!isChecked ? 'not-allowed' : 'pointer'};
-        }
-      `}</style>
     </label>
   );
 }

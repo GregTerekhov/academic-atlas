@@ -1,8 +1,12 @@
-import { ButtonType } from 'types';
+import { AriaDescription, AriaId, ButtonType } from 'types';
 import { getPrimaryButtonStyles } from 'helpers';
+
+import AriaDescriptionText from './aria-description';
 
 interface IPrimaryButtonProps {
   children: React.ReactNode;
+  ariaDescription: AriaDescription;
+  ariaId: AriaId;
   handleClick?: () => void;
   isDisabled?: boolean;
   isOnLightBackground?: boolean;
@@ -10,6 +14,8 @@ interface IPrimaryButtonProps {
 
 export default function PrimaryButton({
   children,
+  ariaDescription,
+  ariaId,
   handleClick,
   isDisabled,
   isOnLightBackground = false,
@@ -17,13 +23,20 @@ export default function PrimaryButton({
   const buttonClass = getPrimaryButtonStyles(isOnLightBackground, isDisabled);
 
   return (
-    <button
-      type={ButtonType.Button}
-      onClick={handleClick}
-      className={`${buttonClass} h-16`}
-      disabled={isDisabled}
-    >
-      {children}
-    </button>
+    <>
+      <button
+        aria-describedby={ariaId}
+        type={ButtonType.Button}
+        onClick={handleClick}
+        className={`${buttonClass} h-16`}
+        disabled={isDisabled}
+      >
+        {children}
+      </button>
+      <AriaDescriptionText
+        id={ariaId}
+        description={ariaDescription}
+      />
+    </>
   );
 }

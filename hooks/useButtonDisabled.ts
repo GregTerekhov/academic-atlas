@@ -9,7 +9,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
-import { getWorkType } from '../helpers';
+import { findSelectedObject } from '../helpers';
 
 export const useButtonDisabled = (calculationData: ICalculationData, isChecked: boolean) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -17,7 +17,7 @@ export const useButtonDisabled = (calculationData: ICalculationData, isChecked: 
   const { workType, expertiseArea, executionTime } = calculationData;
 
   useEffect(() => {
-    const workTypeObject = getWorkType().find((work) => work.option === workType);
+    const workTypeObject = findSelectedObject(workType);
 
     const liftedDisableState =
       (workTypeObject?.uniquenessPercentage === Uniqueness.Zero &&

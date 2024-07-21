@@ -18,6 +18,7 @@ export { default as Menu } from './layout/menu';
 export { default as NotFoundNavigation } from './not-found-controls';
 export { default as OrderingFAQ } from './FAQ/ordering';
 export { default as Performers } from './home/performers';
+export { default as PolicyLink } from './layout/policy-link';
 export { default as PriceCalculator } from './calculation/product-price-calculator';
 export { default as Promotions } from './home/promotions';
 export { default as ProviderWrapper } from './layout/provider-wrapper';

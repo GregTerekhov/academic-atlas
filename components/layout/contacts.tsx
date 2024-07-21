@@ -1,8 +1,8 @@
 'use client';
 
-import { PositionInLayout, IconName, IContactLink } from 'types';
+import { PositionInLayout, IContactLink } from 'types';
 
-import { getLinkData } from 'helpers';
+import { getAdaptedContacts } from 'helpers';
 
 import { MappedListTemplate } from 'template';
 import { ContactItem } from './subcomponents';
@@ -12,11 +12,7 @@ interface IContactsProps {
 }
 
 export default function Contacts({ variant }: IContactsProps) {
-  const linkData = getLinkData(variant);
-  const adaptedContacts =
-    variant === PositionInLayout.Footer
-      ? linkData
-      : linkData.filter((link) => link.iconName !== IconName.Call);
+  const adaptedContacts = getAdaptedContacts(variant);
 
   const getListStyle = () => {
     return variant === PositionInLayout.Header
@@ -36,7 +32,7 @@ export default function Contacts({ variant }: IContactsProps) {
           items={adaptedContacts}
           className={getListStyle()}
         >
-          {({ href, defaultSize, iconName, iconSize, label, labelClass }) => (
+          {({ href, defaultSize, iconName, iconSize, label, labelClass, iconAriaLabel }) => (
             <ContactItem
               key={iconName}
               href={href}
@@ -46,6 +42,7 @@ export default function Contacts({ variant }: IContactsProps) {
               labelClass={labelClass}
               label={label}
               variant={variant}
+              iconAriaLabel={iconAriaLabel}
             />
           )}
         </MappedListTemplate>

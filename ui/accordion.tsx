@@ -7,9 +7,10 @@ import { AccordionHeader } from './subcomponents';
 interface IAccordionProps {
   children: React.ReactNode;
   title: string;
+  id: string;
 }
 
-export default function Accordion({ children, title }: Readonly<IAccordionProps>) {
+export default function Accordion({ children, title, id }: Readonly<IAccordionProps>) {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +36,7 @@ export default function Accordion({ children, title }: Readonly<IAccordionProps>
         isOpen={isOpen}
         onToggle={handleToggle}
         onKeyDown={handleKeyDown}
+        id={id}
       />
       {/*
           FIXME: change to appropriated method of transition
@@ -43,6 +45,10 @@ export default function Accordion({ children, title }: Readonly<IAccordionProps>
         ref={contentRef}
         style={{ maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px' }}
         className={`overflow-hidden px-9 transition-[max-height] duration-300 ease-out md:px-14 lg:px-16`}
+        id={`accordion-content-${id}`}
+        aria-labelledby={`accordion-header-${id}`}
+        role='region'
+        aria-hidden={!isOpen}
       >
         <p className='generalText'>{children}</p>
       </div>

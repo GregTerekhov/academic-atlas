@@ -38,8 +38,8 @@ const createServiceObject = (data: IEncryptedData): IEncryptedData => {
 
 const encodeData = (data: IEncryptedData): string => {
   const encDataString = JSON.stringify(data);
-  const urlEncodedString = encodeURIComponent(encDataString);
-  return btoa(urlEncodedString);
+  // const urlEncodedString = encodeURIComponent(encDataString); //FIXME: --- add encodeURIComponent on front and decodeURIComponent on back
+  return btoa(encDataString);
 };
 
 const handleSimpleScenario = (

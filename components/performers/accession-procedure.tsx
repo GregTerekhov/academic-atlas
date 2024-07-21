@@ -1,4 +1,11 @@
-import { IAccession, PrimaryButtonLabel, SectionTitle, TelegramScenario } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  IAccession,
+  PrimaryButtonLabel,
+  SectionTitle,
+  TelegramScenario,
+} from 'types';
 
 import { getAccession, imageSettings } from 'helpers';
 
@@ -41,6 +48,8 @@ export default function Accession() {
             command={TelegramScenario.Join}
             label={PrimaryButtonLabel.Accession}
             isOnLightBackground
+            ariaId={AriaId.AccessionProcedure}
+            ariaDescription={AriaDescription.AccessionProcedure}
           />
         </div>
       </div>

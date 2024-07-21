@@ -1,17 +1,22 @@
 'use client';
 
-import { PrimaryButtonLabel, TelegramScenario } from 'types';
+import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
 import { getAndEncodeDataObject, getPrimaryButtonStyles } from 'helpers';
+import { AriaDescriptionUI } from 'ui/index';
 
 interface ITelegramButtonProps {
   command: TelegramScenario;
   label: PrimaryButtonLabel;
+  ariaId: AriaId;
+  ariaDescription: AriaDescription; 
   isOnLightBackground?: boolean;
 }
 
 export default function TelegramButton({
   command,
   label,
+  ariaId,
+  ariaDescription,
   isOnLightBackground = false,
 }: ITelegramButtonProps) {
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -28,14 +33,21 @@ export default function TelegramButton({
   const linkClass = getPrimaryButtonStyles(isOnLightBackground);
 
   return (
-    <a
-      href='#'
-      target='_blank'
-      rel='noopener noreferrer'
-      onClick={handleClick}
-      className={`${linkClass} py-[17px]`}
-    >
-      {label}
-    </a>
+    <>
+      <a
+        aria-describedby={ariaId}
+        href='#'
+        target='_blank'
+        rel='noopener noreferrer'
+        onClick={handleClick}
+        className={`${linkClass} py-[17px]`}
+      >
+        {label}
+      </a>
+      <AriaDescriptionUI
+        id={ariaId}
+        description={ariaDescription}
+      />
+    </>
   );
 }

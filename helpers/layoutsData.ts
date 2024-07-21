@@ -7,6 +7,7 @@ import {
   Paths,
   PositionInLayout,
 } from '../types';
+import { getIdValues } from './anchorLinks';
 
 export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
   return [
@@ -15,17 +16,19 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       iconName: IconName.Call,
       defaultSize: IconSize.L,
       iconSize: 'md:size-6 lg:size-5',
-      labelClass: 'md:inline lg:text-big',
+      labelClass: 'md:block lg:text-big',
       label: '+380 63 20 761 20',
+      iconAriaLabel: 'Телефон',
     },
     {
-      href: 'https://t.me/AcademicAtlasBot',
+      href: 'https://t.me/@AcademicAtlas_Official',
       iconName: IconName.Telegram,
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
       labelClass:
-        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:inline lg:text-big',
+        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
       label: '@AcademicAtlas_Official',
+      iconAriaLabel: 'Телеграм',
     },
     {
       href: 'mailto:AcademicAtlas@ukr.net',
@@ -33,10 +36,19 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
       labelClass:
-        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:inline lg:text-big',
+        variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
       label: 'AcademicAtlas@ukr.net',
+      iconAriaLabel: 'Пошта',
     },
   ];
+};
+
+export const getAdaptedContacts = (variant: PositionInLayout) => {
+  const linkData = getLinkData(variant);
+
+  return variant === PositionInLayout.Footer
+    ? linkData
+    : linkData.filter((link) => link.iconName !== IconName.Call);
 };
 
 export const getFooterLinks = (): ILinks[] => {
@@ -62,7 +74,7 @@ export const getFooterLinks = (): ILinks[] => {
       label: MenuLinks.Promotions,
     },
     {
-      path: Paths.FAQ ,
+      path: Paths.FAQ,
       label: MenuLinks.FAQ,
     },
     {
@@ -73,29 +85,34 @@ export const getFooterLinks = (): ILinks[] => {
 };
 
 const getHeaderLinks = (): ILinks[] => {
+  const { Services, AboutUs, Promotions, Feedback } = getIdValues();
   return [
     {
       path: Paths.Main,
       label: MenuLinks.Main,
     },
     {
+      id: Services,
       path: Paths.Services,
       label: MenuLinks.Services,
     },
     {
+      id: AboutUs,
       path: Paths.AboutUs,
       label: MenuLinks.AboutUs,
     },
     {
+      id: Promotions,
       path: Paths.Promotions,
       label: MenuLinks.Promotions,
     },
     {
+      id: Feedback,
       path: Paths.Feedback,
       label: MenuLinks.Feedback,
     },
     {
-      path: Paths.FAQ ,
+      path: Paths.FAQ,
       label: MenuLinks.FAQ,
     },
     {

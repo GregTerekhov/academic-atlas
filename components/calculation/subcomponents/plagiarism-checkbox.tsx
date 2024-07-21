@@ -16,6 +16,12 @@ export default function PlagiarismCheckbox({
   checked,
   onChange,
 }: IPlagiarismCheckboxProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onChange(!checked);
+    }
+  };
   return (
     <label
       htmlFor={id}
@@ -27,8 +33,13 @@ export default function PlagiarismCheckbox({
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
         className='hidden'
+        aria-hidden='true'
       />
       <span
+        role='checkbox'
+        aria-checked={checked}
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
         className={`${checked ? 'bg-accent-lightGradient dark:bg-accent-darkGradient' : 'bg-transparent'} flex size-10 items-center justify-center gap-x-4 rounded border border-accentPrimary dark:border-accentSecondary-darker`}
       >
         {checked && (

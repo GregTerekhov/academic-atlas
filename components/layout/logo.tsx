@@ -36,12 +36,14 @@ export default function Logo({ position }: ISvgIconProps) {
       href={Paths.Main}
       onClick={handleClick}
       className='inline-block'
-      aria-label='Main page'
+      aria-label='Перехід на головну сторінку, або скрол доверху сторінки, якщо поточна сторінка є головною'
     >
       <SvgIconUI
         id={IconName.Logo}
         size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
         className='fill-accentPrimary-darker dark:fill-whiteBase lg:size-20'
+        ariaHidden={false}
+        ariaLabel='Логотип'
       />
     </Link>
   );
@@ -51,6 +53,8 @@ export default function Logo({ position }: ISvgIconProps) {
       id={IconName.Logo}
       size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
       className='fill-accentPrimary-darker dark:fill-whiteBase max-md:mx-auto max-md:size-20 lg:size-28'
+      ariaHidden={false}
+      ariaLabel='Логотип'
     />
   );
 

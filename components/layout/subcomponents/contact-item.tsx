@@ -17,6 +17,7 @@ export default function ContactItem({
   labelClass,
   label,
   variant,
+  iconAriaLabel,
 }: IContactItem) {
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
@@ -40,6 +41,8 @@ export default function ContactItem({
           id={iconName}
           size={{ width: defaultSize, height: defaultSize }}
           className={`${iconSize} fill-darkBase/75 group-hover:fill-accentPrimary dark:fill-whiteBase dark:group-hover:fill-accentSecondary`}
+          ariaHidden={false}
+          ariaLabel={iconAriaLabel}
         />
         <span
           className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase dark:group-hover:text-accentSecondary`}
