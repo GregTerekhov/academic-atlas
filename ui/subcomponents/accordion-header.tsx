@@ -38,10 +38,10 @@ export default function AccordionHeader({
           id={IconName.Question}
           className='mx-auto fill-accentPrimary dark:fill-accentSecondary md:size-10'
           size={{ width: IconSize.HalfL, height: IconSize.HalfL }}
-          ariaHidden={true}
         />
       </div>
       <h2
+        id={`accordion-title-${id}`}
         className={`mr-2 flex-1 text-left group-hover:bg-accent-lightGradient group-hover:bg-clip-text group-hover:text-transparent dark:group-hover:bg-accent-darkGradient max-sm:text-medium ${
           isOpen ? 'bg-none text-accentPrimary dark:text-accentSecondary' : ''
         }`}
