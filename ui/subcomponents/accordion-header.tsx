@@ -9,6 +9,7 @@ type AccordionHeaderProps = Readonly<{
   isOpen: boolean;
   onToggle: (e: React.MouseEvent | React.KeyboardEvent) => void;
   onKeyDown: (e: React.KeyboardEvent) => void;
+  id: string;
 }>;
 
 export default function AccordionHeader({
@@ -16,13 +17,17 @@ export default function AccordionHeader({
   isOpen,
   onToggle,
   onKeyDown,
+  id,
 }: AccordionHeaderProps) {
   return (
     <div
+      aria-labelledby={`accordion-header-${id}`}
       role='button'
       onClick={onToggle}
       className='group mb-2 flex w-full cursor-pointer items-center justify-between'
       tabIndex={0}
+      aria-expanded={isOpen}
+      aria-controls={`accordion-content-${id}`}
       onKeyDown={(e) => {
         onToggle(e);
         onKeyDown(e);
@@ -36,6 +41,7 @@ export default function AccordionHeader({
         />
       </div>
       <h2
+        id={`accordion-header-${id}`}
         className={`mr-2 flex-1 text-left group-hover:bg-accent-lightGradient group-hover:bg-clip-text group-hover:text-transparent dark:group-hover:bg-accent-darkGradient max-sm:text-medium ${
           isOpen ? 'bg-none text-accentPrimary dark:text-accentSecondary' : ''
         }`}
@@ -51,6 +57,8 @@ export default function AccordionHeader({
               : 'fill-darkBase dark:fill-whiteBase'
           }`}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
+          ariaLabel={isOpen ? 'Згорнути зміст' : 'Розгорнути зміст'}
+          ariaHidden={false}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { PrimaryButtonLabel, CtaText, SectionTitle, TelegramScenario } from 'types';
+import { PrimaryButtonLabel, CtaText, SectionTitle, TelegramScenario, AriaId, AriaDescription } from 'types';
 
 import { SectionTemplate, TelegramButton } from 'template';
 
@@ -14,6 +14,8 @@ export default function Ordering() {
         <TelegramButton
           command={TelegramScenario.Order}
           label={PrimaryButtonLabel.Ordering}
+          ariaId={AriaId.DefaultOrdering}
+          ariaDescription={AriaDescription.DefaultOrdering}
         />
       </div>
     </SectionTemplate>
