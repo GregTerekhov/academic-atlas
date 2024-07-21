@@ -6,6 +6,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
+import { getWorkType } from './calculationData';
 
 enum CalculationMultiplier {
   NoMultiplier = 1,
@@ -55,9 +56,15 @@ const technicalSciences = new Set([
   ExpertiseArea.Transport,
 ]);
 
-export const expertiseMultiplier = (
-  selectedExpertiseArea: ExpertiseArea,
-): CalculationMultiplier => {
+const thresholds: { [key in Uniqueness]: { increased: number; standard: number } } = {
+  [Uniqueness.Zero]: { increased: 0, standard: 0 },
+  [Uniqueness.TeamPapers]: { increased: 40, standard: 20 },
+  [Uniqueness.Standard]: { increased: 40, standard: 30 },
+  [Uniqueness.Higher]: { increased: 0, standard: 0 },
+  [Uniqueness.Highest]: { increased: 0, standard: 0 },
+};
+
+const expertiseMultiplier = (selectedExpertiseArea: ExpertiseArea): CalculationMultiplier => {
   switch (true) {
     case humanitiesAndEconomics.has(selectedExpertiseArea):
       return CalculationMultiplier.Standard;
@@ -71,9 +78,7 @@ export const expertiseMultiplier = (
   }
 };
 
-export const executionTimeMultiplier = (
-  selectedExecutionTime: ExecutionTime,
-): CalculationMultiplier => {
+const executionTimeMultiplier = (selectedExecutionTime: ExecutionTime): CalculationMultiplier => {
   switch (true) {
     case selectedExecutionTime === ExecutionTime.MediumTerm:
       return CalculationMultiplier.IncreasedStandard;
@@ -85,7 +90,7 @@ export const executionTimeMultiplier = (
   }
 };
 
-export const uniquenessMultiplier = (
+const uniquenessMultiplier = (
   workTypeData: IDropdownData,
   customUniqueness?: number,
 ): CalculationMultiplier => {
@@ -96,14 +101,6 @@ export const uniquenessMultiplier = (
   if (defaultUniqueness === undefined) {
     return CalculationMultiplier.NoMultiplier;
   }
-
-  const thresholds: { [key in Uniqueness]: { increased: number; standard: number } } = {
-    [Uniqueness.Zero]: { increased: 0, standard: 0 },
-    [Uniqueness.TeamPapers]: { increased: 40, standard: 20 },
-    [Uniqueness.Standard]: { increased: 40, standard: 30 },
-    [Uniqueness.Higher]: { increased: 0, standard: 0 },
-    [Uniqueness.Highest]: { increased: 0, standard: 0 },
-  };
 
   const threshold = thresholds[defaultUniqueness];
 
@@ -166,4 +163,28 @@ export const roundPriceToInterval = (calculatedPrice: number) => {
   }
 
   return renderedPrice;
+};
+
+export const findSelectedObject = (selectedWorkType: WorkType) => {
+  return getWorkType().find((workType) => workType.option === selectedWorkType);
+};
+
+export const calculatePrice = (
+  selectedWorkType: WorkType,
+  selectedExpertiseArea: ExpertiseArea,
+  selectedExecutionTime: ExecutionTime,
+  customUniqueness?: number,
+): number => {
+  const workTypeData = findSelectedObject(selectedWorkType);
+
+  if (!workTypeData || !workTypeData.basePrice) {
+    throw new Error('Invalid work type selected');
+  }
+  let basePrice = workTypeData.basePrice;
+
+  basePrice *= expertiseMultiplier(selectedExpertiseArea);
+  basePrice *= executionTimeMultiplier(selectedExecutionTime);
+  basePrice *= uniquenessMultiplier(workTypeData, customUniqueness);
+
+  return basePrice;
 };

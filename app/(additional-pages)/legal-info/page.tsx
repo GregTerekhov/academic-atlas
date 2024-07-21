@@ -25,10 +25,10 @@ export default function LegalInfo() {
     >
       <article className="prose-sm md:prose-base lg:prose-xl prose-p:text-pretty prose-a:text-accentPrimary prose-a:hover:underline prose-ol:text-pretty prose-ol:[counter-reset:section] prose-li:[counter-increment:section] prose-li:marker:[content:counters(section,'.')] dark:prose-a:text-accentSecondary">
         <p>Останнє оновлення 07.06.2024 року.</p>
-        <p>
+        <strong className='font-normal'>
           Прохання уважно прочитати Політику конфіденційності (далі – «Політика конфіденційності»)
           перед використанням нашого веб-сайту.
-        </p>
+        </strong>
         <p>
           Ця Політика конфіденційності поширюється на веб-сайт your-website.com (далі – «веб-сайт»).
           Користувачі веб-сайту можуть переглядати сторінки сайту без необхідності надавати будь-які
@@ -47,7 +47,12 @@ export default function LegalInfo() {
                     {value.includes('AcademicAtlas@ukr.net') ? (
                       <>
                         {value.split('AcademicAtlas@ukr.net')[0]}
-                        <a href='mailto:AcademicAtlas@ukr.net'>AcademicAtlas@ukr.net</a>
+                        <a
+                          aria-label='Пошта сайту AcademicAtlas'
+                          href='mailto:AcademicAtlas@ukr.net'
+                        >
+                          AcademicAtlas@ukr.net
+                        </a>
                         {value.split('AcademicAtlas@ukr.net')[1]}
                       </>
                     ) : (

@@ -1,8 +1,6 @@
-import Link from 'next/link';
+import { PositionInLayout } from 'types';
 
-import { MenuLinks, Paths, PositionInLayout } from 'types';
-
-import { Contacts, FooterMenu, Logo } from 'components';
+import { Contacts, FooterMenu, Logo, PolicyLink } from 'components';
 import Container from './container';
 
 export default function Footer() {
@@ -23,12 +21,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <Link
-          href={Paths.LegalInfo}
-          className='mx-auto block text-center text-xs hocus:text-accentPrimary md:text-sm lg:text-base'
-        >
-          {MenuLinks.LegalInfo} та умови використання
-        </Link>
+        <PolicyLink />
       </Container>
     </footer>
   );

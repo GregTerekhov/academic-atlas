@@ -1,4 +1,12 @@
-import { CalculationTitle, IconName, IconSize, PrimaryButtonLabel, TelegramScenario } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  CalculationTitle,
+  IconName,
+  IconSize,
+  PrimaryButtonLabel,
+  TelegramScenario,
+} from 'types';
 
 import { useCalculation } from 'context';
 import {
@@ -8,7 +16,7 @@ import {
   roundPriceToInterval,
 } from 'helpers';
 
-import { SvgIconUI } from 'ui';
+import { AriaDescriptionUI, SvgIconUI } from 'ui';
 
 export default function PriceResult() {
   const { calculationData } = useCalculation();
@@ -56,15 +64,21 @@ export default function PriceResult() {
         onClick={handleLinkClick}
         target='_blank'
         rel='noopener noreferrer'
+        aria-describedby='price-button'
         className={`${linkClass} group flex h-full w-full items-center justify-center gap-x-4 py-4 max-sm:gap-x-2`}
       >
         <SvgIconUI
           id={IconName.Telegram}
           size={{ width: IconSize.BG, height: IconSize.BG }}
           className='fill-whiteBase group-hover:fill-accentPrimary dark:group-hover:fill-whiteBase'
+          ariaHidden={false}
         />
         {PrimaryButtonLabel.SwitchToTelegram}
       </a>
+      <AriaDescriptionUI
+        id={AriaId.ComplexOrdering}
+        description={AriaDescription.ComplexOrdering}
+      />
     </div>
   );
 }

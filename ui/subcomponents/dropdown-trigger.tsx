@@ -1,6 +1,6 @@
 'use client';
 
-import { ButtonType, type DropdownOption, IconName, IconSize } from 'types';
+import { type DropdownOption, ButtonType, DropdownAriaId, IconName, IconSize } from 'types';
 
 import { getDropdownIconStyles, getDropdownLabelStyles, getDropdownTriggerStyles } from 'helpers';
 
@@ -11,6 +11,7 @@ interface IDropdownTriggerProps {
   isOptionSelected: boolean;
   selectedLabel: DropdownOption;
   handleToggle: () => void;
+  ariaId: DropdownAriaId;
 }
 
 export default function DropdownTrigger({
@@ -18,6 +19,7 @@ export default function DropdownTrigger({
   isOptionSelected,
   handleToggle,
   selectedLabel,
+  ariaId,
 }: IDropdownTriggerProps) {
   const buttonClass = getDropdownTriggerStyles(isOptionSelected, isOpen);
   const labelClass = getDropdownLabelStyles(isOptionSelected);
@@ -25,9 +27,13 @@ export default function DropdownTrigger({
 
   return (
     <button
+      id={`${ariaId}-trigger`}
       type={ButtonType.Button}
       onClick={handleToggle}
       className={buttonClass}
+      aria-haspopup='listbox'
+      aria-expanded={isOpen}
+      aria-controls={`${ariaId}-list`}
     >
       <span className={labelClass}>{selectedLabel}</span>
       <SvgIcon

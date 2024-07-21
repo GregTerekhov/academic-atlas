@@ -1,5 +1,4 @@
 export * from './anchorLinks';
-export * from './calculatePrice';
 export * from './calculationData';
 export * from './calculationHelper';
 export * from './carouselHelper';

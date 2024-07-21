@@ -62,14 +62,13 @@ export const imageSettings = {
   },
   serviceOverview: {
     src: '/backgroundImage/service-overview.png',
-    alt: 'A sheet of paper and a magnifying glass',
     width: ImageSize.Medium200,
     height: ImageSize.Big334,
     className: 'md:w-[264px] md:h-auto lg:h-[512px] lg:w-[402px] h-auto w-auto',
   },
   promotions: {
     src: '/images/notes.png',
-    alt: 'Notes',
+    alt: '',
     width: ImageSize.Medium216,
     height: ImageSize.Small144,
     className:

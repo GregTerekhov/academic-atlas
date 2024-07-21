@@ -1,4 +1,6 @@
 import {
+  AriaDescription,
+  AriaId,
   CtaText,
   PrimaryButtonLabel,
   SectionDescriptions,
@@ -26,6 +28,8 @@ export default function Hero() {
               command={TelegramScenario.Join}
               label={PrimaryButtonLabel.Accession}
               isOnLightBackground
+              ariaId={AriaId.Accession}
+              ariaDescription={AriaDescription.Accession}
             />
           </div>
           <HeroMatrix />
