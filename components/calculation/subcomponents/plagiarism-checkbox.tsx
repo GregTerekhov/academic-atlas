@@ -1,6 +1,8 @@
 'use client';
 
 import { IconName, IconSize } from 'types';
+import { getCheckboxStyles } from 'helpers';
+
 import { SvgIconUI } from 'ui';
 
 interface IPlagiarismCheckboxProps {
@@ -22,6 +24,9 @@ export default function PlagiarismCheckbox({
       onChange(!checked);
     }
   };
+
+  const checkboxClass = getCheckboxStyles(checked);
+
   return (
     <label
       htmlFor={id}
@@ -40,7 +45,7 @@ export default function PlagiarismCheckbox({
         aria-checked={checked}
         tabIndex={0}
         onKeyDown={handleKeyDown}
-        className={`${checked ? 'bg-accent-lightGradient dark:bg-accent-darkGradient' : 'bg-transparent'} flex size-10 items-center justify-center gap-x-4 rounded border border-accentPrimary dark:border-accentSecondary-darker`}
+        className={checkboxClass}
       >
         {checked && (
           <SvgIconUI

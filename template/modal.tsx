@@ -1,6 +1,8 @@
 import { RefObject } from 'react';
 
 import { ButtonType, IconName, IconSize, PopupID } from 'types';
+import { getBackdropStyles, getModalCloseIconStyles, getModalContainerStyles } from 'helpers';
+
 import { SvgIconUI } from 'ui';
 
 interface IModalProps {
@@ -12,12 +14,16 @@ interface IModalProps {
 }
 
 export default function Modal({ closeModal, id, children, modalRef, isOpen }: IModalProps) {
+  const backdropClass = getBackdropStyles();
+  const containerClass = getModalContainerStyles();
+  const iconClass = getModalCloseIconStyles();
+
   return (
     isOpen(id) && (
-      <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-auto bg-disabled-background/50 transition-colors dark:bg-darkBase/75'>
+      <div className={backdropClass}>
         <div
           ref={modalRef}
-          className='relative rounded-[20px] border-2 border-solid border-accentPrimary bg-whiteBase bg-background-light-gradient p-14 dark:border-accentSecondary dark:bg-background-dark-gradient lg:w-[752px]'
+          className={containerClass}
         >
           <button
             type={ButtonType.Button}
@@ -28,7 +34,7 @@ export default function Modal({ closeModal, id, children, modalRef, isOpen }: IM
             <SvgIconUI
               id={IconName.Close}
               size={{ width: IconSize.M, height: IconSize.M }}
-              className='fill-darkBase group-hover:fill-accentPrimary group-focus:fill-accentPrimary dark:fill-whiteBase dark:group-hover:fill-accentSecondary dark:group-focus:fill-accentSecondary'
+              className={iconClass}
               ariaHidden={false}
               ariaLabel='Закриття модалки'
             />

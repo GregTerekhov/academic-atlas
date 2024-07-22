@@ -42,3 +42,11 @@ export const getAccordionExpandIconStyles = (isOpen: boolean) => {
 
   return `${isExpanded} mx-auto transition-transform duration-200 group-hover:fill-accentPrimary-darker dark:group-hover:fill-accentSecondary-darker md:size-8`;
 };
+
+export const getDropdownBoxStyles = () => {
+  return 'absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg bg-whiteBase bg-background-light-gradient ring-[2px] ring-accentPrimary dark:bg-background-dark-gradient dark:ring-accentSecondary lg:max-h-[314px]';
+};
+
+export const getDropdownOptionsListStyles = () => {
+  return 'w-full space-y-6 rounded-b-lg bg-whiteBase bg-background-light-gradient p-4 text-sm dark:bg-background-dark-gradient max-md:leading-130 md:text-base lg:text-medium';
+};
