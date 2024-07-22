@@ -1,9 +1,16 @@
 'use client';
 
-import { type IServiceItem, PrimaryButtonLabel, TelegramScenario, WorkType } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  type IServiceItem,
+  PrimaryButtonLabel,
+  TelegramScenario,
+  WorkType,
+} from 'types';
 import { getAndEncodeDataObject, serviceImageSettings } from 'helpers';
 
-import { ImageUI } from 'ui';
+import { AriaDescriptionUI, ImageUI } from 'ui';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -33,7 +40,7 @@ export default function ServiceItem({
         href='#'
         rel='noopener noreferrer'
         onClick={handleLinkClick}
-        aria-label={`Посилання на телеграм-бот для замовлення типа послуг ${serviceTitle}`}
+        aria-describedby={AriaId.Service}
         className='flex h-full w-full flex-col justify-end'
       >
         <ImageUI
@@ -44,7 +51,7 @@ export default function ServiceItem({
           className={className}
           priority={priority}
         />
-        <div className='relative bg-darkBase/70 p-3 backdrop-blur-sm dark:bg-darkBase/50 lg:p-6'>
+        <div className='rounded-b-[20px] bg-darkBase/70 p-3 backdrop-blur-[2px] dark:bg-darkBase/50 lg:p-6'>
           <div className='max-md:flex max-md:min-h-[70px] max-md:items-center max-md:justify-between'>
             <h3 className='text-balance text-medium text-whiteBase group-hover:underline max-sm:w-[108px] max-sm:text-base sm:max-md:w-[170px] md:mb-2 md:min-h-[100px] md:text-big lg:mb-4 lg:min-h-20 lg:text-lg'>
               {`${serviceTitle} ${serviceTitle === WorkType.Diplomas ? 'та коледжів' : ''}`}
@@ -55,6 +62,10 @@ export default function ServiceItem({
           </div>
         </div>
       </a>
+      <AriaDescriptionUI
+        id={AriaId.Service}
+        description={AriaDescription.Service}
+      />
     </li>
   );
 }

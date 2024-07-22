@@ -1,5 +1,4 @@
 import { type IContactLink, PositionInLayout } from 'types';
-
 import { useMenu } from 'context';
 import { getAriaLabelContacts } from 'helpers';
 

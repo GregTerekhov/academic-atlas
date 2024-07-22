@@ -3,7 +3,6 @@
 import { createRef } from 'react';
 
 import { AriaDescription, AriaId, PopupID, PrimaryButtonLabel } from 'types';
-
 import { useMenu, usePopup } from 'context';
 import { useHandleClickOutside } from 'hooks';
 

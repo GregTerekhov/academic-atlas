@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import { SectionTitle } from 'types';
 
+import { AriaLabel, SectionTitle } from 'types';
 import { getLegalInfoArticles, mapArray, MetadataTexts } from 'helpers';
+
 import { SectionTemplate } from 'template';
 
 const { legal } = MetadataTexts;
@@ -48,8 +49,9 @@ export default function LegalInfo() {
                       <>
                         {value.split('AcademicAtlas@ukr.net')[0]}
                         <a
-                          aria-label='Пошта сайту AcademicAtlas'
+                          aria-label={AriaLabel.Email}
                           href='mailto:AcademicAtlas@ukr.net'
+                          rel='noopener nofollow noreferrer'
                         >
                           AcademicAtlas@ukr.net
                         </a>

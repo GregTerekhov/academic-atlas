@@ -1,4 +1,5 @@
 import { partnershipAboutImageSettings } from 'helpers';
+
 import { ImageUI } from 'ui';
 interface IAboutUsItemProps {
   header: string;

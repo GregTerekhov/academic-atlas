@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Paths, PositionInLayout } from 'types';
-
+import { AriaLabel, Paths, PositionInLayout } from 'types';
 import { getFooterLinks, mapArray } from 'helpers';
 
 import { CalculationModalTrigger } from './subcomponents';
@@ -24,7 +23,7 @@ export default function FooterMenu() {
   };
 
   return (
-    <nav aria-label='Навігація футера'>
+    <nav aria-label={AriaLabel.FooterNav}>
       <ul
         className='max-md:space-y-6 md:grid md:grid-cols-[200px_minmax(200px,_1fr)] md:grid-rows-4 md:gap-y-6 lg:grid-cols-[324px_minmax(324px,_1fr)] lg:gap-y-4'
         role='list'

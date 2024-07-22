@@ -1,7 +1,6 @@
 'use client';
 
-import { IconName, IconSize, ThemeVariants } from 'types';
-
+import { AriaLabel, IconName, IconSize, ThemeVariants } from 'types';
 import { useTheme } from 'context';
 
 import { SvgIconUI, SwitchUI } from 'ui';
@@ -12,14 +11,14 @@ export default function ThemeSwitcher() {
   return (
     <SwitchUI
       onClick={toggleTheme}
-      aria-label='Кнопка перемкнення кольорової теми сайту'
+      aria-label={AriaLabel.SwitchTheme}
     >
       <SvgIconUI
         id={theme === ThemeVariants.LIGHT ? IconName.Sun : IconName.Moon}
         size={{ width: IconSize.BG, height: IconSize.BG }}
         className='fill-accentPrimary'
         ariaHidden={false}
-        ariaLabel='Кольорова тема'
+        ariaLabel={AriaLabel.Theme}
       />
     </SwitchUI>
   );

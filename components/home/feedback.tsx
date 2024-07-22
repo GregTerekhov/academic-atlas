@@ -1,5 +1,4 @@
 import { SectionTitle } from 'types';
-
 import { feedbackBreakpoints, getFeedbackSlides, getIdValues } from 'helpers';
 
 import { SectionTemplate } from 'template';

@@ -1,4 +1,4 @@
-import { IHeroGrid } from 'types';
+import { type IHeroGrid } from 'types';
 import { getHeroGrid, heroMatrixImageSettings } from 'helpers';
 
 import { MappedListTemplate } from 'template';

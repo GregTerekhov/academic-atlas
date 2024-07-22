@@ -1,5 +1,4 @@
 import { SectionTitle, SectionDescriptions, CtaText } from 'types';
-
 import { generateBackgroundImagePaths, getSectionClasses, getTitleClasses } from 'helpers';
 
 import { Container } from 'layout';

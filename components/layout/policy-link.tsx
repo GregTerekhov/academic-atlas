@@ -3,18 +3,25 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { MenuLinks, Paths } from 'types';
+import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
+import { AriaDescriptionUI } from 'ui/index';
 
 export default function LegacyLink() {
   const pathname = usePathname();
   return (
-    <Link
-      href={Paths.LegalInfo}
-      className='mx-auto block text-center text-xs hocus:text-accentPrimary md:text-sm lg:text-base'
-      aria-label='Посилання переходу на сторінку Політики конфіденційності та умов використання'
-      aria-current={pathname === Paths.LegalInfo ? 'page' : undefined}
-    >
-      {MenuLinks.LegalInfo}
-    </Link>
+    <p className='text-center'>
+      <Link
+        href={Paths.LegalInfo}
+        className='text-xs hocus:text-accentPrimary md:text-sm lg:text-base'
+        aria-describedby={AriaId.Policy}
+        aria-current={pathname === Paths.LegalInfo ? 'page' : undefined}
+      >
+        {MenuLinks.LegalInfo}
+      </Link>
+      <AriaDescriptionUI
+        id={AriaId.Policy}
+        description={AriaDescription.Policy}
+      />
+    </p>
   );
 }

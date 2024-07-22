@@ -1,5 +1,4 @@
 import { IPartnershipBenefits, SectionTitle } from 'types';
-
 import { getPartnershipBenefits } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --thumb-color-light: linear-gradient(to right, #2091f9, #3048a5);
+  --thumb-color-light: linear-gradient(to right, #007cee, #3048a5);
   --thumb-color-dark: linear-gradient(to right, #f8a401, #d12600);
   --thumb-color-disabled: #959595;
 }
@@ -61,14 +61,40 @@
   }
 }
 
+.range-input {
+  margin-bottom: 8px;
+  display: block;
+  height: 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 10px;
+  outline: none;
+  background: var(--range-gradient);
+}
+
 .range-input::-webkit-slider-thumb {
   width: 32px;
   height: 32px;
   background: var(--thumb-color);
   border-radius: 50%;
-  margin-top: -12px;
   cursor: pointer;
   -webkit-appearance: none;
+}
+
+.range-input-dark {
+  --range-gradient: linear-gradient(
+    to right,
+    #f8a401 var(--value, 0%),
+    rgba(47, 47, 47, 0.5) var(--value, 0%)
+  );
+}
+
+.range-input-light {
+  --range-gradient: linear-gradient(
+    to right,
+    #007cee var(--value, 0%),
+    rgba(27, 27, 27, 0.1) var(--value, 0%)
+  );
 }
 
 .range-input::-moz-range-thumb {

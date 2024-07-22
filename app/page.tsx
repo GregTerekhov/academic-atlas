@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import { MetadataTexts } from 'helpers';
+
 import {
   AboutUs,
   Cost,
@@ -10,8 +12,6 @@ import {
   ServiceOverview,
   Services,
 } from 'components';
-
-import { MetadataTexts } from 'helpers';
 
 const { home } = MetadataTexts;
 const { title, description, keywords } = home;

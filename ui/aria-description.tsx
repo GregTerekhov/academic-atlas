@@ -1,8 +1,8 @@
 import { AriaDescription, AriaId } from 'types';
 
 interface IAriaDescription {
-  description?: AriaDescription | undefined; //FIXME: --- remove the optionality and undefined type
-  id?: AriaId | undefined; //FIXME: --- remove the optionality and undefined type
+  description: AriaDescription;
+  id: AriaId;
 }
 
 export default function AriaDescriptionText({ description, id }: IAriaDescription) {

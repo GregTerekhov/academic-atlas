@@ -1,5 +1,4 @@
 import { IWorkflow, SectionTitle } from 'types';
-
 import { getWorkflowData } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';

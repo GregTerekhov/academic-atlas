@@ -1,5 +1,4 @@
 import { IServiceItem, SectionTitle } from 'types';
-
 import { getServices, getIdValues } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';

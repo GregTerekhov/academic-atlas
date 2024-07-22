@@ -1,14 +1,20 @@
-import { IconName, SvgSizes } from 'types';
+import { AriaLabel, IconName, SvgSizes } from 'types';
 
 interface ISvgIconProps {
   id: IconName;
   size: SvgSizes;
   className: string;
-  ariaLabel?: string;
+  ariaLabel?: AriaLabel;
   ariaHidden?: boolean;
 }
 
-export default function SvgIcon({ id, size, className, ariaLabel, ariaHidden = true }: ISvgIconProps) {
+export default function SvgIcon({
+  id,
+  size,
+  className,
+  ariaLabel,
+  ariaHidden = true,
+}: ISvgIconProps) {
   return (
     <svg
       width={size.width}

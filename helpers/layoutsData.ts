@@ -1,4 +1,5 @@
 import {
+  AriaLabel,
   type IContactLink,
   type ILinks,
   IconName,
@@ -18,17 +19,17 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       iconSize: 'md:size-6 lg:size-5',
       labelClass: 'md:block lg:text-big',
       label: '+380 63 20 761 20',
-      iconAriaLabel: 'Телефон',
+      iconAriaLabel: AriaLabel.Phone,
     },
     {
-      href: 'https://t.me/@AcademicAtlas_Official',
+      href: 'https://t.me/AcademicAtlas_Official',
       iconName: IconName.Telegram,
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
       labelClass:
         variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
       label: '@AcademicAtlas_Official',
-      iconAriaLabel: 'Телеграм',
+      iconAriaLabel: AriaLabel.Telegram,
     },
     {
       href: 'mailto:AcademicAtlas@ukr.net',
@@ -38,7 +39,7 @@ export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
       labelClass:
         variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
       label: 'AcademicAtlas@ukr.net',
-      iconAriaLabel: 'Пошта',
+      iconAriaLabel: AriaLabel.Email,
     },
   ];
 };

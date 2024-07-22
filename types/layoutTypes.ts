@@ -1,3 +1,4 @@
+import { AriaLabel } from './aria';
 import { IconName, IconSize } from './ui';
 
 export enum MenuLinks {
@@ -106,7 +107,7 @@ export interface IContactLink {
   iconSize: string;
   labelClass: string;
   label: string;
-  iconAriaLabel: string;
+  iconAriaLabel: AriaLabel;
 }
 
 export interface IChildrenProps {

@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { DropdownOption } from '../types';
-
+import { useMenu } from 'context';
 import { useHandleClickOutside } from './useHandleClickOutside';
 
 interface IUseDropdown {
@@ -17,13 +17,22 @@ export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdow
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const { isCalcMenuOpen, isNavMenuOpen } = useMenu();
+  const isMenuOpen = isCalcMenuOpen || isNavMenuOpen;
+
+  useEffect(() => {
+    const resetSelectedLabel = () => {
+      setSelectedLabel(initialLabel);
+      setIsOptionSelected(false);
+    };
+
+    if (!isMenuOpen) {
+      resetSelectedLabel();
+    }
+  }, [initialLabel, isMenuOpen]);
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const resetSelectedLabel = () => {
-    setSelectedLabel(initialLabel);
-    setIsOptionSelected(false);
   };
 
   const handleOptionClick = (option: DropdownOption) => {
@@ -41,7 +50,6 @@ export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdow
     selectedLabel,
     isOptionSelected,
     toggleDropdown,
-    resetSelectedLabel,
     handleOptionClick,
   };
 };

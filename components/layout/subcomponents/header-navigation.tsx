@@ -1,16 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
-
+import { AriaLabel, ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
 import { useMenu } from 'context';
 import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
 import { useActiveLink } from 'hooks';
 
 import CalculationModalTrigger from './calculation-modal-trigger';
-import { useEffect, useState } from 'react';
 
 interface INavigationProps {
   isDesktop?: boolean;
@@ -54,7 +53,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
 
   const adaptedLinks = getAdaptedLinks(isDesktop);
   return (
-    <nav aria-label='Основне меню'>
+    <nav aria-label={AriaLabel.Navigation}>
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
         {mapArray(adaptedLinks, ({ path, label }) => {
           const isActive = activeLink === path || (pathname === Paths.Main && currentHash === path);

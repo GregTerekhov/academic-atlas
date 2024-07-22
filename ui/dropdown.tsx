@@ -1,9 +1,7 @@
 'use client';
 
-import { forwardRef, Ref, useImperativeHandle } from 'react';
-
-import { ButtonType, DropdownAriaId, DropdownOption, IDropdownRef } from 'types';
-
+import { ButtonType, DropdownAriaId, DropdownOption } from 'types';
+import { getDropdownBoxStyles, getDropdownOptionsListStyles } from 'helpers';
 import { useDropdown } from 'hooks';
 
 import { MappedListTemplate } from 'template';
@@ -22,23 +20,18 @@ interface IDropdownProps {
   ariaId: DropdownAriaId;
 }
 
-function Dropdown(
-  { label, options, onOptionSelect, ariaId }: IDropdownProps,
-  ref: Ref<IDropdownRef | null>,
-) {
+export default function Dropdown({ label, options, onOptionSelect, ariaId }: IDropdownProps) {
   const {
     isDropdownOpen,
     dropdownRef,
     selectedLabel,
     isOptionSelected,
     toggleDropdown,
-    resetSelectedLabel,
     handleOptionClick,
   } = useDropdown({ label, onOptionSelect });
 
-  useImperativeHandle(ref, () => ({
-    resetSelectedLabel,
-  }));
+  const wrapperClass = getDropdownBoxStyles();
+  const listClass = getDropdownOptionsListStyles();
 
   return (
     <div
@@ -57,12 +50,12 @@ function Dropdown(
           id={`${ariaId}-list`}
           role='listbox'
           aria-labelledby={`${ariaId}-trigger`}
-          className='absolute z-10 max-h-[248px] w-full overflow-hidden rounded-b-lg bg-whiteBase bg-background-light-gradient ring-[2px] ring-accentPrimary dark:bg-background-dark-gradient dark:ring-accentSecondary lg:max-h-[314px]'
+          className={wrapperClass}
         >
           <CustomScroll className='max-h-[248px]'>
             <MappedListTemplate<IOption>
               items={options}
-              className='w-full space-y-6 rounded-b-lg bg-whiteBase bg-background-light-gradient p-4 text-sm dark:bg-background-dark-gradient max-md:leading-130 md:text-base lg:text-medium'
+              className={listClass}
             >
               {({ typeId, option }) => (
                 <li key={typeId}>
@@ -84,5 +77,3 @@ function Dropdown(
     </div>
   );
 }
-
-export default forwardRef(Dropdown);

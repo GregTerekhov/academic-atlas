@@ -1,4 +1,4 @@
-import { IAccession } from 'types';
+import { type IAccession } from 'types';
 
 export default function AccessionItem({ id, desc }: IAccession) {
   return (

@@ -3,7 +3,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 
-import { type Breakpoints, type ISlide } from 'types';
+import { type IBreakpoints, type ISlide } from 'types';
 
 import { CarouselWrapper } from 'template';
 
@@ -11,7 +11,7 @@ import 'swiper/css/bundle';
 
 interface ICarouselProps<T extends ISlide> {
   slides: T[];
-  breakpoints: Breakpoints;
+  breakpoints: IBreakpoints;
 }
 
 export default function Carousel<T extends ISlide>({ slides, breakpoints }: ICarouselProps<T>) {
