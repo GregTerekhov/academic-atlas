@@ -2,13 +2,14 @@
 
 import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
 import { getAndEncodeDataObject, getPrimaryButtonStyles } from 'helpers';
-import { AriaDescriptionUI } from 'ui/index';
+
+import { AriaDescriptionUI } from 'ui';
 
 interface ITelegramButtonProps {
   command: TelegramScenario;
   label: PrimaryButtonLabel;
   ariaId: AriaId;
-  ariaDescription: AriaDescription; 
+  ariaDescription: AriaDescription;
   isOnLightBackground?: boolean;
 }
 

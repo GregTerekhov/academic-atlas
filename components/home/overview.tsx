@@ -1,5 +1,4 @@
 import { IOrderStep, SectionTitle } from 'types';
-
 import { getOrderSteps, getIdValues, imageSettings } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';

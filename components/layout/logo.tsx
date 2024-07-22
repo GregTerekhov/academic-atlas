@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { PositionInLayout, IconName, IconSize, Paths } from 'types';
-
 import { useMenu } from 'context';
 
 import { SvgIconUI } from 'ui';

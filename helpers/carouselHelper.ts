@@ -1,6 +1,6 @@
-import { Breakpoints } from 'types';
+import { IBreakpoints } from 'types';
 
-export const feedbackBreakpoints: Breakpoints = {
+export const feedbackBreakpoints: IBreakpoints = {
   375: {
     slidesPerView: 1,
     spaceBetween: 16,

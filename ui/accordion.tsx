@@ -44,7 +44,7 @@ export default function Accordion({ children, title, id }: Readonly<IAccordionPr
       <div
         ref={contentRef}
         style={{ maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px' }}
-        className={`overflow-hidden px-9 transition-[max-height] duration-300 ease-out md:px-14 lg:px-16`}
+        className='overflow-hidden px-9 transition-[max-height] duration-300 ease-out md:px-14 lg:px-16'
         id={`accordion-content-${id}`}
         aria-labelledby={`accordion-header-${id}`}
         role='region'

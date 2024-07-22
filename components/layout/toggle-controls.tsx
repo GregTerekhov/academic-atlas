@@ -1,7 +1,6 @@
 'use client';
 
 import { IconName, IconSize, ButtonType } from 'types';
-
 import { useMenu } from 'context';
 import { getAriaLabelSwitcher } from 'helpers';
 

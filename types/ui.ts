@@ -63,7 +63,7 @@ export enum IconName {
   Telegram = 'telegram',
 }
 
-export interface Breakpoints {
+export interface IBreakpoints {
   [width: number]: SwiperOptions;
   [ratio: string]: SwiperOptions;
 }
@@ -75,10 +75,6 @@ export enum PrimaryButtonLabel {
   SwitchToTelegram = 'Перейти в Телеграм',
   ToPreviousPage = 'Перейти на попередню',
   ToMainPage = 'Перейти на головну',
-}
-
-export interface IDropdownRef {
-  resetSelectedLabel: () => void;
 }
 
 export enum ImageSize {

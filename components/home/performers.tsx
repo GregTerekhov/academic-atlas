@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { CtaText, Paths, PrimaryButtonLabel, SectionTitle } from 'types';
-
 import { getPrimaryButtonStyles } from 'helpers';
 
 import { SectionTemplate } from 'template';

@@ -1,16 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { ButtonType, MenuLinks, Paths, PositionInLayout } from 'types';
-
 import { useMenu } from 'context';
 import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
 import { useActiveLink } from 'hooks';
 
 import CalculationModalTrigger from './calculation-modal-trigger';
-import { useEffect, useState } from 'react';
 
 interface INavigationProps {
   isDesktop?: boolean;

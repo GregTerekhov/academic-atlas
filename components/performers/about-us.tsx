@@ -1,5 +1,4 @@
-import { IAboutUs } from 'types';
-
+import { type IAboutUs } from 'types';
 import { getAboutUsData } from 'helpers';
 
 import { Container } from 'layout';

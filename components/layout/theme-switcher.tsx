@@ -1,7 +1,6 @@
 'use client';
 
 import { IconName, IconSize, ThemeVariants } from 'types';
-
 import { useTheme } from 'context';
 
 import { SvgIconUI, SwitchUI } from 'ui';

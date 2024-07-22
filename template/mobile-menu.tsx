@@ -1,5 +1,6 @@
-import { Container } from 'layout';
 import { RemoveScroll } from 'react-remove-scroll';
+
+import { Container } from 'layout';
 
 interface IMobileMenuProps {
   children: React.ReactNode;

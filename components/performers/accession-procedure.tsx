@@ -6,7 +6,6 @@ import {
   SectionTitle,
   TelegramScenario,
 } from 'types';
-
 import { getAccession, imageSettings } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate, TelegramButton } from 'template';

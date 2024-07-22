@@ -1,7 +1,6 @@
 'use client';
 
 import { type DropdownOption, ButtonType, DropdownAriaId, IconName, IconSize } from 'types';
-
 import { getDropdownIconStyles, getDropdownLabelStyles, getDropdownTriggerStyles } from 'helpers';
 
 import SvgIcon from '../svg-icon';

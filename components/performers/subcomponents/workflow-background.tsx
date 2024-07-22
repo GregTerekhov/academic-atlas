@@ -1,4 +1,5 @@
 import { IconName, IconSize } from 'types';
+
 import { SvgIconUI } from 'ui';
 
 export default function WorkflowBackground() {

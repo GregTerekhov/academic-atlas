@@ -1,4 +1,5 @@
 import { ISlide } from 'types';
+
 import { CarouselFeedback } from 'components';
 
 interface ICarouselWrapperProps {
