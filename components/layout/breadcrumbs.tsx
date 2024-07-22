@@ -50,7 +50,9 @@ export default function Breadcrumbs() {
           />
         </div>
         {determineCurrentPath ? (
-          <p className='generalText text-accentPrimary'>{determineCurrentPath}</p>
+          <p className='generalText text-accentPrimary dark:text-accentSecondary'>
+            {determineCurrentPath}
+          </p>
         ) : null}
       </div>
     </Container>
