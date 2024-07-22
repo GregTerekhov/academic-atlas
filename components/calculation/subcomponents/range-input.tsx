@@ -1,11 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import { ThemeVariants, WorkType } from 'types';
 
 import { useTheme } from 'context';
-import { couldChooseUniqueness, getMinimalUniqueness } from 'helpers';
+import { useRangeSettings } from 'hooks';
 
 import RangePercents from './range-percents';
 
@@ -18,32 +16,17 @@ interface IRangeInputProps {
 }
 
 export default function RangeInput({ id, isChecked, value, workType, onChange }: IRangeInputProps) {
-  const [showMinimalText, setShowMinimalText] = useState(false);
-  const couldChooseHigherUniqueness = couldChooseUniqueness(workType);
-  const minimalUniqueness = getMinimalUniqueness(workType);
+  const { showMinimalText, handleChange } = useRangeSettings(workType, isChecked, onChange);
 
   const { theme } = useTheme();
 
-  useEffect(() => {
-    setShowMinimalText(isChecked && couldChooseHigherUniqueness);
-
-    const thumbColor = !isChecked
-      ? 'var(--thumb-color-disabled)'
-      : theme === ThemeVariants.DARK
-        ? 'var(--thumb-color-dark)'
-        : 'var(--thumb-color-light)';
-
-    document.documentElement.style.setProperty('--thumb-color', thumbColor);
-  }, [isChecked, couldChooseHigherUniqueness, theme]);
-
   const addTextMinimalValue = (): JSX.Element | null => {
-    return showMinimalText ? <span>(мінімальний)</span> : null;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(e.target.value);
-    onChange(newValue);
-    setShowMinimalText(newValue <= minimalUniqueness);
+    return showMinimalText ? (
+      <span>
+        <span className='hidden sm:inline'>(мінімальний)</span>
+        <span className='inline sm:hidden'>(мін.)</span>
+      </span>
+    ) : null;
   };
 
   return (
@@ -72,7 +55,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
           background:
             theme === ThemeVariants.DARK
               ? `linear-gradient(to right, #f8a401 ${value}%, rgba(47, 47, 47, 0.5) ${value}%)`
-              : `linear-gradient(to right, #2091f9 ${value}%, rgba(27, 27, 27, 0.1) ${value}%)`,
+              : `linear-gradient(to right, #007cee ${value}%, rgba(27, 27, 27, 0.1) ${value}%)`,
         }}
       />
       <RangePercents
