@@ -2,8 +2,6 @@
 
 import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
 
-import { type IDropdownRef } from '../types';
-
 import { useCalculation } from './CalculationProvider';
 import { useHandleClickOutside } from 'hooks';
 
@@ -16,13 +14,11 @@ interface IMenuContext {
   closeMenu: () => void;
   changeMenuContent: () => void;
   handleToggleMenu: () => void;
-  registerDropdownRefs: (refs: Record<string, IDropdownRef | null>) => void;
 }
 
 const MenuContext = createContext<IMenuContext | undefined>(undefined);
 
 export const MenuProvider = ({ children }: { children: ReactNode }) => {
-  const [dropdownRefs, setDropdownRefs] = useState<Record<string, IDropdownRef | null>>({});
   const [menuState, setMenuState] = useState({
     isNavMenuOpen: false,
     isCalcMenuOpen: false,
@@ -38,21 +34,10 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
     document.body.style.overflow = isNavMenuOpen || isCalcMenuOpen ? 'hidden' : 'auto';
   }, [menuState]);
 
-  const registerDropdownRefs = (refs: Record<string, IDropdownRef | null>) => {
-    setDropdownRefs((prevRefs) => {
-      if (JSON.stringify(prevRefs) === JSON.stringify(refs)) {
-        return prevRefs;
-      }
-      return refs;
-    });
-  };
-
-  const resetAllDropdownLabels = () => {
-    Object.values(dropdownRefs).forEach((ref) => {
-      if (ref) {
-        ref.resetSelectedLabel();
-      }
-    });
+  const resetValues = () => {
+    handleResetCostResult();
+    handleCheckboxChange(false);
+    resetCalculation();
   };
 
   const toggleNavMenu = () => {
@@ -69,21 +54,12 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
       isCalcMenuOpen: !prevState.isCalcMenuOpen,
       showCalculationMenu: prevState.isCalcMenuOpen ? false : prevState.showCalculationMenu,
     }));
-    handleResetCostResult();
-    resetAllDropdownLabels();
-    handleCheckboxChange(false);
-    resetCalculation();
+    resetValues();
   };
 
   const closeMenu = () => {
     setMenuState({ isNavMenuOpen: false, isCalcMenuOpen: false, showCalculationMenu: false });
-    if (menuState.isCalcMenuOpen || menuState.showCalculationMenu) {
-      handleResetCostResult();
-      resetAllDropdownLabels();
-      handleCheckboxChange(false);
-    }
-
-    resetCalculation();
+    resetValues();
   };
 
   useHandleClickOutside(menuRef, menuState.isCalcMenuOpen || menuState.isNavMenuOpen, closeMenu);
@@ -107,7 +83,6 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
         toggleNavMenu,
         closeMenu,
         handleToggleMenu,
-        registerDropdownRefs,
       }}
     >
       {children}

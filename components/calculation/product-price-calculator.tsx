@@ -12,15 +12,14 @@ import {
   WorkType,
 } from 'types';
 
-import { useCalculation, useMenu } from 'context';
+import { useCalculation } from 'context';
 import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
-import { useButtonDisabled, useDropdownRefs, usePlagiarismCheck } from 'hooks';
+import { useButtonDisabled, usePlagiarismCheck } from 'hooks';
 
 import { DropdownUI, PrimaryButtonUI } from 'ui';
 import { PlagiarismCheckbox, PriceResult, RangeInput, ThemeInput } from './subcomponents';
 
 export default function PriceCalculator() {
-  const { registerDropdownRefs } = useMenu();
   const {
     isChecked,
     rangeValue,
@@ -33,8 +32,6 @@ export default function PriceCalculator() {
   } = useCalculation();
   const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
   const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
-
-  const { workTypeRef, executionTimeRef, expertiseAreaRef } = useDropdownRefs(registerDropdownRefs);
 
   const selectWorkType = (option: DropdownOption) => {
     if (typeof option === 'string') {
@@ -69,7 +66,6 @@ export default function PriceCalculator() {
             <ul className={`${shouldPlagiarismCheck ? 'md:mb-10' : 'md:mb-20'} mb-8 space-y-6`}>
               <li>
                 <DropdownUI
-                  ref={workTypeRef}
                   label={WorkType.Default}
                   options={workTypes}
                   onOptionSelect={selectWorkType}
@@ -78,7 +74,6 @@ export default function PriceCalculator() {
               </li>
               <li>
                 <DropdownUI
-                  ref={expertiseAreaRef}
                   label={ExpertiseArea.Default}
                   options={expertiseAreas}
                   onOptionSelect={selectExpertiseArea}
@@ -87,7 +82,6 @@ export default function PriceCalculator() {
               </li>
               <li>
                 <DropdownUI
-                  ref={executionTimeRef}
                   label={ExecutionTime.Default}
                   options={executionTimes}
                   onOptionSelect={selectExecutionTime}
