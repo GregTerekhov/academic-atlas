@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { AriaDescription, AriaId, Paths, PrimaryButtonLabel } from 'types';
+import { AriaDescription, AriaId, AriaLabel, Paths, PrimaryButtonLabel } from 'types';
 import { getPrimaryButtonStyles } from 'helpers';
 
 import { PrimaryButtonUI } from 'ui';
@@ -25,7 +25,7 @@ const NotFoundNavigation = () => {
       </li>
       <li>
         <Link
-          aria-label='Кнопка для повернення на головну сторінку'
+          aria-label={AriaLabel.ComeBack}
           href={Paths.Main}
           className={`${primaryButtonStyle} h-16 `}
         >

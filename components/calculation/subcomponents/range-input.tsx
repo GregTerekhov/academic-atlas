@@ -1,6 +1,6 @@
 'use client';
 
-import { RangeValue, WorkType } from 'types';
+import { AriaLabel, RangeValue, WorkType } from 'types';
 import { useRangeSettings } from 'hooks';
 
 import RangePercents from './range-percents';
@@ -44,7 +44,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
         id={id}
         step={RangeValue.STEP}
         disabled={!isChecked}
-        aria-label='Поле для обирання відсотка унікальності роботи'
+        aria-label={AriaLabel.Range}
         value={value}
         min={RangeValue.MIN}
         max={RangeValue.MAX}

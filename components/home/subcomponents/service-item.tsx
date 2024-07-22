@@ -1,9 +1,16 @@
 'use client';
 
-import { type IServiceItem, PrimaryButtonLabel, TelegramScenario, WorkType } from 'types';
+import {
+  AriaDescription,
+  AriaId,
+  type IServiceItem,
+  PrimaryButtonLabel,
+  TelegramScenario,
+  WorkType,
+} from 'types';
 import { getAndEncodeDataObject, serviceImageSettings } from 'helpers';
 
-import { ImageUI } from 'ui';
+import { AriaDescriptionUI, ImageUI } from 'ui';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -33,7 +40,7 @@ export default function ServiceItem({
         href='#'
         rel='noopener noreferrer'
         onClick={handleLinkClick}
-        aria-label={`Посилання на телеграм-бот для замовлення типа послуг ${serviceTitle}`}
+        aria-describedby={AriaId.Service}
         className='flex h-full w-full flex-col justify-end'
       >
         <ImageUI
@@ -55,6 +62,10 @@ export default function ServiceItem({
           </div>
         </div>
       </a>
+      <AriaDescriptionUI
+        id={AriaId.Service}
+        description={AriaDescription.Service}
+      />
     </li>
   );
 }

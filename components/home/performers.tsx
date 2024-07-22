@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
-import { CtaText, Paths, PrimaryButtonLabel, SectionTitle } from 'types';
+import { AriaDescription, AriaId, CtaText, Paths, PrimaryButtonLabel, SectionTitle } from 'types';
 import { getPrimaryButtonStyles } from 'helpers';
 
 import { SectionTemplate } from 'template';
+import { AriaDescriptionUI } from 'ui/index';
 
 export default function Performers() {
   const linkClass = getPrimaryButtonStyles();
@@ -19,10 +20,14 @@ export default function Performers() {
         <Link
           href={Paths.Partnership}
           className={`${linkClass} py-[17px]`}
-          aria-label='Кнопка для переходу на сторінку для виконавців'
+          aria-describedby={AriaId.Performers}
         >
           {PrimaryButtonLabel.Accession}
         </Link>
+        <AriaDescriptionUI
+          id={AriaId.Performers}
+          description={AriaDescription.Performers}
+        />
       </div>
     </SectionTemplate>
   );

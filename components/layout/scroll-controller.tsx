@@ -1,6 +1,6 @@
 'use client';
 
-import { ButtonType, IconName, IconSize } from 'types';
+import { AriaLabel, ButtonType, IconName, IconSize } from 'types';
 import { getScrollControllerStyles } from 'helpers';
 import { useScrollController } from 'hooks';
 
@@ -15,7 +15,7 @@ export default function ScrollController() {
     <button
       ref={buttonRef}
       type={ButtonType.Button}
-      aria-label='Кнопка плавного скролу сторінки до верху'
+      aria-label={AriaLabel.ScrollUp}
       onClick={scrollToTop}
       className={triggerClass}
     >
@@ -24,7 +24,7 @@ export default function ScrollController() {
         size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
         className='fill-accentPrimary dark:fill-accentSecondary lg:size-9'
         ariaHidden={false}
-        ariaLabel='Стрілка доверху'
+        ariaLabel={AriaLabel.ScrollArrow}
       />
     </button>
   );

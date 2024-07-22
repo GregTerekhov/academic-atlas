@@ -1,3 +1,4 @@
+export * from './aria';
 export * from './calculation';
 export * from './components';
 export * from './FAQ';

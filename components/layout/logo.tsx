@@ -3,10 +3,18 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { PositionInLayout, IconName, IconSize, Paths } from 'types';
+import {
+  PositionInLayout,
+  IconName,
+  IconSize,
+  Paths,
+  AriaId,
+  AriaDescription,
+  AriaLabel,
+} from 'types';
 import { useMenu } from 'context';
 
-import { SvgIconUI } from 'ui';
+import { AriaDescriptionUI, SvgIconUI } from 'ui';
 
 interface ISvgIconProps {
   position: PositionInLayout;
@@ -31,20 +39,26 @@ export default function Logo({ position }: ISvgIconProps) {
   };
 
   const renderLogoLink = () => (
-    <Link
-      href={Paths.Main}
-      onClick={handleClick}
-      className='inline-block'
-      aria-label='Перехід на головну сторінку, або скрол доверху сторінки, якщо поточна сторінка є головною'
-    >
-      <SvgIconUI
-        id={IconName.Logo}
-        size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
-        className='fill-accentPrimary-darker dark:fill-whiteBase lg:size-20'
-        ariaHidden={false}
-        ariaLabel='Логотип'
+    <>
+      <Link
+        href={Paths.Main}
+        onClick={handleClick}
+        className='inline-block'
+        aria-describedby={AriaId.ComeHome}
+      >
+        <SvgIconUI
+          id={IconName.Logo}
+          size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
+          className='fill-accentPrimary-darker dark:fill-whiteBase lg:size-20'
+          ariaHidden={false}
+          ariaLabel={AriaLabel.Logo}
+        />
+      </Link>
+      <AriaDescriptionUI
+        id={AriaId.ComeHome}
+        description={AriaDescription.ComeHome}
       />
-    </Link>
+    </>
   );
 
   const renderLogoIcon = () => (
@@ -53,7 +67,7 @@ export default function Logo({ position }: ISvgIconProps) {
       size={{ width: IconSize.LogoSmallWidth, height: IconSize.XXL }}
       className='fill-accentPrimary-darker dark:fill-whiteBase max-md:mx-auto max-md:size-20 lg:size-28'
       ariaHidden={false}
-      ariaLabel='Логотип'
+      ariaLabel={AriaLabel.Logo}
     />
   );
 

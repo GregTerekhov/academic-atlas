@@ -1,6 +1,6 @@
 'use client';
 
-import { IconName, IconSize } from 'types';
+import { AriaLabel, IconName, IconSize } from 'types';
 import { getAccordionExpandIconStyles, getAccordionTitleStyles } from 'helpers';
 
 import SvgIcon from '../svg-icon';
@@ -55,7 +55,7 @@ export default function AccordionHeader({
           id={IconName.Expand}
           className={expandIconClass}
           size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-          ariaLabel={isOpen ? 'Згорнути зміст' : 'Розгорнути зміст'}
+          ariaLabel={isOpen ? AriaLabel.Collapse : AriaLabel.Expand}
           ariaHidden={false}
         />
       </div>

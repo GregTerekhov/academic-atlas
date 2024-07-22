@@ -2,7 +2,7 @@
 
 import { createRef } from 'react';
 
-import { ButtonType, MenuLinks, PopupID, PositionInLayout } from 'types';
+import { AriaLabel, ButtonType, MenuLinks, PopupID, PositionInLayout } from 'types';
 import { useMenu, usePopup } from 'context';
 import { useHandleClickOutside } from 'hooks';
 
@@ -43,7 +43,7 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
         type={ButtonType.Button}
         onClick={onCostLinkClick}
         className={`${position === PositionInLayout.Footer ? 'text-start text-sm max-sm:text-xs md:text-base' : 'text-medium md:text-big'} ${commonButtonStyles} max-lg:block`}
-        aria-label='Кнопка відкриття модулю калькуляції'
+        aria-label={AriaLabel.CalculationModule}
       >
         {MenuLinks.Cost}
       </button>
@@ -51,7 +51,7 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
         type={ButtonType.Button}
         onClick={() => togglePopup(popupId)}
         className={`${commonButtonStyles} lg:block lg:text-big`}
-        aria-label='Кнопка відкриття модулю калькуляції'
+        aria-label={AriaLabel.CalculationModule}
       >
         {MenuLinks.Cost}
       </button>

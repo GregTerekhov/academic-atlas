@@ -1,6 +1,6 @@
 'use client';
 
-import { IconName, IconSize, ButtonType } from 'types';
+import { IconName, IconSize, ButtonType, AriaLabel } from 'types';
 import { useMenu } from 'context';
 import { getAriaLabelSwitcher } from 'helpers';
 
@@ -27,7 +27,7 @@ export default function ToggleMenuTrigger() {
           size={{ width: IconSize.L, height: IconSize.L }}
           className='fill-darkBase/75 dark:fill-whiteBase lg:group-hover:fill-accentSecondary'
           ariaHidden={false}
-          ariaLabel='Бургер-меню'
+          ariaLabel={AriaLabel.Burger}
         />
       </button>
 

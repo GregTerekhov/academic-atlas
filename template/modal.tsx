@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 
-import { ButtonType, IconName, IconSize, PopupID } from 'types';
+import { AriaLabel, ButtonType, IconName, IconSize, PopupID } from 'types';
 import { getBackdropStyles, getModalCloseIconStyles, getModalContainerStyles } from 'helpers';
 
 import { SvgIconUI } from 'ui';
@@ -29,14 +29,14 @@ export default function Modal({ closeModal, id, children, modalRef, isOpen }: IM
             type={ButtonType.Button}
             className='group absolute right-6 top-6 size-[30px]'
             onClick={closeModal}
-            aria-label='Кнопка закриття модального вікна'
+            aria-label={AriaLabel.CloseButton}
           >
             <SvgIconUI
               id={IconName.Close}
               size={{ width: IconSize.M, height: IconSize.M }}
               className={iconClass}
               ariaHidden={false}
-              ariaLabel='Закриття модалки'
+              ariaLabel={AriaLabel.CloseModal}
             />
           </button>
           {children}
