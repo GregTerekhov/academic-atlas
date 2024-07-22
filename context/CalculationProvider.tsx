@@ -9,7 +9,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
-import { findSelectedObject } from 'helpers';
+import { escapeHtml, findSelectedObject, isValidInput } from 'helpers';
 
 interface ICalculationContext {
   calculationData: ICalculation;
@@ -74,7 +74,12 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
 
   const handleThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newTheme = e.target.value;
-    setCalculationData((prevData) => ({ ...prevData, theme: newTheme }));
+
+    if (isValidInput(newTheme)) {
+      const escapedValue = escapeHtml(newTheme);
+
+      setCalculationData((prevData) => ({ ...prevData, theme: escapedValue }));
+    }
   };
 
   const handleRangeChange = (value: number) => {
