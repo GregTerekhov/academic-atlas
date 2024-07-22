@@ -74,6 +74,13 @@ export enum TelegramScenario {
   Join = 'join',
 }
 
+export enum RangeValue {
+  MIN = 0,
+  MAX = 100,
+  STEP = 10,
+  PENULTIMATE = 90,
+}
+
 export interface ICalculationData {
   workType: WorkType;
   expertiseArea: ExpertiseArea;

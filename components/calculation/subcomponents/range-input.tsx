@@ -1,8 +1,6 @@
 'use client';
 
-import { ThemeVariants, WorkType } from 'types';
-
-import { useTheme } from 'context';
+import { RangeValue, WorkType } from 'types';
 import { useRangeSettings } from 'hooks';
 
 import RangePercents from './range-percents';
@@ -16,9 +14,11 @@ interface IRangeInputProps {
 }
 
 export default function RangeInput({ id, isChecked, value, workType, onChange }: IRangeInputProps) {
-  const { showMinimalText, handleChange } = useRangeSettings(workType, isChecked, onChange);
-
-  const { theme } = useTheme();
+  const { showMinimalText, rangeInputClass, handleChange } = useRangeSettings(
+    workType,
+    isChecked,
+    onChange,
+  );
 
   const addTextMinimalValue = (): JSX.Element | null => {
     return showMinimalText ? (
@@ -42,21 +42,15 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
       <input
         type='range'
         id={id}
-        step={10}
-        list='percents'
+        step={RangeValue.STEP}
         disabled={!isChecked}
         aria-label='Поле для обирання відсотка унікальності роботи'
         value={value}
-        min={0}
-        max={100}
+        min={RangeValue.MIN}
+        max={RangeValue.MAX}
         onChange={handleChange}
-        className={`range-input h-3 appearance-none rounded-[10px] outline-none ${!isChecked ? 'cursor-not-allowed' : ''} mb-2 block`}
-        style={{
-          background:
-            theme === ThemeVariants.DARK
-              ? `linear-gradient(to right, #f8a401 ${value}%, rgba(47, 47, 47, 0.5) ${value}%)`
-              : `linear-gradient(to right, #007cee ${value}%, rgba(27, 27, 27, 0.1) ${value}%)`,
-        }}
+        className={`range-input ${rangeInputClass} ${!isChecked ? 'cursor-not-allowed' : ''}`}
+        style={{ '--value': `${value}%` } as React.CSSProperties}
       />
       <RangePercents
         value={value}

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 
 import { ThemeVariants, WorkType } from '../types';
-
 import { useTheme } from '../context';
 import { couldChooseUniqueness, getMinimalUniqueness } from '../helpers';
 
@@ -36,5 +35,7 @@ export const useRangeSettings = (
     setShowMinimalText(newValue <= minimalUniqueness);
   };
 
-  return { showMinimalText, handleChange };
+  const rangeInputClass = theme === ThemeVariants.DARK ? 'range-input-dark' : 'range-input-light';
+
+  return { showMinimalText, rangeInputClass, handleChange };
 };
