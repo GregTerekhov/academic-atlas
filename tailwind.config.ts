@@ -71,7 +71,7 @@ const config: Config = {
           background: '#2f2f2f',
         },
         accentPrimary: {
-          DEFAULT: '#2091f9',
+          DEFAULT: '#007cee',
           darker: '#3048a5',
         },
         accentSecondary: {
@@ -81,10 +81,10 @@ const config: Config = {
       },
       backgroundImage: {
         'accent-darkGradient': 'linear-gradient(to right, #f8a401, #d12600)',
-        'accent-lightGradient': 'linear-gradient(to right, #2091f9, #3048a5)',
+        'accent-lightGradient': 'linear-gradient(to right, #007cee, #3048a5)',
         'section-overlay-dark': 'linear-gradient(to left, #1b1b1b4d, #1b1b1b)',
         'section-overlay-light': 'linear-gradient(to left, #1b1b1b33, #1b1b1ba6)',
-        'background-light-gradient': 'linear-gradient(to bottom right, #2091f926, #fefefe)',
+        'background-light-gradient': 'linear-gradient(to bottom right, #007cee26, #fefefe)',
         'background-dark-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c)',
         'service-overview': "url('/backgroundImage/service-overview.png')",
         'partnership-hero': "url('/backgroundImage/partnership-hero.webp')",
