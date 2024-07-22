@@ -24,39 +24,46 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
 
   const popupRefs = useRef<IPopupRefs>({});
 
+  const resetValues = useCallback(() => {
+    handleResetCostResult();
+    handleCheckboxChange(false);
+    resetCalculation();
+  }, [handleCheckboxChange, handleResetCostResult, resetCalculation]);
+
+  const setBodyOverflow = useCallback((isHidden: boolean) => {
+    document.body.style.overflow = isHidden ? 'hidden' : 'auto';
+  }, []);
+
   const togglePopup = useCallback(
     (id: string) => {
-      setOpenPopups((prev) => ({
-        ...prev,
-        [id]: !prev[id],
-      }));
+      setOpenPopups((prev) => {
+        const isPopupOpen = !prev[id];
+        setBodyOverflow(isPopupOpen);
 
-      const isPopupOpen = !openPopups[id];
+        if (!isPopupOpen) {
+          resetValues();
+        }
 
-      if (isPopupOpen) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'auto';
-        handleResetCostResult();
-        handleCheckboxChange(false);
-        resetCalculation();
-      }
+        return {
+          ...prev,
+          [id]: isPopupOpen,
+        };
+      });
     },
-    [handleCheckboxChange, handleResetCostResult, openPopups, resetCalculation],
+    [resetValues, setBodyOverflow],
   );
 
   const closePopup = useCallback(
     (id: string) => {
-      handleResetCostResult();
-      handleCheckboxChange(false);
-      resetCalculation();
+      resetValues();
+
       setOpenPopups((prev) => ({
         ...prev,
         [id]: false,
       }));
-      document.body.style.overflow = 'auto';
+      setBodyOverflow(false);
     },
-    [handleCheckboxChange, handleResetCostResult, resetCalculation],
+    [resetValues, setBodyOverflow],
   );
 
   const isPopupOpen = useCallback((id: string) => !!openPopups[id], [openPopups]);
