@@ -5,7 +5,6 @@ import { createContext, useContext, useState, useRef, ReactNode, useEffect } fro
 import { type IDropdownRef } from '../types';
 
 import { useCalculation } from './CalculationProvider';
-import { checkCalculationField } from 'helpers';
 import { useHandleClickOutside } from 'hooks';
 
 interface IMenuContext {
@@ -29,23 +28,15 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
     isCalcMenuOpen: false,
     showCalculationMenu: false,
   });
-  const [isValidData, setIsValidData] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { calculationData, resetCalculation, handleResetCostResult, handleCheckboxChange } =
-    useCalculation();
+  const { resetCalculation, handleResetCostResult, handleCheckboxChange } = useCalculation();
 
   useEffect(() => {
     const { isNavMenuOpen, isCalcMenuOpen } = menuState;
     document.body.style.overflow = isNavMenuOpen || isCalcMenuOpen ? 'hidden' : 'auto';
   }, [menuState]);
-
-  useEffect(() => {
-    const isNotDefaultData = checkCalculationField(calculationData);
-
-    setIsValidData(isNotDefaultData);
-  }, [calculationData]);
 
   const registerDropdownRefs = (refs: Record<string, IDropdownRef | null>) => {
     setDropdownRefs((prevRefs) => {
@@ -81,10 +72,7 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
     handleResetCostResult();
     resetAllDropdownLabels();
     handleCheckboxChange(false);
-
-    if (isValidData) {
-      resetCalculation();
-    }
+    resetCalculation();
   };
 
   const closeMenu = () => {
@@ -95,9 +83,7 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
       handleCheckboxChange(false);
     }
 
-    if (isValidData) {
-      resetCalculation();
-    }
+    resetCalculation();
   };
 
   useHandleClickOutside(menuRef, menuState.isCalcMenuOpen || menuState.isNavMenuOpen, closeMenu);
