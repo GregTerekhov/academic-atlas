@@ -77,7 +77,7 @@ export const SectionDescriptions = {
   [SectionTitle.PartnershipAccession]: 'Як приєднатися до нашої команди',
   [SectionTitle.FAQHero]: 'Найпоширеніші запитання та відповіді',
   [SectionTitle.FAQOrder]: 'Замовте дипломну роботу прямо зараз!',
-  [SectionTitle.Offer]: 'Договір оферти',
+  [SectionTitle.Offer]: 'Договір публічної оферти',
   [SectionTitle.Policy]: 'Політика конфіденційності',
 } as const;
 
@@ -169,4 +169,11 @@ export enum OpenGraphImageAlt {
   PARTNERSHIP = 'Partnership - AcademicAtlas',
   POLICY = 'Legal - AcademicAtlas',
   NOT_FOUND = '404 - Page Not Found',
+}
+
+export enum CompanyContacts {
+  Telegram = 'AcademicAtlas_Official',
+  Email = 'AcademicAtlas@ukr.net',
+  Phone = '+380632076120',
+  PhoneToPrint = '+380 63 20 761 20',
 }
