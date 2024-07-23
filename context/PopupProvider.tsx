@@ -36,21 +36,21 @@ export const PopupProvider = ({ children }: { children: ReactNode }) => {
 
   const togglePopup = useCallback(
     (id: string) => {
-      setOpenPopups((prev) => {
-        const isPopupOpen = !prev[id];
-        setBodyOverflow(isPopupOpen);
+      setOpenPopups((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
 
-        if (!isPopupOpen) {
-          resetValues();
-        }
+      const isPopupOpen = !openPopups[id];
 
-        return {
-          ...prev,
-          [id]: isPopupOpen,
-        };
-      });
+      if (isPopupOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+        resetValues();
+      }
     },
-    [resetValues, setBodyOverflow],
+    [openPopups, resetValues],
   );
 
   const closePopup = useCallback(

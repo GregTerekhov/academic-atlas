@@ -16,10 +16,16 @@ describe('Breadcrumbs Component', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('displays the correct breadcrumb based on Paths.LegalInfo', () => {
-    (usePathname as jest.Mock).mockReturnValue(Paths.LegalInfo);
+  it('displays the correct breadcrumb based on Paths.Policy', () => {
+    (usePathname as jest.Mock).mockReturnValue(Paths.Policy);
     render(<Breadcrumbs />);
-    expect(screen.getByText(MenuLinks.LegalInfo)).toBeInTheDocument();
+    expect(screen.getByText(MenuLinks.Policy)).toBeInTheDocument();
+  });
+
+  it('displays the correct breadcrumb based on Paths.Offer', () => {
+    (usePathname as jest.Mock).mockReturnValue(Paths.Offer);
+    render(<Breadcrumbs />);
+    expect(screen.getByText(MenuLinks.Offer)).toBeInTheDocument();
   });
 
   it('displays the correct breadcrumb based on Paths.Partnership', () => {

@@ -444,7 +444,7 @@ export const getHeroGrid = (): IHeroGrid[] => {
   ];
 };
 
-export const getLegalInfoArticles = (): ILegalInfoArticle[] => {
+export const getPolicyArticles = (): ILegalInfoArticle[] => {
   return [
     {
       id: 1,

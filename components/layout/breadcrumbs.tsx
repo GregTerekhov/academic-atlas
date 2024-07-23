@@ -9,7 +9,7 @@ import { IconName, IconSize, MenuLinks, Paths } from 'types';
 import { Container } from 'layout';
 import { SvgIconUI } from 'ui';
 
-const validPaths = [Paths.FAQ, Paths.LegalInfo, Paths.Partnership];
+const validPaths = [Paths.FAQ, Paths.Policy, Paths.Offer, Paths.Partnership];
 
 export default function Breadcrumbs() {
   const [determineCurrentPath, setDetermineCurrentPath] = useState('');

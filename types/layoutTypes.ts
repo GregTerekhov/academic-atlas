@@ -10,7 +10,8 @@ export enum MenuLinks {
   Feedback = 'Відгуки',
   Promotions = 'Акції',
   Partnership = 'Виконавцям',
-  LegalInfo = 'Політика конфіденційності',
+  Offer = 'Публічна оферта',
+  Policy = 'Політика конфіденційності',
   FAQ = 'Часті запитання',
 }
 
@@ -33,7 +34,8 @@ export enum Paths {
   Promotions = '/#promotions',
   Feedback = '/#feedback',
   FAQ = '/FAQ',
-  LegalInfo = '/legal-info',
+  Offer = '/offer',
+  Policy = '/policy',
   Partnership = '/partnership',
 }
 
@@ -54,7 +56,8 @@ export enum SectionTitle {
   PartnershipAccession = 'partnership-accession',
   FAQHero = 'faq-hero',
   FAQOrder = 'faq-order',
-  LegalInfo = 'legal-info',
+  Offer = 'offer',
+  Policy = 'policy',
 }
 
 export const SectionDescriptions = {
@@ -74,7 +77,8 @@ export const SectionDescriptions = {
   [SectionTitle.PartnershipAccession]: 'Як приєднатися до нашої команди',
   [SectionTitle.FAQHero]: 'Найпоширеніші запитання та відповіді',
   [SectionTitle.FAQOrder]: 'Замовте дипломну роботу прямо зараз!',
-  [SectionTitle.LegalInfo]: 'Політика конфіденційності',
+  [SectionTitle.Offer]: 'Договір оферти',
+  [SectionTitle.Policy]: 'Політика конфіденційності',
 } as const;
 
 export type SectionTitleType = keyof typeof SectionDescriptions;
