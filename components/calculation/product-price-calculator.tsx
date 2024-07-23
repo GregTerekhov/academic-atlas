@@ -88,7 +88,7 @@ export default function PriceCalculator() {
                   ariaId={DropdownAriaId.EXECUTION_TIME}
                 />
               </li>
-              <li>
+              <li className='relative'>
                 <ThemeInput />
               </li>
             </ul>

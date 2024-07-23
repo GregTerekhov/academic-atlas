@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 
-import { AriaLabel, SectionTitle } from 'types';
-import { getLegalInfoArticles, mapArray, MetadataTexts } from 'helpers';
+import { SectionTitle } from 'types';
+import { getPolicyArticles, MetadataTexts } from 'helpers';
 
 import { SectionTemplate } from 'template';
+import { LegalList } from 'components';
 
 const { legal } = MetadataTexts;
 const { title, description, keywords } = legal;
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
   // openGraph,  //FIXME: --- uncomment
 };
 
-export default function LegalInfo() {
-  const legalInfoArticle = getLegalInfoArticles();
+export default function Policy() {
+  const policyArticles = getPolicyArticles();
 
   return (
     <SectionTemplate
       isBigTitle
-      title={SectionTitle.LegalInfo}
+      title={SectionTitle.Policy}
       titleStyle='text-center mb-4 md:mb-6 lg:mb-8'
     >
       <article className="prose-sm md:prose-base lg:prose-xl prose-p:text-pretty prose-a:text-accentPrimary prose-a:hover:underline prose-ol:text-pretty prose-ol:[counter-reset:section] prose-li:[counter-increment:section] prose-li:marker:[content:counters(section,'.')] dark:prose-a:text-accentSecondary">
@@ -38,34 +39,7 @@ export default function LegalInfo() {
           зв’язатися з Вами, підтвердити замовлення і доставити замовлений товар. Ваші персональні
           дані ми не передаємо третім особам і захищаємо їх конфіденційність.
         </p>
-        <ol>
-          {mapArray(legalInfoArticle, ({ id, article, paragraph }) => (
-            <li key={id}>
-              {article}
-              <ol>
-                {mapArray(Object.entries(paragraph), ([key, value]) => (
-                  <li key={key}>
-                    {value.includes('AcademicAtlas@ukr.net') ? (
-                      <>
-                        {value.split('AcademicAtlas@ukr.net')[0]}
-                        <a
-                          aria-label={AriaLabel.Email}
-                          href='mailto:AcademicAtlas@ukr.net'
-                          rel='noopener nofollow noreferrer'
-                        >
-                          AcademicAtlas@ukr.net
-                        </a>
-                        {value.split('AcademicAtlas@ukr.net')[1]}
-                      </>
-                    ) : (
-                      value
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </li>
-          ))}
-        </ol>
+        <LegalList list={policyArticles} />
       </article>
     </SectionTemplate>
   );
