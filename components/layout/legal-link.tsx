@@ -4,7 +4,7 @@ import { LinkItem } from './subcomponents';
 
 export default function LegalLink() {
   return (
-    <p className='text-center'>
+    <p className='text-center text-xs md:text-sm lg:text-base'>
       <LinkItem
         href={Paths.Policy}
         ariaId={AriaId.Policy}

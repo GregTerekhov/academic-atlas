@@ -1,4 +1,5 @@
 export const escapeHtml = (str: string) => {
+  //FIXME: --- implement this function when theme value will send to backend
   return str.replace(/[&<>"'\/]/g, (s) => {
     const entityMap: { [key: string]: string } = {
       '&': '&amp;',
