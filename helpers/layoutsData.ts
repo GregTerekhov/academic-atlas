@@ -1,7 +1,8 @@
 import {
-  AriaLabel,
   type IContactLink,
   type ILinks,
+  AriaLabel,
+  CompanyContacts,
   IconName,
   IconSize,
   MenuLinks,
@@ -13,32 +14,32 @@ import { getIdValues } from './anchorLinks';
 export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
   return [
     {
-      href: 'tel:+380632076120',
+      href: `tel:${CompanyContacts.Phone}`,
       iconName: IconName.Call,
       defaultSize: IconSize.L,
       iconSize: 'md:size-6 lg:size-5',
       labelClass: 'md:block lg:text-big',
-      label: '+380 63 20 761 20',
+      label: CompanyContacts.PhoneToPrint,
       iconAriaLabel: AriaLabel.Phone,
     },
     {
-      href: 'https://t.me/AcademicAtlas_Official',
+      href: `https://t.me/${CompanyContacts.Telegram}`,
       iconName: IconName.Telegram,
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
       labelClass:
         variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
-      label: '@AcademicAtlas_Official',
+      label: `@${CompanyContacts.Telegram}`,
       iconAriaLabel: AriaLabel.Telegram,
     },
     {
-      href: 'mailto:AcademicAtlas@ukr.net',
+      href: `mailto:${CompanyContacts.Email}`,
       iconName: IconName.Email,
       defaultSize: variant === PositionInLayout.Header ? IconSize.S : IconSize.L,
       iconSize: variant === PositionInLayout.Header ? 'lg:size-8' : 'md:size-6 lg:size-5',
       labelClass:
         variant === PositionInLayout.Header ? 'text-medium max-lg:inline' : 'md:block lg:text-big',
-      label: 'AcademicAtlas@ukr.net',
+      label: CompanyContacts.Email,
       iconAriaLabel: AriaLabel.Email,
     },
   ];

@@ -1,6 +1,7 @@
-import { AriaLabel, type ILegalInfoArticle } from 'types';
-
+import { type ILegalInfoArticle } from 'types';
 import { mapArray } from 'helpers';
+
+import { LegalParagraph, LegalSubItem } from './subcomponents';
 
 interface ILegalList {
   list: ILegalInfoArticle[];
@@ -12,26 +13,16 @@ export default function LegalList({ list }: ILegalList) {
       {mapArray(list, ({ id, article, paragraph }) => (
         <li key={id}>
           {article}
-          <ol>
+          <ol className='list-decimal'>
             {mapArray(Object.entries(paragraph), ([key, value]) => (
-              <li
-                key={key}
-                className='list-decimal'
-              >
-                {value.includes('AcademicAtlas@ukr.net') ? (
-                  <>
-                    {value.split('AcademicAtlas@ukr.net')[0]}
-                    <a
-                      aria-label={AriaLabel.Email}
-                      href='mailto:AcademicAtlas@ukr.net'
-                      rel='noopener nofollow noreferrer'
-                    >
-                      AcademicAtlas@ukr.net
-                    </a>
-                    {value.split('AcademicAtlas@ukr.net')[1]}
-                  </>
+              <li key={key}>
+                {typeof value === 'string' ? (
+                  <LegalParagraph value={value} />
                 ) : (
-                  value
+                  <LegalSubItem
+                    item={value.title}
+                    subItems={value.subItems}
+                  />
                 )}
               </li>
             ))}
