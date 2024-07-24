@@ -14,7 +14,7 @@
   }
 
   body {
-    @apply h-full bg-whiteBase bg-background-light-gradient pt-20 text-darkBase dark:bg-darkBase dark:bg-background-dark-gradient dark:text-whiteBase md:pt-24 lg:pt-28;
+    @apply h-full bg-whiteBase bg-background-light-gradient !pt-20 text-darkBase dark:bg-darkBase dark:bg-background-dark-gradient dark:text-whiteBase md:!pt-24 lg:!pt-28;
   }
 
   h1 {
