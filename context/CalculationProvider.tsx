@@ -9,7 +9,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
-import { escapeHtml, findSelectedObject, isValidInput } from 'helpers';
+import { findSelectedObject, isValidInput } from 'helpers';
 
 interface ICalculationContext {
   calculationData: ICalculation;
@@ -76,9 +76,9 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
     const newTheme = e.target.value;
 
     if (isValidInput(newTheme)) {
-      const escapedValue = escapeHtml(newTheme);
-
-      setCalculationData((prevData) => ({ ...prevData, theme: escapedValue }));
+      setCalculationData((prevData) => ({ ...prevData, theme: newTheme }));
+    } else {
+      console.warn('Недійсне введення');
     }
   };
 
