@@ -41,5 +41,5 @@ jobs:
         run: |
           docker compose stop
           docker rm nextjs
-          docker rmi ${{secrets.DOCKERHUB_USERNAME}}/atlasnext:2
+          docker rmi lazlovalentin008/atlasnext:2
           docker compose up -d
