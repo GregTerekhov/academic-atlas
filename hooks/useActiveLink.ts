@@ -34,7 +34,7 @@ export const useActiveLink = (isDesktop: boolean) => {
     const handleScroll = debounce(() => {
       if (window.scrollY === 0) {
         setActiveLink(pathname as Paths);
-        window.history.pushState(null, '', pathname);
+        // window.history.pushState(null, '', pathname); //FIXME: --- this line cause the "broken breadcrumbs/navigation link" bug. You may ensure it by increasing debounce delay to 600/700
       }
     }, 100);
 
