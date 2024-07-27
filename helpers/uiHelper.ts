@@ -10,7 +10,7 @@ export const getDropdownTriggerStyles = (isOptionSelected: boolean, isDropdownOp
 export const getDropdownLabelStyles = (isOptionSelected: boolean) => {
   return isOptionSelected
     ? 'max-sm:text-sm max-sm:font-normal text-base font-bold text-whiteBase md:text-medium lg:text-lg text-left line-clamp-1'
-    : 'text-sm max-md:leading-130 text-darkBase dark:text-whiteBase md:text-base lg:text-big';
+    : 'text-sm max-md:leading-130 text-darkBase dark:text-whiteBase/60 md:text-base lg:text-big';
 };
 
 export const getDropdownIconStyles = (isOptionSelected: boolean, isDropdownOpen: boolean) => {

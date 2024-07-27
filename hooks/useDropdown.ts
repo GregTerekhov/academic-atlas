@@ -1,48 +1,59 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { DropdownOption } from '../types';
-import { useMenu } from 'context';
+import { DropdownOption, PopupID } from '../types';
+import { useMenu, usePopup } from 'context';
 import { useHandleClickOutside } from './useHandleClickOutside';
 
-interface IUseDropdown {
+interface IUseDropdownProps {
   label: DropdownOption;
   onOptionSelect: (option: DropdownOption) => void;
 }
 
-export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdown) => {
+export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdownProps) => {
   const [selectedLabel, setSelectedLabel] = useState<DropdownOption>(initialLabel);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { isCalcMenuOpen, isNavMenuOpen } = useMenu();
-  const isMenuOpen = isCalcMenuOpen || isNavMenuOpen;
+  const { isPopupOpen } = usePopup();
+  const isOverlayOpen =
+    isCalcMenuOpen ||
+    isNavMenuOpen ||
+    isPopupOpen(PopupID.FooterMenu) ||
+    isPopupOpen(PopupID.CostSection);
+
+  const resetSelectedLabel = useCallback(() => {
+    setSelectedLabel(initialLabel);
+    setIsOptionSelected(false);
+  }, [initialLabel]);
 
   useEffect(() => {
-    const resetSelectedLabel = () => {
-      setSelectedLabel(initialLabel);
-      setIsOptionSelected(false);
-    };
-
-    if (!isMenuOpen) {
+    if (!isOverlayOpen) {
       resetSelectedLabel();
     }
-  }, [initialLabel, isMenuOpen]);
+  }, [isOverlayOpen, resetSelectedLabel]);
+
+  const handleOptionClick = (option: DropdownOption) => {
+    if (option !== selectedLabel) {
+      setSelectedLabel(option);
+      setIsOptionSelected(true);
+      onOptionSelect(option);
+      closeDropdown();
+    }
+  };
+
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleOptionClick = (option: DropdownOption) => {
-    setSelectedLabel(option);
-    setIsOptionSelected(true);
-    onOptionSelect(option);
-    toggleDropdown();
-  };
-
-  useHandleClickOutside(dropdownRef, isDropdownOpen, () => setIsDropdownOpen(false));
+  useHandleClickOutside(dropdownRef, isDropdownOpen, closeDropdown);
 
   return {
     isDropdownOpen,
@@ -51,5 +62,6 @@ export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdow
     isOptionSelected,
     toggleDropdown,
     handleOptionClick,
+    resetSelectedLabel,
   };
 };

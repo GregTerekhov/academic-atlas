@@ -21,11 +21,11 @@ interface ICalculationContext {
     option: ICalculationData[T],
   ) => void;
   handleThemeChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  resetCalculation: () => void;
   handleShowCostResult: () => void;
   handleResetCostResult: () => void;
   handleCheckboxChange: (checked: boolean) => void;
   handleRangeChange: (value: number) => void;
+  resetCalculation: () => void;
 }
 
 interface ICalculation extends ICalculationData {
@@ -95,6 +95,8 @@ export const CalculationProvider = ({ children }: { children: ReactNode }) => {
       uniqueness: Uniqueness.Zero,
       theme: '',
     });
+    setRangeValue(Uniqueness.Zero);
+    setIsChecked(false);
   };
 
   const handleShowCostResult = () => {

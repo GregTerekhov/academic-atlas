@@ -1,4 +1,4 @@
-import { ISlide } from 'types';
+import { type ISlide } from 'types';
 
 import { CarouselFeedback } from 'components';
 
