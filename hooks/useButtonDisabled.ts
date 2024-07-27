@@ -2,32 +2,24 @@
 
 import { useEffect, useState } from 'react';
 
-import {
-  ExecutionTime,
-  ExpertiseArea,
-  type ICalculationData,
-  Uniqueness,
-  WorkType,
-} from '../types';
-import { findSelectedObject } from '../helpers';
+import { type ICalculationData, Uniqueness } from '../types';
+import { checkCalculationField, findSelectedObject } from '../helpers';
 
 export const useButtonDisabled = (calculationData: ICalculationData, isChecked: boolean) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const { workType, expertiseArea, executionTime } = calculationData;
+  const validField = checkCalculationField(calculationData);
 
   useEffect(() => {
     const workTypeObject = findSelectedObject(workType);
 
+    // Determine if the button should be enabled based on several conditions
     const liftedDisableState =
-      (workTypeObject?.uniquenessPercentage === Uniqueness.Zero &&
-        workType !== WorkType.Default &&
-        expertiseArea !== ExpertiseArea.Default &&
-        executionTime !== ExecutionTime.Default) ||
-      isChecked;
+      (workTypeObject?.uniquenessPercentage === Uniqueness.Zero && validField) || isChecked;
 
     setIsButtonDisabled(!liftedDisableState);
-  }, [executionTime, expertiseArea, workType, isChecked]);
+  }, [executionTime, expertiseArea, workType, isChecked, validField]);
 
   return { isButtonDisabled };
 };

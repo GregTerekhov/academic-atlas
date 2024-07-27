@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useIntersectionObserver } from './useIntersectionObserver';
 
@@ -10,7 +10,9 @@ export const useScrollController = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    footerRef.current = document.querySelector('footer');
+    if (!footerRef.current) {
+      footerRef.current = document.querySelector('footer');
+    }
   }, []);
 
   useEffect(() => {
@@ -21,11 +23,7 @@ export const useScrollController = () => {
       const headerHeight = header.getBoundingClientRect()?.height ?? 0;
       const viewportHeight = window.innerHeight - headerHeight;
 
-      if (window.scrollY > viewportHeight) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > viewportHeight);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -35,7 +33,7 @@ export const useScrollController = () => {
     };
   }, []);
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+  const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
     const button = buttonRef.current;
     if (!button) return;
 
@@ -44,7 +42,7 @@ export const useScrollController = () => {
       button.style.bottom = `${offset}px`;
       button.style.position = entry.isIntersecting ? 'absolute' : 'fixed';
     });
-  };
+  }, []);
 
   useIntersectionObserver(
     footerRef.current ? [footerRef.current] : [],

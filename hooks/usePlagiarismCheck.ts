@@ -1,14 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 import { type ICalculationData, WorkType } from '../types';
 import { checkCalculationField } from '../helpers';
 
 export const usePlagiarismCheck = (calculationData: ICalculationData) => {
-  const [shouldPlagiarismCheck, setShouldPlagiarismCheck] = useState(false);
-
-  useEffect(() => {
+  const shouldPlagiarismCheck = useMemo(() => {
     const necessaryWorkType = [
       WorkType.Diplomas,
       WorkType.TeamPapers,
@@ -19,9 +17,7 @@ export const usePlagiarismCheck = (calculationData: ICalculationData) => {
 
     const isNotDefaultData = checkCalculationField(calculationData);
 
-    const showInputs = isNotDefaultData && necessaryWorkType.includes(calculationData.workType);
-
-    setShouldPlagiarismCheck(showInputs ? true : false);
+    return isNotDefaultData && necessaryWorkType.includes(calculationData.workType);
   }, [calculationData]);
 
   return {
