@@ -24,7 +24,7 @@ export const getPrimaryButtonStyles = (isOnLightBackground?: boolean, isDisabled
 
   const checkedDisabledStyles = isDisabled
     ? 'bg-none text-whiteBase dark:text-disabled-foreground dark:bg-disabled-background/50 bg-disabled-foreground'
-    : `${buttonBackground} bg-accent-lightGradient dark:bg-accent-darkGradient hocus:bg-none dark:hocus:bg-none dark:hocus:bg-whiteBase/10 hocus:bg-accentPrimary/10 hocus:outline-none hocus:ring-[2px] dark:hocus:ring-accentSecondary-darker hocus:ring-accentPrimary text-whiteBase`;
+    : `${buttonBackground} bg-accent-lightGradient dark:bg-accent-darkGradient hocus:bg-none dark:hocus:bg-none dark:hocus:bg-whiteBase/10 hocus:bg-accentPrimary/10 hocus:outline-none hocus:ring-[2px] dark:hocus:ring-accentSecondary hocus:ring-accentPrimary text-whiteBase`;
 
   return `${checkedDisabledStyles} flex items-center justify-center rounded-[20px] max-sm:text-medium text-big font-bold w-full md:w-80 lg:text-xl`;
 };
