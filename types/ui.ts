@@ -103,9 +103,3 @@ export enum BackgroundImageSizes {
   DesktopHeight = 1800,
   ExtraLargeHeight = 4000,
 }
-
-export enum DropdownAriaId {
-  WORK_TYPE = 'work-type',
-  EXPERTISE_AREA = 'expertise-area',
-  EXECUTION_TIME = 'execution-time',
-}
