@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useRef, ReactNode, useEffect } fro
 
 import { useCalculation } from './CalculationProvider';
 import { useHandleClickOutside } from 'hooks';
+import { toggleScrollLock } from 'helpers/toggleScrollLock';
 
 interface IMenuContext {
   isCalcMenuOpen: boolean;
@@ -31,7 +32,8 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const { isNavMenuOpen, isCalcMenuOpen } = menuState;
-    document.body.style.overflow = isNavMenuOpen || isCalcMenuOpen ? 'hidden' : 'auto';
+
+    toggleScrollLock(isNavMenuOpen || isCalcMenuOpen);
   }, [menuState]);
 
   const resetValues = () => {
