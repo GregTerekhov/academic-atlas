@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useRef, ReactNode, useEffect } fro
 
 import { useCalculation } from './CalculationProvider';
 import { useHandleClickOutside } from 'hooks';
-import { toggleScrollLock } from 'helpers/toggleScrollLock';
+import { toggleScrollLock } from 'helpers';
 
 interface IMenuContext {
   isCalcMenuOpen: boolean;
