@@ -13,6 +13,7 @@ export * from './metadata';
 export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './telegramHelper';
+export * from './templateHelper';
 export * from './themeHelper';
 export * from './toggleScrollLock';
 export * from './uiHelper';
