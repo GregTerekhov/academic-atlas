@@ -10,7 +10,7 @@ export const getDropdownTriggerStyles = (isOptionSelected: boolean, isDropdownOp
 export const getDropdownLabelStyles = (isOptionSelected: boolean) => {
   return isOptionSelected
     ? 'max-sm:text-sm max-sm:font-normal text-base font-bold text-whiteBase md:text-medium lg:text-lg text-left line-clamp-1'
-    : 'text-sm max-md:leading-130 text-darkBase dark:text-whiteBase md:text-base lg:text-big';
+    : 'text-sm max-md:leading-130 text-darkBase dark:text-whiteBase/60 md:text-base lg:text-big';
 };
 
 export const getDropdownIconStyles = (isOptionSelected: boolean, isDropdownOpen: boolean) => {
@@ -24,7 +24,7 @@ export const getPrimaryButtonStyles = (isOnLightBackground?: boolean, isDisabled
 
   const checkedDisabledStyles = isDisabled
     ? 'bg-none text-whiteBase dark:text-disabled-foreground dark:bg-disabled-background/50 bg-disabled-foreground'
-    : `${buttonBackground} bg-accent-lightGradient dark:bg-accent-darkGradient hocus:bg-none dark:hocus:bg-none dark:hocus:bg-whiteBase/10 hocus:bg-accentPrimary/10 hocus:outline-none hocus:ring-[2px] dark:hocus:ring-accentSecondary-darker hocus:ring-accentPrimary text-whiteBase`;
+    : `${buttonBackground} bg-accent-lightGradient dark:bg-accent-darkGradient hocus:bg-none dark:hocus:bg-none dark:hocus:bg-whiteBase/10 hocus:bg-accentPrimary/10 hocus:outline-none hocus:ring-[2px] dark:hocus:ring-accentSecondary hocus:ring-accentPrimary text-whiteBase`;
 
   return `${checkedDisabledStyles} flex items-center justify-center rounded-[20px] max-sm:text-medium text-big font-bold w-full md:w-80 lg:text-xl`;
 };

@@ -10,7 +10,7 @@ export enum MenuLinks {
   Feedback = 'Відгуки',
   Promotions = 'Акції',
   Partnership = 'Виконавцям',
-  Offer = 'Публічна оферта',
+  Offer = 'Договір публічної оферти',
   Policy = 'Політика конфіденційності',
   FAQ = 'Часті запитання',
 }

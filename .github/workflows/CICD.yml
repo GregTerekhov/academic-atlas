@@ -5,10 +5,6 @@ on:
     branches:
       - dev
 
-env:
-  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-  DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,15 +22,15 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{secrets.DOCKERHUB_USERNAME}}
-          password: ${{secrets.DOCKERHUB_TOKEN}}
+          username: lazlovalentin008
+          password: keVmqr131
 
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{secrets.DOCKERHUB_USERNAME}}/atlasnext:2
+          tags: lazlovalentin008/atlasnext:2
           file: Dockerfile
 
   deploy:
@@ -45,5 +41,5 @@ jobs:
         run: |
           docker compose stop
           docker rm nextjs
-          docker rmi ${{secrets.DOCKERHUB_USERNAME}}/atlasnext:2
+          docker rmi lazlovalentin008/atlasnext:2
           docker compose up -d

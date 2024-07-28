@@ -52,6 +52,7 @@ export default function PlagiarismCheckbox({
             id={IconName.Check}
             size={{ width: IconSize.M, height: IconSize.M }}
             className='fill-whiteBase'
+            ariaHidden={false}
           />
         )}
       </span>

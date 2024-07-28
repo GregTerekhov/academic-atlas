@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { ThemeVariants, WorkType } from '../types';
 import { useTheme } from '../context';
@@ -17,9 +17,7 @@ export const useRangeSettings = (
 
   const { theme } = useTheme();
 
-  useEffect(() => {
-    setShowMinimalText(isChecked && couldChooseHigherUniqueness);
-
+  const updateThumbColor = useCallback(() => {
     const thumbColor = !isChecked
       ? 'var(--thumb-color-disabled)'
       : theme === ThemeVariants.DARK
@@ -27,7 +25,13 @@ export const useRangeSettings = (
         : 'var(--thumb-color-light)';
 
     document.documentElement.style.setProperty('--thumb-color', thumbColor);
-  }, [isChecked, couldChooseHigherUniqueness, theme]);
+  }, [isChecked, theme]);
+
+  useEffect(() => {
+    setShowMinimalText(isChecked && couldChooseHigherUniqueness);
+
+    updateThumbColor();
+  }, [isChecked, couldChooseHigherUniqueness, updateThumbColor]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);

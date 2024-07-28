@@ -13,8 +13,16 @@
     @apply scroll-smooth;
   }
 
+  html.no-scroll {
+    @apply relative h-full overflow-hidden;
+  }
+
   body {
     @apply h-full bg-whiteBase bg-background-light-gradient !pt-20 text-darkBase dark:bg-darkBase dark:bg-background-dark-gradient dark:text-whiteBase md:!pt-24 lg:!pt-28;
+  }
+
+  body.no-scroll {
+    @apply relative touch-none overflow-hidden;
   }
 
   h1 {
