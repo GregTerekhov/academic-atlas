@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 
 import { type Viewport } from 'next';
+import { type IWithChildren } from 'types';
 
 import { Footer, Header } from 'layout';
 import { ProviderWrapper, ScrollController } from 'components';
@@ -10,10 +11,6 @@ import './globals.css';
 
 const THEME_STORAGE_KEY = 'theme-preference';
 
-interface IRootLayoutProps {
-  children: React.ReactNode;
-}
-
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -21,7 +18,7 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({ children }: Readonly<IRootLayoutProps>) {
+export default function RootLayout({ children }: Readonly<IWithChildren>) {
   const theme = cookies().get(THEME_STORAGE_KEY)?.value;
 
   return (
