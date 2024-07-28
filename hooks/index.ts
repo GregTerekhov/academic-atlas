@@ -1,9 +1,11 @@
 export { useActiveLink } from './useActiveLink';
 export { useButtonDisabled } from './useButtonDisabled';
+export { useCalculationState } from './useCalculationState';
 export { useDropdown } from './useDropdown';
 export { useHandleClickOutside } from './useHandleClickOutside';
 export { useInitialiseSection } from './useInitialiseSection';
 export { useIntersectionObserver } from './useIntersectionObserver';
 export { usePlagiarismCheck } from './usePlagiarismCheck';
-export { useRangeSettings } from './useRange';
+export { useRangeSettings } from './useRangeStyles';
+export { useRangeValue } from './useRangeValue';
 export { useScrollController } from './useScrollController';
