@@ -1,8 +1,10 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, ReactNode, useCallback } from 'react';
+import { createContext, useContext, useState, useRef, useCallback } from 'react';
 
-import { useCalculation } from './CalculationProvider';
+import { type IWithChildren } from 'types';
+import { useCalculation } from './OptionSelectionProvider';
+import { useCalculationResult } from './CalculationResultProvider';
 
 interface IPopupRefs {
   [key: string]: React.RefObject<HTMLDivElement>;
@@ -18,10 +20,11 @@ interface IPopupContext {
 
 const PopupContext = createContext<IPopupContext | undefined>(undefined);
 
-export const PopupProvider = ({ children }: { children: ReactNode }) => {
+export const PopupProvider = ({ children }: IWithChildren) => {
   const [openPopups, setOpenPopups] = useState<{ [key: string]: boolean }>({});
 
-  const { resetCalculation, handleResetCostResult, handleCheckboxChange } = useCalculation();
+  const { resetCalculation, handleCheckboxChange } = useCalculation();
+  const { handleResetCostResult } = useCalculationResult();
 
   const popupRefs = useRef<IPopupRefs>({});
 

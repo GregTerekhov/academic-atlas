@@ -114,7 +114,7 @@ export interface IContactLink {
   iconAriaLabel: AriaLabel;
 }
 
-export interface IChildrenProps {
+export interface IWithChildren {
   children: React.ReactNode;
 }
 

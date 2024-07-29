@@ -1,8 +1,10 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, useRef, useEffect } from 'react';
 
-import { useCalculation } from './CalculationProvider';
+import { type IWithChildren } from 'types';
+import { useCalculationResult } from './CalculationResultProvider';
+import { useCalculation } from './OptionSelectionProvider';
 import { useHandleClickOutside } from 'hooks';
 import { toggleScrollLock } from 'helpers';
 
@@ -19,7 +21,7 @@ interface IMenuContext {
 
 const MenuContext = createContext<IMenuContext | undefined>(undefined);
 
-export const MenuProvider = ({ children }: { children: ReactNode }) => {
+export const MenuProvider = ({ children }: IWithChildren) => {
   const [menuState, setMenuState] = useState({
     isNavMenuOpen: false,
     isCalcMenuOpen: false,
@@ -28,7 +30,8 @@ export const MenuProvider = ({ children }: { children: ReactNode }) => {
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { resetCalculation, handleResetCostResult, handleCheckboxChange } = useCalculation();
+  const { resetCalculation, handleCheckboxChange } = useCalculation();
+  const { handleResetCostResult } = useCalculationResult();
 
   useEffect(() => {
     const { isNavMenuOpen, isCalcMenuOpen } = menuState;
