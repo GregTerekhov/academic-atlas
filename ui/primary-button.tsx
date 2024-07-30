@@ -1,10 +1,9 @@
-import { AriaDescription, AriaId, ButtonType } from 'types';
+import { AriaDescription, AriaId, ButtonType, type IWithChildren } from 'types';
 import { getPrimaryButtonStyles } from 'helpers';
 
 import AriaDescriptionText from './aria-description';
 
-interface IPrimaryButtonProps {
-  children: React.ReactNode;
+interface IPrimaryButtonProps extends IWithChildren {
   ariaDescription: AriaDescription;
   ariaId: AriaId;
   handleClick?: () => void;
@@ -30,6 +29,7 @@ export default function PrimaryButton({
         onClick={handleClick}
         className={`${buttonClass} h-16`}
         disabled={isDisabled}
+        aria-disabled={isDisabled}
       >
         {children}
       </button>

@@ -1,23 +1,9 @@
-import {
-  AriaDescription,
-  AriaId,
-  AriaLabel,
-  CalculationTitle,
-  IconName,
-  IconSize,
-  PrimaryButtonLabel,
-  TelegramScenario,
-} from 'types';
+import { CalculationTitle } from 'types';
 
 import { useCalculation } from 'context';
-import {
-  calculatePrice,
-  getAndEncodeDataObject,
-  getPrimaryButtonStyles,
-  roundPriceToInterval,
-} from 'helpers';
+import { calculatePrice, roundPriceToInterval } from 'helpers';
 
-import { AriaDescriptionUI, SvgIconUI } from 'ui';
+import TelegramSubmitButton from './telegram-submit-button';
 
 export default function PriceResult() {
   const { calculationData } = useCalculation();
@@ -25,25 +11,6 @@ export default function PriceResult() {
 
   const calculatedPrice = calculatePrice(workType, expertiseArea, executionTime, uniqueness);
   const renderedPrice = roundPriceToInterval(calculatedPrice);
-
-  const handleLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
-    const base64String = getAndEncodeDataObject(
-      TelegramScenario.Order,
-      workType,
-      expertiseArea,
-      executionTime,
-      uniqueness,
-    );
-
-    if (!base64String) {
-      e.preventDefault();
-      return;
-    }
-
-    e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
-  };
-
-  const linkClass = getPrimaryButtonStyles(true);
 
   return (
     <div className='flex flex-col items-center'>
@@ -64,27 +31,7 @@ export default function PriceResult() {
       <p className='lg:text-bg mb-8 text-center text-sm text-darkBase dark:text-whiteBase max-md:leading-130 md:mb-10 md:text-medium'>
         Для замовлення та уточнення питань зв’яжіться з нами у телеграм
       </p>
-      <a
-        href='#'
-        onClick={handleLinkClick}
-        target='_blank'
-        rel='noopener noreferrer'
-        aria-describedby='price-button'
-        className={`${linkClass} group flex h-full w-full items-center justify-center gap-x-4 py-4 max-sm:gap-x-2`}
-      >
-        <SvgIconUI
-          id={IconName.Telegram}
-          size={{ width: IconSize.BG, height: IconSize.BG }}
-          className='fill-whiteBase group-hover:fill-accentPrimary dark:group-hover:fill-whiteBase'
-          ariaHidden={false}
-          ariaLabel={AriaLabel.Telegram}
-        />
-        {PrimaryButtonLabel.SwitchToTelegram}
-      </a>
-      <AriaDescriptionUI
-        id={AriaId.ComplexOrdering}
-        description={AriaDescription.ComplexOrdering}
-      />
+      <TelegramSubmitButton />
     </div>
   );
 }

@@ -1,8 +1,8 @@
+import { type IWithChildren } from 'types';
 import { getMobileMenuContainerStyles } from 'helpers';
 import { Container } from 'layout';
 
-interface IMobileMenuProps {
-  children: React.ReactNode;
+interface IMobileMenuProps extends IWithChildren {
   isOpen: boolean;
 }
 

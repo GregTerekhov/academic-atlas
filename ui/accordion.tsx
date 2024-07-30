@@ -2,10 +2,10 @@
 
 import { useRef, useState } from 'react';
 
+import { type IWithChildren } from 'types';
 import { AccordionHeader } from './subcomponents';
 
-interface IAccordionProps {
-  children: React.ReactNode;
+interface IAccordionProps extends IWithChildren {
   title: string;
   id: string;
 }

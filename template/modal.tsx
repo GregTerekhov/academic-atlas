@@ -1,13 +1,12 @@
 import { RefObject } from 'react';
 
-import { AriaLabel, ButtonType, IconName, IconSize, PopupID } from 'types';
+import { AriaLabel, ButtonType, IconName, IconSize, type IWithChildren, PopupID } from 'types';
 import { getBackdropStyles, getModalCloseIconStyles, getModalContainerStyles } from 'helpers';
 
 import { SvgIconUI } from 'ui';
 
-interface IModalProps {
+interface IModalProps extends IWithChildren {
   id: PopupID;
-  children: React.ReactNode;
   modalRef: RefObject<HTMLDivElement>;
   closeModal: () => void;
   isOpen: (id: string) => boolean;

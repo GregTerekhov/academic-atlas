@@ -44,5 +44,5 @@ export const getNavigationLinkStyles = (isActive: boolean) => {
 export const getScrollControllerStyles = (isVisible: boolean) => {
   const appearanceClass = isVisible ? 'opacity-100 md:flex' : 'hidden opacity-0';
 
-  return `fixed bottom-4 right-10 z-10 ${appearanceClass} hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 backdrop-blur-sm transition-opacity hocus:bg-accentPrimary/10 dark:border-accentSecondary dark:hocus:bg-accentSecondary/30 lg:right-20 lg:size-16`;
+  return `fixed bottom-4 right-10 z-30 ${appearanceClass} hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 backdrop-blur-sm transition-opacity hocus:bg-accentPrimary/10 dark:border-accentSecondary dark:hocus:bg-accentSecondary/30 lg:right-20 lg:size-16`;
 };

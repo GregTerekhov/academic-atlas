@@ -18,17 +18,18 @@ export default function Carousel<T extends ISlide>({ slides, breakpoints }: ICar
   return (
     <Swiper
       modules={[Autoplay]}
+      autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+      breakpoints={breakpoints}
+      centeredSlides={true}
       grabCursor={true}
+      edgeSwipeThreshold={0}
       initialSlide={0}
+      lazyPreloadPrevNext={1}
       loop={true}
       longSwipes={false}
-      edgeSwipeThreshold={0}
       mousewheel={{ invert: true }}
       slideToClickedSlide={true}
       watchSlidesProgress={true}
-      autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
-      breakpoints={breakpoints}
-      lazyPreloadPrevNext={1}
       onSwiper={(swiper) => {
         swiper.on('touchStart', function () {
           swiper.autoplay.pause();

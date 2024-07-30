@@ -1,10 +1,7 @@
+import { type IWithChildren } from 'types';
 import { Breadcrumbs } from 'components';
 
-interface INestedLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function NestedLayout({ children }: Readonly<INestedLayoutProps>) {
+export default function NestedLayout({ children }: Readonly<IWithChildren>) {
   return (
     <>
       <Breadcrumbs />

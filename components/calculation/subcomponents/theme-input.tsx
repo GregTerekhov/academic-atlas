@@ -12,7 +12,7 @@ export default function ThemeInput() {
   const [isBlurred, setIsBlurred] = useState(false);
   const id = useId();
 
-  const { calculationData, handleThemeChange } = useCalculation();
+  const { calculationData, handleThemeInputChange } = useCalculation();
 
   const hasBackground = calculationData.theme !== '' && isBlurred;
   const inputClass = getThemeInputStyles(hasBackground);
@@ -28,7 +28,7 @@ export default function ThemeInput() {
         placeholder='Введіть тему (не обов`язково)'
         onFocus={() => setIsBlurred(false)}
         onBlur={() => setIsBlurred(true)}
-        onChange={handleThemeChange}
+        onChange={handleThemeInputChange}
         autoComplete='off'
         aria-describedby={AriaId.ThemeInput}
       />

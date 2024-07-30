@@ -1,13 +1,12 @@
-import { SectionTitle, SectionDescriptions, CtaText } from 'types';
+import { SectionTitle, SectionDescriptions, CtaText, type IWithChildren } from 'types';
 import { generateBackgroundImagePaths, getSectionClasses, getTitleClasses } from 'helpers';
 
 import { Container } from 'layout';
 import { CallToActionText } from 'components';
 import { BackgroundImageUI } from 'ui';
 
-interface ISectionTemplate {
+interface ISectionTemplate extends IWithChildren {
   title: SectionTitle;
-  children: React.ReactNode;
   isBigTitle?: boolean;
   id?: string;
   titleStyle?: string;

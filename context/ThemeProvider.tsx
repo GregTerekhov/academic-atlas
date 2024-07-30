@@ -1,12 +1,11 @@
 'use client';
 
-import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-import { ThemeVariants } from 'types';
+import { type IWithChildren, ThemeVariants } from 'types';
 import { getPreference, setPreference } from 'helpers';
 
-interface IThemeProviderProps {
-  children: ReactNode;
+interface IThemeProviderProps extends IWithChildren {
   storageKey: string;
   startTheme?: string | undefined;
 }
