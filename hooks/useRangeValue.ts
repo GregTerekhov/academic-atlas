@@ -30,5 +30,9 @@ export const useRangeValue = (calculationData: ICalculationData, isChecked: bool
     setRangeValue(value);
   };
 
-  return { rangeValue, updateRangeValue };
+  const handleClearRangeValue = () => {
+    setRangeValue(Uniqueness.Zero);
+  };
+
+  return { rangeValue, updateRangeValue, handleClearRangeValue };
 };

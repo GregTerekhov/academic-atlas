@@ -32,6 +32,53 @@
   h2 {
     @apply text-center font-philosopher text-1.5xl font-bold leading-130 md:text-3xl lg:text-4xl;
   }
+
+  ol {
+    counter-reset: section;
+    list-style-type: decimal;
+  }
+
+  ol li {
+    counter-increment: section;
+    display: block;
+  }
+
+  ol li::before {
+    content: counters(section, '.') '. ';
+    margin-left: -20px;
+    display: inline-block;
+    width: 20px;
+  }
+
+  @screen md {
+    ol li::before {
+      margin-left: -24px;
+      width: 24px;
+    }
+  }
+
+  @screen lg {
+    ol li::before {
+      margin-left: -32px;
+      width: 32px;
+    }
+  }
+
+  ol ol {
+    counter-reset: subsection;
+  }
+
+  ol ol li {
+    counter-increment: subsection;
+  }
+
+  ol ol li::before {
+    @apply -ml-9 inline-block w-9 lg:-ml-12 lg:w-12;
+  }
+
+  ol ol ol li::before {
+    @apply -ml-12 inline-block w-12 lg:-ml-16 lg:w-16;
+  }
 }
 
 .swiper-wrapper {

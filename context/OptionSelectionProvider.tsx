@@ -17,6 +17,7 @@ interface IOptionSelectionContext {
   handleThemeInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleCheckboxChange: (checked: boolean) => void;
   handleRangeValueChange: (value: number) => void;
+  handleClearValues: () => void;
   resetCalculation: () => void;
 }
 
@@ -36,7 +37,10 @@ export const OptionSelectionProvider = ({ children }: IWithChildren) => {
     handleRangeChange,
     resetCalculation,
   } = useCalculationState();
-  const { rangeValue, updateRangeValue } = useRangeValue(calculationData, isChecked);
+  const { rangeValue, updateRangeValue, handleClearRangeValue } = useRangeValue(
+    calculationData,
+    isChecked,
+  );
 
   const handleThemeInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newTheme = e.target.value;
@@ -57,6 +61,12 @@ export const OptionSelectionProvider = ({ children }: IWithChildren) => {
     handleRangeChange(value);
   };
 
+  const handleClearValues = () => {
+    setIsChecked(false);
+    resetCalculation();
+    handleClearRangeValue();
+  };
+
   return (
     <OptionSelectionContext.Provider
       value={{
@@ -67,6 +77,7 @@ export const OptionSelectionProvider = ({ children }: IWithChildren) => {
         handleThemeInputChange,
         handleCheckboxChange,
         handleRangeValueChange,
+        handleClearValues,
         resetCalculation,
       }}
     >
