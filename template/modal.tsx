@@ -3,6 +3,7 @@ import { RefObject } from 'react';
 import { AriaLabel, ButtonType, IconName, IconSize, type IWithChildren, PopupID } from 'types';
 import { getBackdropStyles, getModalCloseIconStyles, getModalContainerStyles } from 'helpers';
 
+import { BackButton } from 'components';
 import { SvgIconUI } from 'ui';
 
 interface IModalProps extends IWithChildren {
@@ -10,9 +11,17 @@ interface IModalProps extends IWithChildren {
   modalRef: RefObject<HTMLDivElement>;
   closeModal: () => void;
   isOpen: (id: string) => boolean;
+  hasSubmitData: boolean;
 }
 
-export default function Modal({ closeModal, id, children, modalRef, isOpen }: IModalProps) {
+export default function Modal({
+  closeModal,
+  id,
+  children,
+  modalRef,
+  isOpen,
+  hasSubmitData,
+}: IModalProps) {
   const backdropClass = getBackdropStyles();
   const containerClass = getModalContainerStyles();
   const iconClass = getModalCloseIconStyles();
@@ -24,6 +33,7 @@ export default function Modal({ closeModal, id, children, modalRef, isOpen }: IM
           ref={modalRef}
           className={containerClass}
         >
+          {hasSubmitData && <BackButton />}
           <button
             type={ButtonType.Button}
             className='group absolute right-6 top-6 size-[30px]'
