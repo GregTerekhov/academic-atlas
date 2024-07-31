@@ -22,7 +22,7 @@ resource "tls_private_key" "example" {
   algorithm = "RSA"
   rsa_bits   = 2048
 }
-
+# this pem key
 resource "aws_key_pair" "atlas_key" {
   key_name   = "atlas"
   public_key = tls_private_key.example.public_key_openssh
