@@ -3,7 +3,7 @@
 import { createRef } from 'react';
 
 import { AriaLabel, ButtonType, MenuLinks, PopupID, PositionInLayout } from 'types';
-import { useMenu, usePopup } from 'context';
+import { useCalculationResult, useMenu, usePopup } from 'context';
 import { useHandleClickOutside } from 'hooks';
 
 import { ModalTemplate, MobileMenuTemplate } from 'template';
@@ -16,6 +16,7 @@ interface IMenuTriggerProps {
 export default function CalculationModalTrigger({ position }: IMenuTriggerProps) {
   const { isPopupOpen, popupRefs, closePopup, togglePopup } = usePopup();
   const { isCalcMenuOpen, toggleCalcMenu, changeMenuContent } = useMenu();
+  const { hasSubmitData } = useCalculationResult();
   const popupId = PopupID.FooterMenu;
 
   if (!popupRefs.current[popupId]) {
@@ -66,6 +67,7 @@ export default function CalculationModalTrigger({ position }: IMenuTriggerProps)
           closeModal={() => togglePopup(popupId)}
           modalRef={popupRefs.current[popupId]}
           isOpen={() => isPopupOpen(popupId)}
+          hasSubmitData={hasSubmitData}
         >
           <PriceCalculator />
         </ModalTemplate>

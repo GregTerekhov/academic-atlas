@@ -4,7 +4,6 @@ import { useCalculation } from 'context';
 import { calculatePrice, roundPriceToInterval } from 'helpers';
 
 import TelegramSubmitButton from './telegram-submit-button';
-import BackButton from './calculation-back-button';
 
 export default function PriceResult() {
   const { calculationData } = useCalculation();
@@ -16,7 +15,6 @@ export default function PriceResult() {
 
   return (
     <>
-      <BackButton />
       <div className='flex flex-col items-center'>
         <h2 className='mb-8 !text-1.5xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'>
           {CalculationTitle.CalculationResult}

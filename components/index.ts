@@ -3,6 +3,7 @@ export { default as AboutCompany } from './performers/about-us';
 export { default as Accession } from './performers/accession-procedure';
 export { default as Benefits } from './performers/benefits';
 export { default as Breadcrumbs } from './layout/breadcrumbs';
+export { default as BackButton } from './layout/calculation-back-button';
 export { default as CallToActionText } from './layout/cta-text';
 export { default as CarouselFeedback } from './home/carousel-feedback';
 export { default as Contacts } from './layout/contacts';
