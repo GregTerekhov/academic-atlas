@@ -22,7 +22,7 @@
   }
 
   body.no-scroll {
-    @apply relative touch-none overflow-hidden;
+    @apply h-full touch-none overflow-hidden;
   }
 
   h1 {
