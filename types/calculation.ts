@@ -81,6 +81,64 @@ export enum RangeValue {
   PENULTIMATE = 90,
 }
 
+export const THRESHOLDS = {
+  TEAM_PAPERS_INCREASED_THRESHOLD: 40,
+  TEAM_PAPERS_STANDARD_THRESHOLD: 20,
+  STANDARD_INCREASED_THRESHOLD: 40,
+  STANDARD_STANDARD_THRESHOLD: 30,
+  HIGHER_INCREASED_THRESHOLD: 30,
+  HIGHER_STANDARD_THRESHOLD: 20,
+  ZERO_THRESHOLD: 0,
+} as const;
+
+export const ROUNDING_VALUES = {
+  ZERO: 0,
+  QUARTER: 25,
+  HALF: 50,
+  THREE_QUARTERS: 75,
+  WHOLE: 100,
+} as const;
+
+export enum CalculationMultiplier {
+  NoMultiplier = 1,
+  Standard = 1.1,
+  IncreasedStandard = 1.2,
+  Urgent = 1.5,
+  IT = 1.8,
+}
+
+export const humanitiesAndEconomics = new Set([
+  ExpertiseArea.Education,
+  ExpertiseArea.CultureAndArt,
+  ExpertiseArea.Humanities,
+  ExpertiseArea.Theology,
+  ExpertiseArea.SocialSciences,
+  ExpertiseArea.Journalism,
+  ExpertiseArea.Management,
+  ExpertiseArea.Law,
+  ExpertiseArea.Biology,
+  ExpertiseArea.NaturalSciences,
+  ExpertiseArea.FormalSciences,
+  ExpertiseArea.AgriculturalSciences,
+  ExpertiseArea.VeterinaryMedicine,
+  ExpertiseArea.Healthcare,
+  ExpertiseArea.SocialWork,
+  ExpertiseArea.ServiceSector,
+]);
+
+export const technicalSciences = new Set([
+  ExpertiseArea.MechanicalEngineering,
+  ExpertiseArea.ElectricalEngineering,
+  ExpertiseArea.AutomationAndInstrumentation,
+  ExpertiseArea.ChemicalAndBioengineering,
+  ExpertiseArea.ElectronicsAndTelecommunications,
+  ExpertiseArea.ProductionAndTechnology,
+  ExpertiseArea.ArchitectureAndConstruction,
+  ExpertiseArea.MilitarySciences,
+  ExpertiseArea.CivilSecurity,
+  ExpertiseArea.Transport,
+]);
+
 export interface ICalculationData {
   workType: WorkType;
   expertiseArea: ExpertiseArea;

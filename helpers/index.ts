@@ -10,7 +10,6 @@ export * from './layoutsHelper';
 export * from './mapArray';
 export * from './menuHelper';
 export * from './metadata';
-// export * from './notFoundHelper';
 export * from './sectionHelper';
 export * from './tailwindPlugins';
 export * from './telegramHelper';
