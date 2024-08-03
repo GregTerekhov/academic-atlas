@@ -2,7 +2,8 @@
 
 import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 import * as SwitchPrimitives from '@radix-ui/react-switch';
-import { AriaLabel } from 'types/aria';
+
+import { AriaLabel } from 'types';
 
 const Switch = forwardRef<
   ElementRef<typeof SwitchPrimitives.Root>,

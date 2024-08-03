@@ -10,7 +10,7 @@ export default function LegalSubItem({ item, subItems }: ISubItemProps) {
   return (
     <>
       {item}
-      <ol className='list-disc'>
+      <ol>
         {mapArray(subItems, ({ id, textField }) => (
           <li key={id}>{textField}</li>
         ))}

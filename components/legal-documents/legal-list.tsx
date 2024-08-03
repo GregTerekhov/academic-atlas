@@ -9,11 +9,11 @@ interface ILegalList {
 
 export default function LegalList({ list }: ILegalList) {
   return (
-    <ol className='list-decimal'>
+    <ol>
       {mapArray(list, ({ id, article, paragraph }) => (
         <li key={id}>
           {article}
-          <ol className='list-decimal'>
+          <ol>
             {mapArray(Object.entries(paragraph), ([key, value]) => (
               <li key={key}>
                 {typeof value === 'string' ? (

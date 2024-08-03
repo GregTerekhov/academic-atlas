@@ -1,0 +1,118 @@
+---
+- name: Install Docker on Ubuntu
+  hosts: all
+  remote_user: garis
+  become: true
+  vars:
+    arch_mapping:  
+      x86_64: amd64
+      aarch64: arm64
+
+  tasks:
+    - name: Update and upgrade all packages to the latest version
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: dist
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      ansible.builtin.apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - software-properties-common
+
+    - name: Create directory for Docker's GPG key
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Add Docker's official GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        keyring: /etc/apt/keyrings/docker.gpg
+        state: present
+
+    - name: Print architecture variables
+      ansible.builtin.debug:
+        msg: "Architecture: {{ ansible_architecture }}, Codename: {{ ansible_lsb.codename }}"
+
+    - name: Add Docker repository
+      ansible.builtin.apt_repository:
+        repo: >-
+          deb [arch={{ arch_mapping[ansible_architecture] | default(ansible_architecture) }}
+          signed-by=/etc/apt/keyrings/docker.gpg]
+          https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+        filename: docker
+        state: present
+
+    - name: Install Docker and related packages
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+        update_cache: true
+
+    - name: Add Docker group
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    - name: Add user to Docker group
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: true
+
+    - name: Enable and start Docker services
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop:
+        - docker.service
+        - containerd.service
+
+    - name: Docker login
+      ansible.builtin.shell: |
+        docker login -u lazlovalentin008 -p keVmqr131
+      no_log: true
+
+    
+    - name: docker remove containers
+      ignore_errors: yes
+      ansible.builtin.shell: |
+        docker rmi lazlovalentin008/atlasnext:2
+        docker rmi lazlovalentin008/atlasnginx:4
+
+    - name: docker remove images
+      ignore_errors: yes
+      ansible.builtin.shell: |
+        docker rm nextjs
+        docker rm nginx
+
+    - name: Create Docker network
+      ignore_errors: yes
+      ansible.builtin.shell: docker network create webnet
+
+
+    - name: Docker pull all images
+      ignore_errors: yes
+      ansible.builtin.shell: |
+        docker pull lazlovalentin008/atlasnginx:4
+        docker pull lazlovalentin008/atlasnext:2
+        
+
+    - name: Docker run all images
+      ignore_errors: yes
+      ansible.builtin.shell: |
+        docker run -d -p 3000:3000 --restart unless-stopped --name nextjs --network webnet -e PORT=3000 -e HOSTNAME=0.0.0.0 lazlovalentin008/atlasnext:2
+        docker run -d -p 80:80 --restart unless-stopped --name nginx --network webnet lazlovalentin008/atlasnginx:4
+        

@@ -1,67 +1,44 @@
 import {
   type ICalculationData,
   type IDropdownData,
+  CalculationMultiplier,
   ExecutionTime,
   ExpertiseArea,
+  humanitiesAndEconomics,
+  ROUNDING_VALUES,
+  technicalSciences,
+  THRESHOLDS,
   Uniqueness,
   WorkType,
 } from '../types';
 import { getWorkType } from './calculationData';
 
-enum CalculationMultiplier {
-  NoMultiplier = 1,
-  Standard = 1.1,
-  IncreasedStandard = 1.2,
-  Urgent = 1.5,
-  IT = 1.8,
-}
-
-enum RoundingValue {
-  ZeroBreakpoint = 0,
-  TwentyFiveBreakpoint = 25,
-  FiftyBreakpoint = 50,
-  SeventyFiveBreakpoint = 75,
-  HundredBreakpoint = 100,
-}
-
-const humanitiesAndEconomics = new Set([
-  ExpertiseArea.Education,
-  ExpertiseArea.CultureAndArt,
-  ExpertiseArea.Humanities,
-  ExpertiseArea.Theology,
-  ExpertiseArea.SocialSciences,
-  ExpertiseArea.Journalism,
-  ExpertiseArea.Management,
-  ExpertiseArea.Law,
-  ExpertiseArea.Biology,
-  ExpertiseArea.NaturalSciences,
-  ExpertiseArea.FormalSciences,
-  ExpertiseArea.AgriculturalSciences,
-  ExpertiseArea.VeterinaryMedicine,
-  ExpertiseArea.Healthcare,
-  ExpertiseArea.SocialWork,
-  ExpertiseArea.ServiceSector,
-]);
-
-const technicalSciences = new Set([
-  ExpertiseArea.MechanicalEngineering,
-  ExpertiseArea.ElectricalEngineering,
-  ExpertiseArea.AutomationAndInstrumentation,
-  ExpertiseArea.ChemicalAndBioengineering,
-  ExpertiseArea.ElectronicsAndTelecommunications,
-  ExpertiseArea.ProductionAndTechnology,
-  ExpertiseArea.ArchitectureAndConstruction,
-  ExpertiseArea.MilitarySciences,
-  ExpertiseArea.CivilSecurity,
-  ExpertiseArea.Transport,
-]);
+const { ZERO, QUARTER, HALF, THREE_QUARTERS, WHOLE } = ROUNDING_VALUES;
+const {
+  TEAM_PAPERS_INCREASED_THRESHOLD,
+  TEAM_PAPERS_STANDARD_THRESHOLD,
+  STANDARD_INCREASED_THRESHOLD,
+  STANDARD_STANDARD_THRESHOLD,
+  HIGHER_INCREASED_THRESHOLD,
+  HIGHER_STANDARD_THRESHOLD,
+  ZERO_THRESHOLD,
+} = THRESHOLDS;
 
 const thresholds: { [key in Uniqueness]: { increased: number; standard: number } } = {
-  [Uniqueness.Zero]: { increased: 0, standard: 0 },
-  [Uniqueness.TeamPapers]: { increased: 40, standard: 20 },
-  [Uniqueness.Standard]: { increased: 40, standard: 30 },
-  [Uniqueness.Higher]: { increased: 0, standard: 0 },
-  [Uniqueness.Highest]: { increased: 0, standard: 0 },
+  [Uniqueness.Zero]: { increased: ZERO_THRESHOLD, standard: ZERO_THRESHOLD },
+  [Uniqueness.TeamPapers]: {
+    increased: TEAM_PAPERS_INCREASED_THRESHOLD,
+    standard: TEAM_PAPERS_STANDARD_THRESHOLD,
+  },
+  [Uniqueness.Standard]: {
+    increased: STANDARD_INCREASED_THRESHOLD,
+    standard: STANDARD_STANDARD_THRESHOLD,
+  },
+  [Uniqueness.Higher]: {
+    increased: HIGHER_INCREASED_THRESHOLD,
+    standard: HIGHER_STANDARD_THRESHOLD,
+  },
+  [Uniqueness.Highest]: { increased: ZERO_THRESHOLD, standard: ZERO_THRESHOLD },
 };
 
 const expertiseMultiplier = (selectedExpertiseArea: ExpertiseArea): CalculationMultiplier => {
@@ -150,16 +127,16 @@ export const getMinimalUniqueness = (workType: WorkType): number => {
 
 export const roundPriceToInterval = (calculatedPrice: number) => {
   const priceToRound = Math.round(calculatedPrice);
-  const lastTwoDigits = priceToRound % RoundingValue.HundredBreakpoint;
+  const lastTwoDigits = priceToRound % WHOLE;
 
-  let renderedPrice: number = RoundingValue.ZeroBreakpoint;
+  let renderedPrice: number = ZERO;
 
-  if (lastTwoDigits <= RoundingValue.TwentyFiveBreakpoint) {
+  if (lastTwoDigits <= QUARTER) {
     renderedPrice = priceToRound - lastTwoDigits;
-  } else if (lastTwoDigits <= RoundingValue.SeventyFiveBreakpoint) {
-    renderedPrice = priceToRound + (RoundingValue.FiftyBreakpoint - lastTwoDigits);
+  } else if (lastTwoDigits <= THREE_QUARTERS) {
+    renderedPrice = priceToRound + (HALF - lastTwoDigits);
   } else {
-    renderedPrice = priceToRound + (RoundingValue.HundredBreakpoint - lastTwoDigits);
+    renderedPrice = priceToRound + (WHOLE - lastTwoDigits);
   }
 
   return renderedPrice;

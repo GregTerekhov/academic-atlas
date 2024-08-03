@@ -3,7 +3,7 @@
 import { createRef } from 'react';
 
 import { AriaDescription, AriaId, PopupID, PrimaryButtonLabel } from 'types';
-import { useMenu, usePopup } from 'context';
+import { useCalculationResult, useMenu, usePopup } from 'context';
 import { useHandleClickOutside } from 'hooks';
 
 import { MobileMenuTemplate, ModalTemplate } from 'template';
@@ -13,6 +13,7 @@ import PriceCalculator from '../../calculation/product-price-calculator';
 export default function PriceControls() {
   const { isPopupOpen, popupRefs, closePopup, togglePopup } = usePopup();
   const { isCalcMenuOpen, toggleCalcMenu } = useMenu();
+  const { hasSubmitData } = useCalculationResult();
   const popupId = PopupID.CostSection;
 
   if (!popupRefs.current[popupId]) {
@@ -54,6 +55,7 @@ export default function PriceControls() {
           closeModal={() => togglePopup(popupId)}
           modalRef={popupRefs.current[popupId]}
           isOpen={() => isPopupOpen(popupId)}
+          hasSubmitData={hasSubmitData}
         >
           <PriceCalculator />
         </ModalTemplate>
