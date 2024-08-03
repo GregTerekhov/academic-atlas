@@ -81,6 +81,18 @@ export const SectionDescriptions = {
   [SectionTitle.Policy]: 'Політика конфіденційності',
 } as const;
 
+export const BACKGROUNDS: Partial<Record<SectionTitle, string>> = {
+  [SectionTitle.Hero]: 'hero',
+  [SectionTitle.FindOutCost]: 'find-out-cost',
+  [SectionTitle.Performers]: 'performers',
+  [SectionTitle.Promotions]: 'promotions',
+  [SectionTitle.NotFound]: 'notFound',
+  [SectionTitle.PartnershipHero]: 'performers-hero',
+  [SectionTitle.PartnershipBenefits]: 'partnership-benefits',
+  [SectionTitle.PartnershipRequirements]: 'partnership-requirements',
+  [SectionTitle.FAQOrder]: 'faq-order',
+};
+
 export type SectionTitleType = keyof typeof SectionDescriptions;
 
 export enum CtaText {

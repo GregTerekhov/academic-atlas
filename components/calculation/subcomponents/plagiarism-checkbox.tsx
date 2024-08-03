@@ -1,9 +1,10 @@
 'use client';
 
 import { IconName, IconSize } from 'types';
-import { getCheckboxStyles } from 'helpers';
 
 import { SvgIconUI } from 'ui';
+
+import { getCheckboxStyles } from 'styles';
 
 interface IPlagiarismCheckboxProps {
   id: string;
@@ -30,7 +31,7 @@ export default function PlagiarismCheckbox({
   return (
     <label
       htmlFor={id}
-      className='flex cursor-pointer items-center gap-x-2'
+      className='inline-flex cursor-pointer items-center gap-x-2'
     >
       <input
         type='checkbox'

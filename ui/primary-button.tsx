@@ -1,7 +1,8 @@
 import { AriaDescription, AriaId, ButtonType, type IWithChildren } from 'types';
-import { getPrimaryButtonStyles } from 'helpers';
 
 import AriaDescriptionText from './aria-description';
+
+import { getPrimaryButtonStyles } from 'styles';
 
 interface IPrimaryButtonProps extends IWithChildren {
   ariaDescription: AriaDescription;

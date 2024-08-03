@@ -1,8 +1,9 @@
 import { PositionInLayout } from 'types';
-import { getHeaderStyles } from 'helpers';
 
 import { Contacts, Logo, Menu, ThemeSwitcher, ToggleMenuTrigger } from 'components';
 import Container from './container';
+
+import { getHeaderStyles } from 'styles';
 
 export default function Header() {
   const commonWrapperStyles = 'hidden items-center gap-x-8';

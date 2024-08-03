@@ -49,7 +49,7 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
         min={RangeValue.MIN}
         max={RangeValue.MAX}
         onChange={handleChange}
-        className={`range-input ${rangeInputClass} ${!isChecked ? 'cursor-not-allowed' : ''}`}
+        className={`range-input ${rangeInputClass} ${!isChecked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         style={{ '--value': `${value}%` } as React.CSSProperties}
       />
       <RangePercents

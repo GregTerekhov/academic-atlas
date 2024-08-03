@@ -1,4 +1,6 @@
 import { SwiperOptions } from 'swiper/types';
+import { DropdownOption } from './calculation';
+import { DropdownAriaId } from './aria';
 
 export enum ButtonType {
   Button = 'button',
@@ -102,4 +104,16 @@ export enum BackgroundImageSizes {
   TabletHeight = 1600,
   DesktopHeight = 1800,
   ExtraLargeHeight = 4000,
+}
+
+export interface IOption {
+  typeId: string;
+  option: DropdownOption;
+}
+
+export interface IDropdownProps {
+  label: DropdownOption;
+  options: IOption[];
+  onOptionSelect: (option: DropdownOption) => void;
+  ariaId: DropdownAriaId;
 }

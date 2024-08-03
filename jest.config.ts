@@ -92,9 +92,11 @@ const config: Config = {
     '^helpers/(.*)$': '<rootDir>/helpers/$1',
     '^hooks/(.*)$': '<rootDir>/hooks/$1',
     '^layout/(.*)$': '<rootDir>/layout/$1',
+    '^styles/(.*)$': '<rootDir>/styles/$1',
     '^template/(.*)$': '<rootDir>/template/$1',
     '^types/(.*)$': '<rootDir>/types/$1',
     '^ui/(.*)$': '<rootDir>/ui/$1',
+    '^swiper/(.)$': '<rootDir>/node_modules/swiper/swiper-bundle.min.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

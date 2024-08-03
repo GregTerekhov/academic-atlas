@@ -4,9 +4,10 @@ import { useId, useState } from 'react';
 
 import { AriaDescription, AriaId } from 'types';
 import { useCalculation } from 'context';
-import { getThemeInputStyles } from 'helpers';
 
 import { AriaDescriptionUI } from 'ui';
+
+import { getThemeInputStyles } from 'styles';
 
 export default function ThemeInput() {
   const [isBlurred, setIsBlurred] = useState(false);

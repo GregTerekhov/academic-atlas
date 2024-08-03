@@ -1,8 +1,9 @@
 import { type IWithChildren } from 'types';
-import { getMobileMenuContainerStyles } from 'helpers';
 
 import { Container } from 'layout';
 import { BackButton } from 'components';
+
+import { getMobileMenuContainerStyles } from 'styles';
 
 interface IMobileMenuProps extends IWithChildren {
   isOpen: boolean;
