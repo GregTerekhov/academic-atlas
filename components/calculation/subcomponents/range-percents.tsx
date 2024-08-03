@@ -1,4 +1,5 @@
 import { RangeValue } from 'types';
+import { getDisabledRangeStyles } from 'styles';
 
 interface IRangePercents {
   value: number;
@@ -6,10 +7,10 @@ interface IRangePercents {
 }
 
 export default function RangePercents({ value, isChecked }: IRangePercents) {
+  const disabledClass = getDisabledRangeStyles(isChecked);
+
   return (
-    <div
-      className={`${!isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase'} relative flex w-full justify-between text-xs`}
-    >
+    <div className={`${disabledClass} relative flex w-full justify-between text-xs`}>
       <span className='inline-block w-8'>{RangeValue.MIN}</span>
       {value !== RangeValue.MIN && value !== RangeValue.MAX && (
         <span

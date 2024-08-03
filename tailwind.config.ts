@@ -9,6 +9,7 @@ const config: Config = {
     './helpers/**/*.{js,ts,jsx,tsx,mdx}',
     './layout/**/*.{js,ts,jsx,tsx,mdx}',
     './template/**/*.{js,ts,jsx,tsx,mdx}',
+    './styles/**/*.{js,ts,jsx,tsx,mdx}',
     './ui/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
@@ -49,7 +50,7 @@ const config: Config = {
         130: '1.3',
       },
       minHeight: {
-        mobileScreen: 'calc(100vh - 482px)',
+        mobileScreen: 'calc(100vh - 330px)',
         tabletScreen: 'calc(100vh - 418px)',
         desktopScreen: 'calc(100vh - 432px)',
       },

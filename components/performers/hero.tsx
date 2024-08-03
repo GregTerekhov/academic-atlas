@@ -12,17 +12,15 @@ import { Container } from 'layout';
 import { TelegramButton } from 'template';
 import { HeroMatrix } from './subcomponents';
 
-// import { getHeroOverlayStyles, getHeroSectionStyles } from 'styles'; //FIXME: use this functions
+import { getHeroOverlayStyles, getHeroSectionStyles } from 'styles';
 
 export default function Hero() {
-  // const sectionClass = getHeroSectionStyles(); // FIXME: use this const
-  // const overlayClass = getHeroOverlayStyles(); // FIXME: use this const
+  const sectionClass = getHeroSectionStyles();
+  const overlayClass = getHeroOverlayStyles();
 
   return (
-    <section className='text-darkBase dark:text-whiteBase max-md:bg-partnership-hero-light max-md:py-20 dark:max-md:bg-partnership-hero-dark md:pt-16 lg:pt-[104px]'>
-      {/* FIXME: replace this styles on const sectionClass */}
-      <div className='absolute inset-0 h-full w-full bg-accentPrimary/10 dark:bg-accentPrimary/5 dark:bg-section-overlay-dark md:hidden'></div>
-      {/* FIXME: replace this styles on const overlayClass */}
+    <section className={sectionClass}>
+      <div className={overlayClass}></div>
       <Container>
         <div className='md:flex md:items-start md:gap-x-9 lg:items-center'>
           <div>

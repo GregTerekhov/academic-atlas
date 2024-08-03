@@ -5,6 +5,8 @@ import { calculatePrice, roundPriceToInterval } from 'helpers';
 
 import TelegramSubmitButton from './telegram-submit-button';
 
+import { getDisclaimerCtaTextStyles, getDisclaimerTextStyles, getResultPriceStyles } from 'styles';
+
 export default function PriceResult() {
   const { calculationData } = useCalculation();
 
@@ -12,6 +14,10 @@ export default function PriceResult() {
 
   const calculatedPrice = calculatePrice(workType, expertiseArea, executionTime, uniqueness);
   const renderedPrice = roundPriceToInterval(calculatedPrice);
+
+  const resultClass = getResultPriceStyles();
+  const disclaimerClass = getDisclaimerTextStyles();
+  const ctaTextStyles = getDisclaimerCtaTextStyles();
 
   return (
     <>
@@ -22,15 +28,15 @@ export default function PriceResult() {
         <p
           aria-live='polite'
           aria-atomic='true'
-          className='mb-8 text-center font-philosopher text-4xl text-darkBase dark:text-whiteBase md:mb-10 md:text-5xl lg:text-7xl'
+          className={resultClass}
         >
           від {renderedPrice} грн*
         </p>
-        <p className='generalText mb-8 flex max-w-[550px] items-center justify-center text-center text-darkBase dark:text-whiteBase'>
+        <p className={disclaimerClass}>
           * Зверніть увагу, що ця вартість може варіюватися залежно від складності вашої роботи і
           вона може бути змінена
         </p>
-        <p className='lg:text-bg mb-8 text-center text-sm text-darkBase dark:text-whiteBase max-md:leading-130 md:mb-10 md:text-medium'>
+        <p className={ctaTextStyles}>
           Для замовлення та уточнення питань зв’яжіться з нами у телеграм
         </p>
         <TelegramSubmitButton />

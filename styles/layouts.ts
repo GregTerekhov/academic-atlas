@@ -13,7 +13,6 @@ export const getNavigationLinkStyles = (isActive: boolean) => {
 };
 
 export const getContactListStyles = (variant: PositionInLayout) => {
-  //FIXME: use this function
   return variant === PositionInLayout.Header
     ? 'block max-lg:space-y-6 lg:flex lg:flex-row-reverse lg:gap-x-5'
     : 'max-md:flex max-md:items-center max-sm:gap-x-3 max-md:gap-x-4 md:space-y-4 lg:w-[304px]';
