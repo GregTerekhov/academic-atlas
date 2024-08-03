@@ -1,37 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import { IconName, IconSize, MenuLinks, Paths } from 'types';
+import { useBreadcrumbs } from 'hooks';
 
 import { Container } from 'layout';
 import { SvgIconUI } from 'ui';
 
-const validPaths = [Paths.FAQ, Paths.Policy, Paths.Offer, Paths.Partnership];
-
 export default function Breadcrumbs() {
-  const [determineCurrentPath, setDetermineCurrentPath] = useState('');
-  const currentPath = usePathname();
-
-  useEffect(() => {
-    const pathMenuLinkMap = new Map<string, MenuLinks>(
-      Object.entries(Paths)
-        .filter(([, value]) => !value.includes('#') && validPaths.includes(value))
-        .map(([key, value]) => [value, MenuLinks[key as keyof typeof MenuLinks]]),
-    );
-
-    if (pathMenuLinkMap.has(currentPath)) {
-      setDetermineCurrentPath(pathMenuLinkMap.get(currentPath) || '');
-    } else {
-      setDetermineCurrentPath('');
-    }
-  }, [currentPath]);
-
-  if (!validPaths.includes(currentPath as Paths)) {
-    return null;
-  }
+  const determinedPath = useBreadcrumbs();
 
   return (
     <Container>
@@ -49,9 +27,9 @@ export default function Breadcrumbs() {
             className='fill-darkBase dark:fill-whiteBase'
           />
         </div>
-        {determineCurrentPath ? (
+        {determinedPath ? (
           <p className='generalText text-accentPrimary dark:text-accentSecondary'>
-            {determineCurrentPath}
+            {determinedPath}
           </p>
         ) : null}
       </div>
