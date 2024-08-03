@@ -105,4 +105,23 @@ export const MetadataTexts = {
       ],
     },
   },
+  offer: {
+    title: MetadataTitle.OFFER,
+    description: MetadataDescription.OFFER,
+    keywords: MetadataKeywords.OFFER,
+    openGraph: {
+      title: MetadataTitle.OFFER,
+      description: MetadataDescription.OFFER,
+      //   url: OpenGraphURL.OFFER,
+      type: OpenGraphType.Article,
+      images: [
+        {
+          //   url: OpenGraphImageURL.OFFER,
+          width: OPEN_GRAPH_IMAGE_WIDTH,
+          height: OPEN_GRAPH_IMAGE_HEIGHT,
+          alt: OpenGraphImageAlt.OFFER,
+        },
+      ],
+    },
+  },
 };
