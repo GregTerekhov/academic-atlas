@@ -136,22 +136,25 @@ export enum MetadataTitle {
   PARTNERSHIP = 'AcademicAtlas | Partnership',
   POLICY = 'AcademicAtlas | Privacy Policy',
   NOT_FOUND = 'AcademicAtlas | Page Not Found',
+  OFFER = 'AcademicAtlas | Public Offer Agreement',
 }
 
 export enum MetadataDescription {
-  HOME = "Professional writing services for master's theses, course papers, lab reports, and scientific articles. Get instant cost estimates based on type, specialty, deadline, and uniqueness percentage. High-quality, original work tailored to your academic needs.",
-  FAQ = 'Answers to frequently asked questions about our custom academic work services. Learn more about the ordering process, deadlines, and other details.',
-  PARTNERSHIP = 'Learn about the requirements and benefits of joining our team of academic work specialists. We are looking for talented and motivated professionals.',
-  POLICY = 'Read our privacy policy to learn how we handle your personal data. We ensure the protection of your personal information.',
-  NOT_FOUND = 'Unfortunately, the page you are looking for was not found. You might have entered an incorrect address or the page has been removed.',
+  HOME = 'Професійні послуги з написання магістерських робіт, курсових робіт, лабораторних робіт і наукових статей. Отримайте миттєві оцінки вартості. Високоякісні, оригінальні академічні роботи для ваших потреб.',
+  FAQ = 'Відповіді на часті запитання щодо наших послуг з написання академічних робіт. Дізнайтеся про процес замовлення, дедлайни і інші деталі.',
+  PARTNERSHIP = 'Приєднуйтесь до нашої команди спеціалістів з написання стдентських робіт. Дізнайтеся про вимоги і переваги співпраці з нами.',
+  POLICY = 'Політика конфіденційності: дізнайтеся, як ми обробляємо і захищаємо ваші персональні дані.',
+  NOT_FOUND = 'Сторінка не знайдена. Можливо, ви ввели неправильну адресу або сторінка була видалена.',
+  OFFER = 'Прочитайте наш договір публічної оферти, щоб дізнатися умови та положення надання наших послуг.',
 }
 
 export enum MetadataKeywords {
-  HOME = "course papers, theses, master's theses, scientific articles, lab reports, control works, presentations, practice reports",
-  FAQ = 'frequently asked questions, custom academic work, AcademicAtlas',
-  PARTNERSHIP = 'Join team, vacancies, AcademicAtlas',
-  POLICY = 'Privacy policy, data protection, AcademicAtlas',
-  NOT_FOUND = '404, page not found, AcademicAtlas',
+  HOME = 'AcademicAtlas, курсові роботи, дипломні роботи, магістерські роботи, наукові статті, тези, лабораторні роботи, контрольні роботи, презентації, звіти з практики',
+  FAQ = 'Часті запитання, студентські роботи на замовлення, AcademicAtlas, як замовити курсову роботу',
+  PARTNERSHIP = 'Приєднатися до команди, вакансії, AcademicAtlas, робота для студентів, фріланс',
+  POLICY = 'Політика конфіденційності, захист даних, AcademicAtlas, обробка персональних даних',
+  NOT_FOUND = '404, сторінку не знайдено, AcademicAtlas, помилка 404',
+  OFFER = 'Договір публічної оферти, умови використання, AcademicAtlas',
 }
 
 export enum OpenGraphType {
@@ -165,6 +168,7 @@ export enum OpenGraphURL {
   PARTNERSHIP = 'https://AcademicAtlas.com/partnership', //FIXME: --- add real path,
   POLICY = 'https://AcademicAtlas.com/legal', //FIXME: --- add real path,
   NOT_FOUND = 'https://AcademicAtlas.com/', //FIXME: --- add real path,
+  OFFER = 'https://AcademicAtlas.com/offer', //FIXME: --- add real path,
 }
 
 export enum OpenGraphImageURL {
@@ -173,6 +177,7 @@ export enum OpenGraphImageURL {
   PARTNERSHIP = 'https://AcademicAtlas.com/images/partnership-og-image.jpg', //FIXME: --- add image,
   POLICY = 'https://AcademicAtlas.com/images/legal-og-image.jpg', //FIXME: --- add image,
   NOT_FOUND = 'https://AcademicAtlas.com/images/404-og-image.jpg', //FIXME: --- add image,
+  OFFER = 'https://AcademicAtlas.com/images/offer-og-image.jpg', //FIXME: --- add image,
 }
 
 export enum OpenGraphImageAlt {
@@ -181,6 +186,7 @@ export enum OpenGraphImageAlt {
   PARTNERSHIP = 'Partnership - AcademicAtlas',
   POLICY = 'Legal - AcademicAtlas',
   NOT_FOUND = '404 - Page Not Found',
+  OFFER = 'Public Offer Agreement - AcademicAtlas',
 }
 
 export enum CompanyContacts {

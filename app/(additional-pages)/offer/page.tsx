@@ -1,7 +1,18 @@
-import { getOfferArticles, getSectionProps } from 'helpers';
+import { getOfferArticles, MetadataTexts, getSectionProps } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { LegalList } from 'components';
+import { Metadata } from 'next';
+
+const { offer } = MetadataTexts;
+const { title, description, keywords } = offer;
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords,
+  // openGraph,  //FIXME: --- uncomment
+};
 
 import { getLegalArticleStyles } from 'styles';
 
