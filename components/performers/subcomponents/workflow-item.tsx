@@ -1,3 +1,6 @@
+import { TelegramScenario } from 'types';
+import TextWithLink from '../../telegram-text-link';
+
 interface IWorkflowItemProps {
   count: string;
   header: string;
@@ -19,7 +22,14 @@ export default function WorkflowItem({ count, header, desc, gridMarkup }: IWorkf
         <h3 className='mb-2 text-medium font-bold max-sm:text-base md:text-big lg:text-xl'>
           {header}
         </h3>
-        <p className='generalText'>{desc}</p>
+        {header === 'Реєстрація' ? (
+          <TextWithLink
+            order={TelegramScenario.Join}
+            textWithLink={desc}
+          />
+        ) : (
+          <p className='generalText'>{desc}</p>
+        )}
       </div>
     </li>
   );

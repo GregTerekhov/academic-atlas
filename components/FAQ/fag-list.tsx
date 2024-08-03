@@ -1,9 +1,10 @@
-import { IQuestions } from 'types';
+import { TelegramScenario, type IQuestions } from 'types';
 import { getFAQQuestions } from 'helpers';
 
 import { Container } from 'layout';
 import { MappedListTemplate } from 'template';
 import { AccordionUI } from 'ui';
+import TextWithLink from '../telegram-text-link';
 
 export default function FAQList() {
   const questions = getFAQQuestions();
@@ -20,7 +21,14 @@ export default function FAQList() {
             title={title}
             id={id}
           >
-            {answer}
+            {id === 'Question 2' || id === 'Question 6' ? (
+              <TextWithLink
+                order={TelegramScenario.Order}
+                textWithLink={answer}
+              />
+            ) : (
+              <>{answer}</>
+            )}
           </AccordionUI>
         )}
       </MappedListTemplate>
