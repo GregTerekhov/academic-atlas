@@ -96,8 +96,10 @@ const config: Config = {
     '^template/(.*)$': '<rootDir>/template/$1',
     '^types/(.*)$': '<rootDir>/types/$1',
     '^ui/(.*)$': '<rootDir>/ui/$1',
-    '^swiper/(.)$': '<rootDir>/node_modules/swiper/swiper-bundle.min.js',
+    '^swiper/(.*)$': '<rootDir>/node_modules/swiper/swiper-bundle.min.js',
   },
+
+  // devOptional: true,
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
