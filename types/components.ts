@@ -64,7 +64,6 @@ export interface IBenefitsItem extends IBaseId, IBaseIcon {
 
 export interface ISlide extends IBaseId, IBaseTitleDescription, IBaseImageData {
   memberRating: number;
-  memberFeedbackDate?: Date; //FIXME: --- add date or delete this point
 }
 
 export interface IOrderStep extends IBaseId, IBaseIcon {

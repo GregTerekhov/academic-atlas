@@ -38,9 +38,6 @@ export default function Accordion({ children, title, id }: Readonly<IAccordionPr
         onKeyDown={handleKeyDown}
         id={id}
       />
-      {/*
-          FIXME: change to appropriated method of transition
-        */}
       <div
         ref={contentRef}
         style={{ maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : '0px' }}
