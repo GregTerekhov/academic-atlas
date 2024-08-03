@@ -1,6 +1,7 @@
 import {
   type ICalculationData,
   type IDropdownData,
+  BasePrice,
   CalculationMultiplier,
   ExecutionTime,
   ExpertiseArea,
@@ -146,34 +147,48 @@ export const findSelectedObject = (selectedWorkType: WorkType) => {
   return getWorkType().find((workType) => workType.option === selectedWorkType);
 };
 
-export const calculatePrice = (
-  selectedWorkType: WorkType,
-  selectedExpertiseArea: ExpertiseArea,
-  selectedExecutionTime: ExecutionTime,
-  customUniqueness?: number,
-): number => {
-  const workTypeData = findSelectedObject(selectedWorkType);
+const getBasePrice = (type: WorkType): BasePrice => {
+  const workTypeData = findSelectedObject(type);
 
   if (!workTypeData || !workTypeData.basePrice) {
     throw new Error('Invalid work type selected');
   }
-  let basePrice = workTypeData.basePrice;
 
-  basePrice *= expertiseMultiplier(selectedExpertiseArea);
-  basePrice *= executionTimeMultiplier(selectedExecutionTime);
-  basePrice *= uniquenessMultiplier(workTypeData, customUniqueness);
+  return workTypeData.basePrice;
+};
+
+export const calculatePrice = (
+  type: WorkType,
+  area: ExpertiseArea,
+  time: ExecutionTime,
+  uniqueness?: number,
+): number => {
+  const workTypeData = findSelectedObject(type);
+
+  if (!workTypeData) {
+    throw new Error('Invalid work type selected');
+  }
+
+  let basePrice = getBasePrice(type);
+
+  basePrice *= expertiseMultiplier(area);
+  basePrice *= executionTimeMultiplier(time);
+  basePrice *= uniquenessMultiplier(workTypeData, uniqueness);
 
   return basePrice;
 };
 
-export const getThemeInputStyles = (hasBackground: boolean) => {
-  const hasThemeValueClass = hasBackground
-    ? 'border-none bg-accent-lightGradient text-base font-bold text-whiteBase dark:bg-accent-darkGradient md:text-medium lg:text-lg'
-    : 'border-accentPrimary text-sm text-darkBase dark:border-accentSecondary-darker dark:bg-darkBase dark:text-whiteBase max-md:leading-130 md:text-base lg:text-big';
-
-  return `h-10 w-full rounded-lg border bg-whiteBase px-2 py-[11px] caret-accentPrimary placeholder-shown:text-darkBase focus:outline-none focus:border-none focus:ring-[2px] focus:ring-accentPrimary dark:caret-accentSecondary placeholder-shown:dark:text-whiteBase dark:focus:ring-accentSecondary md:h-12 md:px-4 ${hasThemeValueClass}`;
+export const uniquenessMapping = {
+  [Uniqueness.TeamPapers]: Uniqueness.TeamPapers,
+  [Uniqueness.Standard]: Uniqueness.Standard,
+  [Uniqueness.Higher]: Uniqueness.Higher,
+  [Uniqueness.Highest]: Uniqueness.Highest,
 };
 
-export const getCheckboxStyles = (isChecked: boolean) => {
-  return `${isChecked ? 'bg-accent-lightGradient dark:bg-accent-darkGradient' : 'bg-transparent'} flex size-10 items-center justify-center gap-x-4 rounded border border-accentPrimary dark:border-accentSecondary-darker`;
-};
+export const necessaryWorkType = [
+  WorkType.Diplomas,
+  WorkType.TeamPapers,
+  WorkType.BachelorTheses,
+  WorkType.MasterTheses,
+  WorkType.Abstracts,
+];
