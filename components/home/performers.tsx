@@ -1,10 +1,11 @@
 import Link from 'next/link';
 
 import { AriaDescription, AriaId, CtaText, Paths, PrimaryButtonLabel, SectionTitle } from 'types';
-import { getPrimaryButtonStyles } from 'helpers';
 
 import { SectionTemplate } from 'template';
-import { AriaDescriptionUI } from 'ui/index';
+import { AriaDescriptionUI } from 'ui';
+
+import { getPrimaryButtonStyles } from 'styles';
 
 export default function Performers() {
   const linkClass = getPrimaryButtonStyles();

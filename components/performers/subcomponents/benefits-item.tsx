@@ -2,6 +2,8 @@ import { IconName, IconSize } from 'types';
 
 import { SvgIconUI } from 'ui';
 
+// import { getBenefitItemStyles } from 'styles'; //FIXME: use this function
+
 interface IPartnershipBenefitsItemProps {
   title: string;
   desc: string;
@@ -13,8 +15,12 @@ export default function PartnershipBenefitsItem({
   desc,
   iconId,
 }: IPartnershipBenefitsItemProps) {
+  // const itemClass = getBenefitItemStyles(); //FIXME: use this const
+
   return (
     <li className='blockItem bg-whiteBase/10 p-4 max-md:flex max-md:items-center max-md:gap-x-6 md:basis-1/3 md:space-y-6 md:text-center lg:space-y-8 lg:p-6'>
+      {' '}
+      {/* FIXME: replace these styles on const itemClass */}
       <div className='max-md:size-10'>
         <SvgIconUI
           id={iconId}

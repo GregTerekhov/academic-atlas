@@ -1,9 +1,11 @@
 'use client';
 
 import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
-import { getAndEncodeDataObject, getPrimaryButtonStyles } from 'helpers';
+import { getAndEncodeDataObject } from 'helpers';
 
 import { AriaDescriptionUI } from 'ui';
+
+import { getPrimaryButtonStyles } from 'styles';
 
 interface ITelegramButtonProps {
   command: TelegramScenario;

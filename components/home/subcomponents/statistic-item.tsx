@@ -1,4 +1,5 @@
-import { IStatisticItem } from 'types';
+import { type IStatisticItem } from 'types';
+import { getFiguresTextStyles } from 'styles';
 
 type StatisticItemProps = Omit<IStatisticItem, 'id'>;
 
@@ -9,21 +10,11 @@ export default function StatisticItem({
   hideOnLargeScreen,
   showOnLargeScreen,
 }: StatisticItemProps) {
-  const getFiguresTextStyle = () => {
-    switch (true) {
-      case hideOnSmallScreen:
-        return 'hidden md:flex';
-      case hideOnLargeScreen:
-        return 'hidden max-lg:flex';
-      case showOnLargeScreen:
-        return 'hidden lg:flex';
-
-      default:
-        return 'flex';
-    }
-  };
-
-  const figuresStyle = getFiguresTextStyle();
+  const figuresStyle = getFiguresTextStyles(
+    hideOnSmallScreen,
+    hideOnLargeScreen,
+    showOnLargeScreen,
+  );
 
   return (
     <p

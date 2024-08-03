@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { AriaDescription, AriaId, AriaLabel, Paths, PrimaryButtonLabel } from 'types';
-import { getPrimaryButtonStyles } from 'helpers';
 
 import { PrimaryButtonUI } from 'ui';
+
+import { getPrimaryButtonStyles } from 'styles';
 
 const NotFoundNavigation = () => {
   const router = useRouter();

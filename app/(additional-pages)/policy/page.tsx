@@ -6,6 +6,8 @@ import { getPolicyArticles, MetadataTexts } from 'helpers';
 import { SectionTemplate } from 'template';
 import { LegalList } from 'components';
 
+// import { getLegalArticleStyles } from 'styles'; //FIXME: use this function
+
 const { legal } = MetadataTexts;
 const { title, description, keywords } = legal;
 
@@ -18,6 +20,7 @@ export const metadata: Metadata = {
 
 export default function Policy() {
   const policyArticles = getPolicyArticles();
+  // const articleClass = getLegalArticleStyles(); //FIXME: use this const
 
   return (
     <SectionTemplate
@@ -26,6 +29,7 @@ export default function Policy() {
       titleStyle='text-center mb-4 md:mb-6 lg:mb-8'
     >
       <article className="prose-sm md:prose-base lg:prose-xl prose-p:text-pretty prose-a:text-accentPrimary prose-a:hover:underline prose-ol:text-pretty prose-ol:[counter-reset:section] prose-li:[counter-increment:section] prose-li:marker:[content:counters(section,'.')] dark:prose-a:text-accentSecondary">
+        {/* FIXME: replace these styles on const articleClass */}
         <p>Останнє оновлення 07.06.2024 року.</p>
         <strong className='font-normal'>
           Прохання уважно прочитати Політику конфіденційності (далі – «Політика конфіденційності»)

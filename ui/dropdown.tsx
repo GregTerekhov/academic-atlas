@@ -1,24 +1,13 @@
 'use client';
 
-import { ButtonType, DropdownAriaId, DropdownOption } from 'types';
-import { getDropdownBoxStyles, getDropdownOptionsListStyles } from 'helpers';
+import { ButtonType, type IOption, type IDropdownProps } from 'types';
 import { useDropdown } from 'hooks';
 
 import { MappedListTemplate } from 'template';
 import CustomScroll from './custom-scroll';
 import { DropdownTrigger } from './subcomponents';
 
-interface IOption {
-  typeId: string;
-  option: DropdownOption;
-}
-
-interface IDropdownProps {
-  label: DropdownOption;
-  options: IOption[];
-  onOptionSelect: (option: DropdownOption) => void;
-  ariaId: DropdownAriaId;
-}
+import { getDropdownBoxStyles, getDropdownOptionsListStyles } from 'styles';
 
 export default function Dropdown({ label, options, onOptionSelect, ariaId }: IDropdownProps) {
   const {
