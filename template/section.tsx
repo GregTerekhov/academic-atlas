@@ -1,24 +1,13 @@
-import { SectionTitle, SectionDescriptions, CtaText, type IWithChildren } from 'types';
+import { SectionDescriptions, CtaText, type IWithChildren, type ISectionProps } from 'types';
 import { generateBackgroundImagePaths } from 'helpers';
 
 import { Container } from 'layout';
 import { CallToActionText } from 'components';
 import { BackgroundImageUI } from 'ui';
 
-import { getSectionClasses, getTitleClasses } from 'styles';
+import { getExtraSectionOverlayStyles, getSectionClasses, getTitleClasses } from 'styles';
 
-interface ISectionTemplate extends IWithChildren {
-  title: SectionTitle;
-  isBigTitle?: boolean;
-  id?: string;
-  titleStyle?: string;
-  noAlignment?: string;
-  ctaStyle?: string;
-  ctaText?: CtaText;
-  hasCtaText?: boolean;
-  sectionStyle?: string;
-  priority?: boolean;
-}
+interface ISectionTemplate extends ISectionProps, IWithChildren {}
 
 export default function Section({
   title,
@@ -36,6 +25,7 @@ export default function Section({
   const sectionClasses = getSectionClasses(title);
   const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
   const backgroundImagePaths = generateBackgroundImagePaths(title);
+  const backgroundOverlayClass = getExtraSectionOverlayStyles();
 
   return (
     <section
@@ -52,7 +42,7 @@ export default function Section({
             mobileSrc={backgroundImagePaths.mobile}
             priority={priority}
           />
-          <div className='absolute inset-0 h-full w-full bg-accentPrimary/10 bg-section-overlay-light dark:bg-accentPrimary/5 dark:bg-section-overlay-dark'></div>
+          <div className={backgroundOverlayClass}></div>
         </>
       )}
       <Container>

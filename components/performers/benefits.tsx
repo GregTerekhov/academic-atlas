@@ -1,14 +1,16 @@
-import { IPartnershipBenefits, SectionTitle } from 'types';
-import { getPartnershipBenefits } from 'helpers';
+import { IPartnershipBenefits } from 'types';
+import { getPartnershipBenefits, getSectionProps } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
 import { PartnershipBenefitsItem } from './subcomponents';
 
 export default function Benefits() {
   const benefitsData = getPartnershipBenefits();
+  const sectionProps = getSectionProps();
+  const performersBenefitsProps = sectionProps.performersBenefits;
 
   return (
-    <SectionTemplate title={SectionTitle.PartnershipBenefits}>
+    <SectionTemplate {...performersBenefitsProps}>
       <MappedListTemplate<IPartnershipBenefits>
         items={benefitsData}
         className='max-md:space-y-6 md:flex md:gap-x-8 lg:gap-x-10'

@@ -1,15 +1,14 @@
-import { PrimaryButtonLabel, CtaText, SectionTitle, TelegramScenario, AriaId, AriaDescription } from 'types';
+import { PrimaryButtonLabel, TelegramScenario, AriaId, AriaDescription } from 'types';
+import { getSectionProps } from 'helpers';
 
 import { SectionTemplate, TelegramButton } from 'template';
 
 export default function Ordering() {
+  const sectionProps = getSectionProps();
+  const faqOrderingProps = sectionProps.faqOrdering;
+
   return (
-    <SectionTemplate
-      title={SectionTitle.FAQOrder}
-      hasCtaText
-      ctaText={CtaText.FAQOrder}
-      ctaStyle='text-center max-md:px-3 md:max-lg:px-[15px]'
-    >
+    <SectionTemplate {...faqOrderingProps}>
       <div className='flex items-center justify-center'>
         <TelegramButton
           command={TelegramScenario.Order}
