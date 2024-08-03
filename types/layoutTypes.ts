@@ -127,19 +127,19 @@ export enum MetadataTitle {
 }
 
 export enum MetadataDescription {
-  HOME = "Professional writing services for master's theses, course papers, lab reports, and scientific articles. Get instant cost estimates based on type, specialty, deadline, and uniqueness percentage. High-quality, original work tailored to your academic needs.",
-  FAQ = 'Answers to frequently asked questions about our custom academic work services. Learn more about the ordering process, deadlines, and other details.',
-  PARTNERSHIP = 'Learn about the requirements and benefits of joining our team of academic work specialists. We are looking for talented and motivated professionals.',
-  POLICY = 'Read our privacy policy to learn how we handle your personal data. We ensure the protection of your personal information.',
-  NOT_FOUND = 'Unfortunately, the page you are looking for was not found. You might have entered an incorrect address or the page has been removed.',
+  HOME = 'Професійні послуги з написання магістерських робіт, курсових робіт, лабораторних робіт і наукових статей. Отримайте миттєві оцінки вартості. Високоякісні, оригінальні академічні роботи для ваших потреб.',
+  FAQ = 'Відповіді на часті запитання щодо наших послуг з написання академічних робіт. Дізнайтеся про процес замовлення, дедлайни і інші деталі.',
+  PARTNERSHIP = 'Приєднуйтесь до нашої команди спеціалістів з написання стдентських робіт. Дізнайтеся про вимоги і переваги співпраці з нами.',
+  POLICY = 'Політика конфіденційності: дізнайтеся, як ми обробляємо і захищаємо ваші персональні дані.',
+  NOT_FOUND = 'Сторінка не знайдена. Можливо, ви ввели неправильну адресу або сторінка була видалена.',
 }
 
 export enum MetadataKeywords {
-  HOME = "course papers, theses, master's theses, scientific articles, lab reports, control works, presentations, practice reports",
-  FAQ = 'frequently asked questions, custom academic work, AcademicAtlas',
-  PARTNERSHIP = 'Join team, vacancies, AcademicAtlas',
-  POLICY = 'Privacy policy, data protection, AcademicAtlas',
-  NOT_FOUND = '404, page not found, AcademicAtlas',
+  HOME = 'AcademicAtlas, курсові роботи, дипломні роботи, магістерські роботи, наукові статті, тези, лабораторні роботи, контрольні роботи, презентації, звіти з практики',
+  FAQ = 'Часті запитання, студентські роботи на замовлення, AcademicAtlas, як замовити курсову роботу',
+  PARTNERSHIP = 'Приєднатися до команди, вакансії, AcademicAtlas, робота для студентів, фріланс',
+  POLICY = 'Політика конфіденційності, захист даних, AcademicAtlas, обробка персональних даних',
+  NOT_FOUND = '404, сторінку не знайдено, AcademicAtlas, помилка 404',
 }
 
 export enum OpenGraphType {
