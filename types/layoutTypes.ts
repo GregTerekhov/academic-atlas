@@ -124,6 +124,7 @@ export enum MetadataTitle {
   PARTNERSHIP = 'AcademicAtlas | Partnership',
   POLICY = 'AcademicAtlas | Privacy Policy',
   NOT_FOUND = 'AcademicAtlas | Page Not Found',
+  OFFER = 'AcademicAtlas | Public Offer Agreement',
 }
 
 export enum MetadataDescription {
@@ -132,6 +133,7 @@ export enum MetadataDescription {
   PARTNERSHIP = 'Приєднуйтесь до нашої команди спеціалістів з написання стдентських робіт. Дізнайтеся про вимоги і переваги співпраці з нами.',
   POLICY = 'Політика конфіденційності: дізнайтеся, як ми обробляємо і захищаємо ваші персональні дані.',
   NOT_FOUND = 'Сторінка не знайдена. Можливо, ви ввели неправильну адресу або сторінка була видалена.',
+  OFFER = 'Прочитайте наш договір публічної оферти, щоб дізнатися умови та положення надання наших послуг.',
 }
 
 export enum MetadataKeywords {
@@ -140,6 +142,7 @@ export enum MetadataKeywords {
   PARTNERSHIP = 'Приєднатися до команди, вакансії, AcademicAtlas, робота для студентів, фріланс',
   POLICY = 'Політика конфіденційності, захист даних, AcademicAtlas, обробка персональних даних',
   NOT_FOUND = '404, сторінку не знайдено, AcademicAtlas, помилка 404',
+  OFFER = 'Договір публічної оферти, умови використання, AcademicAtlas',
 }
 
 export enum OpenGraphType {
@@ -153,6 +156,7 @@ export enum OpenGraphURL {
   PARTNERSHIP = 'https://AcademicAtlas.com/partnership', //FIXME: --- add real path,
   POLICY = 'https://AcademicAtlas.com/legal', //FIXME: --- add real path,
   NOT_FOUND = 'https://AcademicAtlas.com/', //FIXME: --- add real path,
+  OFFER = 'https://AcademicAtlas.com/offer', //FIXME: --- add real path,
 }
 
 export enum OpenGraphImageURL {
@@ -161,6 +165,7 @@ export enum OpenGraphImageURL {
   PARTNERSHIP = 'https://AcademicAtlas.com/images/partnership-og-image.jpg', //FIXME: --- add image,
   POLICY = 'https://AcademicAtlas.com/images/legal-og-image.jpg', //FIXME: --- add image,
   NOT_FOUND = 'https://AcademicAtlas.com/images/404-og-image.jpg', //FIXME: --- add image,
+  OFFER = 'https://AcademicAtlas.com/images/offer-og-image.jpg', //FIXME: --- add image,
 }
 
 export enum OpenGraphImageAlt {
@@ -169,6 +174,7 @@ export enum OpenGraphImageAlt {
   PARTNERSHIP = 'Partnership - AcademicAtlas',
   POLICY = 'Legal - AcademicAtlas',
   NOT_FOUND = '404 - Page Not Found',
+  OFFER = 'Public Offer Agreement - AcademicAtlas',
 }
 
 export enum CompanyContacts {

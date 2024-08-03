@@ -1,8 +1,19 @@
 import { SectionTitle } from 'types';
-import { getOfferArticles } from 'helpers';
+import { getOfferArticles, MetadataTexts } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { LegalList } from 'components';
+import { Metadata } from 'next';
+
+const { offer } = MetadataTexts;
+const { title, description, keywords } = offer;
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords,
+  // openGraph,  //FIXME: --- uncomment
+};
 
 export default function OfferAgreement() {
   const offerArticles = getOfferArticles();
