@@ -1,9 +1,9 @@
-import { SubItem } from 'types';
+import { ISubItem } from 'types';
 import { mapArray } from 'helpers';
 
 interface ISubItemProps {
   item: string;
-  subItems: SubItem[];
+  subItems: ISubItem[];
 }
 
 export default function LegalSubItem({ item, subItems }: ISubItemProps) {

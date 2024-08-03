@@ -89,7 +89,7 @@ export interface IHeroGrid extends IBaseId {
   imageAlt?: string;
 }
 
-export interface SubItem {
+export interface ISubItem {
   id: string;
   textField: string;
 }
@@ -97,7 +97,7 @@ export interface SubItem {
 export interface ILegalInfoArticle {
   id: number;
   article: string;
-  paragraph: Record<string, string | { title: string; subItems: SubItem[] }>;
+  paragraph: Record<string, string | { title: string; subItems: ISubItem[] }>;
 }
 
 export interface IStatisticItem {
