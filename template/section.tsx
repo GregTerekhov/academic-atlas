@@ -1,9 +1,11 @@
 import { SectionTitle, SectionDescriptions, CtaText, type IWithChildren } from 'types';
-import { generateBackgroundImagePaths, getSectionClasses, getTitleClasses } from 'helpers';
+import { generateBackgroundImagePaths } from 'helpers';
 
 import { Container } from 'layout';
 import { CallToActionText } from 'components';
 import { BackgroundImageUI } from 'ui';
+
+import { getSectionClasses, getTitleClasses } from 'styles';
 
 interface ISectionTemplate extends IWithChildren {
   title: SectionTitle;
@@ -14,7 +16,7 @@ interface ISectionTemplate extends IWithChildren {
   ctaStyle?: string;
   ctaText?: CtaText;
   hasCtaText?: boolean;
-  minHeight?: string;
+  sectionStyle?: string;
   priority?: boolean;
 }
 
@@ -25,7 +27,7 @@ export default function Section({
   titleStyle,
   noAlignment,
   ctaStyle,
-  minHeight = '',
+  sectionStyle = '',
   isBigTitle = false,
   ctaText = CtaText.NoText,
   hasCtaText = false,
@@ -38,7 +40,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`${sectionClasses} ${minHeight} relative py-20 lg:py-[120px]`}
+      className={`${sectionClasses} ${sectionStyle} relative py-20 md:py-24 lg:py-[120px]`}
     >
       {backgroundImagePaths && (
         <>

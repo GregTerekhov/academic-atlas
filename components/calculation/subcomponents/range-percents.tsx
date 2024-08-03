@@ -8,7 +8,7 @@ interface IRangePercents {
 export default function RangePercents({ value, isChecked }: IRangePercents) {
   return (
     <div
-      className={`${!isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase'} relative flex w-full justify-between text-xs [writing-mode:horizontal-tb]`}
+      className={`${!isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase'} relative flex w-full justify-between text-xs`}
     >
       <span className='inline-block w-8'>{RangeValue.MIN}</span>
       {value !== RangeValue.MIN && value !== RangeValue.MAX && (

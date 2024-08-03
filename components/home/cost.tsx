@@ -1,12 +1,13 @@
 import { SectionTitle } from 'types';
 
 import { SectionTemplate } from 'template';
-import { PriceControls } from './subcomponents';
+import { PriceControlsDesktop, PriceControlsMobile } from './subcomponents';
 
 export default function Cost() {
   return (
     <SectionTemplate title={SectionTitle.FindOutCost}>
-      <PriceControls />
+      <PriceControlsDesktop />
+      <PriceControlsMobile />
     </SectionTemplate>
   );
 }

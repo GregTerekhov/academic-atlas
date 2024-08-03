@@ -10,6 +10,7 @@ import {
   PositionInLayout,
 } from '../types';
 import { getIdValues } from './anchorLinks';
+import { skeletonStyles } from '../styles';
 
 export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
   return [
@@ -130,4 +131,31 @@ export const getAdaptedLinks = (isDesktop: boolean | undefined): ILinks[] => {
   return isDesktop
     ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
     : headerLinks;
+};
+
+export const getSkeletonLines = () => {
+  const { line1, line2, line3, line4, line5 } = skeletonStyles;
+
+  return [
+    {
+      id: 'line1',
+      className: line1,
+    },
+    {
+      id: 'line2',
+      className: line2,
+    },
+    {
+      id: 'line3',
+      className: line3,
+    },
+    {
+      id: 'line4',
+      className: line4,
+    },
+    {
+      id: 'line5',
+      className: line5,
+    },
+  ];
 };

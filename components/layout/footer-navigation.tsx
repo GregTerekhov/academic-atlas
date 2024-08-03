@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { AriaLabel, Paths, PositionInLayout } from 'types';
 import { getFooterLinks, mapArray } from 'helpers';
 
-import { CalculationModalTrigger } from './subcomponents';
+import { CalculationLinkDesktop, CalculationLinkMobile } from './subcomponents';
 
 export default function FooterMenu() {
   const pathname = usePathname();
@@ -29,7 +29,8 @@ export default function FooterMenu() {
         role='list'
       >
         <li>
-          <CalculationModalTrigger position={PositionInLayout.Footer} />
+          <CalculationLinkDesktop />
+          <CalculationLinkMobile position={PositionInLayout.Footer} />
         </li>
         {mapArray(footerMenuLinks, ({ path, label }) => (
           <li key={label}>

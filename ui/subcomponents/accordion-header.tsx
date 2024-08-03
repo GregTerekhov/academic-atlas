@@ -1,9 +1,10 @@
 'use client';
 
 import { AriaLabel, IconName, IconSize } from 'types';
-import { getAccordionExpandIconStyles, getAccordionTitleStyles } from 'helpers';
 
 import SvgIcon from '../svg-icon';
+
+import { getAccordionExpandIconStyles, getAccordionTitleStyles } from 'styles';
 
 type AccordionHeaderProps = Readonly<{
   title: string;

@@ -5,10 +5,12 @@ import { usePathname } from 'next/navigation';
 
 import { AriaLabel, ButtonType, PositionInLayout } from 'types';
 import { useMenu } from 'context';
-import { getAdaptedLinks, getMenuAriaCurrent, getNavigationLinkStyles, mapArray } from 'helpers';
+import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
 import { useActiveLink } from 'hooks';
 
-import CalculationModalTrigger from './calculation-modal-trigger';
+import CalculationLinkMobile from './calculation-link-mobile';
+
+import { getNavigationLinkStyles } from 'styles';
 
 interface INavigationProps {
   isDesktop?: boolean;
@@ -51,7 +53,7 @@ export default function Navigation({ isDesktop }: INavigationProps) {
           );
         })}
         <li className='hidden dark:text-whiteBase max-lg:block'>
-          <CalculationModalTrigger position={PositionInLayout.Header} />
+          <CalculationLinkMobile position={PositionInLayout.Header} />
         </li>
       </ul>
     </nav>

@@ -9,9 +9,11 @@ import {
 } from 'types';
 
 import { useCalculation } from 'context';
-import { getAndEncodeDataObject, getPrimaryButtonStyles } from 'helpers';
+import { getAndEncodeDataObject } from 'helpers';
 
 import { AriaDescriptionUI, SvgIconUI } from 'ui';
+
+import { getPrimaryButtonStyles } from 'styles';
 
 export default function TelegramSubmitButton() {
   const { calculationData } = useCalculation();

@@ -43,6 +43,7 @@
       "hooks/*": ["hooks/*"],
       "layout/*": ["layout/*"],
       "public/*": ["public/*"],
+      "styles/*": ["styles/*"],
       "template/*": ["template/*"],
       "types/*": ["types/*"],
       "ui/*": ["ui/*"]

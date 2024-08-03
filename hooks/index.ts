@@ -1,11 +1,14 @@
 export { useActiveLink } from './useActiveLink';
+export { useBreadcrumbs } from './useBreadcrumbs';
 export { useButtonDisabled } from './useButtonDisabled';
 export { useCalculationState } from './useCalculationState';
 export { useDropdown } from './useDropdown';
+export { useDropdownList } from './useDropdownList';
 export { useHandleClickOutside } from './useHandleClickOutside';
 export { useInitialiseSection } from './useInitialiseSection';
 export { useIntersectionObserver } from './useIntersectionObserver';
 export { usePlagiarismCheck } from './usePlagiarismCheck';
+export { usePricePopupControls } from './usePricePopupControls';
 export { useRangeSettings } from './useRangeStyles';
 export { useRangeValue } from './useRangeValue';
 export { useScrollController } from './useScrollController';

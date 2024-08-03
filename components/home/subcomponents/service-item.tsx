@@ -1,9 +1,9 @@
 'use client';
 
 import {
+  type IServiceItem,
   AriaDescription,
   AriaId,
-  type IServiceItem,
   PrimaryButtonLabel,
   TelegramScenario,
   WorkType,
@@ -11,6 +11,8 @@ import {
 import { getAndEncodeDataObject, serviceImageSettings } from 'helpers';
 
 import { AriaDescriptionUI, ImageUI } from 'ui';
+
+// import { getServiceItemStyles, getWorkTypeTitleStyles } from 'styles'; //FIXME: use this functions
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -32,6 +34,9 @@ export default function ServiceItem({
 
     e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
   };
+
+  // const itemClass = getServiceItemStyles(); //FIXME: use this const
+  // const titleClass = getWorkTypeTitleStyles(); //FIXME: use this const
 
   return (
     <li className='group blockItem relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[180px] md:h-[280px]'>

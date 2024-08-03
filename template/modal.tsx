@@ -1,10 +1,11 @@
 import { RefObject } from 'react';
 
 import { AriaLabel, ButtonType, IconName, IconSize, type IWithChildren, PopupID } from 'types';
-import { getBackdropStyles, getModalCloseIconStyles, getModalContainerStyles } from 'helpers';
 
 import { BackButton } from 'components';
 import { SvgIconUI } from 'ui';
+
+import { getBackdropStyles, getModalCloseIconStyles, getModalContainerStyles } from 'styles';
 
 interface IModalProps extends IWithChildren {
   id: PopupID;

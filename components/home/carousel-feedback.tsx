@@ -1,8 +1,10 @@
 import { type ISlide } from 'types';
-import { getCarouselFeedbackStyles, slideImageSettings } from 'helpers';
+import { slideImageSettings } from 'helpers';
 
 import { RatingIcons } from './subcomponents';
 import { ImageUI } from 'ui';
+
+import { getCarouselFeedbackStyles } from 'styles';
 
 interface ICarouselFeedbackProps<T> {
   slide: T;

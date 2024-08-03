@@ -1,10 +1,11 @@
 'use client';
 
 import { AriaLabel, ButtonType, IconName, IconSize } from 'types';
-import { getScrollControllerStyles } from 'helpers';
 import { useScrollController } from 'hooks';
 
 import { SvgIconUI } from 'ui';
+
+import { getScrollControllerStyles } from 'styles';
 
 export default function ScrollController() {
   const { buttonRef, isVisible, scrollToTop } = useScrollController();
