@@ -1,15 +1,12 @@
 export const getServiceItemStyles = () => {
-  //FIXME: use this function
   return 'group blockItem relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[180px] md:h-[280px]';
 };
 
 export const getWorkTypeTitleStyles = () => {
-  //FIXME: use this function
   return 'text-balance text-medium text-whiteBase group-hover:underline max-sm:w-[108px] max-sm:text-base sm:max-md:w-[170px] md:mb-2 md:min-h-[100px] md:text-big lg:mb-4 lg:min-h-20 lg:text-lg';
 };
 
 export const getOverviewImageStyles = () => {
-  //FIXME: use this function
   return 'absolute left-1/2 top-0 hidden h-full w-full max-w-[232px] -translate-x-1/2 items-center justify-center bg-service-overview bg-cover bg-center bg-no-repeat opacity-50 dark:opacity-20 max-md:flex';
 };
 

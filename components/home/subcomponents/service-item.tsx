@@ -12,7 +12,7 @@ import { getAndEncodeDataObject, serviceImageSettings } from 'helpers';
 
 import { AriaDescriptionUI, ImageUI } from 'ui';
 
-// import { getServiceItemStyles, getWorkTypeTitleStyles } from 'styles'; //FIXME: use this functions
+import { getServiceItemStyles, getWorkTypeTitleStyles } from 'styles';
 
 type ServiceItemProps = Omit<IServiceItem, 'id'>;
 
@@ -35,11 +35,11 @@ export default function ServiceItem({
     e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
   };
 
-  // const itemClass = getServiceItemStyles(); //FIXME: use this const
-  // const titleClass = getWorkTypeTitleStyles(); //FIXME: use this const
+  const itemClass = getServiceItemStyles();
+  const titleClass = getWorkTypeTitleStyles();
 
   return (
-    <li className='group blockItem relative w-full overflow-hidden bg-whiteBase/10 hocus:border-transparent hocus:outline-none hocus:ring-[2px] hocus:ring-accentSecondary max-md:h-[180px] md:h-[280px]'>
+    <li className={itemClass}>
       <a
         target='_blank'
         href='#'
@@ -59,7 +59,7 @@ export default function ServiceItem({
         />
         <div className='relative z-20 rounded-b-[20px] p-3 lg:p-6'>
           <div className='max-md:flex max-md:min-h-[70px] max-md:items-center max-md:justify-between'>
-            <h3 className='text-balance text-medium text-whiteBase group-hover:underline max-sm:w-[108px] max-sm:text-base sm:max-md:w-[170px] md:mb-2 md:min-h-[100px] md:text-big lg:mb-4 lg:min-h-20 lg:text-lg'>
+            <h3 className={titleClass}>
               {`${serviceTitle} ${serviceTitle === WorkType.Diplomas ? 'та коледжів' : ''}`}
             </h3>
             <span className='text-big font-bold text-whiteBase group-hover:text-accentSecondary max-sm:text-medium md:text-lg lg:text-xl'>

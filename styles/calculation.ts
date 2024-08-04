@@ -9,3 +9,19 @@ export const getThemeInputStyles = (hasBackground: boolean) => {
 export const getCheckboxStyles = (isChecked: boolean) => {
   return `${isChecked ? 'bg-accent-lightGradient dark:bg-accent-darkGradient' : 'bg-transparent'} flex size-10 items-center justify-center gap-x-4 rounded border border-accentPrimary dark:border-accentSecondary-darker`;
 };
+
+export const getResultPriceStyles = () => {
+  return 'mb-8 text-center font-philosopher text-4xl text-darkBase dark:text-whiteBase md:mb-10 md:text-5xl lg:text-7xl';
+};
+
+export const getDisclaimerTextStyles = () => {
+  return 'generalText mb-8 flex max-w-[550px] items-center justify-center text-center text-darkBase dark:text-whiteBase';
+};
+
+export const getDisclaimerCtaTextStyles = () => {
+  return 'lg:text-bg mb-8 text-center text-sm text-darkBase dark:text-whiteBase max-md:leading-130 md:mb-10 md:text-medium';
+};
+
+export const getDisabledRangeStyles = (isChecked: boolean) => {
+  return !isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase';
+};

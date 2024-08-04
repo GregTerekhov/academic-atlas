@@ -1,25 +1,14 @@
-import {
-  AriaDescription,
-  AriaId,
-  CtaText,
-  PrimaryButtonLabel,
-  SectionTitle,
-  TelegramScenario,
-} from 'types';
+import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
+import { getSectionProps } from 'helpers';
 
 import { SectionTemplate, TelegramButton } from 'template';
 
 export default function Hero() {
+  const sectionProps = getSectionProps();
+  const mainHomeProps = sectionProps.homeHero;
+
   return (
-    <SectionTemplate
-      title={SectionTitle.Hero}
-      isBigTitle
-      titleStyle='md:w-[440px] lg:w-[550px]'
-      hasCtaText
-      ctaStyle='md:w-[440px] lg:w-[458px]'
-      ctaText={CtaText.MainHero}
-      priority
-    >
+    <SectionTemplate {...mainHomeProps}>
       <TelegramButton
         command={TelegramScenario.Order}
         label={PrimaryButtonLabel.Ordering}

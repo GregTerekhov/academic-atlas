@@ -5,6 +5,8 @@ import { useRangeSettings } from 'hooks';
 
 import RangePercents from './range-percents';
 
+import { getDisabledRangeStyles } from 'styles';
+
 interface IRangeInputProps {
   id: string;
   isChecked: boolean;
@@ -29,14 +31,14 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
     ) : null;
   };
 
+  const disabledClass = getDisabledRangeStyles(isChecked);
+
   return (
     <label
       htmlFor={id}
       className='flex flex-col'
     >
-      <span
-        className={`${!isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase'} generalText mb-4 inline-block`}
-      >
+      <span className={`${disabledClass} generalText mb-4 inline-block`}>
         Оберіть відсоток унікальності {addTextMinimalValue()}
       </span>
       <input

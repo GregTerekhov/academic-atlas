@@ -12,6 +12,10 @@ export const getSectionClasses = (title: SectionTitle) => {
     : `bg-transparent text-darkBase dark:text-whiteBase`;
 };
 
+export const getExtraSectionOverlayStyles = () => {
+  return 'absolute inset-0 h-full w-full bg-accentPrimary/10 bg-section-overlay-light dark:bg-accentPrimary/5 dark:bg-section-overlay-dark';
+};
+
 export const getTitleClasses = (
   isBigTitle: boolean,
   hasCtaText: boolean,

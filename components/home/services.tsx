@@ -1,5 +1,5 @@
-import { type IServiceItem, SectionTitle } from 'types';
-import { getServices, getIdValues } from 'helpers';
+import { type IServiceItem } from 'types';
+import { getServices, getIdValues, getSectionProps } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
 import { ServiceItem } from './subcomponents';
@@ -7,12 +7,11 @@ import { ServiceItem } from './subcomponents';
 export default function Services() {
   const serviceItems = getServices();
   const { Services } = getIdValues();
+  const sectionProps = getSectionProps(undefined, Services);
+  const mainServicesProps = sectionProps.homeServices;
 
   return (
-    <SectionTemplate
-      title={SectionTitle.OurServices}
-      id={Services ?? ''}
-    >
+    <SectionTemplate {...mainServicesProps}>
       <MappedListTemplate<IServiceItem>
         items={serviceItems}
         className='max-md:space-y-4 md:grid md:grid-cols-3 md:grid-rows-3 md:gap-[17px] lg:gap-10'

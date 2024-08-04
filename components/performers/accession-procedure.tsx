@@ -1,12 +1,5 @@
-import {
-  AriaDescription,
-  AriaId,
-  IAccession,
-  PrimaryButtonLabel,
-  SectionTitle,
-  TelegramScenario,
-} from 'types';
-import { getAccession, imageSettings } from 'helpers';
+import { AriaDescription, AriaId, IAccession, PrimaryButtonLabel, TelegramScenario } from 'types';
+import { getAccession, getSectionProps, imageSettings } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate, TelegramButton } from 'template';
 import { ImageUI } from 'ui';
@@ -15,11 +8,13 @@ import { AccessionItem } from './subcomponents';
 export default function Accession() {
   const accessionData = getAccession();
   const { partnershipAccession } = imageSettings;
+  const sectionProps = getSectionProps();
+  const performersAccessionProps = sectionProps.performersAccession;
 
   const { src, alt, width, height, className } = partnershipAccession;
 
   return (
-    <SectionTemplate title={SectionTitle.PartnershipAccession}>
+    <SectionTemplate {...performersAccessionProps}>
       <div className='space-y-6 md:space-y-10 lg:space-y-[72px]'>
         <div className='max-md:space-y-6 md:flex md:items-center md:justify-between md:gap-x-6 lg:gap-x-28'>
           <MappedListTemplate<IAccession>

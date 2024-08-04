@@ -195,3 +195,16 @@ export enum CompanyContacts {
   Phone = '+380632076120',
   PhoneToPrint = '+380 63 20 761 20',
 }
+
+export interface ISectionProps {
+  title: SectionTitle;
+  titleStyle?: string;
+  ctaStyle?: string;
+  ctaText?: CtaText;
+  sectionStyle?: string;
+  noAlignment?: string;
+  hasCtaText?: boolean;
+  isBigTitle?: boolean;
+  priority?: boolean;
+  id?: string;
+}

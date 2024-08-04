@@ -1,12 +1,5 @@
-import {
-  AriaDescription,
-  AriaId,
-  CtaText,
-  PrimaryButtonLabel,
-  SectionTitle,
-  TelegramScenario,
-} from 'types';
-import { getIdValues, imageSettings } from 'helpers';
+import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
+import { getIdValues, getSectionProps, imageSettings } from 'helpers';
 
 import { SectionTemplate, TelegramButton } from 'template';
 import { ImageUI } from 'ui';
@@ -14,18 +7,13 @@ import { ImageUI } from 'ui';
 export default function Promotions() {
   const { promotions } = imageSettings;
   const { Promotions } = getIdValues();
+  const sectionProps = getSectionProps(undefined, Promotions);
+  const mainPromotionsProps = sectionProps.homePromotions;
 
   const { src, width, height, className } = promotions;
 
   return (
-    <SectionTemplate
-      title={SectionTitle.Promotions}
-      id={Promotions ?? ''}
-      noAlignment='text-start'
-      hasCtaText
-      ctaStyle='md:w-[421px] lg:w-[572px]'
-      ctaText={CtaText.MainPromotions}
-    >
+    <SectionTemplate {...mainPromotionsProps}>
       <ImageUI
         src={src}
         alt=''

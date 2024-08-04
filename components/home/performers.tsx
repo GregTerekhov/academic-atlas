@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import { AriaDescription, AriaId, CtaText, Paths, PrimaryButtonLabel, SectionTitle } from 'types';
+import { AriaDescription, AriaId, Paths, PrimaryButtonLabel } from 'types';
+import { getSectionProps } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { AriaDescriptionUI } from 'ui';
@@ -9,14 +10,11 @@ import { getPrimaryButtonStyles } from 'styles';
 
 export default function Performers() {
   const linkClass = getPrimaryButtonStyles();
+  const sectionProps = getSectionProps();
+  const mainPerformersProps = sectionProps.homePerformers;
+
   return (
-    <SectionTemplate
-      title={SectionTitle.Performers}
-      noAlignment='max-md:text-start'
-      hasCtaText
-      ctaStyle='md:text-center'
-      ctaText={CtaText.MainPerformers}
-    >
+    <SectionTemplate {...mainPerformersProps}>
       <div className='md:flex md:items-center md:justify-center'>
         <Link
           href={Paths.Partnership}
