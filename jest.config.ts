@@ -99,8 +99,6 @@ const config: Config = {
     '^swiper/(.*)$': '<rootDir>/node_modules/swiper/swiper-bundle.min.js',
   },
 
-  // devOptional: true,
-
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
 
