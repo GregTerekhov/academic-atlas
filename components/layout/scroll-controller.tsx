@@ -10,9 +10,10 @@ import { useMenu } from 'context/MenuProvider';
 
 export default function ScrollController() {
   const { buttonRef, isVisible, scrollToTop } = useScrollController();
-  const { isNavMenuOpen } = useMenu();
+  const { isNavMenuOpen, isCalcMenuOpen } = useMenu();
 
-  const triggerClass = getScrollControllerStyles(isVisible, isNavMenuOpen);
+  const oneOfMenuIsOpen = isNavMenuOpen || isCalcMenuOpen;
+  const triggerClass = getScrollControllerStyles(isVisible, oneOfMenuIsOpen);
 
   return (
     <button
