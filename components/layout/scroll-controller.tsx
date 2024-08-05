@@ -6,11 +6,13 @@ import { useScrollController } from 'hooks';
 import { SvgIconUI } from 'ui';
 
 import { getScrollControllerStyles } from 'styles';
+import { useMenu } from 'context/MenuProvider';
 
 export default function ScrollController() {
   const { buttonRef, isVisible, scrollToTop } = useScrollController();
+  const { isNavMenuOpen } = useMenu();
 
-  const triggerClass = getScrollControllerStyles(isVisible);
+  const triggerClass = getScrollControllerStyles(isVisible, isNavMenuOpen);
 
   return (
     <button

@@ -3,14 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useIntersectionObserver } from './useIntersectionObserver';
-import { useMenu } from 'context/MenuProvider';
 
 export const useScrollController = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const footerRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-
-  const { isNavMenuOpen } = useMenu();
 
   useEffect(() => {
     if (!footerRef.current) {
@@ -22,19 +19,11 @@ export const useScrollController = () => {
     const header = document.querySelector('header');
     if (!header) return;
 
-    if (isNavMenuOpen) {
-      setIsVisible(!isVisible);
-    } else {
-      setIsVisible(!isVisible);
-    }
-
     const handleScroll = () => {
       const headerHeight = header.getBoundingClientRect()?.height ?? 0;
       const viewportHeight = window.innerHeight - headerHeight;
 
       setIsVisible(window.scrollY > viewportHeight);
-
-      console.log('scroll is', isVisible);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -42,7 +31,7 @@ export const useScrollController = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isNavMenuOpen]);
+  }, []);
 
   const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
     const button = buttonRef.current;
