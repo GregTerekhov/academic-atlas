@@ -25,15 +25,18 @@ export default function Logo({ position }: ISvgIconProps) {
   const { isNavMenuOpen, isCalcMenuOpen, closeMenu } = useMenu();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const isScroll = pathname === Paths.Main && (!isNavMenuOpen || !isCalcMenuOpen);
-    const isOpenMenuOnMainPage = isCalcMenuOpen || isNavMenuOpen;
+    const doesNeedScroll = pathname === Paths.Main && (!isNavMenuOpen || !isCalcMenuOpen);
+    const isOpenMenu = isCalcMenuOpen || isNavMenuOpen;
 
-    if (isScroll) {
+    if (doesNeedScroll) {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       window.history.pushState(null, '', '/');
+
+      if (window.scrollY !== 0) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
-    if (isOpenMenuOnMainPage) {
+    if (isOpenMenu) {
       closeMenu();
     }
   };
