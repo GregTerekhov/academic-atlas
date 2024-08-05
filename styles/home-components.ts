@@ -31,8 +31,8 @@ export const getFiguresTextStyles = (
 export const getCarouselFeedbackStyles = (isActive: boolean) => {
   return {
     slideClass: isActive
-      ? 'swiper-slide-active max-sm:!w-[calc(100vw - 48px)] sm:!w-[301px] border-2 border-accentPrimary dark:border-accentSecondary bg-accentPrimary/10 md:max-lg:bg-whiteBase dark:bg-whiteBase/10 md:max-lg:dark:bg-background-dark-gradient md:max-lg:bg-background-light-gradient p-4 max-md:!mr-0 md:!w-[436px] md:p-8 lg:!w-[494px] lg:p-12'
-      : 'border border-accentPrimary md:!w-[320px] p-3 md:p-6 md:max-lg:blur-[1px] lg:!w-[334px] lg:p-8',
+      ? 'swiper-slide-active max-sm:!w-[calc(100vw - 48px)] sm:!w-[301px] border-2 border-accentPrimary dark:border-accentSecondary bg-accentPrimary/10 md:max-lg:bg-whiteBase dark:bg-whiteBase/10 md:max-lg:dark:bg-background-dark-gradient md:max-lg:bg-background-light-gradient p-4 max-md:!mr-0 md:!w-[436px] md:p-8 lg:!w-[494px] lg:p-12 md:max-lg:relative md:max-lg:z-20'
+      : 'border border-accentPrimary md:!w-[320px] p-3 md:p-6 md:max-lg:blur-[1px] lg:!w-[334px] lg:p-8 md:max-lg:relative md:max-lg:z-10 md:max-lg:dark:bg-background-dark-gradient',
     imageContainerClass: isActive
       ? 'md:mb-6 md:size-[160px] border-accentSecondary'
       : 'border-accentPrimary',

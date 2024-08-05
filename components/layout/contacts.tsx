@@ -1,5 +1,3 @@
-'use client';
-
 import { PositionInLayout, IContactLink } from 'types';
 import { getAdaptedContacts } from 'helpers';
 
@@ -14,7 +12,6 @@ interface IContactsProps {
 
 export default function Contacts({ variant }: IContactsProps) {
   const adaptedContacts = getAdaptedContacts(variant);
-
   const listClass = getContactListStyles(variant);
 
   return (
