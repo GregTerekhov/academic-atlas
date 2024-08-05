@@ -18,10 +18,11 @@ export const getContactListStyles = (variant: PositionInLayout) => {
     : 'max-md:flex max-md:items-center max-sm:gap-x-3 max-md:gap-x-4 md:space-y-4 lg:w-[304px]';
 };
 
-export const getScrollControllerStyles = (isVisible: boolean) => {
+export const getScrollControllerStyles = (isVisible: boolean, oneOfMenuIsOpen: boolean) => {
   const appearanceClass = isVisible ? 'opacity-100 md:flex' : 'hidden opacity-0';
+  const hideInMenu = oneOfMenuIsOpen && isVisible ? '-z-10' : 'z-30';
 
-  return `fixed bottom-4 right-10 z-30 ${appearanceClass} hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 backdrop-blur-sm transition-opacity hocus:bg-accentPrimary/10 dark:border-accentSecondary dark:hocus:bg-accentSecondary/30 lg:right-20 lg:size-16`;
+  return `fixed bottom-4 right-10  ${appearanceClass} ${hideInMenu} hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 backdrop-blur-sm transition-opacity hocus:bg-accentPrimary/10 dark:border-accentSecondary dark:hocus:bg-accentSecondary/30 lg:right-20 lg:size-16`;
 };
 
 export const skeletonStyles = {
