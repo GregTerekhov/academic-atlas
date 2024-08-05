@@ -4,6 +4,7 @@ export * from './calculationData';
 export * from './calculationHelper';
 export * from './cookiesHelper';
 export * from './componentsData';
+export * from './componentsHelper';
 export * from './imageSettings';
 export * from './layoutsData';
 export * from './layoutsHelper';

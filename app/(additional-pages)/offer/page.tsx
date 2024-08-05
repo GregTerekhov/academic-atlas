@@ -25,7 +25,10 @@ export default function OfferAgreement() {
   return (
     <SectionTemplate {...offerProps}>
       <article className={articleClass}>
-        <LegalList list={offerArticles} />
+        <LegalList
+          list={offerArticles}
+          substitute='policyPageLink'
+        />
       </article>
     </SectionTemplate>
   );
