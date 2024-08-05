@@ -99,6 +99,11 @@ export interface ILegalInfoArticle {
   paragraph: Record<string, string | { title: string; subItems: ISubItem[] }>;
 }
 
+export interface Requisites {
+  id: string;
+  fieldName: string;
+}
+
 export interface IStatisticItem {
   id: string;
   count: StatisticCount;
