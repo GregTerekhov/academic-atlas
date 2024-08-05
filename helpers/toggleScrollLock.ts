@@ -29,6 +29,9 @@ export const toggleScrollLock = (isLocked: boolean) => {
   const scrollPosition = window.scrollY;
 
   if (isLocked) {
+    body.ontouchmove = function (e) {
+      e.preventDefault();
+    };
     body.style.top = `-${scrollPosition}px`;
     body.classList.add('no-scroll');
     root?.classList.add('no-scroll');
@@ -38,6 +41,9 @@ export const toggleScrollLock = (isLocked: boolean) => {
       body.style.width = '100%';
     }
   } else {
+    body.ontouchmove = function () {
+      return true;
+    };
     body.classList.remove('no-scroll');
     root?.classList.remove('no-scroll');
     const scrollY = body.style.top ? parseInt(body.style.top, 10) * -1 : 0;
