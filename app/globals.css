@@ -101,7 +101,7 @@
   .swiper-slide-fully-visible.swiper-slide-active {
     width: 436px !important;
     position: relative;
-    z-index: 10;
+    z-index: 20;
   }
 }
 
