@@ -163,7 +163,7 @@ export enum OpenGraphType {
 }
 
 export enum OpenGraphURL {
-  HOME = 'https://AcademicAtlas.com', //FIXME: --- add real path
+  HOME = 'https://academic-atlas-git-draft-add-og-images-gregterekhovs-projects.vercel.app', //FIXME: --- add real path
   FAQ = 'https://AcademicAtlas.com/faq', //FIXME: --- add real path,
   PARTNERSHIP = 'https://AcademicAtlas.com/partnership', //FIXME: --- add real path,
   POLICY = 'https://AcademicAtlas.com/legal', //FIXME: --- add real path,
@@ -172,7 +172,7 @@ export enum OpenGraphURL {
 }
 
 export enum OpenGraphImageURL {
-  HOME = '/images/og-image.jpg', //FIXME: --- add image,
+  HOME = 'https://academic-atlas-git-draft-add-og-images-gregterekhovs-projects.vercel.app/images/og-image.jpg', //FIXME: --- add image,
   FAQ = 'https://AcademicAtlas.com/images/faq-og-image.jpg', //FIXME: --- add image,
   PARTNERSHIP = '/images/partnership-og-image.jpg', //FIXME: --- add image,
   POLICY = 'https://AcademicAtlas.com/images/legal-og-image.jpg', //FIXME: --- add image,
