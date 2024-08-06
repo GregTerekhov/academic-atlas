@@ -1,5 +1,5 @@
 import { type IBenefitsItem } from 'types';
-import { getBenefits } from 'helpers';
+import { getBenefits } from 'data';
 
 import { MappedListTemplate } from 'template';
 import BenefitsItem from './benefits-item';

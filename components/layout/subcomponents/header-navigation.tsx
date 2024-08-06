@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 
 import { AriaLabel, ButtonType, PositionInLayout } from 'types';
 import { useMenu } from 'context';
-import { getAdaptedLinks, getMenuAriaCurrent, mapArray } from 'helpers';
+import { getAdaptedLinks } from 'data';
+import { getMenuAriaCurrent, mapArray } from 'helpers';
 import { useActiveLink } from 'hooks';
 
 import CalculationLinkMobile from './calculation-link-mobile';

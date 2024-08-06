@@ -3,24 +3,15 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { AriaLabel, Paths, PositionInLayout } from 'types';
-import { getFooterLinks, mapArray } from 'helpers';
+import { AriaLabel, PositionInLayout } from 'types';
+import { getFooterLinks } from 'data';
+import { getMenuAriaCurrent, mapArray } from 'helpers';
 
 import { CalculationLinkDesktop, CalculationLinkMobile } from './subcomponents';
 
 export default function FooterMenu() {
   const pathname = usePathname();
   const footerMenuLinks = getFooterLinks();
-
-  const getAriaCurrent = (path: Paths) => {
-    if (pathname === path) {
-      return 'page';
-    } else if (pathname.startsWith('#')) {
-      return 'location';
-    } else {
-      return undefined;
-    }
-  };
 
   return (
     <nav aria-label={AriaLabel.FooterNav}>
@@ -36,7 +27,7 @@ export default function FooterMenu() {
           <li key={label}>
             <Link
               href={path}
-              aria-current={getAriaCurrent(path)}
+              aria-current={getMenuAriaCurrent(path, pathname)}
               className='generalText hocus:text-accentPrimary dark:hocus:text-accentSecondary'
             >
               {label}

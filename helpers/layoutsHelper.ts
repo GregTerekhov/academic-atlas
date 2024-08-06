@@ -25,10 +25,16 @@ export const getAriaLabelSwitcher = (
   }
 };
 
-export const getMenuAriaCurrent = (path: Paths, pathname: string, isActive: boolean) => {
-  return isActive
-    ? pathname === Paths.Main && path.startsWith('#')
-      ? 'location'
-      : 'page'
-    : undefined;
+export const getMenuAriaCurrent = (path: Paths, pathname: string, isActive: boolean = false) => {
+  if (path.startsWith('#')) {
+    return 'location';
+  }
+  if (pathname === path) {
+    return 'page';
+  }
+  if (isActive && !path.startsWith('#')) {
+    return 'page';
+  }
+
+  return undefined;
 };

@@ -2,6 +2,8 @@ import { IconName, IconSize } from 'types';
 
 import { SvgIconUI } from 'ui';
 
+import { getRequirementsItemStyles, getRequirementsTitleStyles } from 'styles';
+
 interface IRequirementsItemProps {
   key?: string;
   title: string;
@@ -9,8 +11,10 @@ interface IRequirementsItemProps {
 }
 
 export default function RequirementsItem({ title, desc }: IRequirementsItemProps) {
+  const itemClass = getRequirementsItemStyles();
+  const titleClass = getRequirementsTitleStyles();
   return (
-    <li className='blockItem space-y-2 p-4 backdrop-blur-lg dark:bg-whiteBase/10 md:max-lg:space-y-4 lg:basis-1/3 lg:p-6'>
+    <li className={itemClass}>
       <div className='flex items-center gap-x-2'>
         <div className='max-md:size-6'>
           <SvgIconUI
@@ -19,9 +23,7 @@ export default function RequirementsItem({ title, desc }: IRequirementsItemProps
             className='fill-whiteBase dark:fill-accentSecondary md:size-8 lg:size-10'
           />
         </div>
-        <h3 className='text-medium font-bold text-whiteBase dark:text-accentSecondary max-sm:text-base md:text-big lg:text-xl'>
-          {title}
-        </h3>
+        <h3 className={titleClass}>{title}</h3>
       </div>
       <p className='generalText'>{desc}</p>
     </li>

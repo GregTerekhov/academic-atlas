@@ -17,3 +17,19 @@ export const getFigureWrapperStyles = () => {
 export const getBenefitItemStyles = () => {
   return 'blockItem bg-whiteBase/10 p-4 max-md:flex max-md:items-center max-md:gap-x-6 md:basis-1/3 md:space-y-6 md:text-center lg:space-y-8 lg:p-6';
 };
+
+export const getRequirementsItemStyles = () => {
+  return 'blockItem space-y-2 p-4 backdrop-blur-lg dark:bg-whiteBase/10 md:max-lg:space-y-4 lg:basis-1/3 lg:p-6';
+};
+
+export const getRequirementsTitleStyles = () => {
+  return 'text-medium font-bold text-whiteBase dark:text-accentSecondary max-sm:text-base md:text-big lg:text-xl';
+};
+
+export const getWorkflowBackgroundTabletStyles = () => {
+  return 'absolute left-1/2 top-20 -z-10 hidden -translate-x-1/2 fill-accentPrimary/50 dark:fill-accentSecondary/50 md:max-lg:block';
+};
+
+export const getWorkflowBackgroundDesktopStyles = () => {
+  return 'absolute -z-10 fill-accentPrimary/50 dark:fill-accentSecondary/50 max-lg:hidden md:left-1/2 md:top-[136px] md:-translate-x-1/2';
+};

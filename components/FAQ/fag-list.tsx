@@ -1,5 +1,5 @@
 import { TelegramScenario, type IQuestions } from 'types';
-import { getFAQQuestions } from 'helpers';
+import { getFAQQuestions } from 'data';
 
 import { Container } from 'layout';
 import { MappedListTemplate } from 'template';

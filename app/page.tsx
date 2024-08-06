@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { MetadataTexts } from 'helpers';
+import { MetadataTexts } from 'data';
 
 import {
   AboutUs,

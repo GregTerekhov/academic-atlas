@@ -1,5 +1,6 @@
 import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
-import { getIdValues, getSectionProps, imageSettings } from 'helpers';
+import { getSectionProps, imageSettings } from 'data';
+import { getIdValues } from 'helpers';
 
 import { SectionTemplate, TelegramButton } from 'template';
 import { ImageUI } from 'ui';

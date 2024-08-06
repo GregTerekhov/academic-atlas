@@ -1,4 +1,4 @@
-import { getSectionProps } from 'helpers';
+import { getSectionProps } from 'data';
 
 import { SectionTemplate } from 'template';
 import { PriceControlsDesktop, PriceControlsMobile } from './subcomponents';

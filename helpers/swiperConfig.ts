@@ -1,7 +1,7 @@
 import Swiper from 'swiper';
 import { Autoplay } from 'swiper/modules';
 
-import { IBreakpoints } from 'types';
+import { type IBreakpoints } from 'types';
 
 export const swiperModules = [Autoplay];
 

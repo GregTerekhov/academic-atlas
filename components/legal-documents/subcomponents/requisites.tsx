@@ -1,4 +1,5 @@
-import { getRequisites, mapArray } from 'helpers';
+import { getRequisites } from 'data';
+import { mapArray } from 'helpers';
 
 export default function Requisites() {
   const requisites = getRequisites();

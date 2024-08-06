@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { AriaDescription, AriaId, Paths, PrimaryButtonLabel } from 'types';
-import { getSectionProps } from 'helpers';
+import { getSectionProps } from 'data';
 
 import { SectionTemplate } from 'template';
 import { AriaDescriptionUI } from 'ui';

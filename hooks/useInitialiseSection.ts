@@ -2,7 +2,7 @@
 
 import { useCallback, useRef } from 'react';
 
-import { getAdaptedLinks } from '../helpers';
+import { getAdaptedLinks } from 'data';
 
 export const useInitialiseSection = (isDesktop: boolean) => {
   const sections = useRef<{ id: string; path: string }[]>([]);

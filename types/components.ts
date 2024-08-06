@@ -1,4 +1,6 @@
+import { AriaLabel } from './aria';
 import { WorkType } from './calculation';
+import { CompanyContacts } from './layoutTypes';
 import { IconName } from './ui';
 
 export enum ThemeVariants {
@@ -99,7 +101,14 @@ export interface ILegalInfoArticle {
   paragraph: Record<string, string | { title: string; subItems: ISubItem[] }>;
 }
 
-export interface Requisites {
+export interface ISubstituteProps {
+  value: string;
+  substitute: CompanyContacts | string;
+  ariaLabel: AriaLabel;
+  isInternalLink: boolean;
+}
+
+export interface IRequisites {
   id: string;
   fieldName: string;
 }

@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { usePathname } from 'next/navigation';
 
-import { Breadcrumbs } from 'components';
 import { MenuLinks, Paths } from 'types';
+import { Breadcrumbs } from 'components';
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),

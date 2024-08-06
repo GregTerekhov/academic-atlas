@@ -1,25 +1,38 @@
-import { AriaLabel, CompanyContacts } from 'types';
+import Link from 'next/link';
+import { type ISubstituteProps, Paths } from 'types';
 
-interface IParagraph {
-  value: string;
-}
-
-export default function Paragraph({ value }: IParagraph) {
+export default function Paragraph({
+  value,
+  substitute,
+  ariaLabel,
+  isInternalLink,
+}: ISubstituteProps) {
   const renderParagraph = () => {
-    if (value.includes(CompanyContacts.Email)) {
-      const [before, after] = value.split(CompanyContacts.Email);
+    if (value.includes(substitute)) {
+      const [textBefore, textAfter] = value.split(substitute);
 
       return (
         <>
-          {before}
-          <a
-            aria-label={AriaLabel.Email}
-            href={`mailto:${CompanyContacts.Email}`}
-            rel='noopener nofollow noreferrer'
-          >
-            {CompanyContacts.Email}
-          </a>
-          {after}
+          {textBefore}
+
+          {isInternalLink ? (
+            <Link
+              href={Paths.Policy}
+              aria-label={ariaLabel}
+            >
+              {substitute}
+            </Link>
+          ) : (
+            <a
+              aria-label={ariaLabel}
+              href={`mailto:${substitute}`}
+              rel='noopener nofollow noreferrer'
+            >
+              {substitute}
+            </a>
+          )}
+
+          {textAfter}
         </>
       );
     }

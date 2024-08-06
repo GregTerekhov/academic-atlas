@@ -9,7 +9,7 @@ import {
   type IDropdownProps,
 } from 'types';
 import { useCalculation } from 'context';
-import { getExecutionTime, getExpertiseArea, getWorkType } from 'helpers';
+import { getExecutionTime, getExpertiseArea, getWorkType } from 'data';
 
 interface IDropdownList extends IDropdownProps {
   id: number;

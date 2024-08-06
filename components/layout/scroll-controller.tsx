@@ -1,12 +1,12 @@
 'use client';
 
 import { AriaLabel, ButtonType, IconName, IconSize } from 'types';
+import { useMenu } from 'context';
 import { useScrollController } from 'hooks';
 
 import { SvgIconUI } from 'ui';
 
 import { getScrollControllerStyles } from 'styles';
-import { useMenu } from 'context/MenuProvider';
 
 export default function ScrollController() {
   const { buttonRef, isVisible, scrollToTop } = useScrollController();

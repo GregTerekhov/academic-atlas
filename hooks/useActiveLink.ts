@@ -17,9 +17,9 @@ export const useActiveLink = (isDesktop: boolean) => {
   const { sections, sectionRefs, initialiseSections } = useInitialiseSection(isDesktop);
 
   const updateActiveLink = useCallback(() => {
-    const legalPagesPaths = pathname !== Paths.Offer && pathname !== Paths.Policy;
+    const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
 
-    if (legalPagesPaths) {
+    if (!legalPagesPaths) {
       const hash = window.location.hash;
 
       if (hash) {

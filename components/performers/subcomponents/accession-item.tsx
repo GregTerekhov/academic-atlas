@@ -7,7 +7,7 @@ export default function AccessionItem({ id, desc }: IAccession) {
   return (
     <li className='flex items-center gap-x-6 lg:gap-x-16'>
       <div className={figureWrapperClass}>
-        <strong className='gradientText bg-accent-lightGradient font-philosopher dark:bg-accent-darkGradient'>
+        <strong className='gradientText bg-accent-lightGradient font-philosopher [-webkit-background-clip:text] dark:bg-accent-darkGradient'>
           {id}
         </strong>
       </div>

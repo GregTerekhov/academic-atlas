@@ -1,4 +1,4 @@
-import { getSectionProps, imageSettings } from 'helpers';
+import { getSectionProps, imageSettings } from 'data';
 
 import { SectionTemplate } from 'template';
 import { ImageUI } from 'ui';

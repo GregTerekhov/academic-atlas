@@ -1,8 +1,11 @@
-import { getOfferArticles, MetadataTexts, getSectionProps } from 'helpers';
+import { Metadata } from 'next';
+
+import { getOfferArticles, getSectionProps, MetadataTexts } from 'data';
 
 import { SectionTemplate } from 'template';
 import { LegalList } from 'components';
-import { Metadata } from 'next';
+
+import { getLegalArticleStyles } from 'styles';
 
 const { offer } = MetadataTexts;
 const { title, description, keywords } = offer;
@@ -14,8 +17,6 @@ export const metadata: Metadata = {
   // openGraph,  //FIXME: --- uncomment
 };
 
-import { getLegalArticleStyles } from 'styles';
-
 export default function OfferAgreement() {
   const offerArticles = getOfferArticles();
   const articleClass = getLegalArticleStyles();
@@ -25,7 +26,10 @@ export default function OfferAgreement() {
   return (
     <SectionTemplate {...offerProps}>
       <article className={articleClass}>
-        <LegalList list={offerArticles} />
+        <LegalList
+          list={offerArticles}
+          substitute='policyPageLink'
+        />
       </article>
     </SectionTemplate>
   );

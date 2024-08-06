@@ -13,6 +13,7 @@ export enum AriaLabel {
   Navigation = 'Основне меню',
   OpenMenu = 'Відкрити меню',
   Phone = 'Телефон',
+  Policy = 'Переход до сторінки Політики конфіденційності',
   Range = 'Відсоток унікальності',
   Reload = 'Оновити',
   ScrollArrow = 'Стрілка доверху',

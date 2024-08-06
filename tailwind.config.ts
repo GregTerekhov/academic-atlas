@@ -6,6 +6,7 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './context/**/*.{js,ts,jsx,tsx,mdx}',
+    './data/**/*.{js,ts,jsx,tsx,mdx}',
     './helpers/**/*.{js,ts,jsx,tsx,mdx}',
     './layout/**/*.{js,ts,jsx,tsx,mdx}',
     './template/**/*.{js,ts,jsx,tsx,mdx}',

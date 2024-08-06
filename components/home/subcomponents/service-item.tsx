@@ -8,7 +8,8 @@ import {
   TelegramScenario,
   WorkType,
 } from 'types';
-import { getAndEncodeDataObject, serviceImageSettings } from 'helpers';
+import { serviceImageSettings } from 'data';
+import { getAndEncodeDataObject } from 'helpers';
 
 import { AriaDescriptionUI, ImageUI } from 'ui';
 

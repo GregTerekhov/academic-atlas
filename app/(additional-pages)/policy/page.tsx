@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { getPolicyArticles, getSectionProps, MetadataTexts } from 'helpers';
+import { getPolicyArticles, getSectionProps, MetadataTexts } from 'data';
 
 import { SectionTemplate } from 'template';
 import { LegalList } from 'components';
@@ -28,18 +28,15 @@ export default function Policy() {
       <article className={articleClass}>
         <p>Останнє оновлення 07.06.2024 року.</p>
         <strong className='font-normal'>
-          Прохання уважно прочитати Політику конфіденційності (далі – «Політика конфіденційності»)
-          перед використанням нашого веб-сайту.
+          Прохання уважно прочитати Політику конфіденційності (далі – «Політика») перед
+          використанням нашого веб-сайту. Ця Політика поширюється на веб-сайт your-website.com (далі
+          – «веб-сайт»).
         </strong>
-        <p>
-          Ця Політика конфіденційності поширюється на веб-сайт your-website.com (далі – «веб-сайт»).
-          Користувачі веб-сайту можуть переглядати сторінки сайту без необхідності надавати будь-які
-          персональні дані. Однак, для надання послуг, пов’язаних з купівлею товарів, які
-          представлені на нашому веб-сайті, нам потрібні Ваші контактні дані, щоб ми могли
-          зв’язатися з Вами, підтвердити замовлення і доставити замовлений товар. Ваші персональні
-          дані ми не передаємо третім особам і захищаємо їх конфіденційність.
-        </p>
-        <LegalList list={policyArticles} />
+        {/* FIXME: add real site address */}
+        <LegalList
+          list={policyArticles}
+          substitute='email'
+        />
       </article>
     </SectionTemplate>
   );

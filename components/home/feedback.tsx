@@ -1,4 +1,5 @@
-import { getFeedbackSlides, getIdValues, getSectionProps } from 'helpers';
+import { getFeedbackSlides, getSectionProps } from 'data';
+import { getIdValues } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { CarouselUI } from 'ui';

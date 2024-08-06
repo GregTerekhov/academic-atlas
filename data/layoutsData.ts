@@ -9,7 +9,8 @@ import {
   Paths,
   PositionInLayout,
 } from '../types';
-import { getIdValues } from './anchorLinks';
+import { getIdValues } from '../helpers';
+
 import { skeletonStyles } from '../styles';
 
 export const getLinkData = (variant: PositionInLayout): IContactLink[] => {
