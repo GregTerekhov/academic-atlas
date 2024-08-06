@@ -20,7 +20,7 @@ export default function AboutUsItem({ header, description, src, alt }: IAboutUsI
     <li className='lg:flex lg:items-center lg:justify-between lg:gap-x-20 lg:odd:flex-row-reverse'>
       <div className='lg:basis-1/2'>
         <h2 className='text-start'>{header}</h2>
-        <p className='generalText my-6'>{description}</p>
+        <p className='generalText my-6 lg:w-[544px]'>{description}</p>
       </div>
       <div className={imageWrapperClass}>
         <ImageUI
