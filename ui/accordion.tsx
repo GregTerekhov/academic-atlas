@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, useState } from 'react';
-
 import { type IWithChildren } from 'types';
+import { useAccordion } from 'hooks';
+
 import { AccordionHeader } from './subcomponents';
 
 interface IAccordionProps extends IWithChildren {
@@ -11,23 +11,7 @@ interface IAccordionProps extends IWithChildren {
 }
 
 export default function Accordion({ children, title, id }: Readonly<IAccordionProps>) {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const handleToggle = (e: React.MouseEvent | React.KeyboardEvent) => {
-    if (
-      e.type === 'click' ||
-      (e.type === 'keydown' && (e as React.KeyboardEvent).key === 'Enter')
-    ) {
-      setIsOpen((prevState) => !prevState);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      setIsOpen(false);
-    }
-  };
+  const { isOpen, contentRef, handleToggle, handleKeyDown } = useAccordion();
 
   return (
     <li className='border-b border-darkBase bg-transparent py-4 dark:border-whiteBase md:py-6'>

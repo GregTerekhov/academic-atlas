@@ -1,3 +1,4 @@
+export { useAccordion } from './useAccordion';
 export { useActiveLink } from './useActiveLink';
 export { useBreadcrumbs } from './useBreadcrumbs';
 export { useButtonDisabled } from './useButtonDisabled';
