@@ -20,7 +20,7 @@ import {
   StatisticCount,
   StatisticLabel,
   CompanyContacts,
-  Requisites,
+  IRequisites,
 } from '../types';
 import { imageSettings } from './imageSettings';
 
@@ -857,7 +857,7 @@ export const getOfferArticles = (): ILegalInfoArticle[] => {
   ];
 };
 
-export const getRequisites = (): Requisites[] => {
+export const getRequisites = (): IRequisites[] => {
   return [
     { id: 'company-name', fieldName: 'Academic Atlas' },
     {

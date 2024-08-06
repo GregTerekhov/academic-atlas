@@ -1,5 +1,6 @@
-import { IOrderStep } from 'types';
-import { getOrderSteps, getIdValues, imageSettings, getSectionProps } from 'helpers';
+import { type IOrderStep } from 'types';
+import { getOrderSteps, getSectionProps, imageSettings } from 'data';
+import { getIdValues } from 'helpers';
 
 import { MappedListTemplate, SectionTemplate } from 'template';
 import { OverviewItem } from './subcomponents';

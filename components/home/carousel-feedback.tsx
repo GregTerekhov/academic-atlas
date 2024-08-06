@@ -1,5 +1,5 @@
 import { type ISlide } from 'types';
-import { slideImageSettings } from 'helpers';
+import { slideImageSettings } from 'data';
 
 import { RatingIcons } from './subcomponents';
 import { ImageUI } from 'ui';

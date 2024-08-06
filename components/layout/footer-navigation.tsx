@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { AriaLabel, Paths, PositionInLayout } from 'types';
-import { getFooterLinks, getMenuAriaCurrent, mapArray } from 'helpers';
+import { AriaLabel, PositionInLayout } from 'types';
+import { getFooterLinks } from 'data';
+import { getMenuAriaCurrent, mapArray } from 'helpers';
 
 import { CalculationLinkDesktop, CalculationLinkMobile } from './subcomponents';
 

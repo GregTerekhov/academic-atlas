@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 
+import { getOfferArticles, getSectionProps, MetadataTexts } from 'data';
+
 import { SectionTemplate } from 'template';
 import { LegalList } from 'components';
-import { getOfferArticles, MetadataTexts, getSectionProps } from 'helpers';
 
 import { getLegalArticleStyles } from 'styles';
 

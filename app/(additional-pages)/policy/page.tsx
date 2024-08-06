@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { getPolicyArticles, getSectionProps, MetadataTexts } from 'helpers';
+import { getPolicyArticles, getSectionProps, MetadataTexts } from 'data';
 
 import { SectionTemplate } from 'template';
 import { LegalList } from 'components';

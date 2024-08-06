@@ -1,4 +1,4 @@
-import { CtaText, type ISectionProps, SectionTitle } from '../types';
+import { CtaText, type ISectionProps, SectionTitle } from 'types';
 
 interface IPropsConfig {
   [key: string]: ISectionProps;

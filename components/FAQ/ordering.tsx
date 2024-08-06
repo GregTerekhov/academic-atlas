@@ -1,5 +1,5 @@
 import { PrimaryButtonLabel, TelegramScenario, AriaId, AriaDescription } from 'types';
-import { getSectionProps } from 'helpers';
+import { getSectionProps } from 'data';
 
 import { SectionTemplate, TelegramButton } from 'template';
 

@@ -1,8 +1,9 @@
-import { partnershipAboutImageSettings } from 'helpers';
+import { partnershipAboutImageSettings } from 'data';
+
+import { ImageUI } from 'ui';
 
 import { getAboutUsImageStyles } from 'styles';
 
-import { ImageUI } from 'ui';
 interface IAboutUsItemProps {
   header: string;
   description: string;

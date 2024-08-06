@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { getSectionProps, MetadataTexts } from 'helpers';
+import { getSectionProps, MetadataTexts } from 'data';
 
 import { SectionTemplate } from 'template';
 import { NotFoundNavigation } from 'components';

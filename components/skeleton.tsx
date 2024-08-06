@@ -1,5 +1,7 @@
+import { getSkeletonLines } from 'data';
+import { mapArray } from 'helpers';
+
 import { Container } from 'layout';
-import { getSkeletonLines, mapArray } from 'helpers';
 
 import { skeletonStyles } from 'styles';
 

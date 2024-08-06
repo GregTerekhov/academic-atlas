@@ -1,4 +1,5 @@
-import { getIdValues, getSectionProps } from 'helpers';
+import { getSectionProps } from 'data';
+import { getIdValues } from 'helpers';
 
 import { SectionTemplate } from 'template';
 import { BenefitsList, StatisticList } from './subcomponents';

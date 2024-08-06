@@ -1,5 +1,11 @@
-import { AriaDescription, AriaId, IAccession, PrimaryButtonLabel, TelegramScenario } from 'types';
-import { getAccession, getSectionProps, imageSettings } from 'helpers';
+import {
+  type IAccession,
+  AriaDescription,
+  AriaId,
+  PrimaryButtonLabel,
+  TelegramScenario,
+} from 'types';
+import { getAccession, getSectionProps, imageSettings } from 'data';
 
 import { MappedListTemplate, SectionTemplate, TelegramButton } from 'template';
 import { ImageUI } from 'ui';

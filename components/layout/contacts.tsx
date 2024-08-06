@@ -1,5 +1,5 @@
-import { PositionInLayout, IContactLink } from 'types';
-import { getAdaptedContacts } from 'helpers';
+import { PositionInLayout, type IContactLink } from 'types';
+import { getAdaptedContacts } from 'data';
 
 import { MappedListTemplate } from 'template';
 import { ContactItem } from './subcomponents';
