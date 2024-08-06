@@ -3,7 +3,9 @@ import {
   MetadataKeywords,
   MetadataTitle,
   OpenGraphImageAlt,
+  OpenGraphImageURL,
   OpenGraphType,
+  OpenGraphURL,
 } from '../types';
 
 const OPEN_GRAPH_IMAGE_WIDTH = 1200;
@@ -21,7 +23,7 @@ export const MetadataTexts = {
       type: OpenGraphType.Website,
       images: [
         {
-          //   url: OpenGraphImageURL.HOME,
+          url: OpenGraphImageURL.HOME,
           width: OPEN_GRAPH_IMAGE_WIDTH,
           height: OPEN_GRAPH_IMAGE_HEIGHT,
           alt: OpenGraphImageAlt.HOME,
@@ -55,11 +57,11 @@ export const MetadataTexts = {
     openGraph: {
       title: MetadataTitle.PARTNERSHIP,
       description: MetadataDescription.PARTNERSHIP,
-      //   url: OpenGraphURL.PARTNERSHIP,
+      url: OpenGraphURL.PARTNERSHIP,
       type: OpenGraphType.Article,
       images: [
         {
-          //   url: OpenGraphImageURL.PARTNERSHIP,
+          url: OpenGraphImageURL.PARTNERSHIP,
           width: OPEN_GRAPH_IMAGE_WIDTH,
           height: OPEN_GRAPH_IMAGE_HEIGHT,
           alt: OpenGraphImageAlt.PARTNERSHIP,

@@ -101,7 +101,7 @@ export enum CtaText {
   MainPerformers = 'Пиши, розвивайся, заробляй та ставай нашим виконавцем!',
   MainPromotions = 'Замовте готовий підшитий диплом у нас і отримайте його зі зручністю "Новою поштою"',
   PartnershipHero = 'Станьте частиною спільноти професіоналів, що допомагають студентам досягати успіху',
-  FAQHero = 'Тут ви знайдете відповіді на основні питання про наші послуги. ',
+  FAQHero = 'Тут ви знайдете відповіді на основні питання про наші послуги',
   FAQOrder = 'Наша команда готова допомогти вам виконати роботу, що відповідатиме вашим вимогам',
 }
 
@@ -172,21 +172,21 @@ export enum OpenGraphURL {
 }
 
 export enum OpenGraphImageURL {
-  HOME = 'https://AcademicAtlas.com/images/og-image.jpg', //FIXME: --- add image,
+  HOME = '/images/og-image.jpg', //FIXME: --- add image,
   FAQ = 'https://AcademicAtlas.com/images/faq-og-image.jpg', //FIXME: --- add image,
-  PARTNERSHIP = 'https://AcademicAtlas.com/images/partnership-og-image.jpg', //FIXME: --- add image,
+  PARTNERSHIP = '/images/partnership-og-image.jpg', //FIXME: --- add image,
   POLICY = 'https://AcademicAtlas.com/images/legal-og-image.jpg', //FIXME: --- add image,
   NOT_FOUND = 'https://AcademicAtlas.com/images/404-og-image.jpg', //FIXME: --- add image,
   OFFER = 'https://AcademicAtlas.com/images/offer-og-image.jpg', //FIXME: --- add image,
 }
 
 export enum OpenGraphImageAlt {
-  HOME = 'AcademicAtlas',
-  FAQ = 'FAQ - AcademicAtlas',
-  PARTNERSHIP = 'Partnership - AcademicAtlas',
-  POLICY = 'Legal - AcademicAtlas',
+  HOME = 'Main page Academic Atlas',
+  FAQ = 'FAQ page - Academic Atlas',
+  PARTNERSHIP = 'Partnership page - Academic Atlas',
+  POLICY = 'Privacy policy - Academic Atlas',
   NOT_FOUND = '404 - Page Not Found',
-  OFFER = 'Public Offer Agreement - AcademicAtlas',
+  OFFER = 'Public Offer Agreement - Academic Atlas',
 }
 
 export enum CompanyContacts {
