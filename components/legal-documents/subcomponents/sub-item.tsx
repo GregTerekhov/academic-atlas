@@ -1,4 +1,4 @@
-import { ISubItem } from 'types';
+import { type ISubItem } from 'types';
 import { mapArray } from 'helpers';
 
 interface ISubItemProps {

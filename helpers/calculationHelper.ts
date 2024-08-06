@@ -12,7 +12,7 @@ import {
   Uniqueness,
   WorkType,
 } from '../types';
-import { getWorkType } from './calculationData';
+import { getWorkType } from '../data';
 
 const { ZERO, QUARTER, HALF, THREE_QUARTERS, WHOLE } = ROUNDING_VALUES;
 const {

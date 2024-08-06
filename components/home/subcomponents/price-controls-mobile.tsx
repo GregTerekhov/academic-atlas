@@ -3,8 +3,8 @@
 import { AriaDescription, AriaId, PrimaryButtonLabel } from 'types';
 import { useMenu } from 'context';
 
-import { PrimaryButtonUI } from 'ui';
 import { MobileMenuTemplate } from 'template';
+import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../../calculation/product-price-calculator';
 
 export default function PriceControlsMobile() {

@@ -108,7 +108,7 @@ export interface ISubstituteProps {
   isInternalLink: boolean;
 }
 
-export interface Requisites {
+export interface IRequisites {
   id: string;
   fieldName: string;
 }
