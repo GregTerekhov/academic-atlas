@@ -1,76 +1,76 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { debounce } from 'lodash';
 
 import { MenuLinks, Paths } from '../types';
 import { useIntersectionObserver } from './useIntersectionObserver';
 import { useInitialiseSection } from './useInitialiseSection';
-import { useInitialLink } from './useInitialLink';
+// import { useInitialLink } from './useInitialLink';
 
 export const useActiveLink = (isDesktop: boolean) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const initialLink = useInitialLink();
+  // const initialLink = useInitialLink();
 
-  const defaultLink = initialLink ?? pathname;
+  // const defaultLink = initialLink ?? pathname;
 
-  const [activeLink, setActiveLink] = useState<string>(defaultLink);
+  const [activeLink, setActiveLink] = useState<string>(pathname);
 
   const { sections, sectionRefs, initialiseSections } = useInitialiseSection(isDesktop);
 
-  // const updateActiveLink = useCallback(() => {
-  //   const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
+  const updateActiveLink = useCallback(() => {
+    const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
 
-  //   if (!legalPagesPaths) {
-  //     const hash = window.location.hash;
+    if (!legalPagesPaths) {
+      const hash = window.location.hash;
 
-  //     if (hash) {
-  //       setActiveLink(hash);
-  //     } else {
-  //       setActiveLink(pathname as Paths);
-  //     }
-  //   } else {
-  //     setActiveLink('');
-  //   }
-  // }, [pathname]);
+      if (hash) {
+        setActiveLink(hash);
+      } else {
+        setActiveLink(pathname as Paths);
+      }
+    } else {
+      setActiveLink('');
+    }
+  }, [pathname]);
 
   useEffect(() => {
     initialiseSections();
     // updateActiveLink();
-    const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
+    // const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
 
-    const updateActiveLink = () => {
-      if (!legalPagesPaths) {
-        const hash = window.location.hash;
-        // if (!legalPagesPaths && typeof window !== 'undefined') {
-        //   const hash = window.location.hash;
+    // const updateActiveLink = () => {
+    //   if (!legalPagesPaths) {
+    //     const hash = window.location.hash;
+    //     // if (!legalPagesPaths && typeof window !== 'undefined') {
+    //     //   const hash = window.location.hash;
 
-        if (initialLink) {
-          // if (hash) {
-          // setActiveLink(hash);
-          // router.push(hash as Paths, { scroll: false });
-          const sectionId = hash.replace('#', '');
-          const section = document.getElementById(sectionId);
+    //     if (initialLink) {
+    //       // if (hash) {
+    //       // setActiveLink(hash);
+    //       // router.push(hash as Paths, { scroll: false });
+    //       const sectionId = hash.replace('#', '');
+    //       const section = document.getElementById(sectionId);
 
-          if (section) {
-            section.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-              inline: 'start',
-            });
-            setActiveLink(hash);
-            router.push(`#${sectionId}`);
-          }
-        } else {
-          setActiveLink(pathname as Paths);
-        }
-      } else {
-        setActiveLink('');
-      }
-    };
+    //       if (section) {
+    //         section.scrollIntoView({
+    //           behavior: 'smooth',
+    //           block: 'start',
+    //           inline: 'start',
+    //         });
+    //         setActiveLink(hash);
+    //         router.push(`#${sectionId}`);
+    //       }
+    //     } else {
+    //       setActiveLink(pathname as Paths);
+    //     }
+    //   } else {
+    //     setActiveLink('');
+    //   }
+    // };
 
     updateActiveLink();
 
@@ -86,7 +86,7 @@ export const useActiveLink = (isDesktop: boolean) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [initialLink, initialiseSections, pathname, router]);
+  }, [initialiseSections, pathname, updateActiveLink]);
 
   const handleIntersection = debounce((entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
@@ -119,11 +119,11 @@ export const useActiveLink = (isDesktop: boolean) => {
       MenuLinks.Promotions,
       MenuLinks.Feedback,
     ].includes(label);
-    const isOtherPages = [MenuLinks.FAQ, MenuLinks.Partnership].includes(label);
+    // const isOtherPages = [MenuLinks.FAQ, MenuLinks.Partnership].includes(label);
 
     if (pathname === Paths.Main) {
-      e.preventDefault();
       if (label === MenuLinks.Main) {
+        e.preventDefault();
         window.scrollTo({
           top: 0,
           behavior: 'smooth',
@@ -131,42 +131,44 @@ export const useActiveLink = (isDesktop: boolean) => {
 
         setActiveLink(Paths.Main);
         router.push(Paths.Main);
-      } else if (isMainSection) {
-        const sectionId = path.replace('/#', '');
-        const section = document.getElementById(sectionId);
+      } else if (isMainSection && activeLink !== path) {
+        // const sectionId = path.replace('/#', '');
+        // const section = document.getElementById(sectionId);
 
-        if (section) {
-          section.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'start',
-          });
-          setActiveLink(path);
-          router.push(`#${sectionId}`);
-        }
-      } else if (isOtherPages) {
-        router.push(path);
+        // if (section) {
+        //   section.scrollIntoView({
+        //     behavior: 'smooth',
+        //     block: 'start',
+        //     inline: 'start',
+        //   });
         setActiveLink(path);
+        // router.push(`#${sectionId}`);
       }
-    } else {
-      if (isOtherPages) {
-        router.push(path);
-        setActiveLink(path);
-      } else if (isMainSection) {
-        const sectionId = path.replace('/#', '');
-        const section = document.getElementById(sectionId);
-        console.log('path: ', path);
+    }
+    // else if (isOtherPages) {
+    //     router.push(path);
+    //     setActiveLink(path);
+    //   }
+    // }
+    else {
+      // if (isOtherPages) {
+      //   router.push(path);
+      setActiveLink(path);
+      // } else if (isMainSection) {
+      //   const sectionId = path.replace('/#', '');
+      //   const section = document.getElementById(sectionId);
+      //   console.log('path: ', path);
 
-        if (section) {
-          section.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'start',
-          });
-          setActiveLink(path);
-          router.push(`#${sectionId}`);
-        }
-      }
+      //   if (section) {
+      //     section.scrollIntoView({
+      //       behavior: 'smooth',
+      //       block: 'start',
+      //       inline: 'start',
+      //     });
+      //     setActiveLink(path);
+      //     router.push(`#${sectionId}`);
+      //   }
+      // }
     }
   };
   return { activeLink, handleLinkClick };
