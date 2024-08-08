@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { debounce } from 'lodash';
+// import { debounce } from 'lodash';
 
 import { MenuLinks, Paths } from '../types';
 import { useIntersectionObserver } from './useIntersectionObserver';
@@ -88,7 +88,8 @@ export const useActiveLink = (isDesktop: boolean) => {
     };
   }, [initialiseSections, pathname, updateActiveLink]);
 
-  const handleIntersection = debounce((entries: IntersectionObserverEntry[]) => {
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    // const handleIntersection = debounce((entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
@@ -104,7 +105,8 @@ export const useActiveLink = (isDesktop: boolean) => {
         }
       }
     });
-  }, 400);
+  };
+  // }, 400);
 
   useIntersectionObserver(sectionRefs.current, { root: null, threshold: 0.3 }, handleIntersection);
 
