@@ -3,6 +3,7 @@ import {
   MetadataKeywords,
   MetadataTitle,
   OpenGraphImageAlt,
+  OpenGraphImageURL,
   OpenGraphType,
 } from '../types';
 
@@ -17,11 +18,11 @@ export const MetadataTexts = {
     openGraph: {
       title: MetadataTitle.HOME,
       description: MetadataDescription.HOME,
-      //   url: OpenGraphURL.HOME,
+      //   url: OpenGraphURL.HOME, //FIXME: uncomment
       type: OpenGraphType.Website,
       images: [
         {
-          //   url: OpenGraphImageURL.HOME,
+          url: OpenGraphImageURL.HOME,
           width: OPEN_GRAPH_IMAGE_WIDTH,
           height: OPEN_GRAPH_IMAGE_HEIGHT,
           alt: OpenGraphImageAlt.HOME,
@@ -36,11 +37,11 @@ export const MetadataTexts = {
     openGraph: {
       title: MetadataTitle.FAQ,
       description: MetadataDescription.FAQ,
-      //   url: OpenGraphURL.FAQ,
+      //   url: OpenGraphURL.FAQ, //FIXME: uncomment
       type: OpenGraphType.Article,
       images: [
         {
-          //   url: OpenGraphImageURL.FAQ,
+          url: OpenGraphImageURL.FAQ,
           width: OPEN_GRAPH_IMAGE_WIDTH,
           height: OPEN_GRAPH_IMAGE_HEIGHT,
           alt: OpenGraphImageAlt.FAQ,
@@ -55,11 +56,11 @@ export const MetadataTexts = {
     openGraph: {
       title: MetadataTitle.PARTNERSHIP,
       description: MetadataDescription.PARTNERSHIP,
-      //   url: OpenGraphURL.PARTNERSHIP,
+      // url: OpenGraphURL.PARTNERSHIP, //FIXME: uncomment
       type: OpenGraphType.Article,
       images: [
         {
-          //   url: OpenGraphImageURL.PARTNERSHIP,
+          url: OpenGraphImageURL.PARTNERSHIP,
           width: OPEN_GRAPH_IMAGE_WIDTH,
           height: OPEN_GRAPH_IMAGE_HEIGHT,
           alt: OpenGraphImageAlt.PARTNERSHIP,
@@ -71,57 +72,57 @@ export const MetadataTexts = {
     title: MetadataTitle.POLICY,
     description: MetadataDescription.POLICY,
     keywords: MetadataKeywords.POLICY,
-    openGraph: {
-      title: MetadataTitle.POLICY,
-      description: MetadataDescription.POLICY,
-      //   url: OpenGraphURL.POLICY,
-      type: OpenGraphType.Article,
-      images: [
-        {
-          //   url: OpenGraphImageURL.POLICY,
-          width: OPEN_GRAPH_IMAGE_WIDTH,
-          height: OPEN_GRAPH_IMAGE_HEIGHT,
-          alt: OpenGraphImageAlt.POLICY,
-        },
-      ],
-    },
+    // openGraph: { //FIXME: delete or fix this code
+    //   title: MetadataTitle.POLICY,
+    //   description: MetadataDescription.POLICY,
+    //   //   url: OpenGraphURL.POLICY,
+    //   type: OpenGraphType.Article,
+    //   images: [
+    //     {
+    //       //   url: OpenGraphImageURL.POLICY,
+    //       width: OPEN_GRAPH_IMAGE_WIDTH,
+    //       height: OPEN_GRAPH_IMAGE_HEIGHT,
+    //       alt: OpenGraphImageAlt.POLICY,
+    //     },
+    //   ],
+    // },
   },
   notFound: {
     title: MetadataTitle.NOT_FOUND,
     description: MetadataDescription.NOT_FOUND,
     keywords: MetadataKeywords.NOT_FOUND,
-    openGraph: {
-      title: MetadataTitle.NOT_FOUND,
-      description: MetadataDescription.NOT_FOUND,
-      //   url: OpenGraphURL.NOT_FOUND,
-      type: OpenGraphType.Article,
-      images: [
-        {
-          //   url: OpenGraphImageURL.NOT_FOUND,
-          width: OPEN_GRAPH_IMAGE_WIDTH,
-          height: OPEN_GRAPH_IMAGE_HEIGHT,
-          alt: OpenGraphImageAlt.NOT_FOUND,
-        },
-      ],
-    },
+    // openGraph: { //FIXME: delete or fix this code
+    //   title: MetadataTitle.NOT_FOUND,
+    //   description: MetadataDescription.NOT_FOUND,
+    //   //   url: OpenGraphURL.NOT_FOUND,
+    //   type: OpenGraphType.Article,
+    //   images: [
+    //     {
+    //       //   url: OpenGraphImageURL.NOT_FOUND,
+    //       width: OPEN_GRAPH_IMAGE_WIDTH,
+    //       height: OPEN_GRAPH_IMAGE_HEIGHT,
+    //       alt: OpenGraphImageAlt.NOT_FOUND,
+    //     },
+    //   ],
+    // },
   },
   offer: {
     title: MetadataTitle.OFFER,
     description: MetadataDescription.OFFER,
     keywords: MetadataKeywords.OFFER,
-    openGraph: {
-      title: MetadataTitle.OFFER,
-      description: MetadataDescription.OFFER,
-      //   url: OpenGraphURL.OFFER,
-      type: OpenGraphType.Article,
-      images: [
-        {
-          //   url: OpenGraphImageURL.OFFER,
-          width: OPEN_GRAPH_IMAGE_WIDTH,
-          height: OPEN_GRAPH_IMAGE_HEIGHT,
-          alt: OpenGraphImageAlt.OFFER,
-        },
-      ],
-    },
+    // openGraph: { //FIXME: delete or fix this code
+    //   title: MetadataTitle.OFFER,
+    //   description: MetadataDescription.OFFER,
+    //   //   url: OpenGraphURL.OFFER,
+    //   type: OpenGraphType.Article,
+    //   images: [
+    //     {
+    //       //   url: OpenGraphImageURL.OFFER,
+    //       width: OPEN_GRAPH_IMAGE_WIDTH,
+    //       height: OPEN_GRAPH_IMAGE_HEIGHT,
+    //       alt: OpenGraphImageAlt.OFFER,
+    //     },
+    //   ],
+    // },
   },
 };

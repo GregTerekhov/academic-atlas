@@ -12,7 +12,7 @@ export const getSectionProps = (
     faqHero: {
       title: SectionTitle.FAQHero,
       titleStyle: 'md:w-[356px] lg:w-[621px] lg:mt-[154px]',
-      ctaStyle: 'md:w-[392px] lg:w-[570px] no-margin',
+      ctaStyle: 'md:w-[400px] lg:w-[620px] no-margin',
       ctaText: CtaText.FAQHero,
       sectionStyle: 'lg:min-h-[792px]',
       noAlignment: 'text-start',
@@ -46,7 +46,7 @@ export const getSectionProps = (
     homeHero: {
       title: SectionTitle.Hero,
       titleStyle: 'md:w-[440px] lg:w-[550px]',
-      ctaStyle: 'md:w-[440px] lg:w-[458px]',
+      ctaStyle: 'md:w-[422px] lg:w-[586px]',
       ctaText: CtaText.MainHero,
       isBigTitle: true,
       hasCtaText: true,
@@ -61,7 +61,7 @@ export const getSectionProps = (
     },
     homePromotions: {
       title: SectionTitle.Promotions,
-      ctaStyle: 'md:w-[421px] lg:w-[572px]',
+      ctaStyle: 'md:w-[421px] lg:w-[644px]',
       id: sectionId ?? '',
       ctaText: CtaText.MainPromotions,
       noAlignment: 'text-start',
