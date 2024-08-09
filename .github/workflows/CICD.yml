@@ -32,14 +32,3 @@ jobs:
           push: true
           tags: lazlovalentin008/atlasnext:2
           file: Dockerfile
-
-  deploy:
-    needs: build
-    runs-on: aws-ec2
-    steps:
-      - name: Оновлення дев гілки на сервері 
-        run: |
-          docker compose stop
-          docker rm nextjs
-          docker rmi lazlovalentin008/atlasnext:2
-          docker compose up -d

@@ -91,12 +91,14 @@
       ansible.builtin.shell: |
         docker rmi lazlovalentin008/atlasnext:2
         docker rmi lazlovalentin008/atlasnginx:4
+        docker rmi lazlovalentin008/atlasnest:5
 
     - name: docker remove images
       ignore_errors: yes
       ansible.builtin.shell: |
         docker rm nextjs
         docker rm nginx
+        docker rm nestjs
 
     - name: Create Docker network
       ignore_errors: yes
@@ -108,6 +110,7 @@
       ansible.builtin.shell: |
         docker pull lazlovalentin008/atlasnginx:4
         docker pull lazlovalentin008/atlasnext:2
+        docker pull lazlovalentin008/atlasnest:5
         
 
     - name: Docker run all images
@@ -115,4 +118,4 @@
       ansible.builtin.shell: |
         docker run -d -p 3000:3000 --restart unless-stopped --name nextjs --network webnet -e PORT=3000 -e HOSTNAME=0.0.0.0 lazlovalentin008/atlasnext:2
         docker run -d -p 80:80 --restart unless-stopped --name nginx --network webnet lazlovalentin008/atlasnginx:4
-        
+        docker run --restart unless-stopped --name nestjs --network webnet lazlovalentin008/atlasnest:5
