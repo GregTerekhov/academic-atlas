@@ -15,6 +15,7 @@ export default function RatingIcons({ rating, index }: RatingIconProps) {
       id={iconId}
       className='fill-accentSecondary md:size-6'
       size={{ width: IconSize.XXS, height: IconSize.XXS }}
+      data-testid={`rating-icon-${index}`}
     />
   );
 }
