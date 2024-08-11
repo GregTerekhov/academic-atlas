@@ -7,16 +7,16 @@ import { Paths } from '../types';
 import { createPathsMap, validPaths } from 'helpers';
 
 export const useBreadcrumbs = () => {
-  const [determinedCurrentPath, setDeterminedCurrentPath] = useState('');
+  const [determinedCurrentPath, setDeterminedCurrentPath] = useState<string | null>(null);
   const currentPath = usePathname();
 
   useEffect(() => {
     const pathMenuLinkMap = createPathsMap();
 
     if (pathMenuLinkMap.has(currentPath)) {
-      setDeterminedCurrentPath(pathMenuLinkMap.get(currentPath) || '');
+      setDeterminedCurrentPath(pathMenuLinkMap.get(currentPath) || null);
     } else {
-      setDeterminedCurrentPath('');
+      setDeterminedCurrentPath(null);
     }
   }, [currentPath]);
 

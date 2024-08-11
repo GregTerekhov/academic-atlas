@@ -11,6 +11,8 @@ import { SvgIconUI } from 'ui';
 export default function Breadcrumbs() {
   const determinedPath = useBreadcrumbs();
 
+  if (!determinedPath) return null;
+
   return (
     <Container>
       <div className='absolute left-6 top-2 z-10 flex items-center gap-x-2 md:left-10 md:top-4 lg:left-20 lg:top-6'>
