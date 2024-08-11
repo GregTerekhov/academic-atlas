@@ -113,6 +113,7 @@ export enum CalculationTitle {
 export interface ILinks {
   label: MenuLinks;
   path: Paths;
+  activeLink: string;
   id?: string | undefined;
 }
 

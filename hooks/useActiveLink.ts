@@ -1,177 +1,145 @@
+// 'use client';
+
+// import { useCallback, useEffect, useState } from 'react';
+// import { usePathname, useRouter } from 'next/navigation';
+// import { debounce } from 'lodash';
+
+// import { Paths } from '../types';
+// import { useInitialiseSection } from './useInitialiseSection';
+// import { useIntersectionObserver } from './useIntersectionObserver';
+
+// export const useActivateLink = () => {
+//   const pathname = usePathname();
+//   const router = useRouter();
+
+//   const [activatedLink, setActivatedLink] = useState<string>(pathname);
+
+//   const { sections, sectionRefs, isInitialised } = useInitialiseSection();
+//   console.log('isInitialised: ', isInitialised);
+
+//   // console.log('sectionRefs: ', sectionRefs);
+
+//   const clearActiveLink = useCallback(() => {
+//     setActivatedLink('');
+//   }, []);
+
+//   const updateActiveLink = useCallback(() => {
+//     const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
+
+//     if (legalPagesPaths) {
+//       clearActiveLink();
+//     } else {
+//       setActivatedLink(pathname);
+//     }
+//   }, [clearActiveLink, pathname]);
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       if (window.scrollY === 0 && pathname === Paths.Main) {
+//         setActivatedLink(pathname as Paths);
+//         window.history.pushState(null, '', pathname);
+//       }
+//     };
+//     window.addEventListener('scroll', handleScroll);
+//     return () => {
+//       window.removeEventListener('scroll', handleScroll);
+//     };
+//   }, [pathname]);
+
+//   useEffect(() => {
+//     updateActiveLink();
+//   }, [updateActiveLink]);
+
+//   const handleIntersection = debounce((entries: IntersectionObserverEntry[]) => {
+//     entries.forEach((entry) => {
+//       if (entry.isIntersecting) {
+//         const id = entry.target.getAttribute('id');
+//         if (id && sections?.current) {
+//           console.log('sections.current: ', sections.current);
+//           const section = sections.current.find((section) => section.id === id);
+//           if (section) {
+//             setActivatedLink(section.path);
+//             router.push(`#${section.id}`, { scroll: false });
+//           }
+//         }
+//       }
+//     });
+//   }, 300);
+
+//   useIntersectionObserver(
+//     isInitialised ? sectionRefs.current : [],
+//     { root: null, threshold: 0.2 },
+//     handleIntersection,
+//   );
+
+//   const handleActivateLink = (path: string) => {
+//     setActivatedLink(path);
+//   };
+
+//   return { activatedLink, handleActivateLink, clearActiveLink };
+// };
+
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-// import { debounce } from 'lodash';
+import { debounce } from 'lodash';
 
-import { MenuLinks, Paths } from '../types';
+import { Paths } from '../types';
 import { useIntersectionObserver } from './useIntersectionObserver';
 import { useInitialiseSection } from './useInitialiseSection';
-// import { useInitialLink } from './useInitialLink';
 
-export const useActiveLink = (isDesktop: boolean) => {
+export const useActivateLink = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  // const initialLink = useInitialLink();
-
-  // const defaultLink = initialLink ?? pathname;
-
-  const [activeLink, setActiveLink] = useState<string>(pathname);
-
-  const { sections, sectionRefs, initialiseSections } = useInitialiseSection(isDesktop);
+  const [activatedLink, setActivatedLink] = useState<string>(pathname);
+  const { sections, sectionRefs } = useInitialiseSection();
 
   const updateActiveLink = useCallback(() => {
     const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
-
-    if (!legalPagesPaths) {
-      const hash = window.location.hash;
-
-      if (hash) {
-        setActiveLink(hash);
-      } else {
-        setActiveLink(pathname as Paths);
-      }
-    } else {
-      setActiveLink('');
+    if (legalPagesPaths) {
+      setActivatedLink('');
     }
   }, [pathname]);
 
   useEffect(() => {
-    initialiseSections();
-    // updateActiveLink();
-    // const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
-
-    // const updateActiveLink = () => {
-    //   if (!legalPagesPaths) {
-    //     const hash = window.location.hash;
-    //     // if (!legalPagesPaths && typeof window !== 'undefined') {
-    //     //   const hash = window.location.hash;
-
-    //     if (initialLink) {
-    //       // if (hash) {
-    //       // setActiveLink(hash);
-    //       // router.push(hash as Paths, { scroll: false });
-    //       const sectionId = hash.replace('#', '');
-    //       const section = document.getElementById(sectionId);
-
-    //       if (section) {
-    //         section.scrollIntoView({
-    //           behavior: 'smooth',
-    //           block: 'start',
-    //           inline: 'start',
-    //         });
-    //         setActiveLink(hash);
-    //         router.push(`#${sectionId}`);
-    //       }
-    //     } else {
-    //       setActiveLink(pathname as Paths);
-    //     }
-    //   } else {
-    //     setActiveLink('');
-    //   }
-    // };
-
     updateActiveLink();
+  }, [updateActiveLink]);
 
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0 && pathname === Paths.Main) {
-        setActiveLink(pathname as Paths);
+        setActivatedLink(pathname as Paths);
         window.history.pushState(null, '', pathname);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [initialiseSections, pathname, updateActiveLink]);
+  }, [pathname]);
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    // const handleIntersection = debounce((entries: IntersectionObserverEntry[]) => {
+  const handleIntersection = debounce((entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
-        if (id) {
+        if (id && sections?.current) {
+          console.log('sections.current: ', sections.current);
           const section = sections.current.find((section) => section.id === id);
           if (section) {
-            setActiveLink(section.path);
-            const hash = window.location.hash;
-            if (hash) {
-              router.replace(`#${id}`, { scroll: false });
-            }
+            setActivatedLink(section.path);
+            router.push(`#${section.id}`, { scroll: false });
           }
         }
       }
     });
-  };
-  // }, 400);
+  }, 300);
 
   useIntersectionObserver(sectionRefs.current, { root: null, threshold: 0.3 }, handleIntersection);
 
-  const handleLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    label: MenuLinks,
-    path: Paths,
-  ) => {
-    const isMainSection = [
-      MenuLinks.Services,
-      MenuLinks.AboutUs,
-      MenuLinks.Promotions,
-      MenuLinks.Feedback,
-    ].includes(label);
-    // const isOtherPages = [MenuLinks.FAQ, MenuLinks.Partnership].includes(label);
-
-    if (pathname === Paths.Main) {
-      if (label === MenuLinks.Main) {
-        e.preventDefault();
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-
-        setActiveLink(Paths.Main);
-        router.push(Paths.Main);
-      } else if (isMainSection && activeLink !== path) {
-        // const sectionId = path.replace('/#', '');
-        // const section = document.getElementById(sectionId);
-
-        // if (section) {
-        //   section.scrollIntoView({
-        //     behavior: 'smooth',
-        //     block: 'start',
-        //     inline: 'start',
-        //   });
-        setActiveLink(path);
-        // router.push(`#${sectionId}`);
-      }
-    }
-    // else if (isOtherPages) {
-    //     router.push(path);
-    //     setActiveLink(path);
-    //   }
-    // }
-    else {
-      // if (isOtherPages) {
-      //   router.push(path);
-      setActiveLink(path);
-      // } else if (isMainSection) {
-      //   const sectionId = path.replace('/#', '');
-      //   const section = document.getElementById(sectionId);
-      //   console.log('path: ', path);
-
-      //   if (section) {
-      //     section.scrollIntoView({
-      //       behavior: 'smooth',
-      //       block: 'start',
-      //       inline: 'start',
-      //     });
-      //     setActiveLink(path);
-      //     router.push(`#${sectionId}`);
-      //   }
-      // }
-    }
+  const handleActivateLink = (path: string) => {
+    setActivatedLink(path);
   };
-  return { activeLink, handleLinkClick };
+  return { activatedLink, handleActivateLink };
 };
