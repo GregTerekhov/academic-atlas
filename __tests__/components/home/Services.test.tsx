@@ -11,11 +11,18 @@ jest.mock('data', () => ({
 
 jest.mock('template', () => ({
   MappedListTemplate: jest.fn(({ children }) => <ul>{children}</ul>),
-  SectionTemplate: jest.fn(({ children }) => <section>{children}</section>),
+  SectionTemplate: jest.fn(({ children, title }) => {
+    return (
+      <section id={title}>
+        <h2>{SectionDescriptions[SectionTitle.OurServices]}</h2>
+        {children}
+      </section>
+    );
+  }),
 }));
 
 jest.mock('../../../components/home/subcomponents/service-item', () => ({
-  ServiceItem: jest.fn(() => <li data-testid='overview-item'></li>),
+  ServiceItem: jest.fn(() => <li data-testid='service-item'></li>),
 }));
 
 describe('Services Component', () => {
@@ -23,9 +30,9 @@ describe('Services Component', () => {
     (getServices as jest.Mock).mockReturnValue([
       {
         id: 'test-id',
-        imageSrc: 'test-image-src',
+        imageSrc: '/images/services-002.webp',
         imageAlt: 'test-image-alt',
-        serviceTitle: WorkType.Diplomas,
+        serviceTitle: WorkType.BachelorTheses,
       },
     ]);
 

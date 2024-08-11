@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import { WorkType } from 'types';
+import { PrimaryButtonLabel, WorkType } from 'types';
 import { getAndEncodeDataObject } from 'helpers';
 
 import ServiceItem from 'components/home/subcomponents/service-item';
@@ -11,7 +11,7 @@ jest.mock('helpers', () => ({
 
 describe('ServiceItem Component', () => {
   const mockData = {
-    imageSrc: 'test-image-src',
+    imageSrc: '/public/images/services-001.webp',
     imageAlt: 'test-image-alt',
     serviceTitle: WorkType.BachelorTheses,
     priority: true,
@@ -26,7 +26,7 @@ describe('ServiceItem Component', () => {
 
     expect(screen.getByAltText('test-image-alt')).toBeInTheDocument();
     expect(screen.getByText(WorkType.BachelorTheses)).toBeInTheDocument();
-    expect(screen.getByText('Замовити')).toBeInTheDocument();
+    expect(screen.getByText(PrimaryButtonLabel.Ordering)).toBeInTheDocument();
   });
 
   it('should handle link click correctly', () => {
@@ -45,7 +45,8 @@ describe('ServiceItem Component', () => {
 
     const link = screen.getByRole('link');
     const preventDefault = jest.fn();
-    fireEvent.click(link, { preventDefault });
+
+    fireEvent.click(link);
 
     expect(preventDefault).toHaveBeenCalled();
     expect(link).toHaveAttribute('href', '#');

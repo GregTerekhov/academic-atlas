@@ -9,7 +9,7 @@ import {
 } from 'types';
 import { MenuProvider, useMenu } from 'context';
 
-import { PriceControlsMobile } from 'components/home/subcomponents';
+import PriceControlsMobile from 'components/home/subcomponents/price-controls-mobile';
 
 interface IPrimaryButtonProps extends IWithChildren {
   ariaDescription: AriaDescription;
@@ -24,21 +24,29 @@ jest.mock('context', () => ({
 }));
 
 jest.mock('template', () => ({
-  MobileMenuTemplate: ({ isOpen, children }: { isOpen: boolean; children: React.ReactNode }) =>
-    isOpen ? <div>{children}</div> : null,
+  MobileMenuTemplate: jest.fn(({ isOpen, children }) => (
+    <div
+      data-testid='mobile-menu'
+      className={isOpen ? 'left-0' : '-left-full'}
+    >
+      {children}
+    </div>
+  )),
 }));
 
 jest.mock('ui', () => ({
-  PrimaryButtonUI: ({ handleClick, ariaId, ariaDescription, children }: IPrimaryButtonProps) => (
-    <>
-      <button
-        onClick={handleClick}
-        aria-describedby={ariaId}
-      >
-        {children}
-      </button>
-      <span className='sr-only'>{ariaDescription}</span>
-    </>
+  PrimaryButtonUI: jest.fn(
+    ({ handleClick, ariaId, ariaDescription, children }: IPrimaryButtonProps) => (
+      <>
+        <button
+          onClick={handleClick}
+          aria-describedby={ariaId}
+        >
+          {children}
+        </button>
+        <span className='sr-only'>{ariaDescription}</span>
+      </>
+    ),
   ),
 }));
 

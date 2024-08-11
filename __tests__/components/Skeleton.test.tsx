@@ -6,12 +6,12 @@ describe('Skeleton component', () => {
   it('should render the Skeleton component', () => {
     render(<Skeleton />);
 
-    const sectionElement = screen.getByRole('region', { name: '' });
+    const sectionElement = screen.getByTestId('skeleton-section');
     expect(sectionElement).toHaveClass(
       'my-auto min-h-mobileScreen py-20 md:min-h-tabletScreen md:py-24 lg:min-h-desktopScreen lg:py-28',
     );
 
-    const lines = screen.getByRole('generic');
+    const lines = screen.getAllByTestId(/^line-/);
     expect(lines).toHaveLength(5);
 
     const blockElement = screen.getByTestId('block');
