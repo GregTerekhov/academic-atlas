@@ -22,7 +22,10 @@ export default function Skeleton() {
               ></div>
             ))}
           </div>
-          <div className={block}></div>
+          <div
+            className={block}
+            data-testid='block'
+          ></div>
         </div>
       </Container>
     </section>

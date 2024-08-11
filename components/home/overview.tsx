@@ -24,7 +24,7 @@ export default function ServiceOverview() {
         <div className='hidden md:block'>
           <ImageUI
             src={src}
-            alt=''
+            alt='overview'
             width={width}
             height={height}
             className={className}
