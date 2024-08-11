@@ -60,79 +60,93 @@ export const getFooterLinks = (): ILinks[] => {
     {
       path: Paths.Overview,
       label: MenuLinks.Overview,
+      activeLink: '#overview',
     },
     {
       path: Paths.AboutUs,
       label: MenuLinks.AboutUs,
+      activeLink: '#about-us',
     },
     {
       path: Paths.Feedback,
       label: MenuLinks.Feedback,
+      activeLink: '#feedback',
     },
     {
       path: Paths.Services,
       label: MenuLinks.Services,
+      activeLink: '#services',
     },
     {
       path: Paths.Promotions,
       label: MenuLinks.Promotions,
+      activeLink: '#promotions',
     },
     {
       path: Paths.FAQ,
       label: MenuLinks.FAQ,
+      activeLink: 'FAQ',
     },
     {
       path: Paths.Partnership,
       label: MenuLinks.Partnership,
+      activeLink: 'partnership',
     },
   ];
 };
 
-const getHeaderLinks = (): ILinks[] => {
-  const { Services, AboutUs, Promotions, Feedback } = getIdValues();
+export const getAdaptedLinks = (): ILinks[] => {
+  const { Services, AboutUs, Feedback } = getIdValues();
+  // const { Services, AboutUs, Promotions, Feedback } = getIdValues();
   return [
     {
       path: Paths.Main,
       label: MenuLinks.Main,
+      activeLink: '/',
     },
     {
       id: Services,
       path: Paths.Services,
       label: MenuLinks.Services,
+      activeLink: '#services',
     },
     {
       id: AboutUs,
       path: Paths.AboutUs,
       label: MenuLinks.AboutUs,
+      activeLink: '#about-us',
     },
-    {
-      id: Promotions,
-      path: Paths.Promotions,
-      label: MenuLinks.Promotions,
-    },
+    // {
+    //   id: Promotions,
+    //   path: Paths.Promotions,
+    //   label: MenuLinks.Promotions,
+    // },
     {
       id: Feedback,
       path: Paths.Feedback,
       label: MenuLinks.Feedback,
+      activeLink: '#feedback',
     },
     {
       path: Paths.FAQ,
       label: MenuLinks.FAQ,
+      activeLink: 'FAQ',
     },
     {
       path: Paths.Partnership,
       label: MenuLinks.Partnership,
+      activeLink: 'partnership',
     },
   ];
 };
 
-const headerLinks = getHeaderLinks();
+// const headerLinks = getHeaderLinks();
 
-export const getAdaptedLinks = (isDesktop: boolean | undefined): ILinks[] => {
-  return isDesktop
-    ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
-    : headerLinks;
-};
+// export const getAdaptedLinks = (isDesktop: boolean | undefined): ILinks[] => {
+//   return isDesktop
+//     ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
+//     : headerLinks;
+// };
 
 export const getSkeletonLines = () => {
   const { line1, line2, line3, line4, line5 } = skeletonStyles;

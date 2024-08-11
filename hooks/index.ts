@@ -1,5 +1,5 @@
 export { useAccordion } from './useAccordion';
-export { useActiveLink } from './useActiveLink';
+export { useActivateLink } from './useActiveLink';
 export { useBreadcrumbs } from './useBreadcrumbs';
 export { useButtonDisabled } from './useButtonDisabled';
 export { useCalculationState } from './useCalculationState';

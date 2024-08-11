@@ -5,6 +5,7 @@ import { RatingIcons } from './subcomponents';
 import { ImageUI } from 'ui';
 
 import { getCarouselFeedbackStyles } from 'styles';
+import { useMemo } from 'react';
 
 interface ICarouselFeedbackProps<T> {
   slide: T;
@@ -29,7 +30,8 @@ export default function CarouselFeedback<T extends ISlide>({
 
   const { width, height } = slideImageSettings;
 
-  const { imageAlt, imageSrc, title, description, memberRating } = slide;
+  const { imageAlt, imageSrc, title, description, memberRating } = slide as ISlide;
+  const ratingIcons = useMemo(() => getRatingIcons(memberRating), [memberRating]);
   const { slideClass, imageContainerClass, imageClass, nameClass, feedbackClass } =
     getCarouselFeedbackStyles(isActive);
 
@@ -48,7 +50,7 @@ export default function CarouselFeedback<T extends ISlide>({
       </div>
       <p className={`${nameClass} text-center font-bold`}>{title}</p>
       <p className={`${feedbackClass} mb-4`}>{description}</p>
-      <div className='flex items-center justify-center gap-x-4'>{getRatingIcons(memberRating)}</div>
+      <div className='flex items-center justify-center gap-x-4'>{ratingIcons}</div>
     </div>
   );
 }

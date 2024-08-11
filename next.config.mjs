@@ -3,6 +3,7 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     typedRoutes: true,
+    scrollRestoration: true,
   },
   // compiler: { //FIXME:--- before production
   //   removeConsole: {

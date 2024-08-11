@@ -31,6 +31,7 @@ export default function Modal({
     isOpen(id) && (
       <div className={backdropClass}>
         <div
+          role='dialog'
           ref={modalRef}
           className={containerClass}
         >

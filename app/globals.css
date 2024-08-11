@@ -22,7 +22,7 @@
   }
 
   body.no-scroll {
-    @apply h-full touch-none overflow-hidden;
+    @apply h-full touch-none overflow-hidden lg:pointer-events-none;
   }
 
   h1 {
@@ -132,7 +132,7 @@
   height: 32px;
   background: var(--thumb-color);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: grab;
   -webkit-appearance: none;
 }
 
@@ -158,7 +158,7 @@
   background: var(--thumb-color);
   margin-top: -12px;
   border-radius: 50%;
-  cursor: pointer;
+  cursor: grab;
 }
 
 .range-input:disabled::-webkit-slider-thumb,

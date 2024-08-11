@@ -30,6 +30,8 @@ export default function ServiceItem({
 
     if (!base64String) {
       e.preventDefault();
+      e.currentTarget.href = '#';
+
       return;
     }
 

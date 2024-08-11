@@ -1,5 +1,11 @@
 import { type IWithChildren } from 'types';
-import { CalculationProvider, MenuProvider, PopupProvider, ThemeProvider } from 'context';
+import {
+  // ActiveLinkProvider,
+  CalculationProvider,
+  MenuProvider,
+  PopupProvider,
+  ThemeProvider,
+} from 'context';
 
 interface IProviderWrapperProps extends IWithChildren {
   theme: string | undefined;
@@ -16,11 +22,13 @@ export default function ProviderWrapper({
       storageKey={storageKey}
       startTheme={theme}
     >
+      {/* <ActiveLinkProvider> */}
       <CalculationProvider>
         <MenuProvider>
           <PopupProvider>{children}</PopupProvider>
         </MenuProvider>
       </CalculationProvider>
+      {/* </ActiveLinkProvider> */}
     </ThemeProvider>
   );
 }

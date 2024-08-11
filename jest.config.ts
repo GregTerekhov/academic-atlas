@@ -89,6 +89,7 @@ const config: Config = {
   moduleNameMapper: {
     '^components/(.*)$': '<rootDir>/components/$1',
     '^context/(.*)$': '<rootDir>/context/$1',
+    '^data/(.*)$': '<rootDir>/data/$1',
     '^helpers/(.*)$': '<rootDir>/helpers/$1',
     '^hooks/(.*)$': '<rootDir>/hooks/$1',
     '^layout/(.*)$': '<rootDir>/layout/$1',
