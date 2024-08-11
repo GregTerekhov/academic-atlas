@@ -141,5 +141,9 @@ export const useActivateLink = () => {
   const handleActivateLink = (path: string) => {
     setActivatedLink(path);
   };
-  return { activatedLink, handleActivateLink };
+
+  const clearActiveLink = () => {
+    setActivatedLink('');
+  };
+  return { activatedLink, handleActivateLink, clearActiveLink };
 };
