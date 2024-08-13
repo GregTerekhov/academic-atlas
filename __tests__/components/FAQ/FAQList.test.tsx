@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { QuestionAnswer, QuestionTitle } from 'types';
 import { getFAQQuestions } from 'data';
 import { FAQList } from 'components';
@@ -28,19 +28,25 @@ jest.mock('ui', () => ({
   AccordionUI: jest.fn(({ id, title, children }) => (
     <li key={id}>
       <h2>{title}</h2>
-      <div>{children}</div>
+      <p>{children}</p>
     </li>
   )),
 }));
 
 describe('FAQList Component', () => {
-  it('should render a list of accordion items with correct titles', () => {
+  it('should render a list of accordion items with correct titles and answers', () => {
     render(<FAQList />);
 
     const questions = getFAQQuestions();
 
     questions.forEach((question) => {
-      expect(screen.getByText(question.title)).toBeInTheDocument();
+      const questionTitle = screen.getByText(question.title);
+      expect(questionTitle).toBeInTheDocument();
+
+      fireEvent.click(questionTitle);
+
+      const answerParagraph = screen.getByText(question.answer);
+      expect(answerParagraph).toBeInTheDocument();
     });
   });
 });

@@ -4,6 +4,23 @@ import Hero from 'components/FAQ/hero';
 
 import { SectionDescriptions, SectionTitle } from 'types';
 
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: React.ComponentPropsWithoutRef<typeof Image>) => {
+    const { src, alt, width, height, ...rest } = props;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={typeof src === 'string' ? src : ''}
+        alt={alt}
+        width={width}
+        height={height}
+        {...rest}
+      />
+    );
+  },
+}));
+
 jest.mock('template', () => ({
   SectionTemplate: jest.fn(({ title, children }) => {
     return (
@@ -59,10 +76,7 @@ describe('FAQ Hero Component', () => {
     const image = screen.getByAltText('FAQ Hero Image');
     expect(image).toBeInTheDocument();
 
-    expect(image).toHaveAttribute(
-      'src',
-      expect.stringContaining('/_next/image?url=%2Fimages%2Ffaq-hero.png'),
-    );
+    expect(image).toHaveAttribute('src', '/images/faq-hero.png');
 
     expect(image).toHaveAttribute('width', '537');
     expect(image).toHaveAttribute('height', '584');

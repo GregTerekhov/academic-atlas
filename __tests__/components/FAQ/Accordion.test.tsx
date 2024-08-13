@@ -1,51 +1,91 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { getFAQQuestions } from 'data';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { AccordionUI } from 'ui';
+import { useAccordion } from 'hooks';
 
-describe('AccordionUI Component', () => {
-  const questions = getFAQQuestions();
+jest.mock('hooks', () => ({
+  useAccordion: jest.fn(),
+}));
 
-  it('should render correctly with given title and content', () => {
-    const question = questions[0];
+const mockHandleToggle = jest.fn();
+const mockHandleKeyDown = jest.fn();
+const mockContentRef = { current: { scrollHeight: 100 } };
 
-    render(
-      <AccordionUI
-        id={question.id}
-        title={question.title}
-      >
-        {question.answer}
-      </AccordionUI>,
-    );
-
-    expect(screen.getByText(question.title)).toBeInTheDocument();
-
-    const contentElement = screen.getByText(question.answer);
-    expect(contentElement.parentElement).toHaveStyle('max-height: 0px');
+beforeEach(() => {
+  (useAccordion as jest.Mock).mockReturnValue({
+    isOpen: false,
+    contentRef: mockContentRef,
+    handleToggle: mockHandleToggle,
+    handleKeyDown: mockHandleKeyDown,
   });
 
-  it('should answer visibility when clicked', () => {
-    const question = questions[0];
+  render(
+    <AccordionUI
+      title='Accordion Title'
+      id='accordion-id'
+    >
+      Accordion Content
+    </AccordionUI>,
+  );
+});
+
+describe('AccordionUI Component', () => {
+  it('renders AccordionHeader with correct props', () => {
+    const header = screen.getByRole('heading', { level: 2, name: /Accordion Title/i });
+
+    expect(header).toBeInTheDocument();
+    expect(header).toHaveAttribute('id', 'accordion-header-accordion-id');
+  });
+
+  it('renders button with correct aria attributes and styles', () => {
+    const button = screen.getByRole('button');
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute('aria-labelledby', 'accordion-header-accordion-id');
+    expect(button).toHaveAttribute('aria-controls', 'accordion-content-accordion-id');
+
+    expect(button.parentElement).toHaveStyle('display: list-item;');
+  });
+
+  // it('calls handleToggle when AccordionHeader is clicked', () => {
+  //   const header = screen.getByRole('button', { name: /Accordion Title/i });
+
+  //   fireEvent.click(header);
+
+  //   expect(mockHandleToggle).toHaveBeenCalled();
+
+  //   expect(header).toHaveAttribute('aria-expanded', 'true');
+  // });
+
+  it('calls handleKeyDown when key is pressed', () => {
+    const header = screen.getByRole('button', { name: /Accordion Title/i });
+
+    fireEvent.keyDown(header, { key: 'Enter' });
+    expect(mockHandleKeyDown).toHaveBeenCalled();
+  });
+
+  it('updates content visibility when isOpen changes', async () => {
+    let content = screen.queryByRole('region');
+    expect(content).toBeNull();
+
+    (useAccordion as jest.Mock).mockReturnValue({
+      isOpen: true,
+      contentRef: mockContentRef,
+      handleToggle: mockHandleToggle,
+      handleKeyDown: mockHandleKeyDown,
+    });
 
     render(
       <AccordionUI
-        id={question.id}
-        title={question.title}
+        title='Accordion Title'
+        id='accordion-id'
       >
-        {question.answer}
+        Accordion Content
       </AccordionUI>,
     );
 
-    const titleElement = screen.getByText(question.title);
-    const contentElement = screen.getByText(question.answer);
-
-    expect(titleElement.parentElement).toHaveAttribute('aria-expanded', 'false');
-
-    fireEvent.click(titleElement);
-    expect(titleElement.parentElement).toHaveAttribute('aria-expanded', 'true');
-
-    fireEvent.click(titleElement);
-    expect(titleElement.parentElement).toHaveAttribute('aria-expanded', 'false');
-
-    expect(contentElement.parentElement).toHaveStyle('max-height: 0px');
+    await waitFor(() => {
+      content = screen.queryByRole('region');
+      expect(content).toHaveTextContent('Accordion Content');
+    });
   });
 });

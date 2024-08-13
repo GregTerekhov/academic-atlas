@@ -11,7 +11,9 @@ export const useAccordion = () => {
       e.type === 'click' ||
       (e.type === 'keydown' && (e as React.KeyboardEvent).key === 'Enter')
     ) {
+      console.log('Before toggle:', isOpen);
       setIsOpen((prevState) => !prevState);
+      console.log('After toggle:', !isOpen);
     }
   };
 
