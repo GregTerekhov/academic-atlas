@@ -23,7 +23,7 @@ describe('AccordionUI Component', () => {
     expect(contentElement.parentElement).toHaveStyle('max-height: 0px');
   });
 
-  it('should toggle content visibility when clicked', () => {
+  it('should answer visibility when clicked', () => {
     const question = questions[0];
 
     render(

@@ -34,7 +34,7 @@ jest.mock('ui', () => ({
 }));
 
 describe('FAQList Component', () => {
-  it('should render a list of accordion items with correct titles and answers', () => {
+  it('should render a list of accordion items with correct titles', () => {
     render(<FAQList />);
 
     const questions = getFAQQuestions();

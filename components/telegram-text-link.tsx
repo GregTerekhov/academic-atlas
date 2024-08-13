@@ -8,9 +8,10 @@ import { getAndEncodeDataObject } from 'helpers';
 interface ITextWithLinkProps {
   order: TelegramScenario;
   textWithLink: string;
+  ariaHidden?: boolean;
 }
 
-export default function TextWithLink({ order, textWithLink }: ITextWithLinkProps) {
+export default function TextWithLink({ order, textWithLink, ariaHidden = false }: ITextWithLinkProps) {
   const [clientRendered, setClientRendered] = useState(false);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function TextWithLink({ order, textWithLink }: ITextWithLinkProps
   }, []);
 
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+
     const base64String = getAndEncodeDataObject(order);
 
     if (!base64String) {
@@ -40,6 +42,7 @@ export default function TextWithLink({ order, textWithLink }: ITextWithLinkProps
           rel='noopener noreferrer'
           className='text-accentPrimary hocus:underline dark:text-accentSecondary'
           onClick={handleClick}
+          tabIndex={ariaHidden ? -1 : 0}
         >
           Telegram-бот
         </a>

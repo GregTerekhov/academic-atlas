@@ -25,6 +25,7 @@ export default function FAQList() {
               <TextWithLink
                 order={TelegramScenario.Order}
                 textWithLink={answer}
+                ariaHidden={true}
               />
             ) : (
               <>{answer}</>

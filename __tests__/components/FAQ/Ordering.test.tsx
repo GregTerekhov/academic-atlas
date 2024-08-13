@@ -40,6 +40,32 @@ jest.mock('template', () => ({
       <div id={ariaId}>{ariaDescription}</div>
     </>
   )),
+
+  BackgroundImageUI: jest.fn(() => (
+    <picture className='absolute inset-0 mx-auto h-full w-full max-w-[4000px]'>
+      <source
+        media='(min-width: 2000px)'
+        srcSet='/backgroundImage/faq-order-largeDesktop.jpg'
+      />
+      <source
+        media='(min-width: 1440px)'
+        srcSet='/backgroundImage/faq-order-desktop.jpg'
+      />
+      <source
+        media='(min-width: 768px)'
+        srcSet='/backgroundImage/faq-order-tablet.jpg'
+      />
+      <source
+        media='(max-width: 767px)'
+        srcSet='/backgroundImage/faq-order-mobile.jpg'
+      />
+      <img
+        src='/backgroundImage/faq-order-mobile.jpg'
+        alt={SectionDescriptions[SectionTitle.FAQOrder]}
+        className='h-full w-full object-cover'
+      />
+    </picture>
+  )),
 }));
 
 describe('Ordering Component', () => {
@@ -89,4 +115,26 @@ describe('Ordering Component', () => {
 
     expect(descriptionElement).toBeInTheDocument();
   });
+
+  // it('renders the background image with correct props', () => {
+  //   render(<Ordering />);
+
+  //   const backgroundImage = screen.getByText(SectionDescriptions[SectionTitle.FAQOrder]);
+
+  //   // Перевіряємо, чи зображення існує
+  //   expect(backgroundImage).toBeInTheDocument();
+
+  //   // Перевіряємо клас на зображенні
+  //   // expect(backgroundImage).toHaveClass('h-full w-full object-cover');
+
+  //   // Перевіряємо, що зображення всередині `picture` і має відповідні джерела
+  //   const sources = backgroundImage.closest('picture')?.querySelectorAll('source');
+  //   expect(sources).toHaveLength(4);
+
+    // // Перевіряємо кожне `source` для правильного `srcSet`
+    // expect(sources?.[0]).toHaveAttribute('media', '(min-width: 2000px)');
+    // expect(sources?.[1]).toHaveAttribute('media', '(min-width: 1440px)');
+    // expect(sources?.[2]).toHaveAttribute('media', '(min-width: 768px)');
+    // expect(sources?.[3]).toHaveAttribute('media', '(max-width: 767px)');
+  // });
 });
