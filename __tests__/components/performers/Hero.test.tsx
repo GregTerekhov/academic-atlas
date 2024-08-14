@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Hero from '../components/performers/hero';
+import Hero from 'components/performers/hero';
 import { CtaText, SectionDescriptions, SectionTitle } from 'types/layoutTypes';
 import { PrimaryButtonLabel } from 'types/ui';
 
@@ -9,9 +9,11 @@ describe('Hero component tests', () => {
   });
 
   test('There is a right header', () => {
-    const heroHeader = screen.getByRole('heading', { level: 1 });
+    const heroHeader = screen.getByRole('heading', {
+      level: 1,
+      name: SectionDescriptions[SectionTitle.PartnershipHero],
+    });
     expect(heroHeader).toBeInTheDocument();
-    expect(heroHeader.textContent).toMatch(SectionDescriptions[SectionTitle.PartnershipHero]);
   });
 
   test('There is a right description', () => {

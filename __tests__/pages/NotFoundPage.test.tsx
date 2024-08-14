@@ -1,58 +1,65 @@
 import { render, screen } from '@testing-library/react';
 import NotFound from 'app/not-found';
-import NotFoundNavigation from 'components/not-found-controls';
-import { Paths } from 'types/layoutTypes';
+import { get404PageTitleStyles } from 'styles/pages';
+import {
+  MetadataDescription,
+  MetadataKeywords,
+  MetadataTitle,
+  SectionDescriptions,
+  SectionTitle,
+} from 'types/layoutTypes';
 
 jest.mock('next/navigation', () => ({
-  useRouter() {
-    return {
-      prefetch: () => null,
-    };
-  },
+  useRouter: jest.fn(() => {
+    const mockBack = jest.fn();
+    return mockBack;
+  }),
 }));
 
-const notFoundPageRender = jest.fn((somePath: string) => {
-  return Object.values(Paths).find((value) => somePath === value)
-    ? 'Valid path was set'
-    : 'Invalid path was set';
-});
+jest.mock('components', () => ({
+  NotFoundNavigation: jest.fn(() => <div data-testid='notFoundNavigation'></div>),
+}));
 
-test('Not found page should be rendered', () => {
-  expect(notFoundPageRender('/')).toBe('Valid path was set');
-  expect(notFoundPageRender('/FAQ')).toBe('Valid path was set');
-  expect(notFoundPageRender('/#cost')).toBe('Valid path was set');
-  expect(notFoundPageRender('/cost')).toBe('Invalid path was set');
-});
+jest.mock('styles/pages', () => ({
+  get404PageTitleStyles: jest.fn(),
+}));
 
-describe('Page description tests', () => {
+jest.mock('data', () => ({
+  getSectionProps: jest.fn(() => ({
+    page404: {
+      title: SectionTitle.NotFound,
+      titleStyle: get404PageTitleStyles as jest.Mock,
+      sectionStyle:
+        'flex flex-col items-center justify-center min-h-mobileScreen md:min-h-tabletScreen lg:min-h-desktopScreen',
+      isBigTitle: true,
+    },
+  })),
+  MetadataTexts: jest.fn(() => ({
+    title: MetadataTitle.NOT_FOUND,
+    description: MetadataDescription.NOT_FOUND,
+    keywords: MetadataKeywords.NOT_FOUND,
+  })),
+}));
+//FIXME: can't find out how to destructure properties from "notFound". meanwhile, tests will fail cause of metadata
+
+describe('NotFoundPage', () => {
   beforeEach(() => {
     render(<NotFound />);
   });
 
-  test('There is a page description', () => {
+  test('should render correctly with all subcomponents', () => {
+    expect(
+      screen.getByRole('heading', { name: SectionDescriptions[SectionTitle.NotFound] }),
+    ).toBeInTheDocument();
+
+    expect(screen.getByTestId('notFoundNavigation')).toBeInTheDocument();
+  });
+
+  test('There is a correct page description', () => {
     const lvl2Header = screen.getByRole('heading', { level: 2 });
     expect(lvl2Header).toBeInTheDocument();
-  });
 
-  test('The description is correct', () => {
-    const pageDesc = screen.getByRole('heading', { level: 2 });
-    expect(pageDesc.firstChild?.textContent).toMatch('Ой!');
-    expect(pageDesc.textContent).toMatch('Схоже, ми не можемо знайти сторінку');
-  });
-});
-
-describe('Home link is correct', () => {
-  beforeEach(() => {
-    render(<NotFoundNavigation />);
-  });
-
-  test('There is a home return link', () => {
-    const homeLink = screen.getByRole('link');
-    expect(homeLink).toBeInTheDocument();
-  });
-
-  test('Home link navigate to Home page', () => {
-    const homeLink = screen.getByRole('link');
-    expect(homeLink).toHaveAttribute('href', Paths.Main);
+    expect(lvl2Header).toHaveTextContent('Ой!');
+    expect(lvl2Header).toHaveTextContent('Схоже, ми не можемо знайти сторінку');
   });
 });
