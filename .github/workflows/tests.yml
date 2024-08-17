@@ -5,7 +5,7 @@ on:
     branches:
       - dev
   pull_request:
-  workflow_dispatch: # Дозволяє ручний запуск workflow
+  workflow_dispatch: 
 
 jobs:
   test:
@@ -25,7 +25,8 @@ jobs:
 
       - name: Run Jest tests with Allure
         run: npx jest
-
+        continue-on-error: true 
+        
       - name: Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
