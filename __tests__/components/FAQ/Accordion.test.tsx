@@ -43,18 +43,10 @@ describe('AccordionUI Component', () => {
     expect(button).toHaveAttribute('aria-labelledby', 'accordion-header-accordion-id');
     expect(button).toHaveAttribute('aria-controls', 'accordion-content-accordion-id');
 
-    expect(button.parentElement).toHaveStyle('display: list-item;');
+    expect(button).toHaveClass(
+      'group mb-2 flex w-full cursor-pointer items-center justify-between',
+    );
   });
-
-  // it('calls handleToggle when AccordionHeader is clicked', () => {
-  //   const header = screen.getByRole('button', { name: /Accordion Title/i });
-
-  //   fireEvent.click(header);
-
-  //   expect(mockHandleToggle).toHaveBeenCalled();
-
-  //   expect(header).toHaveAttribute('aria-expanded', 'true');
-  // });
 
   it('calls handleKeyDown when key is pressed', () => {
     const header = screen.getByRole('button', { name: /Accordion Title/i });
@@ -67,6 +59,11 @@ describe('AccordionUI Component', () => {
     let content = screen.queryByRole('region');
     expect(content).toBeNull();
 
+    const buttons = screen.queryAllByRole('button', { name: /Accordion Title/i });
+    buttons.forEach((button) => {
+      expect(button).toHaveAttribute('aria-expanded', 'false');
+    });
+
     (useAccordion as jest.Mock).mockReturnValue({
       isOpen: true,
       contentRef: mockContentRef,
@@ -74,7 +71,16 @@ describe('AccordionUI Component', () => {
       handleKeyDown: mockHandleKeyDown,
     });
 
-    render(
+    const { rerender } = render(
+      <AccordionUI
+        title='Accordion Title'
+        id='accordion-id'
+      >
+        Accordion Content
+      </AccordionUI>,
+    );
+
+    rerender(
       <AccordionUI
         title='Accordion Title'
         id='accordion-id'
@@ -86,6 +92,54 @@ describe('AccordionUI Component', () => {
     await waitFor(() => {
       content = screen.queryByRole('region');
       expect(content).toHaveTextContent('Accordion Content');
+      expect(content).toHaveStyle(`max-height: ${mockContentRef.current.scrollHeight}px`);
     });
+  });
+
+  it('updates aria-attributes correctly when isOpen changes', async () => {
+    let buttons = screen.queryAllByRole('button', { name: /Accordion Title/i });
+    buttons.forEach((button) => {
+      expect(button).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    (useAccordion as jest.Mock).mockReturnValue({
+      isOpen: true,
+      contentRef: mockContentRef,
+      handleToggle: mockHandleToggle,
+      handleKeyDown: mockHandleKeyDown,
+    });
+
+    const { rerender } = render(
+      <AccordionUI
+        title='Accordion Title'
+        id='accordion-id'
+      >
+        Accordion Content
+      </AccordionUI>,
+    );
+
+    rerender(
+      <AccordionUI
+        title='Accordion Title'
+        id='accordion-id'
+      >
+        Accordion Content
+      </AccordionUI>,
+    );
+
+    await waitFor(() => {
+      buttons = screen.queryAllByRole('button', { name: /Accordion Title/i });
+      const expandedButtons = buttons.filter(
+        (button) => button.getAttribute('aria-expanded') === 'true',
+      );
+      expect(expandedButtons).toHaveLength(1);
+    });
+  });
+
+  it('calls handleToggle when AccordionHeader is clicked', () => {
+    const button = screen.getByRole('button', { name: /Accordion Title/i });
+
+    fireEvent.click(button);
+    expect(mockHandleToggle).toHaveBeenCalled();
   });
 });
