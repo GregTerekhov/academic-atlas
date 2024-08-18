@@ -1,41 +1,52 @@
 import { render, screen } from '@testing-library/react';
-import AboutUs from 'components/performers/about-us';
-import { getAboutUsData } from 'data/componentsData';
+import { AboutCompany } from 'components';
+import { getAboutUsData } from 'data';
+import { IAboutUs } from 'types';
 
 jest.mock('template', () => ({
-  MappedListTemplate: jest.fn(({ children }) => (
-    <ul>{getAboutUsData().map((item) => children(item))}</ul>
+  MappedListTemplate: jest.fn(({ children, items }) => (
+    <ul data-testid='test-about-us-list'>{items.map((item: IAboutUs) => children(item))}</ul>
   )),
 }));
 
-jest.mock('../../../components/performers/subcomponents/about-us-item.tsx', () => {
-  type IAboutUsItemProps = {
-    header: string;
-    description: string;
-    src: string;
-    alt: string;
-  };
-  const MockAboutUsItem = ({ header, description, src, alt }: IAboutUsItemProps) => (
-    <li data-testid='AboutUsItem'>
-      <div>
-        <h2>{header}</h2>
-        <p>{description}</p>
-      </div>
-      <img
-        src={src}
-        alt={alt}
-      />
-    </li>
-  );
-  MockAboutUsItem.displayName = 'AboutUsItem';
-  return MockAboutUsItem;
-});
+jest.mock('components/performers/subcomponents', () => ({
+  AboutUsItem: jest.fn(({ header, description, src, alt }) => (
+    <li
+      data-testid='about-us-item'
+      data-header={header}
+      data-description={description}
+      data-src={src}
+      data-alt={alt}
+    ></li>
+  )),
+}));
 
-describe('About us performers component', () => {
+jest.mock('data', () => ({
+  getAboutUsData: jest.fn(),
+}));
+
+describe('AboutUs performers component', () => {
+  const mockGetAboutUsData = getAboutUsData as jest.Mock;
+
+  beforeEach(() => {
+    mockGetAboutUsData.mockReturnValue([
+      {
+        id: 'test-id',
+        title: '-test-title',
+        description: 'test-description',
+        imageSrc: 'test.scr',
+        imageAlt: 'test.alt',
+      },
+    ]);
+
+    render(<AboutCompany />);
+  });
+
   it('should render a list of us', () => {
-    render(<AboutUs />);
+    const aboutUsList = screen.getByTestId('test-about-us-list');
+    expect(aboutUsList).toBeInTheDocument();
 
-    const aboutUsItem = screen.getAllByTestId('AboutUsItem');
-    expect(aboutUsItem).toHaveLength(getAboutUsData().length);
+    const aboutUsItem = screen.getByTestId('about-us-item');
+    expect(aboutUsItem).toBeInTheDocument();
   });
 });

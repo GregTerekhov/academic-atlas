@@ -1,26 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import NotFound from 'app/not-found';
-import { get404PageTitleStyles } from 'styles/pages';
-import {
-  MetadataDescription,
-  MetadataKeywords,
-  MetadataTitle,
-  SectionDescriptions,
-  SectionTitle,
-} from 'types/layoutTypes';
+import { SectionDescriptions, SectionTitle } from 'types';
 
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => {
-    const mockBack = jest.fn();
-    return mockBack;
-  }),
+  useRouter: jest.fn(() => ({
+    back: jest.fn(),
+  })),
 }));
 
 jest.mock('components', () => ({
-  NotFoundNavigation: jest.fn(() => <div data-testid='notFoundNavigation'></div>),
+  NotFoundNavigation: jest.fn(() => <div data-testid='not-found-navigation'></div>),
 }));
 
-jest.mock('styles/pages', () => ({
+jest.mock('styles', () => ({
   get404PageTitleStyles: jest.fn(),
 }));
 
@@ -28,38 +20,56 @@ jest.mock('data', () => ({
   getSectionProps: jest.fn(() => ({
     page404: {
       title: SectionTitle.NotFound,
-      titleStyle: get404PageTitleStyles as jest.Mock,
       sectionStyle:
         'flex flex-col items-center justify-center min-h-mobileScreen md:min-h-tabletScreen lg:min-h-desktopScreen',
       isBigTitle: true,
     },
   })),
-  MetadataTexts: jest.fn(() => ({
-    title: MetadataTitle.NOT_FOUND,
-    description: MetadataDescription.NOT_FOUND,
-    keywords: MetadataKeywords.NOT_FOUND,
-  })),
+  MetadataTexts: {
+    notFound: {
+      title: 'props.title',
+      description: 'props.description',
+      keywords: 'props.keywords',
+    },
+  },
 }));
-//FIXME: can't find out how to destructure properties from "notFound". meanwhile, tests will fail cause of metadata
+
+jest.mock('template', () => ({
+  SectionTemplate: jest.fn(({ title, children }) => (
+    <section id={title}>
+      <h2> {SectionDescriptions[SectionTitle.NotFound]}</h2>
+      {children}
+    </section>
+  )),
+}));
 
 describe('NotFoundPage', () => {
   beforeEach(() => {
+    jest.clearAllMocks();
+
     render(<NotFound />);
   });
 
-  test('should render correctly with all subcomponents', () => {
+  test('should render correctly with all subComponents', () => {
     expect(
       screen.getByRole('heading', { name: SectionDescriptions[SectionTitle.NotFound] }),
     ).toBeInTheDocument();
 
-    expect(screen.getByTestId('notFoundNavigation')).toBeInTheDocument();
+    expect(screen.getByTestId('not-found-navigation')).toBeInTheDocument();
   });
 
   test('There is a correct page description', () => {
-    const lvl2Header = screen.getByRole('heading', { level: 2 });
-    expect(lvl2Header).toBeInTheDocument();
+    const notfoundSectionHeader = screen.getByRole('heading', {
+      level: 2,
+      name: SectionDescriptions[SectionTitle.NotFound],
+    });
+    expect(notfoundSectionHeader).toBeInTheDocument();
 
-    expect(lvl2Header).toHaveTextContent('Ой!');
-    expect(lvl2Header).toHaveTextContent('Схоже, ми не можемо знайти сторінку');
+    const notFoundGeneralHeading = screen.getAllByRole('heading', {
+      level: 2,
+    });
+    expect(notFoundGeneralHeading[1]).toBeInTheDocument();
+    expect(notFoundGeneralHeading[1]).toHaveTextContent('Ой!');
+    expect(notFoundGeneralHeading[1]).toHaveTextContent('Схоже, ми не можемо знайти сторінку');
   });
 });

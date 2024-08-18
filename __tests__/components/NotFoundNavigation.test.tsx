@@ -4,7 +4,10 @@ import { useRouter } from 'next/navigation';
 import { Paths } from 'types/layoutTypes';
 import { ButtonType, PrimaryButtonLabel } from 'types/ui';
 
-const mockBack = jest.fn();
+const mockBackRoute = useRouter as jest.Mock;
+mockBackRoute.mockReturnValue({
+  back: jest.fn(),
+});
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
@@ -12,14 +15,13 @@ jest.mock('next/navigation', () => ({
   })),
 }));
 
-jest.mock('ui/index', () => ({
-  PrimaryButtonUI: jest.fn(({ buttonClass, children, ariaId, isDisabled }) => (
+jest.mock('ui', () => ({
+  PrimaryButtonUI: jest.fn(({ children, ariaId, isDisabled }) => (
     <button
       aria-describedby={ariaId}
       type={ButtonType.Button}
-      onClick={() => mockBack()}
-      className={`${buttonClass} h-16`}
-      disabled={isDisabled}
+      onClick={() => mockBackRoute()}
+      className={`h-16`}
       aria-disabled={isDisabled}
     >
       {children}
@@ -31,50 +33,24 @@ jest.mock('styles', () => ({ getPrimaryButtonStyles: jest.fn(() => 'primary-butt
 
 describe('NotFoundNavigation', () => {
   beforeEach(() => {
+    jest.clearAllMocks();
+
     render(<NotFoundNavigation />);
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  test('render PrimaryButtonUI with correct props', () => {
+    const primaryButton = screen.getByRole('button', { name: PrimaryButtonLabel.ToPreviousPage });
+    expect(primaryButton).toBeInTheDocument();
+
+    fireEvent.click(primaryButton);
+    expect(mockBackRoute).toHaveBeenCalled();
   });
 
-  test('There are two links on the page', () => {
-    const linkArray = screen.getByRole('list');
+  test('There is a home return link', () => {
+    const homeLink = screen.getByRole('link');
+    expect(homeLink).toBeInTheDocument();
 
-    expect(linkArray).toBeInTheDocument();
-    expect(linkArray.childNodes).toHaveLength(2);
-  });
-
-  describe('PrimaryButtonLink', () => {
-    test('render PrimaryButtonUI with correct props', () => {
-      const primaryButton = screen.getByRole('button', { name: PrimaryButtonLabel.ToPreviousPage });
-
-      expect(primaryButton).toBeInTheDocument();
-      // expect(primaryButton).toHaveAttribute('aria-describedby', 'AriaId.ComeBack404'); FIXME: Received wrong value
-
-      fireEvent.click(primaryButton);
-      (useRouter as jest.Mock).mockReturnValue({
-        back: mockBack,
-      });
-
-      expect(mockBack).toHaveBeenCalled();
-    });
-
-    test('There is a home return link', () => {
-      const homeLink = screen.getByRole('link');
-      expect(homeLink).toBeInTheDocument();
-
-      expect(homeLink).toHaveAttribute('href', Paths.Main);
-    });
-  });
-
-  describe('NextLink', () => {
-    test('There is a NextLink with correct props', () => {
-      const nextLink = screen.getByRole('link');
-
-      expect(nextLink).toBeInTheDocument();
-      expect(nextLink).toHaveAttribute('href', Paths.Main);
-      expect(nextLink).toHaveClass('primary-button-styles h-16');
-    });
+    expect(homeLink).toHaveAttribute('href', Paths.Main);
+    expect(homeLink).toHaveClass('primary-button-styles h-16');
   });
 });

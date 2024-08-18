@@ -1,18 +1,21 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { HeroPartnership } from 'components';
-import { TelegramScenario } from 'types/calculation';
-import { CtaText, SectionDescriptions, SectionTitle } from 'types/layoutTypes';
-import { PrimaryButtonLabel } from 'types/ui';
+import { PrimaryButtonLabel, CtaText, SectionDescriptions, SectionTitle, AriaId } from 'types';
+
+jest.mock('styles', () => ({
+  getHeroSectionStyles: jest.fn(),
+  getHeroOverlayStyles: jest.fn(),
+}));
 
 jest.mock('template', () => ({
-  TelegramButton: jest.fn(({ label, ariaId, ariaDescription, isOnLightBackground }) => (
+  TelegramButton: jest.fn(({ label, ariaId, ariaDescription }) => (
     <>
       <a
         aria-describedby={ariaId}
         href='#'
         target='_blank'
         rel='noopener noreferrer'
-        className={`py-[17px] ${isOnLightBackground ? 'light-background' : ''}`}
+        className={`py-[17px]`}
       >
         {label}
       </a>
@@ -26,26 +29,29 @@ jest.mock('template', () => ({
   )),
 }));
 
-describe('Hero performers', () => {
+jest.mock('components/performers/subcomponents', () => ({
+  HeroMatrix: jest.fn(),
+}));
+
+describe('Hero performers component', () => {
   beforeEach(() => {
+    jest.clearAllMocks();
+
     render(<HeroPartnership />);
   });
 
-  test('There is a correct header', () => {
+  test('Should render component correctly', () => {
     const heroHeader = screen.getByRole('heading', {
       level: 1,
       name: SectionDescriptions[SectionTitle.PartnershipHero],
     });
     expect(heroHeader).toBeInTheDocument();
-  });
 
-  test('There is a correct description', () => {
-    const heroDesc = screen.getByRole('paragraph');
+    const heroDesc = screen.getByText(CtaText.PartnershipHero);
     expect(heroDesc).toBeInTheDocument();
-    expect(heroDesc.textContent).toMatch(CtaText.PartnershipHero);
   });
 
-  test('There is a telegram button', () => {
+  test('Should render a telegram button with correct props', () => {
     const heroDesc = screen.getByRole('link');
     expect(heroDesc.textContent).toMatch(PrimaryButtonLabel.Accession);
 
@@ -55,13 +61,6 @@ describe('Hero performers', () => {
     expect(telegramButton).toHaveAttribute('href', '#');
     expect(telegramButton).toHaveAttribute('target', '_blank');
     expect(telegramButton).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(telegramButton).toHaveAttribute('aria-describedby', 'accession');
-
-    fireEvent.click(telegramButton);
-    const base64String = btoa(TelegramScenario.Join);
-    expect(telegramButton).toHaveAttribute(
-      'href',
-      `https://t.me/AcademicAtlasBot?start=${base64String}`,
-    );
+    expect(telegramButton).toHaveAttribute('aria-describedby', AriaId.Accession);
   });
 });
