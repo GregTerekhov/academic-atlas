@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { WorkflowItem } from 'components/performers/subcomponents';
 
 jest.mock('components', () => ({
-  TextWithLink: jest.fn(),
+  TextWithLink: jest.fn(() => <span data-testid='workflow-item-span'></span>),
 }));
 
 describe('WorkflowItem subComponent', () => {
@@ -25,7 +25,7 @@ describe('WorkflowItem subComponent', () => {
     const workflowItemCount = screen.getByText('workflow-item-count');
     expect(workflowItemCount).toBeInTheDocument();
 
-    const workflowItemTextLink = screen.getByRole('text-with-link-span');
+    const workflowItemTextLink = screen.getByTestId('workflow-item-span');
     expect(workflowItemTextLink).toBeInTheDocument();
   });
 

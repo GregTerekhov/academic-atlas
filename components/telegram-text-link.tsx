@@ -31,7 +31,7 @@ export default function TextWithLink({ order, textWithLink }: ITextWithLinkProps
   const parts = textWithLink.split('Telegram-бот');
 
   return (
-    <span role='text-with-link-span'>
+    <span>
       {parts[0]}
       {clientRendered ? (
         <a
