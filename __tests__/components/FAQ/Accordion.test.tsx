@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { AccordionUI } from 'ui';
+
 import { useAccordion } from 'hooks';
+import { AccordionUI } from 'ui';
 
 jest.mock('hooks', () => ({
   useAccordion: jest.fn(),
@@ -8,10 +9,13 @@ jest.mock('hooks', () => ({
 
 const mockHandleToggle = jest.fn();
 const mockHandleKeyDown = jest.fn();
+const mockUseAccordion = useAccordion as jest.Mock;
 const mockContentRef = { current: { scrollHeight: 100 } };
 
 beforeEach(() => {
-  (useAccordion as jest.Mock).mockReturnValue({
+  jest.clearAllMocks();
+
+  mockUseAccordion.mockReturnValue({
     isOpen: false,
     contentRef: mockContentRef,
     handleToggle: mockHandleToggle,
@@ -56,16 +60,8 @@ describe('AccordionUI Component', () => {
   });
 
   it('updates content visibility when isOpen changes', async () => {
-    let content = screen.queryByRole('region');
-    expect(content).toBeNull();
-
-    const buttons = screen.queryAllByRole('button', { name: /Accordion Title/i });
-    buttons.forEach((button) => {
-      expect(button).toHaveAttribute('aria-expanded', 'false');
-    });
-
-    (useAccordion as jest.Mock).mockReturnValue({
-      isOpen: true,
+    mockUseAccordion.mockReturnValue({
+      isOpen: false,
       contentRef: mockContentRef,
       handleToggle: mockHandleToggle,
       handleKeyDown: mockHandleKeyDown,
@@ -80,6 +76,20 @@ describe('AccordionUI Component', () => {
       </AccordionUI>,
     );
 
+    let content = screen.queryByRole('region');
+    expect(content).toBeNull();
+
+    const buttons = screen.queryAllByRole('button', { name: /Accordion Title/i });
+    buttons.forEach((button) => {
+      expect(button).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    mockUseAccordion.mockReturnValue({
+      isOpen: true,
+      contentRef: mockContentRef,
+      handleToggle: mockHandleToggle,
+      handleKeyDown: mockHandleKeyDown,
+    });
     rerender(
       <AccordionUI
         title='Accordion Title'
@@ -97,13 +107,8 @@ describe('AccordionUI Component', () => {
   });
 
   it('updates aria-attributes correctly when isOpen changes', async () => {
-    let buttons = screen.queryAllByRole('button', { name: /Accordion Title/i });
-    buttons.forEach((button) => {
-      expect(button).toHaveAttribute('aria-expanded', 'false');
-    });
-
-    (useAccordion as jest.Mock).mockReturnValue({
-      isOpen: true,
+    mockUseAccordion.mockReturnValue({
+      isOpen: false,
       contentRef: mockContentRef,
       handleToggle: mockHandleToggle,
       handleKeyDown: mockHandleKeyDown,
@@ -118,6 +123,17 @@ describe('AccordionUI Component', () => {
       </AccordionUI>,
     );
 
+    let buttons = screen.queryAllByRole('button', { name: /Accordion Title/i });
+    buttons.forEach((button) => {
+      expect(button).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    mockUseAccordion.mockReturnValue({
+      isOpen: true,
+      contentRef: mockContentRef,
+      handleToggle: mockHandleToggle,
+      handleKeyDown: mockHandleKeyDown,
+    });
     rerender(
       <AccordionUI
         title='Accordion Title'
@@ -133,6 +149,15 @@ describe('AccordionUI Component', () => {
         (button) => button.getAttribute('aria-expanded') === 'true',
       );
       expect(expandedButtons).toHaveLength(1);
+    });
+    buttons.forEach((button) => {
+      if (button.getAttribute('aria-expanded') === 'true') {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(button).toHaveAttribute('aria-expanded', 'true');
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(button).toHaveAttribute('aria-expanded', 'false');
+      }
     });
   });
 
