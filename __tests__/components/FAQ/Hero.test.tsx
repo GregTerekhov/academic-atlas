@@ -1,24 +1,33 @@
 import { render, screen } from '@testing-library/react';
 import Image from 'next/image';
+
+import { ImageSize, SectionDescriptions, SectionTitle } from 'types';
+
 import Hero from 'components/FAQ/hero';
+import { ImageUI } from 'ui';
 
-import { SectionDescriptions, SectionTitle } from 'types';
+interface IImageProps {
+  src: string;
+  alt: string;
+  width: ImageSize;
+  height: ImageSize;
+  className: string;
+  priority?: boolean;
+}
 
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (props: React.ComponentPropsWithoutRef<typeof Image>) => {
-    const { src, alt, width, height, ...rest } = props;
+jest.mock('ui', () => ({
+  ImageUI: jest.fn().mockImplementation((props: IImageProps) => {
+    const {  ...restProps } = props;
+
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={typeof src === 'string' ? src : ''}
-        alt={alt}
-        width={width}
-        height={height}
-        {...rest}
+      <Image
+        {...restProps}
+        alt={props.alt}
+        priority={false}
+        data-testid='image-ui'
       />
     );
-  },
+  }),
 }));
 
 jest.mock('template', () => ({
@@ -52,19 +61,6 @@ jest.mock('data', () => ({
   },
 }));
 
-jest.mock('ui', () => ({
-  ImageUI: jest.fn(({ src, alt, width, height, className, ...rest }) => (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className={className}
-      {...rest}
-    />
-  )),
-}));
-
 describe('FAQ Hero Component', () => {
   it('should render FAQ Hero component correctly', () => {
     render(<Hero />);
@@ -73,13 +69,18 @@ describe('FAQ Hero Component', () => {
     const heading = screen.getByText(SectionDescriptions[SectionTitle.FAQHero]);
     expect(heading).toBeInTheDocument();
 
-    const image = screen.getByAltText('FAQ Hero Image');
+    const image = screen.getByTestId('image-ui');
     expect(image).toBeInTheDocument();
 
-    expect(image).toHaveAttribute('src', '/images/faq-hero.png');
-
-    expect(image).toHaveAttribute('width', '537');
-    expect(image).toHaveAttribute('height', '584');
-    expect(image).toHaveClass('hero-image');
+    expect(ImageUI).toHaveBeenCalledWith(
+      expect.objectContaining({
+        src: '/images/faq-hero.png',
+        alt: 'FAQ Hero Image',
+        width: 537,
+        height: 584,
+        className: 'hero-image',
+      }),
+      {},
+    );
   });
 });

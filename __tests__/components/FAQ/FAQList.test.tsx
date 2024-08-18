@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import { QuestionAnswer, QuestionTitle } from 'types';
 import { getFAQQuestions } from 'data';
 import { FAQList } from 'components';
