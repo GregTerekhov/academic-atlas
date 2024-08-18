@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { RequirementsItem } from 'components/performers/subcomponents';
+import { IconName } from 'types/ui';
 
 jest.mock('styles', () => ({
   getRequirementsItemStyles: jest.fn(),
@@ -39,5 +40,7 @@ describe('Requirement performers subComponent', () => {
 
     const requirementItemSVG = container.querySelector('svg');
     expect(requirementItemSVG).toBeInTheDocument();
+
+    expect(container.querySelector('use')?.getAttribute('href')).toContain(IconName.Requirements);
   });
 });

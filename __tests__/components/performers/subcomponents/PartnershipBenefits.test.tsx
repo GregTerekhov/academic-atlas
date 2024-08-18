@@ -44,5 +44,9 @@ describe('PartnershipBenefitsItem subComponent', () => {
 
     const partnershipBenefitsSVG = container.querySelector('svg');
     expect(partnershipBenefitsSVG).toBeInTheDocument();
+
+    expect(container.querySelector('use')?.getAttribute('href')).toContain(
+      IconName.BenefitPartnership1,
+    );
   });
 });

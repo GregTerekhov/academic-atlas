@@ -40,13 +40,19 @@ describe('Benefits performers component', () => {
     mockGetPartnershipBenefits.mockReturnValue([
       {
         id: '1',
-        title: 'Конкурентна винагорода',
-        description: 'Ми пропонуємо справедливу оплату за виконану роботу',
+        title: 'benefits-item-title',
+        description: 'benefits-item-title',
         iconName: IconName.BenefitPartnership1,
       },
     ]);
 
     render(<Benefits />);
+
+    const benefitsHeader = screen.getByRole('heading', {
+      level: 2,
+      name: SectionDescriptions[SectionTitle.PartnershipBenefits],
+    });
+    expect(benefitsHeader).toBeInTheDocument();
 
     const benefitsList = screen.getByTestId('performers-benefits-list');
     expect(benefitsList).toBeInTheDocument();

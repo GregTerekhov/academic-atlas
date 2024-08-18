@@ -37,7 +37,7 @@ jest.mock('data', () => ({
 jest.mock('template', () => ({
   SectionTemplate: jest.fn(({ title, children }) => (
     <section id={title}>
-      <h2> {SectionDescriptions[SectionTitle.NotFound]}</h2>
+      <h1> {SectionDescriptions[SectionTitle.NotFound]}</h1>
       {children}
     </section>
   )),
@@ -60,16 +60,16 @@ describe('NotFoundPage', () => {
 
   test('There is a correct page description', () => {
     const notfoundSectionHeader = screen.getByRole('heading', {
-      level: 2,
+      level: 1,
       name: SectionDescriptions[SectionTitle.NotFound],
     });
     expect(notfoundSectionHeader).toBeInTheDocument();
 
-    const notFoundGeneralHeading = screen.getAllByRole('heading', {
+    const notFoundGeneralHeading = screen.getByRole('heading', {
       level: 2,
     });
-    expect(notFoundGeneralHeading[1]).toBeInTheDocument();
-    expect(notFoundGeneralHeading[1]).toHaveTextContent('Ой!');
-    expect(notFoundGeneralHeading[1]).toHaveTextContent('Схоже, ми не можемо знайти сторінку');
+    expect(notFoundGeneralHeading).toBeInTheDocument();
+    expect(notFoundGeneralHeading).toHaveTextContent('Ой!');
+    expect(notFoundGeneralHeading).toHaveTextContent('Схоже, ми не можемо знайти сторінку');
   });
 });

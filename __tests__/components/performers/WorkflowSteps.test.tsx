@@ -47,7 +47,7 @@ describe('Workflow component', () => {
     render(<WorkflowSteps />);
 
     const workflowHeader = screen.getByRole('heading', {
-      level: 3,
+      level: 2,
       name: SectionDescriptions[SectionTitle.PartnershipWorkflow],
     });
     expect(workflowHeader).toBeInTheDocument();

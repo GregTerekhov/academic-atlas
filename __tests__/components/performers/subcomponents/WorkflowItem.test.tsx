@@ -6,10 +6,10 @@ jest.mock('components', () => ({
 }));
 
 describe('WorkflowItem subComponent', () => {
-  test('should render subComponent correctly', () => {
+  test('should render subComponent with TextWithLink component', () => {
     const mockIWorkflowItemProps = {
       count: 'workflow-item-count',
-      header: 'workflow-item-header',
+      header: 'Реєстрація',
       desc: 'workflow-item-desc',
       gridMarkup: 'workflow-item-grid-markup',
     };
@@ -18,12 +18,26 @@ describe('WorkflowItem subComponent', () => {
 
     const workflowItemHeader = screen.getByRole('heading', {
       level: 3,
-      name: 'workflow-item-header',
+      name: 'Реєстрація',
     });
     expect(workflowItemHeader).toBeInTheDocument();
 
     const workflowItemCount = screen.getByText('workflow-item-count');
     expect(workflowItemCount).toBeInTheDocument();
+
+    const workflowItemTextLink = screen.getByRole('text-with-link-span');
+    expect(workflowItemTextLink).toBeInTheDocument();
+  });
+
+  test('should render subComponent without TextWithLink component', () => {
+    const mockIWorkflowItemProps = {
+      count: 'workflow-item-count',
+      header: 'workflow-item-header',
+      desc: 'workflow-item-desc',
+      gridMarkup: 'workflow-item-grid-markup',
+    };
+
+    render(<WorkflowItem {...mockIWorkflowItemProps} />);
 
     const workflowItemDesc = screen.getByText('workflow-item-desc');
     expect(workflowItemDesc).toBeInTheDocument();
