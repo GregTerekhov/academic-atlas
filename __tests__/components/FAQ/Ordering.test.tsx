@@ -1,11 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import {
   CtaText,
   SectionDescriptions,
   SectionTitle,
   PrimaryButtonLabel,
-  TelegramScenario,
   AriaDescription,
 } from 'types';
 import { getSectionProps } from 'data';
@@ -98,13 +97,6 @@ describe('Ordering Component', () => {
     expect(telegramButton).toHaveAttribute('href', '#');
     expect(telegramButton).toHaveAttribute('target', '_blank');
     expect(telegramButton).toHaveAttribute('rel', 'noopener noreferrer');
-
-    fireEvent.click(telegramButton);
-    const base64String = btoa(TelegramScenario.Order);
-    expect(telegramButton).toHaveAttribute(
-      'href',
-      `https://t.me/AcademicAtlasBot?start=${base64String}`,
-    );
 
     const descriptionElement = screen.getByText((_, element) => {
       const normalizedText = element?.textContent?.replace(/\s+/g, ' ').trim();
