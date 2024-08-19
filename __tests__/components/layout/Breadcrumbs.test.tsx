@@ -35,52 +35,58 @@ jest.mock('ui', () => {
 });
 
 describe('Breadcrumbs Component', () => {
+  const mockUseBreadcrumbs = useBreadcrumbs as jest.Mock;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('does not render on Paths.Main', () => {
-    (useBreadcrumbs as jest.Mock).mockReturnValue('');
+    mockUseBreadcrumbs.mockReturnValue('');
     const { container } = render(<Breadcrumbs />);
-    screen.debug();
+
     expect(container.firstChild).toBeNull();
   });
 
   it('displays the correct breadcrumb based on Paths.Policy', () => {
-    (useBreadcrumbs as jest.Mock).mockReturnValue(MenuLinks.Policy);
+    mockUseBreadcrumbs.mockReturnValue(MenuLinks.Policy);
     render(<Breadcrumbs />);
-    screen.debug();
+
     expect(screen.getByText((content) => content.startsWith(MenuLinks.Policy))).toBeInTheDocument();
   });
 
   it('displays the correct breadcrumb based on Paths.Offer', () => {
-    (useBreadcrumbs as jest.Mock).mockReturnValue(MenuLinks.Offer);
+    mockUseBreadcrumbs.mockReturnValue(MenuLinks.Offer);
     render(<Breadcrumbs />);
-    screen.debug();
+
     expect(screen.getByText(MenuLinks.Offer)).toBeInTheDocument();
   });
 
   it('displays the correct breadcrumb based on Paths.Partnership', () => {
-    (useBreadcrumbs as jest.Mock).mockReturnValue(MenuLinks.Partnership);
+    mockUseBreadcrumbs.mockReturnValue(MenuLinks.Partnership);
     render(<Breadcrumbs />);
-    screen.debug();
+
     expect(screen.getByText(MenuLinks.Partnership)).toBeInTheDocument();
   });
 
   it('displays the correct breadcrumb based on Paths.FAQ', () => {
-    (useBreadcrumbs as jest.Mock).mockReturnValue(MenuLinks.FAQ);
+    mockUseBreadcrumbs.mockReturnValue(MenuLinks.FAQ);
     render(<Breadcrumbs />);
-    screen.debug();
+
     expect(screen.getByText(MenuLinks.FAQ)).toBeInTheDocument();
   });
 
   it('does not display breadcrumb for invalid path', () => {
-    (useBreadcrumbs as jest.Mock).mockReturnValue(null);
+    mockUseBreadcrumbs.mockReturnValue(null);
     const { container } = render(<Breadcrumbs />);
 
     expect(container.firstChild).toBeNull();
   });
 
   it('renders the link to main page and the icon correctly on valid paths', () => {
-    (useBreadcrumbs as jest.Mock).mockReturnValue(MenuLinks.FAQ);
+    mockUseBreadcrumbs.mockReturnValue(MenuLinks.FAQ);
     render(<Breadcrumbs />);
-    screen.debug();
+
     expect(screen.getByRole('link', { name: MenuLinks.Main })).toBeInTheDocument();
 
     const svgIcon = screen.getByRole('img', { hidden: true });
