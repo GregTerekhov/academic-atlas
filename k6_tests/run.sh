@@ -2,37 +2,23 @@ GRAFANA_PORT=3001
 GRAFANA_DASHBOARD_URL="http://localhost:$GRAFANA_PORT/d/k6/k6-load-testing-results"
 TEST_FILES=("/tests/load_test.js" "/tests/scenario_test.js" "/tests/soak_test.js" "/tests/spike_test.js" "/tests/stress_test.js")
 
+cd ..
+echo "Building Docker container for Next.js..."
+sudo docker build -t local/nextjs:latest .
+if [ $? -ne 0 ]; then
+    echo "Error building Docker container for Next.js"
+    exit 1
+fi
+cd k6_tests
+
 # Start Docker Compose for InfluxDB and Grafana
 echo "Starting InfluxDB and Grafana..."
-sudo docker compose up -d influxdb grafana
+sudo docker compose up -d influxdb grafana nextjs
 if [ $? -ne 0 ]; then
     echo "Error starting InfluxDB or Grafana"
     exit 1
 fi
 
-# Install dependencies and build the project
-echo "Installing dependencies..."
-npm install
-if [ $? -ne 0 ]; then
-    echo "Error installing dependencies"
-    exit 1
-fi
-
-echo "Building the project..."
-npm run build
-if [ $? -ne 0 ]; then
-    echo "Error building the project"
-    exit 1
-fi
-
-# Start the project in the background
-echo "Starting the project..."
-npm run start &
-PROJECT_PID=$!
-if [ $? -ne 0 ]; then
-    echo "Error starting the project"
-    exit 1
-fi
 
 # Wait for the project to start up
 sleep 10

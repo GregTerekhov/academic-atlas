@@ -1,13 +1,19 @@
 networks:
-  k6:
-  grafana:
+  common:
+    driver: bridge
 
 services:
+  nextjs:
+    image: local/nextjs:latest
+    networks:
+      - common
+    ports:
+      - "3000:3000"
+
   influxdb:
     image: influxdb:1.8
     networks:
-      - k6
-      - grafana
+      - common
     ports:
       - "8086:8086"
     environment:
@@ -16,7 +22,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     networks:
-      - grafana
+      - common
     ports:
       - "3001:3000"
     environment:
@@ -32,7 +38,7 @@ services:
   k6:
     image: grafana/k6:latest
     networks:
-      - k6
+      - common
     ports:
       - "6565:6565"
     environment:

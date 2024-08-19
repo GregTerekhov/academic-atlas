@@ -35,7 +35,7 @@ export const options = {
 };
 
 export default function () {
-  let res = http.get("http://localhost:3000");
+  let res = http.get("http://nextjs:3000");
 
   const success = check(res, {
     "status is 200": (r) => r.status === 200,
