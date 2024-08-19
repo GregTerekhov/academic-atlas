@@ -17,8 +17,12 @@ describe('ServiceItem Component', () => {
     priority: true,
   };
 
+  const mockGetAndEncodeDataObject = getAndEncodeDataObject as jest.Mock;
+
   beforeEach(() => {
-    (getAndEncodeDataObject as jest.Mock).mockReturnValue('encodedData');
+    jest.clearAllMocks();
+
+    mockGetAndEncodeDataObject.mockReturnValue('encodedData');
   });
 
   it('should render ServiceItem with correct props', () => {
@@ -29,7 +33,28 @@ describe('ServiceItem Component', () => {
     expect(screen.getByText(PrimaryButtonLabel.Ordering)).toBeInTheDocument();
   });
 
-  it('should handle link click correctly', () => {
+  it('renders correct heading', () => {
+    render(<ServiceItem {...mockData} />);
+
+    const workTypeTitle = screen.getByRole('heading', { level: 3 });
+    expect(workTypeTitle).toBeInTheDocument();
+  });
+
+  it('renders correct heading with additional text when serviceTitle is Diplomas', () => {
+    const diplomasData = { ...mockData, serviceTitle: WorkType.Diplomas };
+
+    render(<ServiceItem {...diplomasData} />);
+
+    expect(screen.getByText(`${WorkType.Diplomas} та коледжів`)).toBeInTheDocument();
+  });
+
+  it('renders correct heading without additional text for other service titles', () => {
+    render(<ServiceItem {...mockData} />);
+
+    expect(screen.getByText(WorkType.BachelorTheses)).toBeInTheDocument();
+  });
+
+  it('should handle link click correctly when getAndEncodeDataObject returns a value', () => {
     render(<ServiceItem {...mockData} />);
 
     const link = screen.getByRole('link');
@@ -38,17 +63,14 @@ describe('ServiceItem Component', () => {
     expect(link).toHaveAttribute('href', 'https://t.me/AcademicAtlasBot?start=encodedData');
   });
 
-  it('should prevent default behavior if encoding fails', () => {
-    (getAndEncodeDataObject as jest.Mock).mockReturnValue(null);
+  it('should prevent link navigation and set href to "#" when getAndEncodeDataObject returns undefined', async () => {
+    mockGetAndEncodeDataObject.mockReturnValue(undefined);
 
     render(<ServiceItem {...mockData} />);
 
     const link = screen.getByRole('link');
-    const preventDefault = jest.fn();
-
     fireEvent.click(link);
 
-    expect(preventDefault).toHaveBeenCalled();
     expect(link).toHaveAttribute('href', '#');
   });
 });

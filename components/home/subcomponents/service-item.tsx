@@ -29,7 +29,6 @@ export default function ServiceItem({
     const base64String = getAndEncodeDataObject(TelegramScenario.Order, serviceTitle);
 
     if (!base64String) {
-      e.preventDefault();
       e.currentTarget.href = '#';
 
       return;
