@@ -140,14 +140,6 @@ export const getAdaptedLinks = (): ILinks[] => {
   ];
 };
 
-// const headerLinks = getHeaderLinks();
-
-// export const getAdaptedLinks = (isDesktop: boolean | undefined): ILinks[] => {
-//   return isDesktop
-//     ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
-//     : headerLinks;
-// };
-
 export const getSkeletonLines = () => {
   const { line1, line2, line3, line4, line5 } = skeletonStyles;
 
