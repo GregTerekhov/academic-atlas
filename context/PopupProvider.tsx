@@ -16,6 +16,8 @@ interface IPopupContext {
   closePopup: (id: string) => void;
   popupRefs: React.MutableRefObject<IPopupRefs>;
   openPopups: { [key: string]: boolean };
+  setBodyOverflow: (isHidden: boolean) => void;
+  resetValues: () => void;
 }
 
 const PopupContext = createContext<IPopupContext | undefined>(undefined);
@@ -72,7 +74,17 @@ export const PopupProvider = ({ children }: IWithChildren) => {
   const isPopupOpen = useCallback((id: string) => !!openPopups[id], [openPopups]);
 
   return (
-    <PopupContext.Provider value={{ isPopupOpen, togglePopup, closePopup, popupRefs, openPopups }}>
+    <PopupContext.Provider
+      value={{
+        isPopupOpen,
+        togglePopup,
+        closePopup,
+        popupRefs,
+        openPopups,
+        setBodyOverflow,
+        resetValues,
+      }}
+    >
       {children}
     </PopupContext.Provider>
   );
