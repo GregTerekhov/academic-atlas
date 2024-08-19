@@ -18,3 +18,5 @@ __tests__
 .prettierignore
 jest.config.ts
 jest.setup.ts
+deploy
+k6_tests
