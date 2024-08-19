@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React from 'react';
 
 import { TelegramScenario } from 'types';
 import { getAndEncodeDataObject } from 'helpers';
@@ -8,22 +9,47 @@ jest.mock('helpers', () => ({
   getAndEncodeDataObject: jest.fn(),
 }));
 
+jest.spyOn(React, 'useEffect').mockImplementationOnce(() => {});
+
 describe('TextWithLink Component', () => {
+  const mockGetAndEncodeDataObject = getAndEncodeDataObject as jest.Mock;
   const mockTextWithLink = 'Click here to use Telegram-бот for further assistance.';
+
+  const renderTelegramButton = (order: TelegramScenario) =>
+    render(
+      <TelegramButton
+        order={order}
+        textWithLink={mockTextWithLink}
+      />,
+    );
+
+  const getLinkElement = () => screen.getByText('Telegram-бот');
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should render the TextWithLink component correctly', () => {
-    render(
-      <TelegramButton
-        order={TelegramScenario.Order}
-        textWithLink={mockTextWithLink}
-      />,
-    );
+  it('should render plain text for Telegram-бот before client-side rendering', () => {
+    const { container } = renderTelegramButton(TelegramScenario.Join);
 
-    const linkElement = screen.getByText('Telegram-бот');
+    expect(container.textContent).toContain('Telegram-бот');
+    expect(container.querySelector('a')).toBeNull();
+  });
+
+  it('should update the rendered link after client-side rendering', async () => {
+    const { container } = renderTelegramButton(TelegramScenario.Join);
+
+    await waitFor(() => {
+      const linkElement = container.querySelector('a');
+      expect(linkElement).toBeInTheDocument();
+      expect(linkElement).toHaveAttribute('href', '#');
+    });
+  });
+
+  it('should render the TextWithLink component correctly', () => {
+    renderTelegramButton(TelegramScenario.Order);
+
+    const linkElement = getLinkElement();
     expect(linkElement).toBeInTheDocument();
     expect(linkElement).toHaveAttribute('href', '#');
     expect(linkElement).toHaveAttribute('target', '_blank');
@@ -31,16 +57,11 @@ describe('TextWithLink Component', () => {
   });
 
   it('should update the href attribute and create the base64String correctly when clicking on the link', async () => {
-    (getAndEncodeDataObject as jest.Mock).mockReturnValue('mockedBase64String');
+    mockGetAndEncodeDataObject.mockReturnValue('mockedBase64String');
 
-    render(
-      <TelegramButton
-        order={TelegramScenario.Order}
-        textWithLink={mockTextWithLink}
-      />,
-    );
+    renderTelegramButton(TelegramScenario.Order);
 
-    const linkElement = screen.getByText('Telegram-бот');
+    const linkElement = getLinkElement();
     fireEvent.click(linkElement);
 
     await waitFor(() => {
@@ -53,16 +74,11 @@ describe('TextWithLink Component', () => {
   });
 
   it('should prevent default and not update the href attribute if getAndEncodeDataObject returns undefined', async () => {
-    (getAndEncodeDataObject as jest.Mock).mockReturnValue(undefined);
+    mockGetAndEncodeDataObject.mockReturnValue(undefined);
 
-    render(
-      <TelegramButton
-        order={'' as TelegramScenario}
-        textWithLink={mockTextWithLink}
-      />,
-    );
+    renderTelegramButton('' as TelegramScenario);
 
-    const linkElement = screen.getByText('Telegram-бот');
+    const linkElement = getLinkElement();
     fireEvent.click(linkElement);
 
     await waitFor(() => {

@@ -71,7 +71,7 @@ describe('Services Component', () => {
       level: 2,
       name: SectionDescriptions[SectionTitle.OurServices],
     });
-    screen.debug();
+
     expect(sectionElement).toBeInTheDocument();
     expect(sectionElement.closest('section')).toHaveAttribute('id', 'our-services');
     expect(screen.getByTestId('service-item')).toBeInTheDocument();

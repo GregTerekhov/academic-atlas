@@ -73,7 +73,6 @@ describe('Hero Component', () => {
   });
 
   it('should render TelegramButton with correct attributes', () => {
-    screen.debug();
     const telegramButton = screen.getByRole('link');
     expect(telegramButton).toHaveTextContent(PrimaryButtonLabel.Ordering);
     expect(telegramButton).toBeInTheDocument();

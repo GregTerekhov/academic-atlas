@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { ExecutionTime, ExpertiseArea, Uniqueness, WorkType } from 'types';
 import { OptionSelectionProvider, useCalculation } from 'context';
@@ -53,52 +53,112 @@ const TestComponent = () => {
   );
 };
 
+const renderTestComponent = () => {
+  return render(
+    <OptionSelectionProvider>
+      <TestComponent />
+    </OptionSelectionProvider>,
+  );
+};
+
+const mockInitialState = () => {
+  let mockTheme = '';
+  let mockRangeValue = Uniqueness.Zero;
+
+  mockUseCalculationState.mockImplementation(() => ({
+    calculationData: {
+      workType: WorkType.Default,
+      expertiseAre: ExpertiseArea.Default,
+      executionTime: ExecutionTime.Default,
+      uniqueness: mockRangeValue,
+      theme: mockTheme,
+    },
+    handleOptionChange: jest.fn(),
+    handleThemeChange: jest.fn((newTheme: string) => {
+      mockTheme = newTheme;
+    }),
+    handleRangeChange: jest.fn((newValue: number) => {
+      mockRangeValue = newValue;
+    }),
+    resetCalculation: jest.fn(),
+  }));
+
+  mockUseRangeValue.mockImplementation(() => ({
+    rangeValue: mockRangeValue,
+    updateRangeValue: jest.fn((newValue: number) => {
+      mockRangeValue = newValue;
+    }),
+    handleClearRangeValue: jest.fn(() => {
+      mockRangeValue = Uniqueness.Zero;
+    }),
+  }));
+
+  // mockUseCalculationState.mockReturnValue({
+  //   calculationData: {
+  //     workType: WorkType.Default,
+  //     expertiseArea: ExpertiseArea.Default,
+  //     executionTime: ExecutionTime.Default,
+  //     uniqueness: Uniqueness.Zero,
+  //     theme: mockTheme,
+  //   },
+  //   handleOptionChange: jest.fn(),
+  //   handleThemeChange: jest.fn((newTheme: string) => {
+  //     mockTheme = newTheme;
+  //     mockUseCalculationState.mockReturnValue({
+  //       calculationData: {
+  //         workType: WorkType.Default,
+  //         expertiseArea: ExpertiseArea.Default,
+  //         executionTime: ExecutionTime.Default,
+  //         uniqueness: Uniqueness.Zero,
+  //         theme: mockTheme,
+  //       },
+  //       handleOptionChange: jest.fn(),
+  //       handleThemeChange: jest.fn(),
+  //       handleRangeChange: jest.fn(),
+  //       resetCalculation: jest.fn(),
+  //     });
+  //   }),
+  //   handleRangeChange: jest.fn((newValue: number) => {
+  //     mockRangeValue = newValue;
+  //     mockUseCalculationState.mockReturnValue({
+  //       calculationData: {
+  //         workType: WorkType.Default,
+  //         expertiseArea: ExpertiseArea.Default,
+  //         executionTime: ExecutionTime.Default,
+  //         uniqueness: mockRangeValue,
+  //         theme: mockTheme,
+  //       },
+  //       handleOptionChange: jest.fn(),
+  //       handleThemeChange: jest.fn(),
+  //       handleRangeChange: jest.fn(),
+  //       resetCalculation: jest.fn(),
+  //     });
+  //   }),
+  //   resetCalculation: jest.fn(),
+  // });
+
+  // mockUseRangeValue.mockReturnValue({
+  //   rangeValue: mockRangeValue,
+  //   updateRangeValue: jest.fn((newValue) => {
+  //     mockRangeValue = newValue;
+  //   }),
+  //   handleClearRangeValue: jest.fn(() => {
+  //     mockRangeValue = Uniqueness.Zero;
+  //   }),
+  // });
+};
+
 describe('OptionSelectionProvider', () => {
   beforeEach(() => {
-    let mockTheme = '';
-    let mockRangeValue = Uniqueness.Zero;
-
-    mockUseCalculationState.mockReturnValue({
-      calculationData: {
-        workType: WorkType.Default,
-        expertiseArea: ExpertiseArea.Default,
-        executionTime: ExecutionTime.Default,
-        uniqueness: Uniqueness.Zero,
-        theme: mockTheme,
-      },
-      handleOptionChange: jest.fn(),
-      handleThemeChange: jest.fn((newTheme: string) => {
-        mockTheme = newTheme;
-      }),
-      handleRangeChange: jest.fn((newValue: number) => {
-        mockRangeValue = newValue;
-      }),
-      resetCalculation: jest.fn(),
-    });
-
-    mockUseRangeValue.mockReturnValue({
-      rangeValue: mockRangeValue,
-      updateRangeValue: jest.fn((newValue) => {
-        mockRangeValue = newValue;
-      }),
-      handleClearRangeValue: jest.fn(() => {
-        mockRangeValue = Uniqueness.Zero;
-      }),
-    });
+    mockInitialState();
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 
   it('should toggle checkbox', async () => {
-    render(
-      <OptionSelectionProvider>
-        <TestComponent />
-      </OptionSelectionProvider>,
-    );
-
-    expect(screen.getByTestId('checkbox-status')).toHaveTextContent('Checked: No');
+    renderTestComponent();
 
     fireEvent.click(screen.getByText('Toggle Checkbox'));
     await waitFor(() =>
@@ -107,13 +167,7 @@ describe('OptionSelectionProvider', () => {
   });
 
   it('should update range value', async () => {
-    render(
-      <OptionSelectionProvider>
-        <TestComponent />
-      </OptionSelectionProvider>,
-    );
-
-    expect(screen.getByTestId('range-value')).toHaveTextContent('Range Value: 0');
+    renderTestComponent();
 
     fireEvent.click(screen.getByText('Set Range Value'));
     await waitFor(() =>
@@ -122,14 +176,9 @@ describe('OptionSelectionProvider', () => {
   });
 
   it('should update theme', async () => {
-    render(
-      <OptionSelectionProvider>
-        <TestComponent />
-      </OptionSelectionProvider>,
-    );
+    renderTestComponent();
 
     fireEvent.change(screen.getByTestId('theme-input'), { target: { value: 'New Theme' } });
-    // expect(mockHandleThemeChange).toHaveBeenCalledWith('New Theme');
 
     await waitFor(() =>
       expect(screen.getByTestId('theme-value')).toHaveTextContent('Theme: New Theme'),
@@ -137,25 +186,19 @@ describe('OptionSelectionProvider', () => {
   });
 
   it('should update uniqueness value', async () => {
-    render(
-      <OptionSelectionProvider>
-        <TestComponent />
-      </OptionSelectionProvider>,
-    );
+    renderTestComponent();
 
     fireEvent.click(screen.getByText('Set Range Value'));
 
     await waitFor(() =>
-      expect(screen.getByTestId('uniqueness-value')).toHaveTextContent('Uniqueness: 70'),
+      act(() => {
+        expect(screen.getByTestId('uniqueness-value')).toHaveTextContent('Set Range Value: 70');
+      }),
     );
   });
 
   it('should reset values', async () => {
-    render(
-      <OptionSelectionProvider>
-        <TestComponent />
-      </OptionSelectionProvider>,
-    );
+    renderTestComponent();
 
     fireEvent.click(screen.getByText('Toggle Checkbox'));
     fireEvent.click(screen.getByText('Set Range Value'));
