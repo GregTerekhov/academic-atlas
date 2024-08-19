@@ -20,3 +20,7 @@ jest.config.ts
 jest.setup.ts
 deploy
 k6_tests
+test-results
+playwright-report
+allure-results
+playwright.config.ts
