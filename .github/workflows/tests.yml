@@ -33,11 +33,6 @@ jobs:
           name: allure-results
           path: allure-results
 
-  upload-results:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
       - name: Download Allure Results
         uses: actions/download-artifact@v4
         with:
@@ -53,4 +48,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-results
+          publish_dir: ./allure-report
