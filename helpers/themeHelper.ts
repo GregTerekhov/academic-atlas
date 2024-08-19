@@ -1,7 +1,7 @@
 import { ThemeVariants } from '../types';
 import { eraseCookie, getCookie, setCookie } from './cookiesHelper';
 
-const applyPreference = (theme: string) => {
+export const applyPreference = (theme: string) => {
   const root = document.firstElementChild;
   root?.classList.remove(ThemeVariants.DARK, ThemeVariants.LIGHT);
   root?.classList.add(theme);

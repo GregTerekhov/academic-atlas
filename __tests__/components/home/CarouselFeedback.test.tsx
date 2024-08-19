@@ -30,6 +30,10 @@ const slideMock: ISlide = {
 };
 
 describe('CarouselFeedback Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render correctly with all subcomponents', () => {
     render(
       <CarouselFeedback

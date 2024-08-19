@@ -30,6 +30,7 @@ export default function Section({
   return (
     <section
       id={id}
+      data-testid={`section-${title}`}
       className={`${sectionClasses} ${sectionStyle} relative py-20 md:py-24 lg:py-[120px]`}
     >
       {backgroundImagePaths && (
@@ -42,7 +43,10 @@ export default function Section({
             mobileSrc={backgroundImagePaths.mobile}
             priority={priority}
           />
-          <div className={backgroundOverlayClass}></div>
+          <div
+            className={backgroundOverlayClass}
+            data-testid='overlay'
+          ></div>
         </>
       )}
       <Container>

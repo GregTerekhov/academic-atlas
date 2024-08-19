@@ -3,10 +3,19 @@ import BenefitsItem from 'components/home/subcomponents/benefits-item';
 import { IconName, BenefitLabel } from 'types';
 
 jest.mock('ui', () => ({
-  SvgIconUI: jest.fn(() => <svg data-testid='icon' />),
+  SvgIconUI: jest.fn(({ id }) => (
+    <svg
+      data-testid='icon'
+      id={id}
+    />
+  )),
 }));
 
 describe('BenefitsItem component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render correctly with given props', () => {
     const props = {
       iconName: IconName.Benefits1,
@@ -15,7 +24,9 @@ describe('BenefitsItem component', () => {
 
     render(<BenefitsItem {...props} />);
 
-    expect(screen.getByTestId('icon')).toBeInTheDocument();
+    const iconElement = screen.getByTestId('icon');
+    expect(iconElement).toBeInTheDocument();
+    expect(iconElement).toHaveAttribute('id', IconName.Benefits1);
 
     expect(screen.getByText(BenefitLabel.Uniqueness)).toBeInTheDocument();
   });

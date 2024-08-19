@@ -22,7 +22,10 @@ export default function PriceResult() {
   return (
     <>
       <div className='flex flex-col items-center'>
-        <h2 className='mb-8 !text-1.5xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'>
+        <h2
+          id='modal'
+          className='mb-8 !text-1.5xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'
+        >
           {CalculationTitle.CalculationResult}
         </h2>
         <p

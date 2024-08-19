@@ -6,8 +6,8 @@ import { getAriaLabelSwitcher } from 'helpers';
 
 import { MobileMenuTemplate } from 'template';
 import { SvgIconUI } from 'ui';
-import Menu from './menu';
-import PriceCalculator from '../calculation/product-price-calculator';
+import Menu from '../menu';
+import PriceCalculator from '../../calculation/product-price-calculator';
 
 export default function ToggleMenuTrigger() {
   const { isNavMenuOpen, isCalcMenuOpen, showCalculationMenu, handleToggleMenu } = useMenu();

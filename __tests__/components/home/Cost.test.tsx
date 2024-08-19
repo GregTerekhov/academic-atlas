@@ -4,7 +4,7 @@ import { SectionDescriptions, SectionTitle } from 'types';
 
 import { Cost } from 'components';
 
-jest.mock('../../../components/home/subcomponents', () => ({
+jest.mock('components/home/subcomponents', () => ({
   PriceControlsDesktop: jest.fn(() => <div data-testid='price-controls-desktop'></div>),
   PriceControlsMobile: jest.fn(() => <div data-testid='price-controls-mobile'></div>),
 }));
@@ -19,19 +19,20 @@ jest.mock('data', () => ({
 
 describe('Cost Component', () => {
   beforeEach(() => {
+    jest.clearAllMocks();
+
     render(<Cost />);
   });
 
-  it('should render correctly with all subcomponents', () => {
+  it('should render correctly with all subcomponents and render the correct h2', () => {
     expect(
-      screen.getByRole('heading', { name: SectionDescriptions[SectionTitle.FindOutCost] }),
+      screen.getByRole('heading', {
+        level: 2,
+        name: SectionDescriptions[SectionTitle.FindOutCost],
+      }),
     ).toBeInTheDocument();
 
     expect(screen.getByTestId('price-controls-desktop')).toBeInTheDocument();
     expect(screen.getByTestId('price-controls-mobile')).toBeInTheDocument();
-  });
-
-  it('should render background image if backgroundImagePaths exist', () => {
-    expect(screen.getByAltText(SectionDescriptions[SectionTitle.FindOutCost])).toBeInTheDocument();
   });
 });

@@ -11,10 +11,12 @@ export const useRangeValue = (calculationData: ICalculationData, isChecked: bool
   useEffect(() => {
     const workTypeObject = findSelectedObject(calculationData.workType);
 
+    if (!workTypeObject) return;
+
+    const { uniquenessPercentage: uniqueness } = workTypeObject;
+
     const newRangeValue =
-      isChecked && workTypeObject && workTypeObject.uniquenessPercentage
-        ? uniquenessMapping[workTypeObject.uniquenessPercentage] ?? Uniqueness.Zero
-        : Uniqueness.Zero;
+      isChecked && uniqueness ? uniquenessMapping[uniqueness] ?? Uniqueness.Zero : Uniqueness.Zero;
 
     setRangeValue(newRangeValue);
   }, [calculationData.workType, isChecked]);

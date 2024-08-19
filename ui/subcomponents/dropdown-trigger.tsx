@@ -1,18 +1,10 @@
 'use client';
 
-import { type DropdownOption, ButtonType, DropdownAriaId, IconName, IconSize } from 'types';
+import { ButtonType, IconName, IconSize, type IDropdownTriggerProps } from 'types';
 
 import SvgIcon from '../svg-icon';
 
 import { getDropdownIconStyles, getDropdownLabelStyles, getDropdownTriggerStyles } from 'styles';
-
-interface IDropdownTriggerProps {
-  isOpen: boolean;
-  isOptionSelected: boolean;
-  selectedLabel: DropdownOption;
-  handleToggle: () => void;
-  ariaId: DropdownAriaId;
-}
 
 export default function DropdownTrigger({
   isOpen,

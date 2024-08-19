@@ -1,15 +1,6 @@
 import Image from 'next/image';
 
-import { ImageSize } from 'types';
-
-interface IImageProps {
-  src: string;
-  alt: string;
-  width: ImageSize;
-  height: ImageSize;
-  className: string;
-  priority?: boolean;
-}
+import { type IImageProps } from 'types';
 
 const BLUR_URL =
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOUlgQAAFUANhyb7cwAAAAASUVORK5CYII=';

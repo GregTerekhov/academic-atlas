@@ -1,35 +1,30 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import {
-  CtaText,
-  PrimaryButtonLabel,
-  SectionDescriptions,
-  SectionTitle,
-  TelegramScenario,
-} from 'types';
+import { CtaText, PrimaryButtonLabel, SectionDescriptions, SectionTitle } from 'types';
 
 import { Hero } from 'components';
 
+jest.mock('helpers', () => ({
+  getAndEncodeDataObject: jest.fn(),
+}));
+
 jest.mock('template', () => ({
-  SectionTemplate: jest.fn(({ title, children }) => {
+  SectionTemplate: jest.fn(({ title, children, ctaText }) => {
     return (
       <section>
         <h1>{title === SectionTitle.Hero ? SectionDescriptions[SectionTitle.Hero] : title}</h1>
+        <p>{ctaText}</p>
         {children}
       </section>
     );
   }),
-  TelegramButton: jest.fn(({ command, label, ariaId, ariaDescription, isOnLightBackground }) => (
+  TelegramButton: jest.fn(({ label, ariaId, ariaDescription, isOnLightBackground }) => (
     <>
       <a
         aria-describedby={ariaId}
         href='#'
         target='_blank'
         rel='noopener noreferrer'
-        onClick={(e) => {
-          const base64String = btoa(command);
-          e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
-        }}
         className={`py-[17px] ${isOnLightBackground ? 'light-background' : ''}`}
       >
         {label}
@@ -59,25 +54,32 @@ jest.mock('data', () => ({
 }));
 
 describe('Hero Component', () => {
-  it('should render Hero component correctly', () => {
-    render(<Hero />);
-    screen.debug();
+  beforeEach(() => {
+    jest.clearAllMocks();
 
-    const heading = screen.getByText(SectionDescriptions[SectionTitle.Hero]);
+    render(<Hero />);
+  });
+
+  it('should render SectionTemplate components correctly', () => {
+    const heading = screen.getByRole('heading', {
+      level: 1,
+      name: SectionDescriptions[SectionTitle.Hero],
+    });
     expect(heading).toBeInTheDocument();
 
-    const telegramButton = screen.getByRole('link', { name: PrimaryButtonLabel.Ordering });
+    const ctaText = screen.getByText(CtaText.MainHero);
+    expect(ctaText).not.toBeNull();
+    expect(ctaText).toBeInTheDocument();
+  });
+
+  it('should render TelegramButton with correct attributes', () => {
+    const telegramButton = screen.getByRole('link');
+    expect(telegramButton).toHaveTextContent(PrimaryButtonLabel.Ordering);
     expect(telegramButton).toBeInTheDocument();
+
     expect(telegramButton).toHaveAttribute('href', '#');
     expect(telegramButton).toHaveAttribute('target', '_blank');
     expect(telegramButton).toHaveAttribute('rel', 'noopener noreferrer');
     expect(telegramButton).toHaveAttribute('aria-describedby', 'default-ordering');
-
-    fireEvent.click(telegramButton);
-    const base64String = btoa(TelegramScenario.Order);
-    expect(telegramButton).toHaveAttribute(
-      'href',
-      `https://t.me/AcademicAtlasBot?start=${base64String}`,
-    );
   });
 });

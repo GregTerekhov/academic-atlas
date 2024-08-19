@@ -117,3 +117,20 @@ export interface IDropdownProps {
   onOptionSelect: (option: DropdownOption) => void;
   ariaId: DropdownAriaId;
 }
+
+export interface IImageProps {
+  src: string;
+  alt: string;
+  width: ImageSize;
+  height: ImageSize;
+  className: string;
+  priority?: boolean;
+}
+
+export interface IDropdownTriggerProps {
+  isOpen: boolean;
+  isOptionSelected: boolean;
+  selectedLabel: DropdownOption;
+  handleToggle: () => void;
+  ariaId: DropdownAriaId;
+}

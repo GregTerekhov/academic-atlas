@@ -1,3 +1,5 @@
+'use client';
+
 import { RefObject } from 'react';
 
 import { AriaLabel, ButtonType, IconName, IconSize, type IWithChildren, PopupID } from 'types';
@@ -20,8 +22,8 @@ export default function Modal({
   id,
   children,
   modalRef,
-  isOpen,
   hasSubmitData,
+  isOpen,
 }: IModalProps) {
   const backdropClass = getBackdropStyles();
   const containerClass = getModalContainerStyles();
@@ -31,6 +33,7 @@ export default function Modal({
     isOpen(id) && (
       <div className={backdropClass}>
         <div
+          aria-labelledby='modal'
           role='dialog'
           ref={modalRef}
           className={containerClass}

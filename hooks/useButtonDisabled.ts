@@ -11,15 +11,21 @@ export const useButtonDisabled = (calculationData: ICalculationData, isChecked: 
   const { workType, expertiseArea, executionTime } = calculationData;
   const validField = checkCalculationField(calculationData);
 
+  const workTypeObject = findSelectedObject(workType);
   useEffect(() => {
-    const workTypeObject = findSelectedObject(workType);
-
     // Determine if the button should be enabled based on several conditions
     const liftedDisableState =
       (workTypeObject?.uniquenessPercentage === Uniqueness.Zero && validField) || isChecked;
 
     setIsButtonDisabled(!liftedDisableState);
-  }, [executionTime, expertiseArea, workType, isChecked, validField]);
+  }, [
+    executionTime,
+    expertiseArea,
+    workType,
+    isChecked,
+    validField,
+    workTypeObject?.uniquenessPercentage,
+  ]);
 
   return { isButtonDisabled };
 };

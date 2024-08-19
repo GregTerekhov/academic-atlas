@@ -14,13 +14,16 @@ jest.mock('helpers/breadcrumbsHelper', () => ({
   validPaths: [Paths.FAQ, Paths.Policy, Paths.Offer, Paths.Partnership],
 }));
 
-describe('useBreadcrumbs', () => {
+describe('useBreadcrumbs hook', () => {
+  const mockUsePathname = usePathname as jest.Mock;
+  const mockCreatePathsMap = createPathsMap as jest.Mock;
+
   it('returns the correct header if currentPath is in validPaths', () => {
-    (usePathname as jest.Mock).mockReturnValue(Paths.FAQ);
+    mockUsePathname.mockReturnValue(Paths.FAQ);
 
     const mockPathMenuLinkMap = new Map<string, MenuLinks>([[Paths.FAQ, MenuLinks.FAQ]]);
 
-    (createPathsMap as jest.Mock).mockReturnValue(mockPathMenuLinkMap);
+    mockCreatePathsMap.mockReturnValue(mockPathMenuLinkMap);
 
     const { result } = renderHook(() => useBreadcrumbs());
 
@@ -28,7 +31,7 @@ describe('useBreadcrumbs', () => {
   });
 
   it('returns null if currentPath is not in validPaths', () => {
-    (usePathname as jest.Mock).mockReturnValue('/invalid-path');
+    mockUsePathname.mockReturnValue('/invalid-path');
 
     const { result } = renderHook(() => useBreadcrumbs());
 
@@ -36,11 +39,23 @@ describe('useBreadcrumbs', () => {
   });
 
   it('returns null if currentPath is not a key in map', () => {
-    (usePathname as jest.Mock).mockReturnValue(Paths.Promotions);
+    mockUsePathname.mockReturnValue(Paths.Promotions);
 
     const mockPathMenuLinkMap = new Map<string, MenuLinks>([[Paths.FAQ, MenuLinks.FAQ]]);
 
-    (createPathsMap as jest.Mock).mockReturnValue(mockPathMenuLinkMap);
+    mockCreatePathsMap.mockReturnValue(mockPathMenuLinkMap);
+
+    const { result } = renderHook(() => useBreadcrumbs());
+
+    expect(result.current).toBeNull();
+  });
+
+  it('sets determinedCurrentPath to null if pathMenuLinkMap.get(currentPath) returns null or undefined', () => {
+    mockUsePathname.mockReturnValue(Paths.FAQ);
+
+    const mockPathMenuLinkMap = new Map<string, MenuLinks | undefined>([[Paths.FAQ, undefined]]);
+
+    mockCreatePathsMap.mockReturnValue(mockPathMenuLinkMap);
 
     const { result } = renderHook(() => useBreadcrumbs());
 
