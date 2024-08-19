@@ -13,7 +13,10 @@ export default function MobileMenu({ children, isOpen }: Readonly<IMobileMenuPro
   const containerClass = getMobileMenuContainerStyles(isOpen);
 
   return (
-    <div className={containerClass}>
+    <div
+      className={containerClass}
+      data-testid='mobile-menu'
+    >
       <Container>
         <BackButton />
         {children}
