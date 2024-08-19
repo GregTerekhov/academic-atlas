@@ -100,6 +100,18 @@ export const checkCalculationField = (data: ICalculationData): boolean => {
   );
 };
 
+export const checkValidWorkType = (workType: WorkType) => {
+  const necessaryWorkType = [
+    WorkType.Diplomas,
+    WorkType.TeamPapers,
+    WorkType.BachelorTheses,
+    WorkType.MasterTheses,
+    WorkType.Abstracts,
+  ];
+
+  return necessaryWorkType.includes(workType);
+};
+
 export const couldChooseUniqueness = (workType: WorkType): boolean => {
   return [
     WorkType.BachelorTheses,
@@ -143,7 +155,7 @@ export const roundPriceToInterval = (calculatedPrice: number) => {
   return renderedPrice;
 };
 
-export const findSelectedObject = (selectedWorkType: WorkType) => {
+export const findSelectedObject = (selectedWorkType: WorkType): IDropdownData | undefined => {
   return getWorkType().find((workType) => workType.option === selectedWorkType);
 };
 
@@ -184,11 +196,3 @@ export const uniquenessMapping = {
   [Uniqueness.Higher]: Uniqueness.Higher,
   [Uniqueness.Highest]: Uniqueness.Highest,
 };
-
-export const necessaryWorkType = [
-  WorkType.Diplomas,
-  WorkType.TeamPapers,
-  WorkType.BachelorTheses,
-  WorkType.MasterTheses,
-  WorkType.Abstracts,
-];
