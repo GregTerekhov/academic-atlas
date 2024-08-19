@@ -41,5 +41,5 @@ export const useRangeSettings = (
 
   const rangeInputClass = theme === ThemeVariants.DARK ? 'range-input-dark' : 'range-input-light';
 
-  return { showMinimalText, rangeInputClass, handleChange };
+  return { showMinimalText, rangeInputClass, handleChange, updateThumbColor };
 };

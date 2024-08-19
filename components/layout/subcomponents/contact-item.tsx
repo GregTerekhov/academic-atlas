@@ -23,7 +23,9 @@ export default function ContactItem({
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
   const handleClick = () => {
-    if (isNavMenuOpen) toggleNavMenu();
+    if (isNavMenuOpen) {
+      toggleNavMenu();
+    }
   };
 
   const ariaLabel = getAriaLabelContacts(href, label);

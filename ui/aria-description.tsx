@@ -10,6 +10,7 @@ export default function AriaDescriptionText({ description, id }: IAriaDescriptio
     <span
       className='sr-only'
       id={id}
+      data-testid='aria-description-text'
     >
       {description}
     </span>

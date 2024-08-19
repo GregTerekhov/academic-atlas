@@ -89,7 +89,7 @@ export const OptionSelectionProvider = ({ children }: IWithChildren) => {
 export const useCalculation = () => {
   const context = useContext(OptionSelectionContext);
   if (context === undefined) {
-    throw new Error('useCalculation must be used within a OptionSelectionProvider');
+    throw new Error('useCalculation must be used within an OptionSelectionProvider');
   }
   return context;
 };

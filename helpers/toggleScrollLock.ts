@@ -1,25 +1,26 @@
-const getScrollBarWidth = () => {
-  const scrollDiv = document.createElement('div');
-  scrollDiv.style.visibility = 'hidden';
-  scrollDiv.style.width = '100px';
+export const getScrollBarWidth = () => {
+  const outer = document.createElement('div');
+  outer.style.visibility = 'hidden';
+  outer.style.width = '100px';
+  outer.style.overflow = 'scroll';
 
-  document.body.appendChild(scrollDiv);
+  document.body.appendChild(outer);
 
-  const widthNoScroll = scrollDiv.offsetWidth;
-  scrollDiv.style.overflow = 'scroll';
+  const widthNoScroll = outer.offsetWidth;
 
-  const switcherDiv = document.createElement('div');
-  switcherDiv.style.width = '100%';
-  scrollDiv.appendChild(switcherDiv);
+  const inner = document.createElement('div');
+  inner.style.width = '100%';
+  inner.style.height = '200px';
+  outer.appendChild(inner);
 
-  const widthWithScroll = switcherDiv.offsetWidth;
+  const widthWithScroll = inner.offsetWidth;
 
-  scrollDiv.parentNode?.removeChild(scrollDiv);
+  outer.parentNode?.removeChild(outer);
 
   return widthNoScroll - widthWithScroll;
 };
 
-const hasScrollbar = () => {
+export const hasScrollbar = () => {
   return document.body.scrollHeight > document.body.clientHeight;
 };
 

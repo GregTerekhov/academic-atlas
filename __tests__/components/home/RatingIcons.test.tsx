@@ -10,6 +10,10 @@ jest.mock('ui', () => ({
 }));
 
 describe('RatingIcons Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render RatingUp icon when index is less than rating', () => {
     const rating = 3;
     const index = 2;

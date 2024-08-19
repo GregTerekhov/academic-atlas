@@ -6,11 +6,28 @@ import { DEVICES, mapArray } from 'helpers';
 import { Feedback } from 'components';
 
 jest.mock('template', () => ({
-  SectionTemplate: jest.fn(({ children, title }) => (
-    <section>
-      <h2>{title}</h2>
+  SectionTemplate: jest.fn(({ children }) => (
+    <section
+      data-testid='section-feedback'
+      id='feedback'
+    >
+      <h2>{SectionDescriptions[SectionTitle.CustomerReviews]}</h2>
       {children}
     </section>
+  )),
+}));
+
+jest.mock('ui', () => ({
+  CarouselUI: jest.fn(({ slides }) => (
+    <div data-testid='carousel-ui'>
+      {slides.map(({ ...props }) => (
+        <div key={props.id}>
+          <p>{props.title}</p>
+          <p>{props.description}</p>
+          <div>{props.memberRating}</div>
+        </div>
+      ))}
+    </div>
   )),
 }));
 
@@ -19,14 +36,16 @@ jest.mock('data', () => ({
     {
       id: '1',
       title: 'Test Slide 1',
-      imageSrc: 'test1.jpg',
+      imageSrc: '/images/customer-01.jpg',
+      imageAlt: 'First image',
       description: 'Test description 1',
       memberRating: 5,
     },
     {
       id: '2',
       title: 'Test Slide 2',
-      imageSrc: 'test2.jpg',
+      imageSrc: '/images/customer-02.jpg',
+      imageAlt: 'Second image',
       description: 'Test description 2',
       memberRating: 4,
     },
@@ -55,16 +74,26 @@ jest.mock('helpers', () => ({
 
 describe('Feedback Component', () => {
   beforeEach(() => {
+    jest.clearAllMocks();
+
     (mapArray as jest.Mock).mockImplementation((array, callback) => array.map(callback));
   });
 
   it('should render Feedback component correctly', () => {
     const { container } = render(<Feedback />);
 
-    const slides = screen.getAllByRole('img');
+    const slides = screen.getAllByTestId('carousel-ui')[0].children;
     expect(slides).toHaveLength(2);
-    expect(slides[0]).toHaveAttribute('src', 'test1.jpg');
-    expect(slides[1]).toHaveAttribute('src', 'test2.jpg');
+    expect(slides[0]).toHaveTextContent('Test Slide 1');
+    expect(slides[0]).toHaveTextContent('Test description');
+    expect(slides[0]).toHaveTextContent('5');
+
+    expect(slides[1]).toHaveTextContent('Test Slide 2');
+    expect(slides[1]).toHaveTextContent('Test description');
+    expect(slides[1]).toHaveTextContent('4');
+
+    const sectionElement = screen.getByTestId('section-feedback');
+    expect(sectionElement).toBeInTheDocument();
 
     expect(container).toMatchSnapshot();
   });
@@ -72,9 +101,11 @@ describe('Feedback Component', () => {
   it('should pass the correct props to SectionTemplate and render the correct h2', () => {
     render(<Feedback />);
 
-    const heading = screen.getByRole('heading', { level: 2 });
+    const heading = screen.getByRole('heading', {
+      level: 2,
+      name: SectionDescriptions[SectionTitle.CustomerReviews],
+    });
     expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent(SectionDescriptions[SectionTitle.CustomerReviews]);
 
     const sectionElement = heading.closest('section');
     expect(sectionElement).toHaveAttribute('id', 'feedback');

@@ -1,6 +1,7 @@
 'use client';
 
 import { AriaDescription, AriaId, PrimaryButtonLabel } from 'types';
+import { useCalculationResult } from 'context';
 import { usePricePopupControls } from 'hooks';
 
 import { ModalTemplate } from 'template';
@@ -8,7 +9,8 @@ import { PrimaryButtonUI } from 'ui';
 import PriceCalculator from '../../calculation/product-price-calculator';
 
 export default function PriceControlsDesktop() {
-  const { popupId, popupRefs, hasSubmitData, togglePopup, isPopupOpen } = usePricePopupControls();
+  const { popupId, popupRefs, togglePopup, isPopupOpen } = usePricePopupControls();
+  const { hasSubmitData } = useCalculationResult();
 
   return (
     <>

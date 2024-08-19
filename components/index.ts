@@ -30,5 +30,5 @@ export { default as ServiceOverview } from './home/overview';
 export { default as Services } from './home/services';
 export { default as Skeleton } from './skeleton';
 export { default as ThemeSwitcher } from './layout/theme-switcher';
-export { default as ToggleMenuTrigger } from './layout/toggle-controls';
+export { default as ToggleMenuTrigger } from './layout/header-components/toggle-controls';
 export { default as WorkflowSteps } from './performers/collaboration-workflow';

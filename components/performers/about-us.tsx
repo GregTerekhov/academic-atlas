@@ -1,6 +1,5 @@
 import { type IAboutUs } from 'types';
 import { getAboutUsData } from 'data';
-
 import { Container } from 'layout';
 import { MappedListTemplate } from 'template';
 import { AboutUsItem } from './subcomponents';

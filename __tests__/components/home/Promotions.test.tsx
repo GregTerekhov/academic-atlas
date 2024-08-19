@@ -1,36 +1,50 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import {
   PrimaryButtonLabel,
   AriaDescription,
   SectionTitle,
   CtaText,
-  SectionDescriptions,
   TelegramScenario,
+  AriaId,
+  ImageSize,
 } from 'types';
 import { getSectionProps } from 'data';
+import { getIdValues } from 'helpers';
 
+import { SectionTemplate, TelegramButton } from 'template';
 import { Promotions } from 'components';
+import { ImageUI } from 'ui';
 
 jest.mock('template', () => ({
-  TelegramButton: jest.fn(({ command, label, ariaId, ariaDescription, isOnLightBackground }) => (
-    <>
-      <a
+  SectionTemplate: jest.fn(({ children }) => <div data-testid='section-template'>{children}</div>),
+
+  TelegramButton: jest.fn(({ props, ariaId }) => {
+    return (
+      <button
+        {...props}
+        data-testid='telegram-button'
         aria-describedby={ariaId}
-        href='#'
-        target='_blank'
-        rel='noopener noreferrer'
-        onClick={(e) => {
-          const base64String = btoa(command);
-          e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
-        }}
-        className={`py-[17px] ${isOnLightBackground ? 'light-background' : ''}`}
       >
-        {label}
-      </a>
-      <div id={ariaId}>{ariaDescription}</div>
-    </>
-  )),
+        Telegram Button
+      </button>
+    );
+  }),
+}));
+
+jest.mock('ui', () => ({
+  ImageUI: jest.fn((props) => {
+    const { alt, priority, ...restProps } = props;
+
+    return (
+      <div
+        {...restProps}
+        alt={alt}
+        priority={priority}
+        data-testid='image-ui'
+      />
+    );
+  }),
 }));
 
 jest.mock('data', () => ({
@@ -38,8 +52,9 @@ jest.mock('data', () => ({
   imageSettings: {
     promotions: {
       src: '/images/notes.png',
-      width: 216,
-      height: 144,
+      alt: '',
+      width: ImageSize.Medium216,
+      height: ImageSize.Small144,
       className:
         'size-auto max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-auto md:w-[224px] md:-translate-y-1/2 lg:h-auto lg:w-[416px]',
     },
@@ -52,18 +67,14 @@ jest.mock('helpers', () => ({
   })),
 }));
 
-jest.mock('styles', () => ({
-  getSectionClasses: jest.fn(() => 'mocked-section-classes'),
-  getTitleClasses: jest.fn(() => 'mocked-title-classes'),
-  getExtraSectionOverlayStyles: jest.fn(() => 'mocked-overlay-styles'),
-  generateBackgroundImagePaths: jest.fn(() => 'mocked-background-image-paths'),
-  getPrimaryButtonStyles: jest.fn(() => 'primary-button-styles'),
-  getCtaTextStyles: jest.fn(() => 'mocked-cta-text-styles'),
-}));
-
 describe('Promotions Component', () => {
+  const mockGetSectionProps = getSectionProps as jest.Mock;
+  const mockGetIdValues = getIdValues as jest.Mock;
+
   beforeEach(() => {
-    (getSectionProps as jest.Mock).mockReturnValue({
+    jest.clearAllMocks();
+
+    mockGetSectionProps.mockReturnValue({
       homePromotions: {
         title: SectionTitle.Promotions,
         ctaText: CtaText.MainPromotions,
@@ -75,47 +86,55 @@ describe('Promotions Component', () => {
     });
   });
 
-  it('renders SectionTemplate with correct props', () => {
-    render(<Promotions />);
-
-    expect(getSectionProps).toHaveBeenCalledWith(undefined, SectionTitle.Promotions);
-
-    const sectionTitle = screen.getByRole('heading', {
-      level: 2,
-      name: SectionDescriptions[SectionTitle.Promotions],
-    });
-    const ctaText = screen.getByText(CtaText.MainPromotions);
-
-    expect(sectionTitle).toBeInTheDocument();
-    expect(ctaText).toBeInTheDocument();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('renders ImageUI with correct props', () => {
+  it('renders correctly and passes the correct props to child components', () => {
+    const mockSectionProps = {
+      homePromotions: {
+        title: SectionTitle.Promotions,
+        id: 'promotions',
+      },
+    };
+    const mockIdValues = {
+      Promotions: 'promotions',
+    };
+
+    mockGetSectionProps.mockReturnValue(mockSectionProps);
+    mockGetIdValues.mockReturnValue(mockIdValues);
+
     render(<Promotions />);
 
-    const image = screen.getByRole('img');
-    expect(image).toHaveAttribute('src', '/images/notes.png');
-    expect(image).toHaveAttribute('width', '216');
-    expect(image).toHaveAttribute('height', '144');
-  });
-
-  it('renders TelegramButton with correct props', () => {
-    render(<Promotions />);
-
-    const telegramButton = screen.getByRole('link', { name: PrimaryButtonLabel.Ordering });
-    expect(telegramButton).toBeInTheDocument();
-    expect(telegramButton).toHaveAttribute('href', '#');
-    expect(telegramButton).toHaveAttribute('target', '_blank');
-    expect(telegramButton).toHaveAttribute('rel', 'noopener noreferrer');
-
-    fireEvent.click(telegramButton);
-    const base64String = btoa(TelegramScenario.Order);
-    expect(telegramButton).toHaveAttribute(
-      'href',
-      `https://t.me/AcademicAtlasBot?start=${base64String}`,
+    expect(screen.getByTestId('section-template')).toBeInTheDocument();
+    expect(SectionTemplate).toHaveBeenCalledWith(
+      expect.objectContaining(mockSectionProps.homePromotions),
+      {},
     );
 
-    const ariaDescription = screen.getByText(AriaDescription.DefaultOrdering);
-    expect(ariaDescription).toBeInTheDocument();
+    const image = screen.getByTestId('image-ui');
+    expect(image).toBeInTheDocument();
+    expect(ImageUI).toHaveBeenCalledWith(
+      expect.objectContaining({
+        src: '/images/notes.png',
+        alt: '',
+        width: 216,
+        height: 144,
+        className:
+          'size-auto max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-auto md:w-[224px] md:-translate-y-1/2 lg:h-auto lg:w-[416px]',
+      }),
+      {},
+    );
+
+    expect(screen.getByTestId('telegram-button')).toBeInTheDocument();
+    expect(TelegramButton).toHaveBeenCalledWith(
+      expect.objectContaining({
+        command: TelegramScenario.Order,
+        label: PrimaryButtonLabel.Ordering,
+        ariaId: AriaId.DefaultPromotionsOrdering,
+        ariaDescription: AriaDescription.DefaultPromotionsOrdering,
+      }),
+      {},
+    );
   });
 });

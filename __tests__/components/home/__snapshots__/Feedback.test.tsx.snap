@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Feedback Component should render Feedback component correctly 1`] = `
+<div>
+  <section
+    data-testid="section-feedback"
+    id="feedback"
+  >
+    <h2>
+      Відгуки наших клієнтів
+    </h2>
+    <div
+      data-testid="carousel-ui"
+    >
+      <div>
+        <p>
+          Test Slide 1
+        </p>
+        <p>
+          Test description 1
+        </p>
+        <div>
+          5
+        </div>
+      </div>
+      <div>
+        <p>
+          Test Slide 2
+        </p>
+        <p>
+          Test description 2
+        </p>
+        <div>
+          4
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;

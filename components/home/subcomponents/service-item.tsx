@@ -25,18 +25,8 @@ export default function ServiceItem({
 }: Readonly<ServiceItemProps>) {
   const { width, height, className } = serviceImageSettings;
 
-  const handleLinkClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
-    const base64String = getAndEncodeDataObject(TelegramScenario.Order, serviceTitle);
-
-    if (!base64String) {
-      e.preventDefault();
-      e.currentTarget.href = '#';
-
-      return;
-    }
-
-    e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
-  };
+  const base64String = getAndEncodeDataObject(TelegramScenario.Order, serviceTitle);
+  const linkHref = base64String ? `https://t.me/AcademicAtlasBot?start=${base64String}` : '#';
 
   const itemClass = getServiceItemStyles();
   const titleClass = getWorkTypeTitleStyles();
@@ -45,9 +35,8 @@ export default function ServiceItem({
     <li className={itemClass}>
       <a
         target='_blank'
-        href='#'
+        href={linkHref}
         rel='noopener noreferrer'
-        onClick={handleLinkClick}
         aria-describedby={AriaId.Service}
         className='relative flex h-full w-full flex-col justify-end'
       >

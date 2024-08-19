@@ -35,11 +35,15 @@ describe('StatisticList Component', () => {
     { id: '5', count: StatisticCount.Work, label: StatisticLabel.Work, hideOnSmallScreen: true },
   ];
 
+  const mockGetDesktopStatistics = getDesktopStatistics as jest.Mock;
+  const mockGetFiguresTextStyles = getFiguresTextStyles as jest.Mock;
   const mockStyles = 'mock-figures-style';
 
   beforeEach(() => {
-    (getDesktopStatistics as jest.Mock).mockReturnValue(mockStatistics);
-    (getFiguresTextStyles as jest.Mock).mockReturnValue(mockStyles);
+    jest.clearAllMocks();
+
+    mockGetDesktopStatistics.mockReturnValue(mockStatistics);
+    mockGetFiguresTextStyles.mockReturnValue(mockStyles);
   });
 
   it('should render all StatisticItem components with correct props', () => {
@@ -59,9 +63,6 @@ describe('StatisticList Component', () => {
       labelElements.forEach((element) => {
         expect(element).toBeInTheDocument();
       });
-
-      // const labelElement = labelElements[index];
-      // expect(labelElement).toBeInTheDocument();
 
       countElements.forEach((element) => {
         const listItem = element.closest('p');

@@ -64,6 +64,8 @@ describe('ServiceOverview Component', () => {
   ];
 
   beforeEach(() => {
+    jest.clearAllMocks();
+
     (getOrderSteps as jest.Mock).mockReturnValue(mockOrderSteps);
     (getSectionProps as jest.Mock).mockReturnValue({
       homeOverview: {

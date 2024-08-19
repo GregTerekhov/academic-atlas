@@ -9,7 +9,8 @@ export const useHandleClickOutside = (
 ) => {
   const handleWindowClick = useCallback(
     (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node) && isOpen) {
+      const target = event.target as Node;
+      if (ref.current && !ref.current.contains(target) && isOpen) {
         onClose();
       }
     },
@@ -26,12 +27,14 @@ export const useHandleClickOutside = (
   );
 
   useEffect(() => {
-    window.addEventListener('mousedown', handleWindowClick);
-    window.addEventListener('keydown', handleKeyDown);
+    if (isOpen) {
+      window.addEventListener('mousedown', handleWindowClick);
+      window.addEventListener('keydown', handleKeyDown);
+    }
 
     return () => {
       window.removeEventListener('mousedown', handleWindowClick);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleKeyDown, handleWindowClick]);
+  }, [handleKeyDown, handleWindowClick, isOpen]);
 };
