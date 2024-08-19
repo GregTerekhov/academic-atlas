@@ -22,7 +22,7 @@ export const getDropdownLabelStyles = (isOptionSelected: boolean) => {
 };
 
 export const getDropdownIconStyles = (isOptionSelected: boolean, isDropdownOpen: boolean) => {
-  return `${isDropdownOpen ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'fill-darkBase dark:fill-whiteBase'}  transition-transform`;
+  return `${isDropdownOpen ? 'rotate-180' : ''} ${isOptionSelected ? 'fill-whiteBase' : 'fill-darkBase dark:fill-whiteBase'} transition-transform`;
 };
 
 export const getPrimaryButtonStyles = (isOnLightBackground?: boolean, isDisabled?: boolean) => {
