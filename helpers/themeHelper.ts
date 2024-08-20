@@ -21,10 +21,8 @@ export const getPreference = (storageKey: string): string => {
 
 export const setPreference = (storageKey: string, theme: string) => {
   eraseCookie(storageKey);
-  console.log('setPreference called with', theme);
 
   if (theme) {
-    console.log('Setting cookie and applying preference');
     setCookie(storageKey, theme, 365);
     applyPreference(theme);
   }
