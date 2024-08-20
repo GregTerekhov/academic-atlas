@@ -92,60 +92,6 @@ const mockInitialState = () => {
       mockRangeValue = Uniqueness.Zero;
     }),
   }));
-
-  // mockUseCalculationState.mockReturnValue({
-  //   calculationData: {
-  //     workType: WorkType.Default,
-  //     expertiseArea: ExpertiseArea.Default,
-  //     executionTime: ExecutionTime.Default,
-  //     uniqueness: Uniqueness.Zero,
-  //     theme: mockTheme,
-  //   },
-  //   handleOptionChange: jest.fn(),
-  //   handleThemeChange: jest.fn((newTheme: string) => {
-  //     mockTheme = newTheme;
-  //     mockUseCalculationState.mockReturnValue({
-  //       calculationData: {
-  //         workType: WorkType.Default,
-  //         expertiseArea: ExpertiseArea.Default,
-  //         executionTime: ExecutionTime.Default,
-  //         uniqueness: Uniqueness.Zero,
-  //         theme: mockTheme,
-  //       },
-  //       handleOptionChange: jest.fn(),
-  //       handleThemeChange: jest.fn(),
-  //       handleRangeChange: jest.fn(),
-  //       resetCalculation: jest.fn(),
-  //     });
-  //   }),
-  //   handleRangeChange: jest.fn((newValue: number) => {
-  //     mockRangeValue = newValue;
-  //     mockUseCalculationState.mockReturnValue({
-  //       calculationData: {
-  //         workType: WorkType.Default,
-  //         expertiseArea: ExpertiseArea.Default,
-  //         executionTime: ExecutionTime.Default,
-  //         uniqueness: mockRangeValue,
-  //         theme: mockTheme,
-  //       },
-  //       handleOptionChange: jest.fn(),
-  //       handleThemeChange: jest.fn(),
-  //       handleRangeChange: jest.fn(),
-  //       resetCalculation: jest.fn(),
-  //     });
-  //   }),
-  //   resetCalculation: jest.fn(),
-  // });
-
-  // mockUseRangeValue.mockReturnValue({
-  //   rangeValue: mockRangeValue,
-  //   updateRangeValue: jest.fn((newValue) => {
-  //     mockRangeValue = newValue;
-  //   }),
-  //   handleClearRangeValue: jest.fn(() => {
-  //     mockRangeValue = Uniqueness.Zero;
-  //   }),
-  // });
 };
 
 describe('OptionSelectionProvider', () => {
@@ -175,14 +121,24 @@ describe('OptionSelectionProvider', () => {
     );
   });
 
-  it('should update theme', async () => {
+  it('should update theme with valid value', async () => {
     renderTestComponent();
 
-    fireEvent.change(screen.getByTestId('theme-input'), { target: { value: 'New Theme' } });
+    fireEvent.change(screen.getByTestId('theme-input'), { target: { value: 'Valid Theme' } });
 
     await waitFor(() =>
-      expect(screen.getByTestId('theme-value')).toHaveTextContent('Theme: New Theme'),
+      expect(screen.getByTestId('theme-value')).toHaveTextContent('Theme: Valid Theme'),
     );
+  });
+
+  it('should not update theme input with invalid input', async () => {
+    renderTestComponent();
+
+    fireEvent.change(screen.getByTestId('theme-input'), {
+      target: { value: '<script>alert("xss")</script>' },
+    });
+
+    await waitFor(() => expect(screen.getByTestId('theme-value')).toHaveTextContent('Theme:'));
   });
 
   it('should update uniqueness value', async () => {

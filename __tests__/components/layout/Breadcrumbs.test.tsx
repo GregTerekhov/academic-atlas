@@ -41,8 +41,15 @@ describe('Breadcrumbs Component', () => {
     jest.clearAllMocks();
   });
 
-  it('does not render on Paths.Main', () => {
+  it('does not render when determinedPath is an empty string, for example, on Paths.Main', () => {
     mockUseBreadcrumbs.mockReturnValue('');
+    const { container } = render(<Breadcrumbs />);
+
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('does not render when determinedPath is undefined', () => {
+    mockUseBreadcrumbs.mockReturnValue(undefined);
     const { container } = render(<Breadcrumbs />);
 
     expect(container.firstChild).toBeNull();

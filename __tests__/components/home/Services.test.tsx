@@ -67,13 +67,13 @@ describe('Services Component', () => {
   it('should render SectionTemplate and MappedListTemplate with ServiceItem', () => {
     render(<Services />);
 
-    const sectionElement = screen.getByRole('heading', {
+    const titleElement = screen.getByRole('heading', {
       level: 2,
       name: SectionDescriptions[SectionTitle.OurServices],
     });
 
-    expect(sectionElement).toBeInTheDocument();
-    expect(sectionElement.closest('section')).toHaveAttribute('id', 'our-services');
+    expect(titleElement).toBeInTheDocument();
+    expect(titleElement.closest('section')).toHaveAttribute('id', 'our-services');
     expect(screen.getByTestId('service-item')).toBeInTheDocument();
   });
 });

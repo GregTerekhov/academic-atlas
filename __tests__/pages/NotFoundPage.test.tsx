@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import NotFound from 'app/not-found';
+
 import { SectionDescriptions, SectionTitle } from 'types';
+import NotFound from 'app/not-found';
+import { get404PageTitleStyles } from 'styles';
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
@@ -36,7 +38,10 @@ jest.mock('data', () => ({
 
 jest.mock('template', () => ({
   SectionTemplate: jest.fn(({ title, children }) => (
-    <section id={title}>
+    <section
+      id={title}
+      data-testid={`section-${title}`}
+    >
       <h1> {SectionDescriptions[SectionTitle.NotFound]}</h1>
       {children}
     </section>
@@ -44,9 +49,11 @@ jest.mock('template', () => ({
 }));
 
 describe('NotFoundPage', () => {
+  const mockGet404PageTitleStyles = get404PageTitleStyles as jest.Mock;
+
   beforeEach(() => {
     jest.clearAllMocks();
-
+    mockGet404PageTitleStyles.mockReturnValue('mb-6 flex flex-col md:mb-8 lg:mb-10');
     render(<NotFound />);
   });
 
@@ -56,6 +63,17 @@ describe('NotFoundPage', () => {
     ).toBeInTheDocument();
 
     expect(screen.getByTestId('not-found-navigation')).toBeInTheDocument();
+  });
+
+  test('should apply correct section styles and attributes', () => {
+    const section = screen.getByTestId(`section-${SectionTitle.NotFound}`);
+    expect(section).toHaveAttribute('id', SectionTitle.NotFound);
+  });
+
+  test('should apply correct title styles from get404PageTitleStyles', () => {
+    expect(mockGet404PageTitleStyles).toHaveBeenCalledTimes(1);
+    const titleElement = screen.getByRole('heading', { level: 2 });
+    expect(titleElement).toHaveClass('mb-6 flex flex-col md:mb-8 lg:mb-10');
   });
 
   test('There is a correct page description', () => {

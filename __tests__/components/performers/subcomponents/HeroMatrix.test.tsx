@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 
-import { HeroMatrix } from 'components/performers/subcomponents';
-import { getHeroGrid } from 'data';
 import { type IHeroGrid } from 'types';
+import { getHeroGrid } from 'data';
+import { HeroMatrix } from 'components/performers/subcomponents';
 
 jest.mock('data', () => ({
   getHeroGrid: jest.fn(),
@@ -21,10 +21,12 @@ jest.mock('template', () => ({
 
 jest.mock('ui', () => ({
   ImageUI: jest.fn((props) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       data-testid='img-hero-matrix'
       src={props.src}
       alt={props.alt}
+      {...props}
     />
   )),
 }));
@@ -39,7 +41,7 @@ describe('HeroMatrix component', () => {
         id: 'top-left',
         className:
           'overflow-hidden rounded-bl-[30px] rounded-tr-[30px] bg-whiteBase/20 lg:rounded-bl-[60px] lg:rounded-tr-[60px]',
-        imageSrc: 'heroMatrixTop.src',
+        imageSrc: '/heroMatrixTop.src',
         imageAlt: 'heroMatrixTop.alt',
       },
     ]);

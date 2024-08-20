@@ -1,11 +1,10 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { createRef } from 'react';
 
-import { AriaLabel, MenuLinks, PopupID } from 'types';
+import { AriaDescription, AriaId, PopupID, PrimaryButtonLabel } from 'types';
 import { useCalculationResult } from 'context';
 import { usePricePopupControls } from 'hooks';
-
-import CalculationLinkDesktop from 'components/layout/subcomponents/calculation-link-desktop';
-import { createRef } from 'react';
+import { PriceControlsDesktop } from 'components/home/subcomponents';
 
 jest.mock('context', () => ({
   useCalculationResult: jest.fn(),
@@ -17,15 +16,35 @@ jest.mock('hooks', () => ({
 
 jest.mock('template', () => ({
   ModalTemplate: jest.fn(({ children, isOpen, id }) =>
-    isOpen(id) ? <div data-testid='desktop-calculation-link-popup'>{children}</div> : null,
+    isOpen(id) ? <div data-testid='desktop-price-controls-popup'>{children}</div> : null,
   ),
+}));
+
+jest.mock('ui', () => ({
+  PrimaryButtonUI: jest.fn(({ children, ariaId, handleClick, ariaDescription }) => (
+    <>
+      <button
+        aria-describedby={ariaId}
+        onClick={handleClick}
+        className='h-16'
+      >
+        {children}
+      </button>
+      <span
+        id={ariaId}
+        data-testid='aria-description-text'
+      >
+        {ariaDescription}
+      </span>
+    </>
+  )),
 }));
 
 jest.mock('components/calculation/product-price-calculator', () =>
   jest.fn(() => <div data-testid='price-calculator' />),
 );
 
-describe('CalculationLinkDesktop Component', () => {
+describe('PriceControlsDesktop Component', () => {
   const mockUseCalculationResult = useCalculationResult as jest.Mock;
   const mockUsePricePopupControls = usePricePopupControls as jest.Mock;
   const togglePopupMock = jest.fn();
@@ -49,19 +68,20 @@ describe('CalculationLinkDesktop Component', () => {
   });
 
   it('should render button with correct attributes and styles', () => {
-    render(<CalculationLinkDesktop />);
+    render(<PriceControlsDesktop />);
 
-    const button = screen.getByRole('button');
+    const button = screen.getByRole('button', { name: PrimaryButtonLabel.CostCalculation });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent(MenuLinks.Cost);
-    expect(button).toHaveAttribute('aria-label', AriaLabel.CalculationModule);
-    expect(button).toHaveClass(
-      'hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentSecondary',
-    );
+    expect(button).toHaveAttribute('aria-describedby', AriaId.CalculationModule);
+    expect(button).toHaveClass('h-16');
+
+    const ariaDescriptionElement = screen.getByTestId('aria-description-text');
+    expect(ariaDescriptionElement).toHaveAttribute('id', AriaId.CalculationModule);
+    expect(ariaDescriptionElement).toHaveTextContent(AriaDescription.CalculationModule);
   });
 
   it('should open popup when togglePopup is called', () => {
-    render(<CalculationLinkDesktop />);
+    render(<PriceControlsDesktop />);
 
     const button = screen.getByRole('button');
 
@@ -71,7 +91,7 @@ describe('CalculationLinkDesktop Component', () => {
   });
 
   it('should render ModalTemplate with PriceCalculator content when the popup is open', async () => {
-    const { rerender } = render(<CalculationLinkDesktop />);
+    const { rerender } = render(<PriceControlsDesktop />);
 
     const button = screen.getByRole('button');
 
@@ -83,10 +103,10 @@ describe('CalculationLinkDesktop Component', () => {
       isPopupOpenMock.mockReturnValue(true);
     });
 
-    rerender(<CalculationLinkDesktop />);
+    rerender(<PriceControlsDesktop />);
 
     await waitFor(() => {
-      const modal = screen.queryByTestId('desktop-calculation-link-popup');
+      const modal = screen.queryByTestId('desktop-price-controls-popup');
       expect(modal).toBeInTheDocument();
       const priceCalculator = screen.queryByTestId('price-calculator');
       expect(priceCalculator).toBeInTheDocument();
@@ -94,17 +114,17 @@ describe('CalculationLinkDesktop Component', () => {
   });
 
   it('should not render ModalTemplate when the popup is closed', async () => {
-    const { rerender } = render(<CalculationLinkDesktop />);
+    const { rerender } = render(<PriceControlsDesktop />);
 
     act(() => {
       mockOpenPopups[PopupID.CostSection] = false;
       isPopupOpenMock.mockReturnValue(false);
     });
 
-    rerender(<CalculationLinkDesktop />);
+    rerender(<PriceControlsDesktop />);
 
     await waitFor(() => {
-      const modal = screen.queryByTestId('desktop-calculation-link-popup');
+      const modal = screen.queryByTestId('desktop-price-controls-popup');
       expect(modal).toBeNull();
     });
   });

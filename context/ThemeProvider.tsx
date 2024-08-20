@@ -20,12 +20,8 @@ const ThemeContext = createContext<IThemeContext>({
   toggleTheme: () => {},
 });
 
-export const ThemeProvider = ({
-  children,
-  storageKey,
-  startTheme = ThemeVariants.LIGHT,
-}: IThemeProviderProps) => {
-  const initialTheme = startTheme ?? getPreference(storageKey);
+export const ThemeProvider = ({ children, storageKey, startTheme }: IThemeProviderProps) => {
+  const initialTheme = startTheme ?? getPreference(storageKey) ?? ThemeVariants.LIGHT;
   const [theme, setTheme] = useState<string>(initialTheme);
 
   useEffect(() => {
@@ -43,8 +39,5 @@ export const ThemeProvider = ({
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
   return context;
 };

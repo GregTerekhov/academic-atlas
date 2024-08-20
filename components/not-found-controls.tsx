@@ -28,7 +28,8 @@ const NotFoundNavigation = () => {
         <Link
           aria-label={AriaLabel.ComeBack}
           href={Paths.Main}
-          className={`${primaryButtonStyle} h-16 `}
+          className={`${primaryButtonStyle} h-16`}
+          role='link'
         >
           {PrimaryButtonLabel.ToMainPage}
         </Link>
