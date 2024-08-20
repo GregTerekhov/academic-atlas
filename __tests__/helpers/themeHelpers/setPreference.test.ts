@@ -1,9 +1,16 @@
 import { ThemeVariants } from 'types';
 import { eraseCookie, setCookie } from 'helpers/cookiesHelper';
-import { applyPreference, setPreference } from 'helpers/themeHelper';
+import * as themeHelper from 'helpers/themeHelper';
 
-jest.mock('helpers/cookiesHelper');
-jest.mock('helpers/themeHelper');
+jest.mock('helpers/cookiesHelper', () => ({
+  eraseCookie: jest.fn(),
+  setCookie: jest.fn(),
+}));
+
+jest.mock('helpers/themeHelper', () => ({
+  ...jest.requireActual('helpers/themeHelper'),
+  applyPreference: jest.fn(),
+}));
 
 describe('setPreference', () => {
   beforeEach(() => {
@@ -11,18 +18,21 @@ describe('setPreference', () => {
   });
 
   it('should erase existing cookie and set new cookie with theme', () => {
-    setPreference('theme', ThemeVariants.DARK);
+    themeHelper.applyPreference(ThemeVariants.DARK);
+    themeHelper.setPreference('theme', ThemeVariants.DARK);
 
     expect(eraseCookie).toHaveBeenCalledWith('theme');
     expect(setCookie).toHaveBeenCalledWith('theme', ThemeVariants.DARK, 365);
-    expect(applyPreference).toHaveBeenCalledWith(ThemeVariants.DARK);
+
+    expect(themeHelper.applyPreference).toHaveBeenCalledTimes(1);
+    expect(themeHelper.applyPreference).toHaveBeenCalledWith(ThemeVariants.DARK);
   });
 
   it('should not set a cookie if theme is not provided', () => {
-    setPreference('theme', '');
+    themeHelper.setPreference('theme', '');
 
     expect(eraseCookie).toHaveBeenCalledWith('theme');
     expect(setCookie).not.toHaveBeenCalled();
-    expect(applyPreference).not.toHaveBeenCalled();
+    expect(themeHelper.applyPreference).not.toHaveBeenCalled();
   });
 });

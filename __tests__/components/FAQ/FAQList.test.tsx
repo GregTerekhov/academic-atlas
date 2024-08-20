@@ -1,21 +1,26 @@
+/* eslint-disable jest/no-conditional-expect */
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { QuestionAnswer, QuestionTitle } from 'types';
+import { QuestionTitle } from 'types';
 import { getFAQQuestions } from 'data';
 import { FAQList } from 'components';
 
 jest.mock('data', () => ({
   getFAQQuestions: jest.fn(() => [
-    { id: '1', title: QuestionTitle.Issue1, answer: QuestionAnswer.Answer1 },
-    { id: '2', title: QuestionTitle.Issue2, answer: QuestionAnswer.Answer2 },
-    { id: '3', title: QuestionTitle.Issue3, answer: QuestionAnswer.Answer3 },
-    { id: '4', title: QuestionTitle.Issue4, answer: QuestionAnswer.Answer4 },
-    { id: '5', title: QuestionTitle.Issue5, answer: QuestionAnswer.Answer5 },
-    { id: '6', title: QuestionTitle.Issue6, answer: QuestionAnswer.Answer6 },
-    { id: '7', title: QuestionTitle.Issue7, answer: QuestionAnswer.Answer7 },
-    { id: '8', title: QuestionTitle.Issue8, answer: QuestionAnswer.Answer8 },
-    { id: '9', title: QuestionTitle.Issue9, answer: QuestionAnswer.Answer9 },
-    { id: '10', title: QuestionTitle.Issue10, answer: QuestionAnswer.Answer10 },
+    { id: 'Question 1', title: QuestionTitle.Issue1, answer: 'Answer for Question 1' },
+    {
+      id: 'Question 2',
+      title: QuestionTitle.Issue2,
+      answer: 'This is the answer with Telegram-бот for Question 2',
+    },
+    { id: 'Question 3', title: QuestionTitle.Issue3, answer: 'Answer for Question 3' },
+    { id: 'Question 4', title: QuestionTitle.Issue4, answer: 'Answer for Question 4' },
+    { id: 'Question 5', title: QuestionTitle.Issue5, answer: 'Answer for Question 5' },
+    {
+      id: 'Question 6',
+      title: QuestionTitle.Issue6,
+      answer: 'This is the answer with Telegram-бот for Question 6',
+    },
   ]),
 }));
 
@@ -34,20 +39,52 @@ jest.mock('ui', () => ({
   )),
 }));
 
+jest.mock('components/telegram-text-link', () => jest.fn(() => <span>Telegram-бот</span>));
+
 describe('FAQList Component', () => {
-  it('should render a list of accordion items with correct titles and answers', () => {
+  it('renders the FAQList with correct titles', () => {
     render(<FAQList />);
 
     const questions = getFAQQuestions();
 
     questions.forEach((question) => {
-      const questionTitle = screen.getByText(question.title);
-      expect(questionTitle).toBeInTheDocument();
-
-      fireEvent.click(questionTitle);
-
-      const answerParagraph = screen.getByText(question.answer);
-      expect(answerParagraph).toBeInTheDocument();
+      const titleElement = screen.getByText(question.title);
+      expect(titleElement).toBeInTheDocument();
     });
+  });
+
+  it('renders correct answers and check TextWithLink component rendering', () => {
+    render(<FAQList />);
+
+    const checkAnswerAndTelegramLink = (title: string, shouldHaveTelegramLink: boolean) => {
+      fireEvent.click(screen.getByText(title));
+
+      const paragraphs = screen.queryAllByText(
+        (_, element) => element?.tagName.toLowerCase() === 'p',
+      );
+
+      const paragraphElement = paragraphs.find((p) =>
+        p.textContent?.includes(
+          title.includes(QuestionTitle.Issue2) || title.includes(QuestionTitle.Issue6)
+            ? 'Telegram-бот'
+            : p.textContent,
+        ),
+      );
+
+      expect(paragraphElement).toBeInTheDocument();
+
+      const spanElement = paragraphElement?.querySelector('span');
+      if (shouldHaveTelegramLink) {
+        expect(spanElement).toBeInTheDocument();
+        expect(spanElement?.textContent).toBe('Telegram-бот');
+      } else {
+        expect(spanElement).toBeNull();
+      }
+    };
+
+    checkAnswerAndTelegramLink(QuestionTitle.Issue1, false);
+    checkAnswerAndTelegramLink(QuestionTitle.Issue2, true);
+    checkAnswerAndTelegramLink(QuestionTitle.Issue3, false);
+    checkAnswerAndTelegramLink(QuestionTitle.Issue6, true);
   });
 });

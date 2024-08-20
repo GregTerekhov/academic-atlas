@@ -29,11 +29,11 @@ export default function Breadcrumbs() {
             className='fill-darkBase dark:fill-whiteBase'
           />
         </div>
-        {determinedPath ? (
+        {determinedPath && (
           <p className='generalText text-accentPrimary dark:text-accentSecondary'>
             {determinedPath}
           </p>
-        ) : null}
+        )}
       </div>
     </Container>
   );

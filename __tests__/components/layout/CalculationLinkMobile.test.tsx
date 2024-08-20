@@ -36,7 +36,7 @@ const setup = (menuState: Partial<ReturnType<typeof useMenu>>) => {
   });
 };
 
-describe('ToggleMenuTrigger Component', () => {
+describe('CalculationLinkMobile Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -69,12 +69,14 @@ describe('ToggleMenuTrigger Component', () => {
 
   it('should call toggleCalcMenu when the position is in the Footer and the button is clicked', async () => {
     setup({ isCalcMenuOpen: false });
-    render(<CalculationLinkMobile position={PositionInLayout.Footer} />);
+    const { rerender } = render(<CalculationLinkMobile position={PositionInLayout.Footer} />);
 
     fireEvent.click(screen.getByRole('button'));
     expect(mockToggleCalcMenu).toHaveBeenCalled();
 
     setup({ isCalcMenuOpen: true });
+
+    rerender(<CalculationLinkMobile position={PositionInLayout.Footer} />);
 
     await waitFor(
       () => {
@@ -87,12 +89,14 @@ describe('ToggleMenuTrigger Component', () => {
 
   it('should call changeMenuContent when the position is in the Header, isNavMenuOpen is true, and the button is clicked', async () => {
     setup({ isNavMenuOpen: true, showCalculationMenu: false });
-    render(<CalculationLinkMobile position={PositionInLayout.Header} />);
+    const { rerender } = render(<CalculationLinkMobile position={PositionInLayout.Header} />);
 
     fireEvent.click(screen.getByRole('button'));
     expect(mockChangeMenuContent).toHaveBeenCalled();
 
     setup({ showCalculationMenu: true });
+
+    rerender(<CalculationLinkMobile position={PositionInLayout.Header} />);
 
     await waitFor(() => {
       expect(screen.queryByTestId('mobile-calculation-menu')).toBeInTheDocument();

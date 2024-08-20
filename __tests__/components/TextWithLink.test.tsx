@@ -3,7 +3,7 @@ import React from 'react';
 
 import { TelegramScenario } from 'types';
 import { getAndEncodeDataObject } from 'helpers';
-import TelegramButton from 'components/telegram-text-link';
+import TextWithLink from 'components/telegram-text-link';
 
 jest.mock('helpers', () => ({
   getAndEncodeDataObject: jest.fn(),
@@ -11,15 +11,24 @@ jest.mock('helpers', () => ({
 
 jest.spyOn(React, 'useEffect').mockImplementationOnce(() => {});
 
+const MockParentComponent = ({ ariaHidden }: { ariaHidden: boolean }) => (
+  <TextWithLink
+    order={TelegramScenario.Join}
+    textWithLink='Click here to use Telegram-бот for further assistance.'
+    ariaHidden={ariaHidden}
+  />
+);
+
 describe('TextWithLink Component', () => {
   const mockGetAndEncodeDataObject = getAndEncodeDataObject as jest.Mock;
   const mockTextWithLink = 'Click here to use Telegram-бот for further assistance.';
 
-  const renderTelegramButton = (order: TelegramScenario) =>
+  const renderTelegramButton = (order: TelegramScenario, ariaHidden = false) =>
     render(
-      <TelegramButton
+      <TextWithLink
         order={order}
         textWithLink={mockTextWithLink}
+        ariaHidden={ariaHidden}
       />,
     );
 
@@ -86,5 +95,17 @@ describe('TextWithLink Component', () => {
     });
 
     expect(getAndEncodeDataObject).toHaveBeenCalledWith('');
+  });
+
+  it('should set tabIndex to -1 when ariaHidden true', () => {
+    render(<MockParentComponent ariaHidden={true} />);
+    const linkElement = screen.getByText('Telegram-бот');
+    expect(linkElement).toHaveAttribute('tabIndex', '-1');
+  });
+
+  it('should set tabIndex to 0 when ariaHidden false', () => {
+    render(<MockParentComponent ariaHidden={false} />);
+    const linkElement = screen.getByText('Telegram-бот');
+    expect(linkElement).toHaveAttribute('tabIndex', '0');
   });
 });

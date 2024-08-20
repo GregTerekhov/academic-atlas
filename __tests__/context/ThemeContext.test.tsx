@@ -39,6 +39,48 @@ describe('ThemeProvider', () => {
     expect(screen.getByTestId('theme-display')).toHaveTextContent(ThemeVariants.LIGHT);
   });
 
+  it('should initialise with startTheme if provided, ignoring getPreference', () => {
+    mockGetPreference.mockReturnValue(ThemeVariants.DARK);
+
+    render(
+      <ThemeProvider
+        storageKey='test-theme'
+        startTheme={ThemeVariants.LIGHT}
+      >
+        <TestComponent />
+      </ThemeProvider>,
+    );
+
+    expect(screen.getByTestId('theme-display')).toHaveTextContent(ThemeVariants.LIGHT);
+    expect(mockGetPreference).not.toHaveBeenCalled();
+  });
+
+  it('should initialise with preference from storage if startTheme is not provided', () => {
+    mockGetPreference.mockReturnValue(ThemeVariants.DARK);
+
+    render(
+      <ThemeProvider storageKey='test-theme'>
+        <TestComponent />
+      </ThemeProvider>,
+    );
+
+    expect(screen.getByTestId('theme-display')).toHaveTextContent(ThemeVariants.DARK);
+    expect(mockGetPreference).toHaveBeenCalledWith('test-theme');
+  });
+
+  it('should initialise with default theme if startTheme is not provided and no preference is found', () => {
+    mockGetPreference.mockReturnValue(undefined);
+
+    render(
+      <ThemeProvider storageKey='test-theme'>
+        <TestComponent />
+      </ThemeProvider>,
+    );
+
+    expect(screen.getByTestId('theme-display')).toHaveTextContent(ThemeVariants.LIGHT);
+    expect(mockGetPreference).toHaveBeenCalledWith('test-theme');
+  });
+
   it('should toggle theme correctly', () => {
     mockGetPreference.mockReturnValue(ThemeVariants.LIGHT);
 
