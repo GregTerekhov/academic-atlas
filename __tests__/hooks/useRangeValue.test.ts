@@ -1,6 +1,7 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 
-import { ExecutionTime, ExpertiseArea, ICalculationData, Uniqueness, WorkType } from 'types';
+import { ExecutionTime, ExpertiseArea, Uniqueness, WorkType } from 'types';
+import { useCalculation } from 'context';
 import { findSelectedObject } from 'helpers';
 import { useRangeValue } from 'hooks';
 
@@ -14,141 +15,141 @@ jest.mock('helpers', () => ({
   },
 }));
 
+jest.mock('context', () => ({
+  useCalculation: jest.fn(),
+}));
+
 describe('useRangeValue hook', () => {
   const mockFindSelectedObject = findSelectedObject as jest.Mock;
+  const mockUseCalculation = useCalculation as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should initialise with default value when isChecked is false', () => {
-    const calculationData: ICalculationData = {
-      workType: WorkType.Default,
-      expertiseArea: ExpertiseArea.Default,
-      executionTime: ExecutionTime.Default,
-    };
+    const mockHandleRangeValueChange = jest.fn();
+    mockUseCalculation.mockReturnValue({
+      calculationData: {
+        workType: WorkType.Default,
+        expertiseArea: ExpertiseArea.Default,
+        executionTime: ExecutionTime.Default,
+      },
+      handleRangeValueChange: mockHandleRangeValueChange,
+      isChecked: false,
+    });
     mockFindSelectedObject.mockReturnValue(undefined);
 
-    const { result } = renderHook(() => useRangeValue(calculationData, false));
+    renderHook(() => useRangeValue());
 
-    expect(result.current.rangeValue).toBe(Uniqueness.Zero);
+    expect(mockHandleRangeValueChange).not.toHaveBeenCalled();
   });
 
   it('should set rangeValue based on workType and uniquenessPercentage when isChecked is true', () => {
-    const calculationData: ICalculationData = {
-      workType: WorkType.TeamPapers,
-      expertiseArea: ExpertiseArea.Education,
-      executionTime: ExecutionTime.LongTerm,
-    };
+    const mockHandleRangeValueChange = jest.fn();
+    mockUseCalculation.mockReturnValue({
+      calculationData: {
+        workType: WorkType.TeamPapers,
+        expertiseArea: ExpertiseArea.Education,
+        executionTime: ExecutionTime.LongTerm,
+      },
+      handleRangeValueChange: mockHandleRangeValueChange,
+      isChecked: true,
+    });
+
     mockFindSelectedObject.mockReturnValue({
       option: WorkType.TeamPapers,
       uniquenessPercentage: Uniqueness.TeamPapers,
     });
 
-    const { result } = renderHook(() => useRangeValue(calculationData, true));
+    renderHook(() => useRangeValue());
 
-    expect(result.current.rangeValue).toBe(Uniqueness.TeamPapers);
+    expect(mockHandleRangeValueChange).toHaveBeenCalledWith(Uniqueness.TeamPapers);
   });
 
   it('should use default value when uniquenessPercentage is not in uniquenessMapping', () => {
-    const calculationData: ICalculationData = {
-      workType: WorkType.Presentations,
-      expertiseArea: ExpertiseArea.AgriculturalSciences,
-      executionTime: ExecutionTime.LongTerm,
-    };
+    const mockHandleRangeValueChange = jest.fn();
+    mockUseCalculation.mockReturnValue({
+      calculationData: {
+        workType: WorkType.Presentations,
+        expertiseArea: ExpertiseArea.AgriculturalSciences,
+        executionTime: ExecutionTime.LongTerm,
+      },
+      handleRangeValueChange: mockHandleRangeValueChange,
+      isChecked: true,
+    });
+
     mockFindSelectedObject.mockReturnValue({
       option: WorkType.Presentations,
       uniquenessPercentage: Uniqueness.Zero,
     });
 
-    const { result } = renderHook(() => useRangeValue(calculationData, true));
+    renderHook(() => useRangeValue());
 
-    expect(result.current.rangeValue).toBe(Uniqueness.Zero);
+    expect(mockHandleRangeValueChange).toHaveBeenCalledWith(Uniqueness.Zero);
   });
 
   it('should return zero when isChecked is false regardless of uniqueness value', () => {
-    const calculationData: ICalculationData = {
-      workType: WorkType.MasterTheses,
-      expertiseArea: ExpertiseArea.AgriculturalSciences,
-      executionTime: ExecutionTime.LongTerm,
-    };
+    const mockHandleRangeValueChange = jest.fn();
+    mockUseCalculation.mockReturnValue({
+      calculationData: {
+        workType: WorkType.MasterTheses,
+        expertiseArea: ExpertiseArea.AgriculturalSciences,
+        executionTime: ExecutionTime.LongTerm,
+      },
+      handleRangeValueChange: mockHandleRangeValueChange,
+      isChecked: false,
+    });
+
     mockFindSelectedObject.mockReturnValue({
       option: WorkType.MasterTheses,
       uniquenessPercentage: Uniqueness.Higher,
     });
 
-    const { result } = renderHook(() => useRangeValue(calculationData, false));
+    renderHook(() => useRangeValue());
 
-    expect(result.current.rangeValue).toBe(Uniqueness.Zero);
+    expect(mockHandleRangeValueChange).toHaveBeenCalledWith(Uniqueness.Zero);
   });
 
-  it('should return zero when findSelectedObject returns  undefined', () => {
-    const calculationData: ICalculationData = {
-      workType: WorkType.Default,
-      expertiseArea: ExpertiseArea.AgriculturalSciences,
-      executionTime: ExecutionTime.LongTerm,
-    };
+  it('should return zero when findSelectedObject returns undefined', () => {
+    const mockHandleRangeValueChange = jest.fn();
+    mockUseCalculation.mockReturnValue({
+      calculationData: {
+        workType: WorkType.Default,
+        expertiseArea: ExpertiseArea.AgriculturalSciences,
+        executionTime: ExecutionTime.LongTerm,
+      },
+      handleRangeValueChange: mockHandleRangeValueChange,
+      isChecked: false,
+    });
+
     mockFindSelectedObject.mockReturnValue(undefined);
 
-    const { result } = renderHook(() => useRangeValue(calculationData, false));
+    renderHook(() => useRangeValue());
 
-    expect(result.current.rangeValue).toBe(Uniqueness.Zero);
-  });
-
-  it('should update rangeValue when updateRangeValue is called', () => {
-    const calculationData: ICalculationData = {
-      workType: WorkType.TeamPapers,
-      expertiseArea: ExpertiseArea.Education,
-      executionTime: ExecutionTime.LongTerm,
-    };
-    mockFindSelectedObject.mockReturnValue({
-      option: WorkType.TeamPapers,
-      uniquenessPercentage: Uniqueness.TeamPapers,
-    });
-
-    const { result } = renderHook(() => useRangeValue(calculationData, true));
-
-    act(() => {
-      result.current.updateRangeValue(70);
-    });
-
-    expect(result.current.rangeValue).toBe(70);
-  });
-
-  it('should reset rangeValue to zero with handleClearRangeValue is called', () => {
-    const calculationData: ICalculationData = {
-      workType: WorkType.Diplomas,
-      expertiseArea: ExpertiseArea.Education,
-      executionTime: ExecutionTime.LongTerm,
-    };
-    mockFindSelectedObject.mockReturnValue({
-      option: WorkType.TeamPapers,
-      uniquenessPercentage: Uniqueness.Standard,
-    });
-
-    const { result } = renderHook(() => useRangeValue(calculationData, true));
-
-    act(() => {
-      result.current.handleClearRangeValue();
-    });
-
-    expect(result.current.rangeValue).toBe(Uniqueness.Zero);
+    expect(mockHandleRangeValueChange).not.toHaveBeenCalled();
   });
 
   it('should return zero when uniqueness is not found in uniquenessMapping', () => {
     //FIXME: unreal case. Probably, should fix the hooks logic. Line 19
-    const calculationData: ICalculationData = {
-      workType: WorkType.Diplomas,
-      expertiseArea: ExpertiseArea.Education,
-      executionTime: ExecutionTime.LongTerm,
-    };
+    const mockHandleRangeValueChange = jest.fn();
+    mockUseCalculation.mockReturnValue({
+      calculationData: {
+        workType: WorkType.Diplomas,
+        expertiseArea: ExpertiseArea.Education,
+        executionTime: ExecutionTime.LongTerm,
+      },
+      handleRangeValueChange: mockHandleRangeValueChange,
+      isChecked: true,
+    });
+
     mockFindSelectedObject.mockReturnValue({
       option: WorkType.Diplomas,
       uniquenessPercentage: 999 as Uniqueness,
     });
 
-    const { result } = renderHook(() => useRangeValue(calculationData, true));
+    renderHook(() => useRangeValue());
 
-    expect(result.current.rangeValue).toBe(Uniqueness.Zero);
+    expect(mockHandleRangeValueChange).toHaveBeenCalledWith(Uniqueness.Zero);
   });
 });

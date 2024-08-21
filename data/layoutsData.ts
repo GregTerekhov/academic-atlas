@@ -97,7 +97,6 @@ export const getFooterLinks = (): ILinks[] => {
 
 export const getAdaptedLinks = (): ILinks[] => {
   const { Services, AboutUs, Feedback } = getIdValues();
-  // const { Services, AboutUs, Promotions, Feedback } = getIdValues();
   return [
     {
       path: Paths.Main,
@@ -116,11 +115,6 @@ export const getAdaptedLinks = (): ILinks[] => {
       label: MenuLinks.AboutUs,
       activeLink: '#about-us',
     },
-    // {
-    //   id: Promotions,
-    //   path: Paths.Promotions,
-    //   label: MenuLinks.Promotions,
-    // },
     {
       id: Feedback,
       path: Paths.Feedback,

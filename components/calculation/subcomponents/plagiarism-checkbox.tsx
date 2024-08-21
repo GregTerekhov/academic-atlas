@@ -1,6 +1,7 @@
 'use client';
 
 import { IconName, IconSize } from 'types';
+import { useCalculation } from 'context';
 
 import { SvgIconUI } from 'ui';
 
@@ -9,24 +10,18 @@ import { getCheckboxStyles } from 'styles';
 interface IPlagiarismCheckboxProps {
   id: string;
   label: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
 }
 
-export default function PlagiarismCheckbox({
-  id,
-  label,
-  checked,
-  onChange,
-}: IPlagiarismCheckboxProps) {
+export default function PlagiarismCheckbox({ id, label }: IPlagiarismCheckboxProps) {
+  const { handleCheckboxChange, isChecked } = useCalculation();
   const handleKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      onChange(!checked);
+      handleCheckboxChange(!isChecked);
     }
   };
 
-  const checkboxClass = getCheckboxStyles(checked);
+  const checkboxClass = getCheckboxStyles(isChecked);
 
   return (
     <label
@@ -36,19 +31,19 @@ export default function PlagiarismCheckbox({
       <input
         type='checkbox'
         id={id}
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
+        checked={isChecked}
+        onChange={(e) => handleCheckboxChange(e.target.checked)}
         className='hidden'
         aria-hidden='true'
       />
       <span
         role='checkbox'
-        aria-checked={checked}
+        aria-checked={isChecked}
         tabIndex={0}
         onKeyDown={handleKeyDown}
         className={checkboxClass}
       >
-        {checked && (
+        {isChecked && (
           <SvgIconUI
             id={IconName.Check}
             size={{ width: IconSize.M, height: IconSize.M }}

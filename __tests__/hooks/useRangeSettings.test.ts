@@ -2,12 +2,13 @@ import { act, renderHook } from '@testing-library/react';
 import React from 'react';
 
 import { ThemeVariants, WorkType } from 'types';
-import { useTheme } from 'context';
+import { useCalculation, useTheme } from 'context';
 import { couldChooseUniqueness, getMinimalUniqueness } from 'helpers';
 import { useRangeSettings } from 'hooks';
 
 jest.mock('context', () => ({
   useTheme: jest.fn(),
+  useCalculation: jest.fn(),
 }));
 
 jest.mock('helpers', () => ({
@@ -17,9 +18,10 @@ jest.mock('helpers', () => ({
 
 describe('useRangeSettings hook', () => {
   const mockUseTheme = useTheme as jest.Mock;
+  const mockUseCalculation = useCalculation as jest.Mock;
   const mockCouldChooseUniqueness = couldChooseUniqueness as jest.Mock;
   const mockGetMinimalUniqueness = getMinimalUniqueness as jest.Mock;
-  const mockOnChange = jest.fn();
+  const mockHandleRangeValueChange = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -27,12 +29,15 @@ describe('useRangeSettings hook', () => {
 
   it('should initialise with default values and isChecked is false', () => {
     mockUseTheme.mockReturnValue({ theme: ThemeVariants.LIGHT });
+    mockUseCalculation.mockReturnValue({
+      isChecked: false,
+      calculationData: { workType: WorkType.Default },
+      handleRangeValueChange: mockHandleRangeValueChange,
+    });
     mockCouldChooseUniqueness.mockReturnValue(true);
     mockGetMinimalUniqueness.mockReturnValue(50);
 
-    const { result } = renderHook(() =>
-      useRangeSettings(WorkType.BachelorTheses, false, mockOnChange),
-    );
+    const { result } = renderHook(() => useRangeSettings());
 
     act(() => {
       result.current.updateThumbColor();
@@ -46,21 +51,28 @@ describe('useRangeSettings hook', () => {
 
   it('should initialise with default values and isChecked is true', () => {
     mockUseTheme.mockReturnValue({ theme: ThemeVariants.LIGHT });
+    mockUseCalculation.mockReturnValue({
+      isChecked: true,
+      calculationData: { workType: WorkType.Diplomas },
+      handleRangeValueChange: mockHandleRangeValueChange,
+    });
     mockCouldChooseUniqueness.mockReturnValue(true);
     mockGetMinimalUniqueness.mockReturnValue(50);
 
-    const { result } = renderHook(() =>
-      useRangeSettings(WorkType.BachelorTheses, true, mockOnChange),
-    );
+    const { result } = renderHook(() => useRangeSettings());
 
     expect(result.current.showMinimalText).toBe(true);
     expect(result.current.rangeInputClass).toBe('range-input-light');
   });
 
   it('should update thumb colour based on theme and isChecked', () => {
-    const { result, rerender } = renderHook(() =>
-      useRangeSettings(WorkType.BachelorTheses, true, mockOnChange),
-    );
+    mockUseCalculation.mockReturnValue({
+      isChecked: true,
+      calculationData: { workType: WorkType.Default },
+      handleRangeValueChange: mockHandleRangeValueChange,
+    });
+
+    const { result, rerender } = renderHook(() => useRangeSettings());
 
     act(() => {
       result.current.updateThumbColor();
@@ -84,9 +96,13 @@ describe('useRangeSettings hook', () => {
   });
 
   it('should handle range input change', () => {
-    const { result } = renderHook(() =>
-      useRangeSettings(WorkType.BachelorTheses, true, mockOnChange),
-    );
+    mockUseCalculation.mockReturnValue({
+      isChecked: true,
+      calculationData: { workType: WorkType.Diplomas },
+      handleRangeValueChange: mockHandleRangeValueChange,
+    });
+
+    const { result } = renderHook(() => useRangeSettings());
 
     act(() => {
       result.current.handleChange({
@@ -94,15 +110,13 @@ describe('useRangeSettings hook', () => {
       } as React.ChangeEvent<HTMLInputElement>);
     });
 
-    expect(mockOnChange).toHaveBeenCalledWith(10);
+    expect(mockHandleRangeValueChange).toHaveBeenCalledWith(10);
     expect(result.current.showMinimalText).toBe(true);
   });
 
   it('should return the correct range input class based on theme', () => {
     mockUseTheme.mockReturnValue({ theme: ThemeVariants.DARK });
-    const { result } = renderHook(() =>
-      useRangeSettings(WorkType.BachelorTheses, true, mockOnChange),
-    );
+    const { result } = renderHook(() => useRangeSettings());
 
     expect(result.current.rangeInputClass).toBe('range-input-dark');
   });

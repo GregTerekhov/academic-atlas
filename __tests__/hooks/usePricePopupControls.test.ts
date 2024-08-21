@@ -4,12 +4,13 @@ import React from 'react';
 import { PopupID } from 'types';
 import { usePopup } from 'context';
 import { usePricePopupControls } from 'hooks/usePricePopupControls';
+import { useHandleClickOutside } from 'hooks/useHandleClickOutside';
 
 jest.mock('context', () => ({
   usePopup: jest.fn(),
 }));
 
-jest.mock('hooks', () => ({
+jest.mock('hooks/useHandleClickOutside', () => ({
   useHandleClickOutside: jest.fn(),
 }));
 
@@ -22,6 +23,7 @@ describe('usePricePopupControls hook', () => {
   const mockPopupRefs: { current: Record<string, React.RefObject<HTMLDivElement>> } = {
     current: {},
   };
+  const mockUseHandleClickOutside = useHandleClickOutside as jest.Mock;
 
   beforeEach(() => {
     mockUsePopup.mockReturnValue({
@@ -60,5 +62,20 @@ describe('usePricePopupControls hook', () => {
     createRefSpy.mockRestore();
   });
 
-  //FIXME: add case for using the useHandleClickOutside hook
+  it('should call useHandleClickOutside with correct arguments', () => {
+    mockPopupRefs.current[mockPopupId] = { current: document.createElement('div') };
+    mockIsPopupOpen.mockReturnValue(true);
+
+    renderHook(() => usePricePopupControls());
+
+    expect(useHandleClickOutside).toHaveBeenCalledWith(
+      mockPopupRefs.current[mockPopupId],
+      true,
+      expect.any(Function),
+    );
+
+    const closePopupHandler = mockUseHandleClickOutside.mock.calls[0][2];
+    closePopupHandler();
+    expect(mockClosePopup).toHaveBeenCalledWith(mockPopupId);
+  });
 });
