@@ -17,8 +17,6 @@ export const useActivateLink = () => {
   const { sections, sectionRefs, isInitialised } = useInitialiseSection();
   console.log('isInitialised: ', isInitialised);
 
-  // console.log('sectionRefs: ', sectionRefs);
-
   const clearActiveLink = useCallback(() => {
     setActivatedLink('');
   }, []);
