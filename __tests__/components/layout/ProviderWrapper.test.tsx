@@ -6,6 +6,7 @@ import { ProviderWrapper } from 'components';
 jest.mock('context', () => ({
   ThemeProvider: jest.fn(({ children }) => <div>{children}</div>),
   CalculationProvider: jest.fn(({ children }) => <div>{children}</div>),
+  CalculationResultProvider: jest.fn(({ children }) => <div>{children}</div>),
   MenuProvider: jest.fn(({ children }) => <div>{children}</div>),
   PopupProvider: jest.fn(({ children }) => <div>{children}</div>),
 }));
