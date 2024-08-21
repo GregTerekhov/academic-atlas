@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { CalculationProvider, MenuProvider, useMenu } from 'context';
+import { CalculationProvider, CalculationResultProvider, MenuProvider, useMenu } from 'context';
 
 const MenuTestComponent = () => {
   const {
@@ -31,9 +31,11 @@ describe('MenuProvider', () => {
   it('should toggle navigation menu state', () => {
     render(
       <CalculationProvider>
-        <MenuProvider>
-          <MenuTestComponent />
-        </MenuProvider>
+        <CalculationResultProvider>
+          <MenuProvider>
+            <MenuTestComponent />
+          </MenuProvider>
+        </CalculationResultProvider>
       </CalculationProvider>,
     );
 
@@ -49,9 +51,11 @@ describe('MenuProvider', () => {
   it('should toggle calculation menu state and reset values', () => {
     render(
       <CalculationProvider>
-        <MenuProvider>
-          <MenuTestComponent />
-        </MenuProvider>
+        <CalculationResultProvider>
+          <MenuProvider>
+            <MenuTestComponent />
+          </MenuProvider>
+        </CalculationResultProvider>
       </CalculationProvider>,
     );
 
@@ -67,12 +71,38 @@ describe('MenuProvider', () => {
     expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
   });
 
+  it('should handle toggle menu logic', () => {
+    render(
+      <CalculationProvider>
+        <CalculationResultProvider>
+          <MenuProvider>
+            <MenuTestComponent />
+          </MenuProvider>
+        </CalculationResultProvider>
+      </CalculationProvider>,
+    );
+
+    fireEvent.click(screen.getByText('Handle Toggle Menu'));
+    expect(screen.getByText('Nav Menu Open: Yes')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Toggle Calc Menu'));
+    fireEvent.click(screen.getByText('Handle Toggle Menu'));
+    expect(screen.getByText('Calc Menu Open: No')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Change Menu Content'));
+    fireEvent.click(screen.getByText('Handle Toggle Menu'));
+    expect(screen.getByText('Nav Menu Open: No')).toBeInTheDocument();
+    expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
+  });
+
   it('should close all menus and reset values', () => {
     render(
       <CalculationProvider>
-        <MenuProvider>
-          <MenuTestComponent />
-        </MenuProvider>
+        <CalculationResultProvider>
+          <MenuProvider>
+            <MenuTestComponent />
+          </MenuProvider>
+        </CalculationResultProvider>
       </CalculationProvider>,
     );
 
@@ -91,12 +121,14 @@ describe('MenuProvider', () => {
     expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
   });
 
-  it('should handle toggle menu logic', () => {
+  it('should handle change menu logic', () => {
     render(
       <CalculationProvider>
-        <MenuProvider>
-          <MenuTestComponent />
-        </MenuProvider>
+        <CalculationResultProvider>
+          <MenuProvider>
+            <MenuTestComponent />
+          </MenuProvider>
+        </CalculationResultProvider>
       </CalculationProvider>,
     );
 
