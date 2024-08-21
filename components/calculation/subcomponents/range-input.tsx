@@ -1,7 +1,8 @@
 'use client';
 
-import { AriaLabel, RangeValue, WorkType } from 'types';
-import { useRangeSettings } from 'hooks';
+import { AriaLabel, RangeValue } from 'types';
+import { useCalculation } from 'context';
+import { useRangeSettings, useRangeValue } from 'hooks';
 
 import RangePercents from './range-percents';
 
@@ -9,18 +10,13 @@ import { getDisabledRangeStyles } from 'styles';
 
 interface IRangeInputProps {
   id: string;
-  isChecked: boolean;
-  value: number;
-  workType: WorkType;
-  onChange: (value: number) => void;
 }
 
-export default function RangeInput({ id, isChecked, value, workType, onChange }: IRangeInputProps) {
-  const { showMinimalText, rangeInputClass, handleChange } = useRangeSettings(
-    workType,
-    isChecked,
-    onChange,
-  );
+export default function RangeInput({ id }: IRangeInputProps) {
+  const { showMinimalText, rangeInputClass, handleChange } = useRangeSettings();
+
+  const { isChecked, calculationData } = useCalculation();
+  useRangeValue();
 
   const addTextMinimalValue = (): JSX.Element | null => {
     return showMinimalText ? (
@@ -47,15 +43,15 @@ export default function RangeInput({ id, isChecked, value, workType, onChange }:
         step={RangeValue.STEP}
         disabled={!isChecked}
         aria-label={AriaLabel.Range}
-        value={value}
+        value={calculationData.uniqueness}
         min={RangeValue.MIN}
         max={RangeValue.MAX}
         onChange={handleChange}
         className={`range-input ${rangeInputClass} ${!isChecked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-        style={{ '--value': `${value}%` } as React.CSSProperties}
+        style={{ '--value': `${calculationData.uniqueness}%` } as React.CSSProperties}
       />
       <RangePercents
-        value={value}
+        value={calculationData.uniqueness}
         isChecked={isChecked}
       />
     </label>

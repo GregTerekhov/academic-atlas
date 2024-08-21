@@ -2,10 +2,12 @@
 
 import { useMemo } from 'react';
 
-import { type ICalculationData } from '../types';
+import { useCalculation } from 'context';
 import { checkCalculationField, checkValidWorkType } from '../helpers';
 
-export const usePlagiarismCheck = (calculationData: ICalculationData) => {
+export const usePlagiarismCheck = () => {
+  const { calculationData } = useCalculation();
+
   const shouldPlagiarismCheck = useMemo(() => {
     const isNotDefaultData = checkCalculationField(calculationData);
     const validType = checkValidWorkType(calculationData.workType);

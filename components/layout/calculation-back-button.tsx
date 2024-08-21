@@ -6,12 +6,12 @@ import { useCalculation, useCalculationResult } from 'context';
 import { SvgIconUI } from 'ui';
 
 export default function BackButton() {
-  const { handleClearValues } = useCalculation();
+  const { resetCalculation } = useCalculation();
   const { hasSubmitData, handleResetCostResult } = useCalculationResult();
 
   const handleBackClick = () => {
     handleResetCostResult();
-    handleClearValues();
+    resetCalculation();
   };
 
   return (

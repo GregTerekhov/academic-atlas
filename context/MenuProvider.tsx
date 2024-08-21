@@ -3,10 +3,10 @@
 import { createContext, useContext, useState, useRef, useEffect } from 'react';
 
 import { type IWithChildren } from 'types';
+import { useCalculation } from './CalculationProvider';
 import { useCalculationResult } from './CalculationResultProvider';
-import { useCalculation } from './OptionSelectionProvider';
-import { useHandleClickOutside } from 'hooks';
 import { toggleScrollLock } from 'helpers';
+import { useHandleClickOutside } from 'hooks';
 
 interface IMenuContext {
   isCalcMenuOpen: boolean;
@@ -30,7 +30,7 @@ export const MenuProvider = ({ children }: IWithChildren) => {
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const { resetCalculation, handleCheckboxChange } = useCalculation();
+  const { resetCalculation } = useCalculation();
   const { handleResetCostResult } = useCalculationResult();
 
   useEffect(() => {
@@ -41,7 +41,6 @@ export const MenuProvider = ({ children }: IWithChildren) => {
 
   const resetValues = () => {
     handleResetCostResult();
-    handleCheckboxChange(false);
     resetCalculation();
   };
 

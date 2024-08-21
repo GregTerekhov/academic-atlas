@@ -2,18 +2,15 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { ThemeVariants, WorkType } from '../types';
-import { useTheme } from '../context';
+import { ThemeVariants } from '../types';
+import { useCalculation, useTheme } from '../context';
 import { couldChooseUniqueness, getMinimalUniqueness } from '../helpers';
 
-export const useRangeSettings = (
-  workType: WorkType,
-  isChecked: boolean,
-  onChange: (value: number) => void,
-) => {
+export const useRangeSettings = () => {
   const [showMinimalText, setShowMinimalText] = useState(false);
-  const couldChooseHigherUniqueness = couldChooseUniqueness(workType);
-  const minimalUniqueness = getMinimalUniqueness(workType);
+  const { isChecked, calculationData, handleRangeValueChange } = useCalculation();
+  const couldChooseHigherUniqueness = couldChooseUniqueness(calculationData.workType);
+  const minimalUniqueness = getMinimalUniqueness(calculationData.workType);
 
   const { theme } = useTheme();
 
@@ -35,7 +32,7 @@ export const useRangeSettings = (
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
-    onChange(newValue);
+    handleRangeValueChange(newValue);
     setShowMinimalText(newValue <= minimalUniqueness);
   };
 

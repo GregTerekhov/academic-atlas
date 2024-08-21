@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { type ICalculationData, Uniqueness } from '../types';
+import { Uniqueness } from '../types';
+import { useCalculation } from 'context';
 import { findSelectedObject, uniquenessMapping } from 'helpers';
 
-export const useRangeValue = (calculationData: ICalculationData, isChecked: boolean) => {
-  const [rangeValue, setRangeValue] = useState(Uniqueness.Zero);
+export const useRangeValue = () => {
+  const { calculationData, handleRangeValueChange, isChecked } = useCalculation();
 
   useEffect(() => {
     const workTypeObject = findSelectedObject(calculationData.workType);
@@ -18,16 +19,6 @@ export const useRangeValue = (calculationData: ICalculationData, isChecked: bool
     const newRangeValue =
       isChecked && uniqueness ? uniquenessMapping[uniqueness] ?? Uniqueness.Zero : Uniqueness.Zero;
 
-    setRangeValue(newRangeValue);
-  }, [calculationData.workType, isChecked]);
-
-  const updateRangeValue = (value: number) => {
-    setRangeValue(value);
-  };
-
-  const handleClearRangeValue = () => {
-    setRangeValue(Uniqueness.Zero);
-  };
-
-  return { rangeValue, updateRangeValue, handleClearRangeValue };
+    handleRangeValueChange(newRangeValue);
+  }, [calculationData.workType, handleRangeValueChange, isChecked]);
 };
