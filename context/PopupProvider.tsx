@@ -41,20 +41,22 @@ export const PopupProvider = ({ children }: IWithChildren) => {
 
   const togglePopup = useCallback(
     (id: string) => {
-      setOpenPopups((prev) => ({
-        ...prev,
-        [id]: !prev[id],
-      }));
+      setOpenPopups((prev) => {
+        const isPopupOpen = !prev[id];
 
-      const isPopupOpen = !openPopups[id];
+        setBodyOverflow(isPopupOpen);
 
-      setBodyOverflow(isPopupOpen);
+        if (!isPopupOpen) {
+          resetValues();
+        }
 
-      if (!isPopupOpen) {
-        resetValues();
-      }
+        return {
+          ...prev,
+          [id]: isPopupOpen,
+        };
+      });
     },
-    [openPopups, resetValues, setBodyOverflow],
+    [resetValues, setBodyOverflow],
   );
 
   const closePopup = useCallback(
