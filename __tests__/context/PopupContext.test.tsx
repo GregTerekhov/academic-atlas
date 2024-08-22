@@ -38,9 +38,7 @@ const mockClosePopup = jest.fn((id: string) => {
   mockSetBodyOverflow(false);
   mockResetValues();
 });
-// const mockResetValues = jest.fn();
-// const mockTogglePopup = jest.fn();
-// const mockClosePopup = jest.fn();
+
 let mockOpenPopups: { [key: string]: boolean } = { 'test-popup': false };
 const mockIsPopupOpen = jest.fn((key: string) => !!mockOpenPopups[key]);
 
@@ -121,22 +119,6 @@ describe('PopupProvider', () => {
   });
 
   it('should call setBodyOverflow and reset when toggling popup', async () => {
-    // mockTogglePopup.mockImplementation((id: string) => {
-    //   const newOpenState = !mockOpenPopups[id];
-    //   mockOpenPopups = { ...mockOpenPopups, [id]: newOpenState };
-
-    //   mockSetBodyOverflow(newOpenState);
-    //   if (newOpenState) {
-    //     mockResetValues();
-    //   }
-    // });
-
-    // mockClosePopup.mockImplementation((id: string) => {
-    //   mockOpenPopups = { ...mockOpenPopups, [id]: false };
-
-    //   mockSetBodyOverflow(false);
-    // });
-
     const { rerender } = render(<MockPopupContext />, { wrapper: Wrapper });
 
     fireEvent.click(screen.getByText('Toggle Popup'));
