@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-import { type ICalculationData, Uniqueness } from '../types';
+import { Uniqueness } from '../types';
 import { checkCalculationField, findSelectedObject } from '../helpers';
+import { useCalculation } from 'context';
 
-export const useButtonDisabled = (calculationData: ICalculationData, isChecked: boolean) => {
+export const useButtonDisabled = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const { calculationData, isChecked } = useCalculation();
 
   const { workType, expertiseArea, executionTime } = calculationData;
   const validField = checkCalculationField(calculationData);

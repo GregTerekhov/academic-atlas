@@ -21,9 +21,9 @@ describe('BackButton Component', () => {
   });
 
   it('should not render the button if hasSubmitData is false', () => {
-    const handleClearValues = jest.fn();
+    const resetCalculation = jest.fn();
 
-    mockUseCalculation.mockReturnValue({ handleClearValues });
+    mockUseCalculation.mockReturnValue({ resetCalculation });
     mockUseCalculationResult.mockReturnValue({ hasSubmitData: false });
 
     render(<BackButton />);
@@ -33,9 +33,9 @@ describe('BackButton Component', () => {
   });
 
   it('should render the button if hasSubmitData is true', () => {
-    const handleClearValues = jest.fn();
+    const resetCalculation = jest.fn();
 
-    mockUseCalculation.mockReturnValue({ handleClearValues });
+    mockUseCalculation.mockReturnValue({ resetCalculation });
     mockUseCalculationResult.mockReturnValue({ hasSubmitData: true });
 
     render(<BackButton />);
@@ -44,11 +44,11 @@ describe('BackButton Component', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('should call handleResetCostResult and handleClearValues when is button is clicked', () => {
+  it('should call handleResetCostResult and resetCalculation when is button is clicked', () => {
     const handleResetCostResult = jest.fn();
-    const handleClearValues = jest.fn();
+    const resetCalculation = jest.fn();
 
-    mockUseCalculation.mockReturnValue({ handleClearValues });
+    mockUseCalculation.mockReturnValue({ resetCalculation });
     mockUseCalculationResult.mockReturnValue({
       hasSubmitData: true,
       handleResetCostResult,
@@ -60,6 +60,6 @@ describe('BackButton Component', () => {
     fireEvent.click(button);
 
     expect(handleResetCostResult).toHaveBeenCalled();
-    expect(handleClearValues).toHaveBeenCalled();
+    expect(resetCalculation).toHaveBeenCalled();
   });
 });

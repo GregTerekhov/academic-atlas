@@ -1,16 +1,15 @@
 'use client';
 
 import { CalculationTitle } from 'types';
-import { useCalculation, useCalculationResult } from 'context';
+import { useCalculationResult } from 'context';
 import { useButtonDisabled, usePlagiarismCheck } from 'hooks';
 
 import { CalculationButton, InputFields, PlagiarismSection, PriceResult } from './subcomponents';
 
 export default function PriceCalculator() {
-  const { isChecked, calculationData } = useCalculation();
   const { hasSubmitData } = useCalculationResult();
-  const { shouldPlagiarismCheck } = usePlagiarismCheck(calculationData);
-  const { isButtonDisabled } = useButtonDisabled(calculationData, isChecked);
+  const { shouldPlagiarismCheck } = usePlagiarismCheck();
+  const { isButtonDisabled } = useButtonDisabled();
 
   return (
     <>

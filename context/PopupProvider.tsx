@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useRef, useCallback } from 'react';
 
 import { type IWithChildren } from 'types';
-import { useCalculation } from './OptionSelectionProvider';
+import { useCalculation } from './CalculationProvider';
 import { useCalculationResult } from './CalculationResultProvider';
 
 interface IPopupRefs {
@@ -25,16 +25,15 @@ const PopupContext = createContext<IPopupContext | undefined>(undefined);
 export const PopupProvider = ({ children }: IWithChildren) => {
   const [openPopups, setOpenPopups] = useState<{ [key: string]: boolean }>({});
 
-  const { resetCalculation, handleCheckboxChange } = useCalculation();
+  const { resetCalculation } = useCalculation();
   const { handleResetCostResult } = useCalculationResult();
 
   const popupRefs = useRef<IPopupRefs>({});
 
   const resetValues = useCallback(() => {
     handleResetCostResult();
-    handleCheckboxChange(false);
     resetCalculation();
-  }, [handleCheckboxChange, handleResetCostResult, resetCalculation]);
+  }, [handleResetCostResult, resetCalculation]);
 
   const setBodyOverflow = useCallback((isHidden: boolean) => {
     document.body.style.overflow = isHidden ? 'hidden' : 'auto';
@@ -42,20 +41,22 @@ export const PopupProvider = ({ children }: IWithChildren) => {
 
   const togglePopup = useCallback(
     (id: string) => {
-      setOpenPopups((prev) => ({
-        ...prev,
-        [id]: !prev[id],
-      }));
+      setOpenPopups((prev) => {
+        const isPopupOpen = !prev[id];
 
-      const isPopupOpen = !openPopups[id];
+        setBodyOverflow(isPopupOpen);
 
-      setBodyOverflow(isPopupOpen);
+        if (!isPopupOpen) {
+          resetValues();
+        }
 
-      if (!isPopupOpen) {
-        resetValues();
-      }
+        return {
+          ...prev,
+          [id]: isPopupOpen,
+        };
+      });
     },
-    [openPopups, resetValues, setBodyOverflow],
+    [resetValues, setBodyOverflow],
   );
 
   const closePopup = useCallback(

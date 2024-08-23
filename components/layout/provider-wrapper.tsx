@@ -2,6 +2,7 @@ import { type IWithChildren } from 'types';
 import {
   ActiveLinkProvider,
   CalculationProvider,
+  CalculationResultProvider,
   MenuProvider,
   PopupProvider,
   ThemeProvider,
@@ -24,9 +25,11 @@ export default function ProviderWrapper({
     >
       <ActiveLinkProvider>
         <CalculationProvider>
-          <MenuProvider>
-            <PopupProvider>{children}</PopupProvider>
-          </MenuProvider>
+          <CalculationResultProvider>
+            <MenuProvider>
+              <PopupProvider>{children}</PopupProvider>
+            </MenuProvider>
+          </CalculationResultProvider>
         </CalculationProvider>
       </ActiveLinkProvider>
     </ThemeProvider>
