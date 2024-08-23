@@ -10,6 +10,7 @@ interface IActiveLinkContext {
   activatedLink: string;
   handleActivateLink: (path: string) => void;
   clearActiveLink: () => void;
+  setScrollingWithButton: (isScrolling: boolean) => void;
 }
 
 const ActiveLinkContext = createContext<IActiveLinkContext | undefined>(undefined);
@@ -22,6 +23,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const isNavigating = useRef<boolean>(false);
 
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
+   const [isScrollingWithButton, setScrollingWithButton] = useState<boolean>(false);
 
   const updateActiveLink = useCallback(() => {
     const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
@@ -54,7 +56,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      if (isNavigating.current) return;
+      if (isNavigating.current || isScrollingWithButton) return;
 
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -69,7 +71,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         }
       });
     },
-    [activatedLink, sections, router],
+    [activatedLink, sections, router, isScrollingWithButton],
   );
   useIntersectionObserver(sectionRefs.current, { root: null, threshold: 0.3 }, handleIntersection);
 
@@ -93,6 +95,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         activatedLink,
         handleActivateLink,
         clearActiveLink,
+        setScrollingWithButton,
       }}
     >
       {children}
