@@ -1,6 +1,6 @@
 import { type IWithChildren } from 'types';
 import {
-  // ActiveLinkProvider,
+  ActiveLinkProvider,
   CalculationProvider,
   MenuProvider,
   PopupProvider,
@@ -22,13 +22,13 @@ export default function ProviderWrapper({
       storageKey={storageKey}
       startTheme={theme}
     >
-      {/* <ActiveLinkProvider> */}
-      <CalculationProvider>
-        <MenuProvider>
-          <PopupProvider>{children}</PopupProvider>
-        </MenuProvider>
-      </CalculationProvider>
-      {/* </ActiveLinkProvider> */}
+      <ActiveLinkProvider>
+        <CalculationProvider>
+          <MenuProvider>
+            <PopupProvider>{children}</PopupProvider>
+          </MenuProvider>
+        </CalculationProvider>
+      </ActiveLinkProvider>
     </ThemeProvider>
   );
 }

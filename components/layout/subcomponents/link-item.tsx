@@ -1,10 +1,11 @@
 'use client';
 
+import { useActiveLink } from 'context';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
-import { useActivateLink } from 'hooks';
+// import { useActivateLink } from 'hooks';
 
 import { AriaDescriptionUI } from 'ui';
 
@@ -22,7 +23,7 @@ export default function LegalLinkItem({
   linkLabel,
 }: ILegalLinkItemProps) {
   const pathname = usePathname();
-  const { clearActiveLink } = useActivateLink();
+  const { clearActiveLink } = useActiveLink();
 
   return (
     <>

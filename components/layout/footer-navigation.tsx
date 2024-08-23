@@ -8,10 +8,12 @@ import { getFooterLinks } from 'data';
 import { getMenuAriaCurrent, mapArray } from 'helpers';
 
 import { CalculationLinkDesktop, CalculationLinkMobile } from './subcomponents';
+import { useActiveLink } from 'context/ActiveLinkProvider';
 
 export default function FooterMenu() {
   const pathname = usePathname();
   const footerMenuLinks = getFooterLinks();
+  const { handleActivateLink } = useActiveLink();
 
   return (
     <nav aria-label={AriaLabel.FooterNav}>
@@ -28,6 +30,10 @@ export default function FooterMenu() {
             <Link
               href={path}
               aria-current={getMenuAriaCurrent(path, pathname)}
+              onClick={() => {
+                console.log('Link clicked:', path);
+                handleActivateLink(path);
+              }}
               className='generalText hocus:text-accentPrimary dark:hocus:text-accentSecondary'
             >
               {label}

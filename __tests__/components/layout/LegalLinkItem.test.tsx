@@ -2,20 +2,21 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 
 import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
-import { useActivateLink } from 'hooks';
+// import { useActivateLink } from 'hooks';
 import LegalLinkItem from 'components/layout/subcomponents/link-item';
+import { useActiveLink } from 'context';
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
 }));
 
 jest.mock('hooks', () => ({
-  useActivateLink: jest.fn(),
+  useActiveLink: jest.fn(),
 }));
 
 describe('LegalLinkItem Component', () => {
   const mockUsePathname = usePathname as jest.Mock;
-  const mockUseActiveLink = useActivateLink as jest.Mock;
+  const mockUseActiveLink = useActiveLink as jest.Mock;
   const mockClearActiveLink = jest.fn();
 
   beforeEach(() => {

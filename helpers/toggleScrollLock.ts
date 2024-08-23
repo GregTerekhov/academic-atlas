@@ -27,28 +27,35 @@ export const hasScrollbar = () => {
 export const toggleScrollLock = (isLocked: boolean) => {
   const root = document.firstElementChild;
   const body = document.body;
-  const scrollPosition = window.scrollY;
-
+  
   if (isLocked) {
+    const scrollPosition = window.scrollY;
+    sessionStorage.setItem('scrollPosition', scrollPosition.toString());
+
     body.ontouchmove = function (e) {
       e.preventDefault();
     };
     body.style.top = `-${scrollPosition}px`;
     body.classList.add('no-scroll');
     root?.classList.add('no-scroll');
+
     if (hasScrollbar()) {
       body.style.width = `calc(100% - ${getScrollBarWidth()}px)`;
     } else {
       body.style.width = '100%';
     }
   } else {
-    body.ontouchmove = function () {
-      return true;
-    };
+    body.ontouchmove = null;
     body.classList.remove('no-scroll');
     root?.classList.remove('no-scroll');
-    const scrollY = body.style.top ? parseInt(body.style.top, 10) * -1 : 0;
+
+    const savedScrollPosition = sessionStorage.getItem('scrollPosition');
+    if (savedScrollPosition) {
+      const scrollY = parseInt(savedScrollPosition, 10);
+      sessionStorage.removeItem('scrollPosition');
+      window.scrollTo(0, scrollY);
+    }
     body.style.top = '';
-    window.scrollTo(0, scrollY);
+    body.style.width = '';
   }
 };
