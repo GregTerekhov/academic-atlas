@@ -27,7 +27,7 @@ describe('useHandleClickOutside hook', () => {
     }
   });
 
-  it.each([
+  const testCases = [
     {
       description: 'clicking outside the ref',
       isPopupOpen: true,
@@ -56,21 +56,26 @@ describe('useHandleClickOutside hook', () => {
       target: window,
       shouldCallOnClose: false,
     },
-  ])('should handle case of $description', ({ isPopupOpen, event, target, shouldCallOnClose }) => {
-    renderHook(() => useHandleClickOutside(ref, isPopupOpen, onClose));
+  ];
 
-    act(() => {
-      target.dispatchEvent(event);
-    });
+  it.each(testCases)(
+    'should handle case of $description',
+    ({ isPopupOpen, event, target, shouldCallOnClose }) => {
+      renderHook(() => useHandleClickOutside(ref, isPopupOpen, onClose));
 
-    if (shouldCallOnClose) {
-      // eslint-disable-next-line jest/no-conditional-expect
-      expect(onClose).toHaveBeenCalled();
-    } else {
-      // eslint-disable-next-line jest/no-conditional-expect
-      expect(onClose).not.toHaveBeenCalled();
-    }
-  });
+      act(() => {
+        target.dispatchEvent(event);
+      });
+
+      if (shouldCallOnClose) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(onClose).toHaveBeenCalled();
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(onClose).not.toHaveBeenCalled();
+      }
+    },
+  );
 
   it('should not call onClose if isOpen changes is false', () => {
     const { rerender } = renderHook(({ isOpen }) => useHandleClickOutside(ref, isOpen, onClose), {
