@@ -64,41 +64,43 @@ describe('ToggleMenuTrigger Component', () => {
     jest.clearAllMocks();
   });
 
-  it.each([
-    [
-      { isNavMenuOpen: false, isCalcMenuOpen: false },
-      IconName.Burger,
-      AriaLabelTrigger.Default,
-      false,
-      false,
-      false,
-    ],
-    [
-      { isNavMenuOpen: true, isCalcMenuOpen: false },
-      IconName.Close,
-      AriaLabelTrigger.CloseNavigation,
-      true,
-      true,
-      false,
-    ],
-    [
-      { isNavMenuOpen: true, isCalcMenuOpen: false, showCalculationMenu: true },
-      IconName.Close,
-      AriaLabelTrigger.CloseNavigation, //FIXME: fix ariaLabel in getAriaLabelSwitcher
-      true,
-      false,
-      true,
-    ],
-  ])(
-    'should render the correct icon and aria-label based on menu state %s',
-    (
+  const testCases = [
+    {
+      menuState: { isNavMenuOpen: false, isCalcMenuOpen: false },
+      expectedIconId: IconName.Burger,
+      expectedAriaLabel: AriaLabelTrigger.Default,
+      shouldShowMobileMenu: false,
+      shouldShowMobileMenuContent: false,
+      shouldShowPriceCalculator: false,
+    },
+    {
+      menuState: { isNavMenuOpen: true, isCalcMenuOpen: false },
+      expectedIconId: IconName.Close,
+      expectedAriaLabel: AriaLabelTrigger.CloseNavigation,
+      shouldShowMobileMenu: true,
+      shouldShowMobileMenuContent: true,
+      shouldShowPriceCalculator: false,
+    },
+    {
+      menuState: { isNavMenuOpen: true, isCalcMenuOpen: false, showCalculationMenu: true },
+      expectedIconId: IconName.Close,
+      expectedAriaLabel: AriaLabelTrigger.CloseNavigation, // FIXME: fix ariaLabel in getAriaLabelSwitcher
+      shouldShowMobileMenu: true,
+      shouldShowMobileMenuContent: false,
+      shouldShowPriceCalculator: true,
+    },
+  ];
+
+  it.each(testCases)(
+    'should render the correct icon ($expectedIconId) and aria-label ($expectedAriaLabel) based on menu state: $menuState',
+    ({
       menuState,
       expectedIconId,
       expectedAriaLabel,
       shouldShowMobileMenu,
       shouldShowMobileMenuContent,
       shouldShowPriceCalculator,
-    ) => {
+    }) => {
       setup(menuState);
 
       const iconElement = screen.getByTestId('svg-icon');
