@@ -1,5 +1,4 @@
 export { useAccordion } from './useAccordion';
-// export { useActivateLink } from './useActiveLink';
 export { useBreadcrumbs } from './useBreadcrumbs';
 export { useButtonDisabled } from './useButtonDisabled';
 export { useDropdown } from './useDropdown';

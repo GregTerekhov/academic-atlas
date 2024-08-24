@@ -48,11 +48,12 @@ export const useScrollController = () => {
 
   useIntersectionObserver(
     footerRef.current ? [footerRef.current] : [],
-    { root: null, threshold: 0.9 },
+    { root: null, threshold: 0 },
     handleIntersection,
   );
 
   const scrollToTop = () => {
+    //FIXME: add new logic in test
     setScrollingWithButton(true);
     window.scrollTo({
       top: 0,

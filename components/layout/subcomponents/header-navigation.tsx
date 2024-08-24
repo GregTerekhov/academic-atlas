@@ -7,7 +7,6 @@ import { AriaLabel, ButtonType, PositionInLayout } from 'types';
 import { useMenu, useActiveLink } from 'context';
 import { getAdaptedLinks } from 'data';
 import { getMenuAriaCurrent, mapArray } from 'helpers';
-// import { useActivateLink } from 'hooks';
 
 import CalculationLinkMobile from './calculation-link-mobile';
 
@@ -34,7 +33,6 @@ export default function Navigation() {
                 href={path}
                 scroll={true}
                 onClick={() => {
-                  console.log('Link clicked:', path);
                   handleActivateLink(path);
                 }}
                 aria-current={ariaCurrent}
@@ -44,7 +42,6 @@ export default function Navigation() {
                   <button
                     type={ButtonType.Button}
                     onClick={() => {
-                      console.log('ToggleMenuTrigger clicked');
                       toggleNavMenu();
                     }}
                   >

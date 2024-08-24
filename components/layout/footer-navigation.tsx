@@ -31,7 +31,6 @@ export default function FooterMenu() {
               href={path}
               aria-current={getMenuAriaCurrent(path, pathname)}
               onClick={() => {
-                console.log('Link clicked:', path);
                 handleActivateLink(path);
               }}
               className='generalText hocus:text-accentPrimary dark:hocus:text-accentSecondary'

@@ -2,7 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 
 import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
-// import { useActivateLink } from 'hooks';
 import LegalLinkItem from 'components/layout/subcomponents/link-item';
 import { useActiveLink } from 'context';
 

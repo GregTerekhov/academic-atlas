@@ -13,7 +13,6 @@ import {
   AriaLabel,
 } from 'types';
 import { useActiveLink, useMenu } from 'context';
-// import { useActivateLink } from 'hooks';
 
 import { AriaDescriptionUI, SvgIconUI } from 'ui';
 

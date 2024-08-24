@@ -48,7 +48,7 @@ export const toggleScrollLock = (isLocked: boolean) => {
     body.ontouchmove = null;
     body.classList.remove('no-scroll');
     root?.classList.remove('no-scroll');
-
+//FIXME: add new logic in test
     const savedScrollPosition = sessionStorage.getItem('scrollPosition');
     if (savedScrollPosition) {
       const scrollY = parseInt(savedScrollPosition, 10);
