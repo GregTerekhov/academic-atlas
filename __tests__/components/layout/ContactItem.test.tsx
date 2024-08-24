@@ -22,6 +22,11 @@ describe('ContactItem Component', () => {
     toggleNavMenu: mockToggleNavMenu,
   };
 
+  const renderContactItem = (props = defaultProps) => {
+    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
+    render(<ContactItem {...props} />);
+  };
+
   beforeEach(() => {
     mockUseMenu.mockReturnValue(mockUseMenuOptions);
 
@@ -40,9 +45,7 @@ describe('ContactItem Component', () => {
   };
 
   it('should render the ContactItem correctly', () => {
-    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
-
-    render(<ContactItem {...defaultProps} />);
+    renderContactItem();
 
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
     expect(linkElement).toBeInTheDocument();
@@ -57,32 +60,14 @@ describe('ContactItem Component', () => {
     expect(labelElement).toBeInTheDocument();
   });
 
-  it('should apply the correct className for Footer variant', () => {
-    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
-
-    render(
-      <ContactItem
-        {...defaultProps}
-        variant={PositionInLayout.Footer}
-      />,
-    );
+  it.each([
+    [PositionInLayout.Footer, 'md:max-lg:py-2'],
+    [PositionInLayout.Header, 'group flex items-center gap-x-2'],
+  ])('should apply the correct className for %s variant', (variant, expectedClass) => {
+    renderContactItem({ ...defaultProps, variant });
 
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
-    expect(linkElement).toHaveClass('md:max-lg:py-2');
-  });
-
-  it('should apply the correct className for Header variant', () => {
-    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
-
-    render(
-      <ContactItem
-        {...defaultProps}
-        variant={PositionInLayout.Header}
-      />,
-    );
-
-    const linkElement = screen.getByRole('link', { name: 'Email Email us' });
-    expect(linkElement).toHaveClass('group flex items-center gap-x-2');
+    expect(linkElement).toHaveClass(expectedClass);
   });
 
   it('should call toggleNavMenu if isNavMenuOpen is open', async () => {
@@ -91,7 +76,7 @@ describe('ContactItem Component', () => {
       isNavMenuOpen: true,
     });
 
-    render(<ContactItem {...defaultProps} />);
+    renderContactItem();
 
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
     fireEvent.click(linkElement);
@@ -107,7 +92,7 @@ describe('ContactItem Component', () => {
       isNavMenuOpen: false,
     });
 
-    render(<ContactItem {...defaultProps} />);
+    renderContactItem();
 
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
     fireEvent.click(linkElement);

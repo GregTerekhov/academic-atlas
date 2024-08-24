@@ -17,23 +17,18 @@ describe('Requisites Component', () => {
     render(<Requisites />);
   });
 
-  it('renders all requisites correctly', () => {
+  it('renders all requisites with their styles correctly', () => {
     const requisites = getRequisites();
+
     requisites.forEach((requisite) => {
-      expect(screen.getByText(requisite.fieldName)).toBeInTheDocument();
+      const element = screen.getByText(requisite.fieldName);
+      expect(element).toBeInTheDocument();
+      expect(element).toHaveClass('italic');
     });
   });
 
   it('renders the correct number of requisites', () => {
     const requisites = getRequisites();
     expect(screen.getAllByRole('paragraph')).toHaveLength(requisites.length);
-  });
-
-  it('renders requisites with correct styles', () => {
-    const requisites = getRequisites();
-    requisites.forEach((requisite) => {
-      const element = screen.getByText(requisite.fieldName);
-      expect(element).toHaveClass('italic');
-    });
   });
 });

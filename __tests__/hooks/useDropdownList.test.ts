@@ -28,6 +28,21 @@ describe('useDropdownList hook', () => {
     executionTime: ExecutionTime.Urgent,
   };
 
+  const workTypeOptions = [
+    { typeId: 'teamWork1', option: WorkType.Diplomas },
+    { typeId: 'teamWork2', option: WorkType.TeamPapers },
+  ];
+
+  const expertiseAreaOptions = [
+    { typeId: 'teamWork1', option: WorkType.Diplomas },
+    { typeId: 'teamWork2', option: WorkType.TeamPapers },
+  ];
+
+  const executionTimeOptions = [
+    { typeId: 'time3', option: ExecutionTime.Urgent },
+    { typeId: 'time2', option: ExecutionTime.MediumTerm },
+  ];
+
   beforeEach(() => {
     jest.clearAllMocks();
 
@@ -36,57 +51,39 @@ describe('useDropdownList hook', () => {
       handleOptionChange: mockHandleOptionChange,
     });
 
-    mockGetWorkType.mockReturnValue([
-      { typeId: 'teamWork1', option: WorkType.Diplomas },
-      { typeId: 'teamWork2', option: WorkType.TeamPapers },
-    ]);
-
-    mockGetExpertiseArea.mockReturnValue([
-      { typeId: 'area13', option: ExpertiseArea.IT },
-      { typeId: 'area14', option: ExpertiseArea.MechanicalEngineering },
-    ]);
-
-    mockGetExecutionTime.mockReturnValue([
-      { typeId: 'time3', option: ExecutionTime.Urgent },
-      { typeId: 'time2', option: ExecutionTime.MediumTerm },
-    ]);
+    mockGetWorkType.mockReturnValue(workTypeOptions);
+    mockGetExpertiseArea.mockReturnValue(expertiseAreaOptions);
+    mockGetExecutionTime.mockReturnValue(executionTimeOptions);
   });
 
   it('returns the correct list of dropdowns', () => {
     const { result } = renderHook(() => useDropdownList());
 
-    expect(result.current).toEqual([
+    const expectedDropdowns = [
       {
         id: 1,
         label: WorkType.Diplomas,
-        options: [
-          { typeId: 'teamWork1', option: WorkType.Diplomas },
-          { typeId: 'teamWork2', option: WorkType.TeamPapers },
-        ],
+        options: workTypeOptions,
         onOptionSelect: expect.any(Function),
         ariaId: DropdownAriaId.WORK_TYPE,
       },
       {
         id: 2,
         label: ExpertiseArea.IT,
-        options: [
-          { typeId: 'area13', option: ExpertiseArea.IT },
-          { typeId: 'area14', option: ExpertiseArea.MechanicalEngineering },
-        ],
+        options: expertiseAreaOptions,
         onOptionSelect: expect.any(Function),
         ariaId: DropdownAriaId.EXPERTISE_AREA,
       },
       {
         id: 3,
         label: ExecutionTime.Urgent,
-        options: [
-          { typeId: 'time3', option: ExecutionTime.Urgent },
-          { typeId: 'time2', option: ExecutionTime.MediumTerm },
-        ],
+        options: executionTimeOptions,
         onOptionSelect: expect.any(Function),
         ariaId: DropdownAriaId.EXECUTION_TIME,
       },
-    ]);
+    ];
+
+    expect(result.current).toEqual(expectedDropdowns);
   });
 
   it('calls handleOptionChange with the correct parameters when the option is selected', () => {

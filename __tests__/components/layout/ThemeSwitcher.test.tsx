@@ -32,43 +32,33 @@ jest.mock('ui', () => ({
 describe('ThemeSwitcher Component', () => {
   const mockUseTheme = useTheme as jest.Mock;
 
+  const setup = (theme: ThemeVariants, toggleThemeMock: jest.Mock = jest.fn()) => {
+    mockUseTheme.mockReturnValue({
+      theme,
+      toggleTheme: toggleThemeMock,
+    });
+
+    render(<ThemeSwitcher />);
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('renders the Sun icon when theme is light', () => {
-    mockUseTheme.mockReturnValue({
-      theme: ThemeVariants.LIGHT,
-      toggleTheme: jest.fn(),
-    });
-
-    render(<ThemeSwitcher />);
+  it.each([
+    [ThemeVariants.LIGHT, IconName.Sun],
+    [ThemeVariants.DARK, IconName.Moon],
+  ])('renders the correct icon for theme %s', (theme, expectedIconId) => {
+    setup(theme);
 
     const icon = screen.getByTestId('theme-switcher-icon');
-    expect(icon).toHaveAttribute('id', IconName.Sun);
-  });
-
-  it('renderrs the Moon icon when theme is dark', () => {
-    mockUseTheme.mockReturnValue({
-      theme: ThemeVariants.DARK,
-      toggleTheme: jest.fn(),
-    });
-
-    render(<ThemeSwitcher />);
-
-    const icon = screen.getByTestId('theme-switcher-icon');
-    expect(icon).toHaveAttribute('id', IconName.Moon);
+    expect(icon).toHaveAttribute('id', expectedIconId);
   });
 
   it('calls toggleTheme when the switch is clicked', () => {
     const toggleThemeMock = jest.fn();
 
-    mockUseTheme.mockReturnValue({
-      theme: ThemeVariants.LIGHT,
-      toggleTheme: toggleThemeMock,
-    });
-
-    render(<ThemeSwitcher />);
+    setup(ThemeVariants.LIGHT, toggleThemeMock);
 
     const switchButton = screen.getByTestId('switch-button');
     fireEvent.click(switchButton);

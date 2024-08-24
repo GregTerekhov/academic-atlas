@@ -131,6 +131,6 @@ export interface IDropdownTriggerProps {
   isOpen: boolean;
   isOptionSelected: boolean;
   selectedLabel: DropdownOption;
-  handleToggle: () => void;
+  handleToggle: (e: React.MouseEvent | React.KeyboardEvent) => void;
   ariaId: DropdownAriaId;
 }

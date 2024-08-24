@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 
 import { IconName, MenuLinks, SvgSizes } from 'types';
 import { useBreadcrumbs } from 'hooks';
-
 import { Breadcrumbs } from 'components';
 
 jest.mock('hooks', () => ({
@@ -42,52 +41,26 @@ describe('Breadcrumbs Component', () => {
   });
 
   it('does not render when determinedPath is an empty string, for example, on Paths.Main', () => {
-    mockUseBreadcrumbs.mockReturnValue('');
-    const { container } = render(<Breadcrumbs />);
+    const invalidPaths = ['', undefined, null];
 
-    expect(container.firstChild).toBeNull();
+    invalidPaths.forEach((path) => {
+      mockUseBreadcrumbs.mockReturnValue(path);
+      const { container } = render(<Breadcrumbs />);
+
+      expect(container.firstChild).toBeNull();
+    });
   });
 
-  it('does not render when determinedPath is undefined', () => {
-    mockUseBreadcrumbs.mockReturnValue(undefined);
-    const { container } = render(<Breadcrumbs />);
-
-    expect(container.firstChild).toBeNull();
-  });
-
-  it('displays the correct breadcrumb based on Paths.Policy', () => {
-    mockUseBreadcrumbs.mockReturnValue(MenuLinks.Policy);
+  it.each([
+    ['should display the correct breadcrumb for Policy path', MenuLinks.Policy],
+    ['should display the correct breadcrumb for Offer path', MenuLinks.Offer],
+    ['should display the correct breadcrumb for Partnership path', MenuLinks.Partnership],
+    ['should display the correct breadcrumb for FAQ path', MenuLinks.FAQ],
+  ])('%s', (_, menuLink) => {
+    mockUseBreadcrumbs.mockReturnValue(menuLink);
     render(<Breadcrumbs />);
 
-    expect(screen.getByText((content) => content.startsWith(MenuLinks.Policy))).toBeInTheDocument();
-  });
-
-  it('displays the correct breadcrumb based on Paths.Offer', () => {
-    mockUseBreadcrumbs.mockReturnValue(MenuLinks.Offer);
-    render(<Breadcrumbs />);
-
-    expect(screen.getByText(MenuLinks.Offer)).toBeInTheDocument();
-  });
-
-  it('displays the correct breadcrumb based on Paths.Partnership', () => {
-    mockUseBreadcrumbs.mockReturnValue(MenuLinks.Partnership);
-    render(<Breadcrumbs />);
-
-    expect(screen.getByText(MenuLinks.Partnership)).toBeInTheDocument();
-  });
-
-  it('displays the correct breadcrumb based on Paths.FAQ', () => {
-    mockUseBreadcrumbs.mockReturnValue(MenuLinks.FAQ);
-    render(<Breadcrumbs />);
-
-    expect(screen.getByText(MenuLinks.FAQ)).toBeInTheDocument();
-  });
-
-  it('does not display breadcrumb for invalid path', () => {
-    mockUseBreadcrumbs.mockReturnValue(null);
-    const { container } = render(<Breadcrumbs />);
-
-    expect(container.firstChild).toBeNull();
+    expect(screen.getByText(menuLink)).toBeInTheDocument();
   });
 
   it('renders the link to main page and the icon correctly on valid paths', () => {

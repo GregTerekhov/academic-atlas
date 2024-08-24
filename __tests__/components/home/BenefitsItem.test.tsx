@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import BenefitsItem from 'components/home/subcomponents/benefits-item';
+
 import { IconName, BenefitLabel } from 'types';
+import BenefitsItem from 'components/home/subcomponents/benefits-item';
 
 jest.mock('ui', () => ({
   SvgIconUI: jest.fn(({ id }) => (

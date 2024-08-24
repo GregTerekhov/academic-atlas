@@ -14,7 +14,7 @@ jest.spyOn(React, 'useEffect').mockImplementationOnce(() => {});
 const MockParentComponent = ({ ariaHidden }: { ariaHidden: boolean }) => (
   <TextWithLink
     order={TelegramScenario.Join}
-    textWithLink='Click here to use Telegram-бот for further assistance.'
+    text='Click here to use Telegram-бот for further assistance.'
     ariaHidden={ariaHidden}
   />
 );
@@ -27,7 +27,7 @@ describe('TextWithLink Component', () => {
     render(
       <TextWithLink
         order={order}
-        textWithLink={mockTextWithLink}
+        text={mockTextWithLink}
         ariaHidden={ariaHidden}
       />,
     );
@@ -52,60 +52,50 @@ describe('TextWithLink Component', () => {
       const linkElement = container.querySelector('a');
       expect(linkElement).toBeInTheDocument();
       expect(linkElement).toHaveAttribute('href', '#');
+      expect(linkElement).toHaveAttribute('target', '_blank');
+      expect(linkElement).toHaveAttribute('rel', 'noopener noreferrer');
     });
   });
 
-  it('should render the TextWithLink component correctly', () => {
-    renderTelegramButton(TelegramScenario.Order);
+  it.each([
+    {
+      order: TelegramScenario.Order,
+      expectedHref: 'https://t.me/AcademicAtlasBot?start=mockedBase64String',
+      returnValue: 'mockedBase64String',
+    },
+    {
+      order: '' as TelegramScenario,
+      expectedHref: '#',
+      returnValue: undefined,
+    },
+  ])(
+    'should update href and create base64String correctly on click (order: $order)',
+    async ({ order, expectedHref, returnValue }) => {
+      mockGetAndEncodeDataObject.mockReturnValue(returnValue);
 
-    const linkElement = getLinkElement();
-    expect(linkElement).toBeInTheDocument();
-    expect(linkElement).toHaveAttribute('href', '#');
-    expect(linkElement).toHaveAttribute('target', '_blank');
-    expect(linkElement).toHaveAttribute('rel', 'noopener noreferrer');
-  });
+      renderTelegramButton(order);
 
-  it('should update the href attribute and create the base64String correctly when clicking on the link', async () => {
-    mockGetAndEncodeDataObject.mockReturnValue('mockedBase64String');
+      const linkElement = getLinkElement();
+      fireEvent.click(linkElement);
 
-    renderTelegramButton(TelegramScenario.Order);
+      await waitFor(() => {
+        expect(linkElement).toHaveAttribute('href', expectedHref);
+      });
 
-    const linkElement = getLinkElement();
-    fireEvent.click(linkElement);
+      expect(getAndEncodeDataObject).toHaveBeenCalledWith(order);
+    },
+  );
 
-    await waitFor(() => {
-      const expectedHref = 'https://t.me/AcademicAtlasBot?start=mockedBase64String';
+  it.each([
+    { ariaHidden: true, expectedTabIndex: '-1' },
+    { ariaHidden: false, expectedTabIndex: '0' },
+  ])(
+    'should set tabIndex to $expectedTabIndex when ariaHidden is $ariaHidden',
+    ({ ariaHidden, expectedTabIndex }) => {
+      render(<MockParentComponent ariaHidden={ariaHidden} />);
 
-      expect(linkElement).toHaveAttribute('href', expectedHref);
-    });
-
-    expect(getAndEncodeDataObject).toHaveBeenCalledWith(TelegramScenario.Order);
-  });
-
-  it('should prevent default and not update the href attribute if getAndEncodeDataObject returns undefined', async () => {
-    mockGetAndEncodeDataObject.mockReturnValue(undefined);
-
-    renderTelegramButton('' as TelegramScenario);
-
-    const linkElement = getLinkElement();
-    fireEvent.click(linkElement);
-
-    await waitFor(() => {
-      expect(linkElement).toHaveAttribute('href', '#');
-    });
-
-    expect(getAndEncodeDataObject).toHaveBeenCalledWith('');
-  });
-
-  it('should set tabIndex to -1 when ariaHidden true', () => {
-    render(<MockParentComponent ariaHidden={true} />);
-    const linkElement = screen.getByText('Telegram-бот');
-    expect(linkElement).toHaveAttribute('tabIndex', '-1');
-  });
-
-  it('should set tabIndex to 0 when ariaHidden false', () => {
-    render(<MockParentComponent ariaHidden={false} />);
-    const linkElement = screen.getByText('Telegram-бот');
-    expect(linkElement).toHaveAttribute('tabIndex', '0');
-  });
+      const linkElement = getLinkElement();
+      expect(linkElement).toHaveAttribute('tabIndex', expectedTabIndex);
+    },
+  );
 });

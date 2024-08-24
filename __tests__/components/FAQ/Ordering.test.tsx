@@ -109,8 +109,6 @@ describe('Ordering Component', () => {
   it('renders the background image with correct props', () => {
     render(<Ordering />);
 
-    screen.debug();
-
     const backgroundImage = screen.getByRole('img');
 
     expect(backgroundImage).toBeInTheDocument();

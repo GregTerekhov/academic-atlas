@@ -6,7 +6,7 @@ import { Uniqueness } from '../types';
 import { useCalculation } from 'context';
 import { findSelectedObject, uniquenessMapping } from 'helpers';
 
-export const useRangeValue = () => {
+export const useAutoSetRange = () => {
   const { calculationData, handleRangeValueChange, isChecked } = useCalculation();
 
   useEffect(() => {

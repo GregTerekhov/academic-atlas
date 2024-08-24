@@ -27,6 +27,46 @@ const MenuTestComponent = () => {
   );
 };
 
+const testCases = [
+  {
+    description: 'should toggle navigation menu state',
+    initialText: 'Nav Menu Open: No',
+    button: 'Toggle Nav Menu',
+    toggledText: 'Nav Menu Open: Yes',
+    resetText: 'Nav Menu Open: No',
+  },
+  {
+    description: 'should toggle calculation menu state',
+    initialText: 'Calc Menu Open: No',
+    button: 'Toggle Calc Menu',
+    toggledText: 'Calc Menu Open: Yes',
+    resetText: 'Calc Menu Open: No',
+  },
+  {
+    description: 'should handle toggle nav menu logic',
+    initialText: 'Nav Menu Open: No',
+    button: 'Handle Toggle Menu',
+    toggledText: 'Nav Menu Open: Yes',
+    resetText: 'Nav Menu Open: No',
+  },
+  {
+    description: 'should handle toggle calc menu logic and close it',
+    setupActions: ['Toggle Calc Menu'],
+    initialText: 'Calc Menu Open: Yes',
+    button: 'Handle Toggle Menu',
+    toggledText: 'Calc Menu Open: No',
+    resetText: 'Calc Menu Open: No',
+  },
+  {
+    description: 'should handle toggle nav menu content and close all menus',
+    setupActions: ['Toggle Nav Menu', 'Change Menu Content'],
+    initialText: 'Show Calc Menu: Yes',
+    button: 'Handle Toggle Menu',
+    toggledText: 'Nav Menu Open: No',
+    resetText: 'Calc Menu Open: No',
+  },
+];
+
 describe('MenuProvider', () => {
   beforeEach(() => {
     render(
@@ -40,60 +80,21 @@ describe('MenuProvider', () => {
     );
   });
 
-  it('should toggle navigation menu state', () => {
-    expect(screen.getByText('Nav Menu Open: No')).toBeInTheDocument();
+  it.each(testCases)(
+    '$description',
+    ({ initialText, button, toggledText, resetText, setupActions = [] }) => {
+      setupActions.forEach((action) => fireEvent.click(screen.getByText(action)));
+      expect(screen.getByText(initialText)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('Toggle Nav Menu'));
-    expect(screen.getByText('Nav Menu Open: Yes')).toBeInTheDocument();
+      fireEvent.click(screen.getByText(button));
+      expect(screen.getByText(toggledText)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByText('Toggle Nav Menu'));
-    expect(screen.getByText('Nav Menu Open: No')).toBeInTheDocument();
-  });
+      fireEvent.click(screen.getByText(button));
+      expect(screen.getByText(resetText)).toBeInTheDocument();
+    },
+  );
 
-  it('should toggle calculation menu state and reset values', () => {
-    expect(screen.getByText('Calc Menu Open: No')).toBeInTheDocument();
-    expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText('Toggle Calc Menu'));
-    expect(screen.getByText('Calc Menu Open: Yes')).toBeInTheDocument();
-    expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText('Toggle Calc Menu'));
-    expect(screen.getByText('Calc Menu Open: No')).toBeInTheDocument();
-    expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
-  });
-
-  it('should handle toggle menu logic', () => {
-    fireEvent.click(screen.getByText('Handle Toggle Menu'));
-    expect(screen.getByText('Nav Menu Open: Yes')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText('Toggle Calc Menu'));
-    fireEvent.click(screen.getByText('Handle Toggle Menu'));
-    expect(screen.getByText('Calc Menu Open: No')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText('Change Menu Content'));
-    fireEvent.click(screen.getByText('Handle Toggle Menu'));
-    expect(screen.getByText('Nav Menu Open: No')).toBeInTheDocument();
-    expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
-  });
-
-  it('should close all menus and reset values', () => {
-    fireEvent.click(screen.getByText('Toggle Nav Menu'));
-    fireEvent.click(screen.getByText('Toggle Calc Menu'));
-    fireEvent.click(screen.getByText('Change Menu Content'));
-
-    expect(screen.getByText('Nav Menu Open: Yes')).toBeInTheDocument();
-    expect(screen.getByText('Calc Menu Open: Yes')).toBeInTheDocument();
-    expect(screen.getByText('Show Calc Menu: Yes')).toBeInTheDocument();
-
-    fireEvent.click(screen.getByText('Close Menu'));
-
-    expect(screen.getByText('Nav Menu Open: No')).toBeInTheDocument();
-    expect(screen.getByText('Calc Menu Open: No')).toBeInTheDocument();
-    expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
-  });
-
-  it('should handle change menu logic', () => {
+  it('should handle change menu content logic', () => {
     expect(screen.getByText('Show Calc Menu: No')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Change Menu Content'));

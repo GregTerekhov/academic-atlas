@@ -30,13 +30,16 @@ jest.mock('components/performers/subcomponents', () => ({
   WorkflowBackground: jest.fn(),
 }));
 
-describe('Workflow component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+const mockGetWorkflowData = getWorkflowData as jest.Mock;
 
-  const mockGetWorkflowData = getWorkflowData as jest.Mock;
-  mockGetWorkflowData.mockReturnValue([
+const setup = (data: IWorkflow[] | undefined = []) => {
+  mockGetWorkflowData.mockReturnValue(data);
+
+  return render(<WorkflowSteps />);
+};
+
+describe('Workflow component', () => {
+  const mockData = [
     {
       id: '1',
       title: 'Реєстрація',
@@ -44,10 +47,19 @@ describe('Workflow component', () => {
         'Заходьте до нашої платформи в Telegram-бот і заповніть форму з вказанням вашого досвіду та спеціалізації',
       gridMarkup: 'lg:row-start-1 lg:row-end-3',
     },
-  ]);
+  ];
 
-  test('should render component correctly', () => {
-    render(<WorkflowSteps />);
+  const invalidData = [
+    { data: [], description: 'should handle empty workflow steps data gracefully' },
+    { data: undefined, description: 'should handle missing workflow steps data scenario' },
+  ];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('should render component with correct props and data ', () => {
+    setup(mockData);
 
     const workflowHeader = screen.getByRole('heading', {
       level: 2,
@@ -59,5 +71,18 @@ describe('Workflow component', () => {
       'id',
       SectionTitle.PartnershipWorkflow,
     );
+
+    const listElement = screen.getByTestId('workflow-list-test');
+    expect(listElement).toBeInTheDocument();
+
+    const listItemElement = screen.getByTestId('workflow-item-test');
+    expect(listItemElement).toBeInTheDocument();
+  });
+
+  it.each(invalidData)('$description', ({ data }) => {
+    setup(data);
+
+    const listElement = screen.getByTestId('workflow-list-test');
+    expect(listElement).toBeEmptyDOMElement();
   });
 });

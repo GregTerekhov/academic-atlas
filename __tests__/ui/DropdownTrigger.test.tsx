@@ -31,60 +31,59 @@ describe('DropdownTrigger Component', () => {
     render(<DropdownTrigger {...props} />);
   };
 
-  it('should render button with correct styles and attributes', () => {
-    const props = {
-      isOpen: false,
-      isOptionSelected: false,
-      handleToggle: mockHandleToggle,
-      selectedLabel: ExpertiseArea.Education,
-      ariaId: DropdownAriaId.EXPERTISE_AREA,
-    };
+  const testCases = [
+    {
+      description: 'renders button with correct styles and attributes',
+      props: {
+        isOpen: false,
+        isOptionSelected: false,
+        handleToggle: mockHandleToggle,
+        selectedLabel: ExpertiseArea.Education,
+        ariaId: DropdownAriaId.EXPERTISE_AREA,
+      },
+      expected: {
+        buttonClass: getDropdownTriggerStyles(false, false),
+        labelClass: getDropdownLabelStyles(false),
+        iconClass: getDropdownIconStyles(false, false),
+        ariaExpanded: 'false',
+      },
+    },
+    {
+      description: 'applies correct styles when dropdown is open and option is selected',
+      props: {
+        isOpen: true,
+        isOptionSelected: true,
+        handleToggle: mockHandleToggle,
+        selectedLabel: ExpertiseArea.CultureAndArt,
+        ariaId: DropdownAriaId.EXPERTISE_AREA,
+      },
+      expected: {
+        buttonClass: getDropdownTriggerStyles(true, true),
+        labelClass: getDropdownLabelStyles(true),
+        iconClass: getDropdownIconStyles(true, true),
+        ariaExpanded: 'true',
+      },
+    },
+  ];
 
+  it.each(testCases)('$description', ({ props, expected }) => {
     renderDropdownTrigger(props);
 
-    const buttonClass = getDropdownTriggerStyles(false, false);
-    const labelClass = getDropdownLabelStyles(false);
-    const iconClass = getDropdownIconStyles(false, false);
-
     const button = screen.getByRole('button');
-    const label = screen.getByText(ExpertiseArea.Education);
+    const label = screen.getByText(props.selectedLabel);
     const icon = screen.getByRole('img');
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass(buttonClass);
+    expect(button).toHaveClass(expected.buttonClass);
     expect(button).toHaveAttribute('aria-haspopup', 'listbox');
-    expect(button).toHaveAttribute('aria-expanded', 'false');
-    expect(button).toHaveAttribute('aria-controls', `${DropdownAriaId.EXPERTISE_AREA}-list`);
+    expect(button).toHaveAttribute('aria-expanded', expected.ariaExpanded);
+    expect(button).toHaveAttribute('aria-controls', `${props.ariaId}-list`);
 
     expect(label).toBeInTheDocument();
-    expect(label).toHaveClass(labelClass);
+    expect(label).toHaveClass(expected.labelClass);
 
     expect(icon).toBeInTheDocument();
-    expect(icon).toHaveClass(iconClass);
-  });
-
-  it('should apply correct styles when dropdown is open and option is selected', () => {
-    const props = {
-      isOpen: true,
-      isOptionSelected: true,
-      handleToggle: mockHandleToggle,
-      selectedLabel: ExpertiseArea.CultureAndArt,
-      ariaId: DropdownAriaId.EXPERTISE_AREA,
-    };
-
-    renderDropdownTrigger(props);
-
-    const buttonClass = getDropdownTriggerStyles(true, true);
-    const labelClass = getDropdownLabelStyles(true);
-    const iconClass = getDropdownIconStyles(true, true);
-
-    const button = screen.getByRole('button');
-    const label = screen.getByText(ExpertiseArea.CultureAndArt);
-    const icon = screen.getByRole('img');
-
-    expect(button).toHaveClass(buttonClass);
-    expect(label).toHaveClass(labelClass);
-    expect(icon).toHaveClass(iconClass);
+    expect(icon).toHaveClass(expected.iconClass);
   });
 
   it('should call handleToggle when button is clicked', () => {

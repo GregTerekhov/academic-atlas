@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import Image from 'next/image';
 
 import { CtaText, ImageSize, SectionDescriptions, SectionTitle } from 'types';
 
@@ -20,11 +19,9 @@ jest.mock('ui', () => ({
     const { ...restProps } = props;
 
     return (
-      <Image
+      <div
         {...restProps}
-        alt={props.alt}
-        priority={true}
-        data-priority={false}
+        data-priority={true}
         data-testid='image-ui'
       />
     );

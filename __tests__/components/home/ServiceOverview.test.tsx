@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import Image from 'next/image';
 
 import { IconName, SectionDescriptions, SectionTitle } from 'types';
 import { getOrderSteps, getSectionProps } from 'data';
@@ -9,9 +8,9 @@ import { ImageUI } from 'ui';
 
 jest.mock('ui', () => ({
   ImageUI: jest.fn((props) => (
-    <Image
+    <div
       {...props}
-      alt={props.alt || 'default alt text'}
+      role='img'
     />
   )),
 }));
@@ -63,18 +62,25 @@ describe('ServiceOverview Component', () => {
     },
   ];
 
-  beforeEach(() => {
-    jest.clearAllMocks();
+  const mockGetOrderSteps = getOrderSteps as jest.Mock;
+  const mockGetSectionProps = getSectionProps as jest.Mock;
 
-    (getOrderSteps as jest.Mock).mockReturnValue(mockOrderSteps);
-    (getSectionProps as jest.Mock).mockReturnValue({
+  const setupMocks = () => {
+    mockGetOrderSteps.mockReturnValue(mockOrderSteps);
+    mockGetSectionProps.mockReturnValue({
       homeOverview: {
         title: SectionTitle.HowItWorks,
         id: 'overview',
       },
     });
+  };
 
-    render(<ServiceOverview />);
+  const renderComponent = () => render(<ServiceOverview />);
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    setupMocks();
+    renderComponent();
   });
 
   it('should render the SectionTemplate with correct props', () => {

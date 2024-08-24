@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { QuestionTitle } from 'types';
@@ -75,9 +74,12 @@ describe('FAQList Component', () => {
 
       const spanElement = paragraphElement?.querySelector('span');
       if (shouldHaveTelegramLink) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(spanElement).toBeInTheDocument();
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(spanElement?.textContent).toBe('Telegram-бот');
       } else {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(spanElement).toBeNull();
       }
     };

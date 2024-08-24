@@ -13,32 +13,48 @@ const TestComponent = () => {
   );
 };
 
+const renderWithProvider = () => {
+  render(
+    <CalculationResultProvider>
+      <TestComponent />
+    </CalculationResultProvider>,
+  );
+};
+
+const clickButton = (buttonText: string) => {
+  fireEvent.click(screen.getByText(buttonText));
+};
+
+const expectHasSubmitData = (expectedText: string) => {
+  expect(screen.getByTestId('has-submit-data')).toHaveTextContent(
+    `Has Submit Data: ${expectedText}`,
+  );
+};
+
 describe('CalculationResultProvider', () => {
   beforeEach(() => {
-    render(
-      <CalculationResultProvider>
-        <TestComponent />
-      </CalculationResultProvider>,
-    );
+    renderWithProvider();
   });
 
   it('should initialise context values correctly', () => {
-    expect(screen.getByTestId('has-submit-data')).toHaveTextContent('Has Submit Data: No');
+    expectHasSubmitData('No');
+    expect(true).toBe(true);
   });
 
   it('should update hasSubmitData when handleShowCostResult is called', () => {
-    fireEvent.click(screen.getByText('Show Cost Result'));
-    expect(screen.getByTestId('has-submit-data')).toHaveTextContent('Has Submit Data: Yes');
+    clickButton('Show Cost Result');
+    expectHasSubmitData('Yes');
+    expect(true).toBe(true);
   });
 
   it('should reset hasSubmitData when handleResetCostResult is called', () => {
-    expect(screen.getByTestId('has-submit-data')).toHaveTextContent('Has Submit Data: No');
+    clickButton('Show Cost Result');
+    expectHasSubmitData('Yes');
+    expect(true).toBe(true);
 
-    fireEvent.click(screen.getByText('Show Cost Result'));
-    expect(screen.getByTestId('has-submit-data')).toHaveTextContent('Has Submit Data: Yes');
-
-    fireEvent.click(screen.getByText('Reset Cost Result'));
-    expect(screen.getByTestId('has-submit-data')).toHaveTextContent('Has Submit Data: No');
+    clickButton('Reset Cost Result');
+    expectHasSubmitData('No');
+    expect(true).toBe(true);
   });
 });
 

@@ -43,10 +43,12 @@ export default function TelegramButton({
       >
         {label}
       </a>
-      <AriaDescriptionUI
-        id={ariaId}
-        description={ariaDescription}
-      />
+      {ariaId && ariaDescription && (
+        <AriaDescriptionUI
+          id={ariaId}
+          description={ariaDescription}
+        />
+      )}
     </>
   );
 }

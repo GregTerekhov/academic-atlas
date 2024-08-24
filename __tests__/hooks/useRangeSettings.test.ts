@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import React from 'react';
 
-import { ThemeVariants, WorkType } from 'types';
+import { ThemeVariants, Uniqueness, WorkType } from 'types';
 import { useCalculation, useTheme } from 'context';
 import { couldChooseUniqueness, getMinimalUniqueness } from 'helpers';
 import { useRangeSettings } from 'hooks';
@@ -27,17 +27,27 @@ describe('useRangeSettings hook', () => {
     jest.clearAllMocks();
   });
 
-  it('should initialise with default values and isChecked is false', () => {
-    mockUseTheme.mockReturnValue({ theme: ThemeVariants.LIGHT });
+  const setup = ({
+    theme = ThemeVariants.LIGHT,
+    isChecked = false,
+    workType = WorkType.Default,
+    couldChoose = true,
+    minimalUniqueness = Uniqueness.Standard,
+  } = {}) => {
+    mockUseTheme.mockReturnValue({ theme });
     mockUseCalculation.mockReturnValue({
-      isChecked: false,
-      calculationData: { workType: WorkType.Default },
+      isChecked,
+      calculationData: { workType },
       handleRangeValueChange: mockHandleRangeValueChange,
     });
-    mockCouldChooseUniqueness.mockReturnValue(true);
-    mockGetMinimalUniqueness.mockReturnValue(50);
+    mockCouldChooseUniqueness.mockReturnValue(couldChoose);
+    mockGetMinimalUniqueness.mockReturnValue(minimalUniqueness);
 
-    const { result } = renderHook(() => useRangeSettings());
+    return renderHook(() => useRangeSettings());
+  };
+
+  it('should initialise with default values and isChecked is false', () => {
+    const { result } = setup({ workType: WorkType.BachelorTheses });
 
     act(() => {
       result.current.updateThumbColor();
@@ -50,29 +60,18 @@ describe('useRangeSettings hook', () => {
   });
 
   it('should initialise with default values and isChecked is true', () => {
-    mockUseTheme.mockReturnValue({ theme: ThemeVariants.LIGHT });
-    mockUseCalculation.mockReturnValue({
-      isChecked: true,
-      calculationData: { workType: WorkType.Diplomas },
-      handleRangeValueChange: mockHandleRangeValueChange,
-    });
-    mockCouldChooseUniqueness.mockReturnValue(true);
-    mockGetMinimalUniqueness.mockReturnValue(50);
-
-    const { result } = renderHook(() => useRangeSettings());
+    const { result } = setup({ isChecked: true, workType: WorkType.Diplomas });
 
     expect(result.current.showMinimalText).toBe(true);
     expect(result.current.rangeInputClass).toBe('range-input-light');
   });
 
   it('should update thumb colour based on theme and isChecked', () => {
-    mockUseCalculation.mockReturnValue({
+    const { result, rerender } = setup({
       isChecked: true,
-      calculationData: { workType: WorkType.Default },
-      handleRangeValueChange: mockHandleRangeValueChange,
+      workType: WorkType.MasterTheses,
+      minimalUniqueness: Uniqueness.Higher,
     });
-
-    const { result, rerender } = renderHook(() => useRangeSettings());
 
     act(() => {
       result.current.updateThumbColor();
@@ -96,13 +95,7 @@ describe('useRangeSettings hook', () => {
   });
 
   it('should handle range input change', () => {
-    mockUseCalculation.mockReturnValue({
-      isChecked: true,
-      calculationData: { workType: WorkType.Diplomas },
-      handleRangeValueChange: mockHandleRangeValueChange,
-    });
-
-    const { result } = renderHook(() => useRangeSettings());
+    const { result } = setup({ isChecked: true, workType: WorkType.Diplomas });
 
     act(() => {
       result.current.handleChange({

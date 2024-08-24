@@ -21,7 +21,7 @@ export default function DropdownTrigger({
     <button
       id={`${ariaId}-trigger`}
       type={ButtonType.Button}
-      onClick={handleToggle}
+      onClick={(e: React.MouseEvent | React.KeyboardEvent) => handleToggle(e)}
       className={buttonClass}
       aria-haspopup='listbox'
       aria-expanded={isOpen}

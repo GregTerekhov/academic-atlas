@@ -16,45 +16,43 @@ describe('BackButton Component', () => {
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockUseCalculationResult = useCalculationResult as jest.Mock;
 
+  const setupMocks = (hasSubmitData: boolean, handleResetCostResult = jest.fn()) => {
+    const resetCalculation = jest.fn();
+
+    mockUseCalculation.mockReturnValue({ resetCalculation });
+    mockUseCalculationResult.mockReturnValue({
+      hasSubmitData,
+      handleResetCostResult,
+    });
+
+    return { resetCalculation, handleResetCostResult };
+  };
+
+  const renderComponent = () => render(<BackButton />);
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should not render the button if hasSubmitData is false', () => {
-    const resetCalculation = jest.fn();
-
-    mockUseCalculation.mockReturnValue({ resetCalculation });
-    mockUseCalculationResult.mockReturnValue({ hasSubmitData: false });
-
-    render(<BackButton />);
+    setupMocks(false);
+    renderComponent();
 
     const button = screen.queryByRole('button');
     expect(button).not.toBeInTheDocument();
   });
 
   it('should render the button if hasSubmitData is true', () => {
-    const resetCalculation = jest.fn();
-
-    mockUseCalculation.mockReturnValue({ resetCalculation });
-    mockUseCalculationResult.mockReturnValue({ hasSubmitData: true });
-
-    render(<BackButton />);
+    setupMocks(true);
+    renderComponent();
 
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
   });
 
   it('should call handleResetCostResult and resetCalculation when is button is clicked', () => {
-    const handleResetCostResult = jest.fn();
-    const resetCalculation = jest.fn();
-
-    mockUseCalculation.mockReturnValue({ resetCalculation });
-    mockUseCalculationResult.mockReturnValue({
-      hasSubmitData: true,
-      handleResetCostResult,
-    });
-
-    render(<BackButton />);
+    const { resetCalculation, handleResetCostResult } = setupMocks(true);
+    renderComponent();
 
     const button = screen.getByRole('button');
     fireEvent.click(button);

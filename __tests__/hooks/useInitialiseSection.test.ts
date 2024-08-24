@@ -7,14 +7,40 @@ jest.mock('data', () => ({
   getAdaptedLinks: jest.fn(),
 }));
 
-describe('useInitialiseSection hook', () => {
-  const mockGetAdaptedLinks = getAdaptedLinks as jest.Mock;
+const mockGetAdaptedLinks = getAdaptedLinks as jest.Mock;
 
+const setupDocumentBody = (sections: string) => {
+  document.body.innerHTML = sections;
+};
+
+describe('useInitialiseSection hook', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    document.body.innerHTML = '';
+    setupDocumentBody('');
   });
 
+  type Section = {
+    id: string;
+    path: string;
+  };
+
+  const runHookAndAssert = (
+    expectedSections: Section[],
+    expectedRefsLength: number,
+    expectedIsInitialised: boolean,
+  ) => {
+    const { result } = renderHook(() => useInitialiseSection());
+
+    expect(result.current.sections.current).toEqual(expectedSections);
+    expect(result.current.sectionRefs.current).toHaveLength(expectedRefsLength);
+    if (expectedRefsLength > 0) {
+      expect(result.current.sectionRefs.current[0]?.id).toBe('services');
+      expect(result.current.sectionRefs.current[1]?.id).toBe('about-us');
+    }
+    expect(result.current.isInitialised).toBe(expectedIsInitialised);
+  };
+
+  // eslint-disable-next-line jest/expect-expect
   it('should initialise sections correctly', () => {
     const mockLinks = [
       { id: 'services', path: '/#services' },
@@ -23,18 +49,12 @@ describe('useInitialiseSection hook', () => {
 
     mockGetAdaptedLinks.mockReturnValue(mockLinks);
 
-    document.body.innerHTML = `
+    setupDocumentBody(`
     <section id='services'></section>
     <section id='about-us'></section>
-    `;
+    `);
 
-    const { result } = renderHook(() => useInitialiseSection());
-
-    expect(result.current.sections.current).toEqual(mockLinks);
-    expect(result.current.sectionRefs.current).toHaveLength(2);
-    expect(result.current.sectionRefs.current[0]?.id).toBe('services');
-    expect(result.current.sectionRefs.current[1]?.id).toBe('about-us');
-    expect(result.current.isInitialised).toBe(true);
+    runHookAndAssert(mockLinks, 2, true);
   });
 
   it('should call initialiseSections on mount', () => {
@@ -68,9 +88,7 @@ describe('useInitialiseSection hook', () => {
       { id: '', path: '/#about-us' },
     ];
 
-    const { result } = renderHook(() => useInitialiseSection());
-
-    expect(result.current.sections.current).toEqual(expectedSections);
-    expect(result.current.isInitialised).toBe(true);
+    runHookAndAssert(expectedSections, 0, true);
+    expect(true).toBe(true);
   });
 });

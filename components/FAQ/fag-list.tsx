@@ -24,7 +24,7 @@ export default function FAQList() {
             {id === 'Question 2' || id === 'Question 6' ? (
               <TextWithLink
                 order={TelegramScenario.Order}
-                textWithLink={answer}
+                text={answer}
                 ariaHidden={true}
               />
             ) : (

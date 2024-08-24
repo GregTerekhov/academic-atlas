@@ -15,10 +15,7 @@ interface IThemeContext {
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<IThemeContext>({
-  theme: ThemeVariants.LIGHT,
-  toggleTheme: () => {},
-});
+const ThemeContext = createContext<IThemeContext | undefined>(undefined);
 
 export const ThemeProvider = ({ children, storageKey, startTheme }: IThemeProviderProps) => {
   const initialTheme = startTheme ?? getPreference(storageKey) ?? ThemeVariants.LIGHT;
@@ -39,5 +36,9 @@ export const ThemeProvider = ({ children, storageKey, startTheme }: IThemeProvid
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
+
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
   return context;
 };
