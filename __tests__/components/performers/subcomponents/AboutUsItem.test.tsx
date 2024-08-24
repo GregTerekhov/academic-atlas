@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import { AboutUsItem } from 'components/performers/subcomponents';
 
 jest.mock('styles', () => ({
@@ -6,6 +7,16 @@ jest.mock('styles', () => ({
 }));
 
 jest.mock('data', () => ({
+  imageSettings: {
+    partnershipAboutUs1: {
+      src: '/images/who-we-are.webp',
+      alt: 'Working meeting at the table',
+    },
+    partnershipAboutUs2: {
+      src: '/images/who-we-are-looking-for.webp',
+      alt: 'People at the meeting write in notebooks',
+    },
+  },
   partnershipAboutImageSettings: {
     width: 180,
     height: 327,
@@ -15,23 +26,22 @@ jest.mock('data', () => ({
 
 jest.mock('ui', () => ({
   ImageUI: jest.fn((props) => (
-    <img
+    <div
       data-testid='img-about-us-performers-item'
-      src={props.src}
-      alt={props.alt}
+      {...props}
     />
   )),
 }));
 
 describe('AboutUsItem subComponent', () => {
-  test('should render subComponent correctly', () => {
-    const mockIAboutUsItemProps = {
-      header: 'about-us-item-header',
-      description: 'about-us-item-description',
-      src: 'about-us-item-src',
-      alt: 'about-us-item-alt',
-    };
+  const mockIAboutUsItemProps = {
+    header: 'about-us-item-header',
+    description: 'about-us-item-description',
+    src: 'about-us-item-src',
+    alt: 'about-us-item-alt',
+  };
 
+  test('should render subComponent correctly', () => {
     render(<AboutUsItem {...mockIAboutUsItemProps} />);
 
     const aboutUsItemHeader = screen.getByRole('heading', {
@@ -45,5 +55,7 @@ describe('AboutUsItem subComponent', () => {
 
     const aboutUsItemImg = screen.getByTestId('img-about-us-performers-item');
     expect(aboutUsItemImg).toBeInTheDocument();
+    expect(aboutUsItemImg).toHaveAttribute('src', 'about-us-item-src');
+    expect(aboutUsItemImg).toHaveAttribute('alt', 'about-us-item-alt');
   });
 });

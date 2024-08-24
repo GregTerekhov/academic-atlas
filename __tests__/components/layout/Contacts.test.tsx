@@ -29,73 +29,83 @@ jest.mock('template', () => ({
 }));
 
 jest.mock('components/layout/subcomponents', () => ({
-  ContactItem: jest.fn((props) => (
-    <li
-      {...props}
-      data-testid='contact-item'
-    ></li>
-  )),
+  ContactItem: jest.fn(() => <li data-testid='contact-item'></li>),
 }));
 
 describe('Contacts Component', () => {
   const mockGetAdaptedContacts = getAdaptedContacts as jest.Mock;
   const mockGetContactListStyles = getContactListStyles as jest.Mock;
 
+  const renderContacts = (
+    variant: PositionInLayout,
+    mockContacts: IContactLink[],
+    styles: string,
+  ) => {
+    mockGetAdaptedContacts.mockReturnValue(mockContacts);
+    mockGetContactListStyles.mockReturnValue(styles);
+
+    return render(<Contacts variant={variant} />);
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should render contacts for Footer variant', () => {
-    const mockContacts = [
-      {
-        href: `mailto:${CompanyContacts.Email}`,
-        iconName: IconName.Email,
-        defaultSize: IconSize.HalfM,
-        iconSize: IconSize.M,
-        labelClass: 'label-class',
-        label: CompanyContacts.Email,
-        iconAriaLabel: AriaLabel.Email,
-      },
-    ];
+  const testCases = [
+    {
+      variant: PositionInLayout.Footer,
+      mockContacts: [
+        {
+          href: `mailto:${CompanyContacts.Email}`,
+          iconName: IconName.Email,
+          defaultSize: IconSize.HalfM,
+          iconSize: '30',
+          labelClass: 'label-class',
+          label: CompanyContacts.Email,
+          iconAriaLabel: AriaLabel.Email,
+        },
+      ],
+      styles: 'contacts-styles',
+      hasHeading: true,
+    },
+    {
+      variant: PositionInLayout.Header,
+      mockContacts: [
+        {
+          href: `https://t.me/${CompanyContacts.Telegram}`,
+          iconName: IconName.Telegram,
+          defaultSize: IconSize.HalfM,
+          iconSize: '30',
+          labelClass: 'label-class',
+          label: CompanyContacts.Telegram,
+          iconAriaLabel: AriaLabel.Telegram,
+        },
+      ],
+      styles: 'header-styles',
+      hasHeading: false,
+    },
+  ];
 
-    mockGetAdaptedContacts.mockReturnValue(mockContacts);
-    mockGetContactListStyles.mockReturnValue('contacts-styles');
+  it.each(testCases)(
+    'should render contacts for $variant variant',
+    ({ variant, mockContacts, styles, hasHeading }) => {
+      renderContacts(variant, mockContacts, styles);
 
-    render(<Contacts variant={PositionInLayout.Footer} />);
+      const heading = screen.queryByText(/Наші контакти/i);
 
-    const heading = screen.getByText(/Наші контакти/i);
-    expect(heading).toBeInTheDocument();
+      if (hasHeading) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(heading).toBeInTheDocument();
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(heading).not.toBeInTheDocument();
+      }
 
-    const contactItems = screen.getAllByTestId('contact-item');
-    expect(contactItems).toHaveLength(mockContacts.length);
-    expect(mockGetAdaptedContacts).toHaveBeenCalledWith(PositionInLayout.Footer);
-    expect(mockGetContactListStyles).toHaveBeenCalledWith(PositionInLayout.Footer);
-  });
-
-  it('should render contacts for Header variant without heading', () => {
-    const mockContacts = [
-      {
-        href: `https://t.me/${CompanyContacts.Telegram}`,
-        iconName: IconName.Telegram,
-        defaultSize: IconSize.HalfM,
-        iconSize: IconSize.M,
-        labelClass: 'label-class',
-        label: CompanyContacts.Telegram,
-        iconAriaLabel: AriaLabel.Telegram,
-      },
-    ];
-
-    mockGetAdaptedContacts.mockReturnValue(mockContacts);
-    mockGetContactListStyles.mockReturnValue('header-styles');
-
-    render(<Contacts variant={PositionInLayout.Header} />);
-
-    const heading = screen.queryByText(/Наші контакти/i);
-    expect(heading).not.toBeInTheDocument();
-
-    const contactItems = screen.getAllByTestId('contact-item');
-    expect(contactItems).toHaveLength(mockContacts.length);
-    expect(mockGetAdaptedContacts).toHaveBeenCalledWith(PositionInLayout.Header);
-    expect(mockGetContactListStyles).toHaveBeenCalledWith(PositionInLayout.Header);
-  });
+      // Verify the number of contact items and mock function calls
+      const contactItems = screen.getAllByTestId('contact-item');
+      expect(contactItems).toHaveLength(mockContacts.length);
+      expect(mockGetAdaptedContacts).toHaveBeenCalledWith(variant);
+      expect(mockGetContactListStyles).toHaveBeenCalledWith(variant);
+    },
+  );
 });

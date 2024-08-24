@@ -65,11 +65,11 @@ describe('PriceControlsMobile Component', () => {
     render(<PriceControlsMobile />);
 
     const button = screen.getByRole('button');
+    const ariaDescriptionElement = screen.getByTestId('aria-description-text');
+
     expect(button).toHaveAttribute('aria-describedby', AriaId.CalculationModule);
     expect(button).toHaveClass('h-16');
     expect(button).toHaveTextContent(PrimaryButtonLabel.CostCalculation);
-
-    const ariaDescriptionElement = screen.getByTestId('aria-description-text');
     expect(ariaDescriptionElement).toHaveAttribute('id', AriaId.CalculationModule);
     expect(ariaDescriptionElement).toHaveTextContent(AriaDescription.CalculationModule);
   });

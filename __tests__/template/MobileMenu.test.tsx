@@ -19,29 +19,31 @@ describe('MobileMenu Template', () => {
     jest.clearAllMocks();
   });
 
-  it('should render with the correct styles when isOpen is true', () => {
-    const openStyles = 'left-0';
-    mockGetMobileMenuContainerStyles.mockReturnValue(openStyles);
+  const testCases = [
+    {
+      isOpen: true,
+      expectedStyles: 'left-0',
+      calledWith: true,
+    },
+    {
+      isOpen: false,
+      expectedStyles: '-left-full',
+      calledWith: false,
+    },
+  ];
 
-    render(<MobileMenuTemplate isOpen={true}>{mockChildren}</MobileMenuTemplate>);
+  it.each(testCases)(
+    'should render with the correct styles when isOpen is $isOpen',
+    ({ isOpen, expectedStyles, calledWith }) => {
+      mockGetMobileMenuContainerStyles.mockReturnValue(expectedStyles);
 
-    const container = screen.getByTestId('mobile-menu');
+      render(<MobileMenuTemplate isOpen={isOpen}>{mockChildren}</MobileMenuTemplate>);
 
-    expect(getMobileMenuContainerStyles).toHaveBeenCalledWith(true);
-    expect(container).toHaveClass(openStyles);
-    expect(screen.getByText('Menu Content')).toBeInTheDocument();
-  });
+      const container = screen.getByTestId('mobile-menu');
 
-  it('should render with the correct styles when isOpen is false', () => {
-    const closedStyles = '-left-full';
-    mockGetMobileMenuContainerStyles.mockReturnValue(closedStyles);
-
-    render(<MobileMenuTemplate isOpen={false}>{mockChildren}</MobileMenuTemplate>);
-
-    const container = screen.getByTestId('mobile-menu');
-
-    expect(getMobileMenuContainerStyles).toHaveBeenCalledWith(false);
-    expect(container).toHaveClass(closedStyles);
-    expect(screen.getByText('Menu Content')).toBeInTheDocument();
-  });
+      expect(getMobileMenuContainerStyles).toHaveBeenCalledWith(calledWith);
+      expect(container).toHaveClass(expectedStyles);
+      expect(screen.getByText('Menu Content')).toBeInTheDocument();
+    },
+  );
 });

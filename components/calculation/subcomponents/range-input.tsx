@@ -2,7 +2,7 @@
 
 import { AriaLabel, RangeValue } from 'types';
 import { useCalculation } from 'context';
-import { useRangeSettings, useRangeValue } from 'hooks';
+import { useRangeSettings, useAutoSetRange } from 'hooks';
 
 import RangePercents from './range-percents';
 
@@ -16,14 +16,14 @@ export default function RangeInput({ id }: IRangeInputProps) {
   const { showMinimalText, rangeInputClass, handleChange } = useRangeSettings();
 
   const { isChecked, calculationData } = useCalculation();
-  useRangeValue();
+  useAutoSetRange();
 
   const addTextMinimalValue = (): JSX.Element | null => {
     return showMinimalText ? (
-      <span>
+      <>
         <span className='hidden sm:inline'>(мінімальний)</span>
         <span className='inline sm:hidden'>(мін.)</span>
-      </span>
+      </>
     ) : null;
   };
 

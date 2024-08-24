@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { AboutCompany } from 'components';
-import { getAboutUsData } from 'data';
+
 import { IAboutUs } from 'types';
+import { getAboutUsData } from 'data';
+import { AboutCompany } from 'components';
 
 jest.mock('template', () => ({
   MappedListTemplate: jest.fn(({ children, items }) => (
-    <ul data-testid='test-about-us-list'>{items.map((item: IAboutUs) => children(item))}</ul>
+    <ul data-testid='about-us-list'>{items.map((item: IAboutUs) => children(item))}</ul>
   )),
 }));
 
@@ -31,22 +32,46 @@ describe('AboutUs performers component', () => {
   beforeEach(() => {
     mockGetAboutUsData.mockReturnValue([
       {
-        id: 'test-id',
-        title: '-test-title',
-        description: 'test-description',
-        imageSrc: 'test.scr',
-        imageAlt: 'test.alt',
+        id: 'test-id-1',
+        title: 'Test Title 1',
+        description: 'Test Description 1',
+        imageSrc: 'test-src-1',
+        imageAlt: 'test-alt-1',
+      },
+      {
+        id: 'test-id-2',
+        title: 'Test Title 2',
+        description: 'Test Description 2',
+        imageSrc: 'test-src-2',
+        imageAlt: 'test-alt-2',
       },
     ]);
 
     render(<AboutCompany />);
   });
 
-  it('should render a list of us', () => {
-    const aboutUsList = screen.getByTestId('test-about-us-list');
+  it('should render the AboutUs list', () => {
+    const aboutUsList = screen.getByTestId('about-us-list');
     expect(aboutUsList).toBeInTheDocument();
+  });
 
-    const aboutUsItem = screen.getByTestId('about-us-item');
-    expect(aboutUsItem).toBeInTheDocument();
+  it('should render the correct number of AboutUs items', () => {
+    const aboutUsItems = screen.getAllByTestId('about-us-item');
+    expect(aboutUsItems).toHaveLength(2);
+  });
+
+  it('should render each AboutUs item with correct props', () => {
+    const aboutUsItems = screen.getAllByTestId('about-us-item');
+
+    aboutUsItems.forEach((item, index) => {
+      expect(item).toHaveAttribute('data-header', `Test Title ${index + 1}`);
+      expect(item).toHaveAttribute('data-description', `Test Description ${index + 1}`);
+      expect(item).toHaveAttribute('data-src', `test-src-${index + 1}`);
+      expect(item).toHaveAttribute('data-alt', `test-alt-${index + 1}`);
+    });
+  });
+
+  it('should call getAboutUsData function once', () => {
+    expect(mockGetAboutUsData).toHaveBeenCalledTimes(1);
   });
 });

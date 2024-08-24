@@ -10,5 +10,5 @@ export { useIntersectionObserver } from './useIntersectionObserver';
 export { usePlagiarismCheck } from './usePlagiarismCheck';
 export { usePricePopupControls } from './usePricePopupControls';
 export { useRangeSettings } from './useRangeStyles';
-export { useRangeValue } from './useRangeValue';
+export { useAutoSetRange } from './useAutoSetRange';
 export { useScrollController } from './useScrollController';

@@ -1,11 +1,10 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { createRef } from 'react';
 
 import { AriaLabel, MenuLinks, PopupID } from 'types';
 import { useCalculationResult } from 'context';
 import { usePricePopupControls } from 'hooks';
-
 import CalculationLinkDesktop from 'components/layout/subcomponents/calculation-link-desktop';
-import { createRef } from 'react';
 
 jest.mock('context', () => ({
   useCalculationResult: jest.fn(),
@@ -35,7 +34,7 @@ describe('CalculationLinkDesktop Component', () => {
     current: { [PopupID.CostSection]: createRef<HTMLDivElement>() },
   };
 
-  beforeEach(() => {
+  const setupMocks = () => {
     mockUseCalculationResult.mockReturnValue({ hasSubmitData: false });
     mockUsePricePopupControls.mockReturnValue({
       popupId: PopupID.CostSection,
@@ -44,7 +43,17 @@ describe('CalculationLinkDesktop Component', () => {
       isPopupOpen: isPopupOpenMock,
       openPopups: mockOpenPopups,
     });
+  };
 
+  const togglePopup = (isOpen: boolean) => {
+    act(() => {
+      mockOpenPopups[PopupID.CostSection] = isOpen;
+      isPopupOpenMock.mockReturnValue(isOpen);
+    });
+  };
+
+  beforeEach(() => {
+    setupMocks();
     jest.clearAllMocks();
   });
 
@@ -78,10 +87,7 @@ describe('CalculationLinkDesktop Component', () => {
     fireEvent.click(button);
     expect(togglePopupMock).toHaveBeenCalledWith(PopupID.CostSection);
 
-    act(() => {
-      mockOpenPopups[PopupID.CostSection] = true;
-      isPopupOpenMock.mockReturnValue(true);
-    });
+    togglePopup(true);
 
     rerender(<CalculationLinkDesktop />);
 
@@ -96,10 +102,7 @@ describe('CalculationLinkDesktop Component', () => {
   it('should not render ModalTemplate when the popup is closed', async () => {
     const { rerender } = render(<CalculationLinkDesktop />);
 
-    act(() => {
-      mockOpenPopups[PopupID.CostSection] = false;
-      isPopupOpenMock.mockReturnValue(false);
-    });
+    togglePopup(false);
 
     rerender(<CalculationLinkDesktop />);
 

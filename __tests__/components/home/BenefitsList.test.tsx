@@ -23,10 +23,6 @@ jest.mock('components/home/subcomponents/benefits-item', () => {
 });
 
 describe('BenefitsList component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('should render a list of benefits', () => {
     render(<BenefitsList />);
 

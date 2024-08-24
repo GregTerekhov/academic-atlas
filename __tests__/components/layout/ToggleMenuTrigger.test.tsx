@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AriaLabelTrigger, IconName } from 'types';
@@ -46,6 +47,7 @@ const setup = (menuState: Partial<ReturnType<typeof useMenu>>) => {
     isNavMenuOpen: menuState.isNavMenuOpen ?? false,
     isCalcMenuOpen: menuState.isCalcMenuOpen ?? false,
     showCalculationMenu: menuState.showCalculationMenu ?? false,
+    handleToggleMenu: jest.fn(),
   });
 
   mockGetAriaLabelSwitcher.mockImplementation((isNavMenuOpen, isCalcMenuOpen) => {
@@ -62,49 +64,71 @@ describe('ToggleMenuTrigger Component', () => {
     jest.clearAllMocks();
   });
 
-  it('should render the burger icon and aria-label when no menu is open', () => {
-    setup({ isNavMenuOpen: false, isCalcMenuOpen: false });
-
-    const iconElement = screen.getByTestId('svg-icon');
-    expect(iconElement).toBeInTheDocument();
-    expect(iconElement).toHaveAttribute('id', IconName.Burger);
-
-    expect(screen.getByRole('button')).toHaveAttribute('aria-label', AriaLabelTrigger.Default);
-    expect(screen.queryByTestId('mobile-menu-trigger')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('price-calculator')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('menu')).not.toBeInTheDocument();
-  });
-
-  it('should render the close icon and aria-label when nav menu is open', () => {
-    setup({ isNavMenuOpen: true, isCalcMenuOpen: false });
-
-    const iconElement = screen.getByTestId('svg-icon');
-    expect(iconElement).toBeInTheDocument();
-    expect(iconElement).toHaveAttribute('id', IconName.Close);
-
-    const button = screen.getByRole('button');
-    expect(button).toHaveAttribute('aria-label', AriaLabelTrigger.CloseNavigation);
-
-    expect(screen.queryByTestId('mobile-menu-trigger')).toBeInTheDocument();
-    expect(screen.queryByTestId('price-calculator')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('menu')).toBeInTheDocument();
-  });
-
-  it('should render the close icon and aria-label when calc menu is open after click on calculation button into the nav menu', () => {
-    setup({ isNavMenuOpen: true, isCalcMenuOpen: false, showCalculationMenu: true });
-
-    const iconElement = screen.getByTestId('svg-icon');
-    expect(iconElement).toBeInTheDocument();
-    expect(iconElement).toHaveAttribute('id', IconName.Close);
-
-    expect(screen.getByRole('button')).toHaveAttribute(
-      'aria-label',
+  it.each([
+    [
+      { isNavMenuOpen: false, isCalcMenuOpen: false },
+      IconName.Burger,
+      AriaLabelTrigger.Default,
+      false,
+      false,
+      false,
+    ],
+    [
+      { isNavMenuOpen: true, isCalcMenuOpen: false },
+      IconName.Close,
+      AriaLabelTrigger.CloseNavigation,
+      true,
+      true,
+      false,
+    ],
+    [
+      { isNavMenuOpen: true, isCalcMenuOpen: false, showCalculationMenu: true },
+      IconName.Close,
       AriaLabelTrigger.CloseNavigation, //FIXME: fix ariaLabel in getAriaLabelSwitcher
-    );
-    expect(screen.queryByTestId('mobile-menu-trigger')).toBeInTheDocument();
-    expect(screen.queryByTestId('price-calculator')).toBeInTheDocument();
-    expect(screen.queryByTestId('menu')).not.toBeInTheDocument();
-  });
+      true,
+      false,
+      true,
+    ],
+  ])(
+    'should render the correct icon and aria-label based on menu state %s',
+    (
+      menuState,
+      expectedIconId,
+      expectedAriaLabel,
+      shouldShowMobileMenu,
+      shouldShowMobileMenuContent,
+      shouldShowPriceCalculator,
+    ) => {
+      setup(menuState);
+
+      const iconElement = screen.getByTestId('svg-icon');
+      expect(iconElement).toHaveAttribute('id', expectedIconId);
+
+      expect(screen.getByRole('button')).toHaveAttribute('aria-label', expectedAriaLabel);
+
+      const menuWrapper = screen.queryByTestId('mobile-menu-trigger');
+      const priceCalculator = screen.queryByTestId('price-calculator');
+      const menuContent = screen.queryByTestId('menu');
+
+      if (shouldShowMobileMenu) {
+        expect(menuWrapper).toBeInTheDocument();
+      } else {
+        expect(menuWrapper).not.toBeInTheDocument();
+      }
+
+      if (shouldShowPriceCalculator) {
+        expect(priceCalculator).toBeInTheDocument();
+      } else {
+        expect(priceCalculator).not.toBeInTheDocument();
+      }
+
+      if (shouldShowMobileMenuContent) {
+        expect(menuContent).toBeInTheDocument();
+      } else {
+        expect(menuContent).not.toBeInTheDocument();
+      }
+    },
+  );
 
   it('should call handleToggleMenu when the button is clicked', () => {
     const mockHandleToggleMenu = jest.fn();

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { HeroPartnership } from 'components';
+
 import { PrimaryButtonLabel, CtaText, SectionDescriptions, SectionTitle, AriaId } from 'types';
+import { HeroPartnership } from 'components';
 
 jest.mock('styles', () => ({
   getHeroSectionStyles: jest.fn(),

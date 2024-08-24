@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
-import { BACKGROUNDS, SectionDescriptions, SectionTitle } from 'types';
-import { DEVICES, mapArray } from 'helpers';
-
+import { SectionDescriptions, SectionTitle } from 'types';
+import { mapArray } from 'helpers';
 import { Feedback } from 'components';
 
 jest.mock('template', () => ({
@@ -51,32 +50,22 @@ jest.mock('data', () => ({
     },
   ]),
   getSectionProps: jest.fn(() => ({
-    homeFeedback: { title: SectionTitle.CustomerReviews, id: 'test-feedback-id' },
+    homeFeedback: { title: SectionTitle.CustomerReviews, id: 'feedback' },
   })),
 }));
 
 jest.mock('helpers', () => ({
   mapArray: jest.fn(),
   getIdValues: jest.fn(() => ({ Feedback: SectionTitle.CustomerReviews })),
-  generateBackgroundImagePaths: jest.fn((section: SectionTitle) => {
-    const baseName = BACKGROUNDS[section];
-    if (!baseName) return null;
-
-    return DEVICES.reduce(
-      (paths, device) => {
-        paths[device] = `/backgroundImage/${baseName}-${device}.webp`;
-        return paths;
-      },
-      {} as Record<string, string>,
-    );
-  }),
 }));
 
 describe('Feedback Component', () => {
+  const mockMapArray = mapArray as jest.Mock;
+
   beforeEach(() => {
     jest.clearAllMocks();
 
-    (mapArray as jest.Mock).mockImplementation((array, callback) => array.map(callback));
+    mockMapArray.mockImplementation((array, callback) => array.map(callback));
   });
 
   it('should render Feedback component correctly', () => {

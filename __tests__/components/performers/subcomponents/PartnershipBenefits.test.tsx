@@ -1,19 +1,18 @@
 import { render, screen } from '@testing-library/react';
+
+import { IconName, IconSize } from 'types';
 import { PartnershipBenefitsItem } from 'components/performers/subcomponents';
-import { IconName } from 'types';
 
 jest.mock('styles', () => ({
-  getBenefitItemStyles: jest.fn(),
+  getBenefitItemStyles: jest.fn(() => 'mock-item-class'),
 }));
 
 jest.mock('ui', () => ({
   SvgIconUI: jest.fn((props) => (
     <svg
-      width={props.width}
-      height={props.height}
+      width={props.size.width}
+      height={props.size.height}
       className={props.className}
-      aria-hidden={props.ariaHidden}
-      aria-label={!props.ariaHidden ? props.ariaLabel : undefined}
       role='img'
     >
       <use href={`/images/icons.svg#icon-${props.id}`}></use>
@@ -22,31 +21,40 @@ jest.mock('ui', () => ({
 }));
 
 describe('PartnershipBenefitsItem subComponent', () => {
-  test('should render subComponent correctly', () => {
-    const testIPartnershipBenefitsItemProps = {
-      title: 'partnership-benefits-header',
-      desc: 'partnership-benefits-desc',
-      iconId: IconName.BenefitPartnership1,
-    };
+  const props = {
+    title: 'partnership-benefits-header',
+    desc: 'partnership-benefits-desc',
+    iconId: IconName.BenefitPartnership1,
+  };
 
-    const { container } = render(
-      <PartnershipBenefitsItem {...testIPartnershipBenefitsItemProps} />,
-    );
+  beforeEach(() => {
+    render(<PartnershipBenefitsItem {...props} />);
+  });
 
-    const partnershipBenefitsHeader = screen.getByRole('heading', {
+  it('should render heading with the correct title', () => {
+    const titleElement = screen.getByRole('heading', {
       level: 3,
-      name: 'partnership-benefits-header',
+      name: props.title,
     });
-    expect(partnershipBenefitsHeader).toBeInTheDocument();
+    expect(titleElement).toBeInTheDocument();
+  });
 
-    const partnershipBenefitsList = screen.getByText('partnership-benefits-desc');
-    expect(partnershipBenefitsList).toBeInTheDocument();
+  it('should render description text', () => {
+    const descriptionElement = screen.getByText(props.desc);
+    expect(descriptionElement).toBeInTheDocument();
+  });
 
-    const partnershipBenefitsSVG = container.querySelector('svg');
-    expect(partnershipBenefitsSVG).toBeInTheDocument();
+  it('should render SVG icon with correct attributes', () => {
+    const svgIcon = screen.getByRole('img');
+    expect(svgIcon).toBeInTheDocument();
+    expect(svgIcon).toHaveAttribute('width', IconSize.HalfL.toString());
+    expect(svgIcon).toHaveAttribute('height', IconSize.HalfL.toString());
+    expect(svgIcon).toHaveClass('mx-auto fill-accentPrimary-darker md:size-14 lg:size-20');
+    expect(svgIcon.querySelector('use')?.getAttribute('href')).toContain(props.iconId);
+  });
 
-    expect(container.querySelector('use')?.getAttribute('href')).toContain(
-      IconName.BenefitPartnership1,
-    );
+  it('should have correct class on list item', () => {
+    const listItem = screen.getByRole('listitem');
+    expect(listItem).toHaveClass('mock-item-class');
   });
 });

@@ -54,7 +54,7 @@ describe('PriceControlsDesktop Component', () => {
     current: { [PopupID.CostSection]: createRef<HTMLDivElement>() },
   };
 
-  beforeEach(() => {
+  const setupMocks = () => {
     mockUseCalculationResult.mockReturnValue({ hasSubmitData: false });
     mockUsePricePopupControls.mockReturnValue({
       popupId: PopupID.CostSection,
@@ -63,7 +63,17 @@ describe('PriceControlsDesktop Component', () => {
       isPopupOpen: isPopupOpenMock,
       openPopups: mockOpenPopups,
     });
+  };
 
+  const togglePopup = (isOpen: boolean) => {
+    act(() => {
+      mockOpenPopups[PopupID.CostSection] = isOpen;
+      isPopupOpenMock.mockReturnValue(isOpen);
+    });
+  };
+
+  beforeEach(() => {
+    setupMocks();
     jest.clearAllMocks();
   });
 
@@ -71,11 +81,11 @@ describe('PriceControlsDesktop Component', () => {
     render(<PriceControlsDesktop />);
 
     const button = screen.getByRole('button', { name: PrimaryButtonLabel.CostCalculation });
+    const ariaDescriptionElement = screen.getByTestId('aria-description-text');
+
     expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute('aria-describedby', AriaId.CalculationModule);
     expect(button).toHaveClass('h-16');
-
-    const ariaDescriptionElement = screen.getByTestId('aria-description-text');
     expect(ariaDescriptionElement).toHaveAttribute('id', AriaId.CalculationModule);
     expect(ariaDescriptionElement).toHaveTextContent(AriaDescription.CalculationModule);
   });
@@ -98,10 +108,7 @@ describe('PriceControlsDesktop Component', () => {
     fireEvent.click(button);
     expect(togglePopupMock).toHaveBeenCalledWith(PopupID.CostSection);
 
-    act(() => {
-      mockOpenPopups[PopupID.CostSection] = true;
-      isPopupOpenMock.mockReturnValue(true);
-    });
+    togglePopup(true);
 
     rerender(<PriceControlsDesktop />);
 
@@ -116,10 +123,7 @@ describe('PriceControlsDesktop Component', () => {
   it('should not render ModalTemplate when the popup is closed', async () => {
     const { rerender } = render(<PriceControlsDesktop />);
 
-    act(() => {
-      mockOpenPopups[PopupID.CostSection] = false;
-      isPopupOpenMock.mockReturnValue(false);
-    });
+    togglePopup(false);
 
     rerender(<PriceControlsDesktop />);
 

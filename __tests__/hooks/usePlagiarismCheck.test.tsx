@@ -23,8 +23,9 @@ describe('usePlagiarismCheck hook', () => {
     jest.clearAllMocks();
   });
 
-  it('should return default value is equal false', () => {
-    mockUseCalculation.mockReturnValue({
+  const testCases = [
+    {
+      description: 'should return default value is equal false',
       calculationData: {
         workType: WorkType.Default,
         expertiseArea: ExpertiseArea.Default,
@@ -32,19 +33,13 @@ describe('usePlagiarismCheck hook', () => {
         uniqueness: Uniqueness.Zero,
         theme: '',
       },
-    });
-
-    mockCheckCalculationField.mockReturnValue(false);
-    mockCheckValidWorkType.mockReturnValue(false);
-
-    const { result } = renderHook(() => usePlagiarismCheck());
-
-    expect(mockCheckValidWorkType).toHaveBeenCalledWith(WorkType.Default);
-    expect(result.current.shouldPlagiarismCheck).toBe(false);
-  });
-
-  it('should return false when calculation data is not necessary to plagiarism checking', () => {
-    mockUseCalculation.mockReturnValue({
+      checkFieldResult: false,
+      checkWorkTypeResult: false,
+      expectedResult: false,
+    },
+    {
+      description:
+        'should return false when calculation data is not necessary to plagiarism checking',
       calculationData: {
         workType: WorkType.PracticalWorks,
         expertiseArea: ExpertiseArea.Education,
@@ -52,19 +47,12 @@ describe('usePlagiarismCheck hook', () => {
         uniqueness: Uniqueness.Zero,
         theme: '',
       },
-    });
-
-    mockCheckCalculationField.mockReturnValue(true);
-    mockCheckValidWorkType.mockReturnValue(false);
-
-    const { result } = renderHook(() => usePlagiarismCheck());
-
-    expect(mockCheckValidWorkType).toHaveBeenCalledWith(WorkType.PracticalWorks);
-    expect(result.current.shouldPlagiarismCheck).toBe(false);
-  });
-
-  it('should return false when calculation data is incomplete', () => {
-    mockUseCalculation.mockReturnValue({
+      checkFieldResult: true,
+      checkWorkTypeResult: false,
+      expectedResult: false,
+    },
+    {
+      description: 'should return false when calculation data is incomplete',
       calculationData: {
         workType: WorkType.MasterTheses,
         expertiseArea: ExpertiseArea.Default,
@@ -72,19 +60,40 @@ describe('usePlagiarismCheck hook', () => {
         uniqueness: Uniqueness.Zero,
         theme: '',
       },
-    });
-
-    mockCheckCalculationField.mockReturnValue(false);
-    mockCheckValidWorkType.mockReturnValue(true);
-
-    const { result } = renderHook(() => usePlagiarismCheck());
-
-    expect(mockCheckValidWorkType).toHaveBeenCalledWith(WorkType.MasterTheses);
-    expect(result.current.shouldPlagiarismCheck).toBe(false);
-  });
-
-  it('should return true when calculation data is valid and work type is valid', () => {
-    mockUseCalculation.mockReturnValue({
+      checkFieldResult: false,
+      checkWorkTypeResult: true,
+      expectedResult: false,
+    },
+    {
+      description:
+        'should return false when the theme is provided but necessary data for plagiarism check is incomplete',
+      calculationData: {
+        workType: WorkType.MasterTheses,
+        expertiseArea: ExpertiseArea.Default,
+        executionTime: ExecutionTime.Urgent,
+        uniqueness: Uniqueness.Zero,
+        theme: 'Some Theme',
+      },
+      checkFieldResult: false,
+      checkWorkTypeResult: true,
+      expectedResult: false,
+    },
+    {
+      description:
+        'should return false when only the theme is provided without other necessary data',
+      calculationData: {
+        workType: WorkType.Default,
+        expertiseArea: ExpertiseArea.Default,
+        executionTime: ExecutionTime.Default,
+        uniqueness: Uniqueness.Zero,
+        theme: 'Some Theme',
+      },
+      checkFieldResult: false,
+      checkWorkTypeResult: false,
+      expectedResult: false,
+    },
+    {
+      description: 'should return true when calculation data is valid and work type is valid',
       calculationData: {
         workType: WorkType.MasterTheses,
         expertiseArea: ExpertiseArea.SocialSciences,
@@ -92,14 +101,24 @@ describe('usePlagiarismCheck hook', () => {
         uniqueness: Uniqueness.Zero,
         theme: '',
       },
-    });
+      checkFieldResult: true,
+      checkWorkTypeResult: true,
+      expectedResult: true,
+    },
+  ];
 
-    mockCheckCalculationField.mockReturnValue(true);
-    mockCheckValidWorkType.mockReturnValue(true);
+  it.each(testCases)(
+    '$description',
+    ({ calculationData, checkFieldResult, checkWorkTypeResult, expectedResult }) => {
+      mockUseCalculation.mockReturnValue({ calculationData });
+      mockCheckCalculationField.mockReturnValue(checkFieldResult);
+      mockCheckValidWorkType.mockReturnValue(checkWorkTypeResult);
 
-    const { result } = renderHook(() => usePlagiarismCheck());
+      const { result } = renderHook(() => usePlagiarismCheck());
 
-    expect(mockCheckValidWorkType).toHaveBeenCalledWith(WorkType.MasterTheses);
-    expect(result.current.shouldPlagiarismCheck).toBe(true);
-  });
+      expect(mockCheckValidWorkType).toHaveBeenCalledWith(calculationData.workType);
+      expect(mockCheckCalculationField).toHaveBeenCalledWith(calculationData);
+      expect(result.current.shouldPlagiarismCheck).toBe(expectedResult);
+    },
+  );
 });
