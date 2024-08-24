@@ -52,11 +52,11 @@ describe('Breadcrumbs Component', () => {
   });
 
   it.each([
-    [MenuLinks.Policy, 'should display the correct breadcrumb for Policy path'],
-    [MenuLinks.Offer, 'should display the correct breadcrumb for Offer path'],
-    [MenuLinks.Partnership, 'should display the correct breadcrumb for Partnership path'],
-    [MenuLinks.FAQ, 'should display the correct breadcrumb for FAQ path'],
-  ])('%s', (menuLink) => {
+    ['should display the correct breadcrumb for Policy path', MenuLinks.Policy],
+    ['should display the correct breadcrumb for Offer path', MenuLinks.Offer],
+    ['should display the correct breadcrumb for Partnership path', MenuLinks.Partnership],
+    ['should display the correct breadcrumb for FAQ path', MenuLinks.FAQ],
+  ])('%s', (_, menuLink) => {
     mockUseBreadcrumbs.mockReturnValue(menuLink);
     render(<Breadcrumbs />);
 
