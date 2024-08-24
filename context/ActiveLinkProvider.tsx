@@ -10,7 +10,7 @@ interface IActiveLinkContext {
   activatedLink: string;
   handleActivateLink: (path: string) => void;
   clearActiveLink: () => void;
-  setScrollingWithButton: (isScrolling: boolean) => void;
+  updateScrollWithButtonState: (isScrolling: boolean) => void;
 }
 
 const ActiveLinkContext = createContext<IActiveLinkContext | undefined>(undefined);
@@ -23,7 +23,11 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const isNavigating = useRef<boolean>(false);
 
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
-   const [isScrollingWithButton, setScrollingWithButton] = useState<boolean>(false);
+  const [isScrollingWithButton, setIsScrollingWithButton] = useState<boolean>(false);
+
+  const updateScrollWithButtonState = (isScrolling: boolean) => {
+    setIsScrollingWithButton(isScrolling);
+  };
 
   const updateActiveLink = useCallback(() => {
     const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
@@ -95,7 +99,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         activatedLink,
         handleActivateLink,
         clearActiveLink,
-        setScrollingWithButton,
+        updateScrollWithButtonState,
       }}
     >
       {children}

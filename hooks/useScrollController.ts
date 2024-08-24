@@ -9,7 +9,7 @@ export const useScrollController = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const footerRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const { setScrollingWithButton } = useActiveLink();
+  const { updateScrollWithButtonState } = useActiveLink();
 
   useEffect(() => {
     if (!footerRef.current) {
@@ -54,14 +54,14 @@ export const useScrollController = () => {
 
   const scrollToTop = () => {
     //FIXME: add new logic in test
-    setScrollingWithButton(true);
+    updateScrollWithButtonState(true);
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
 
     setTimeout(() => {
-      setScrollingWithButton(false);
+      updateScrollWithButtonState(false);
     }, 1000);
   };
 
