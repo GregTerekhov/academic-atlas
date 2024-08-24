@@ -29,26 +29,12 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     setIsScrollingWithButton(isScrolling);
   };
 
-  const updateActiveLink = useCallback(() => {
-    const legalPagesPaths = pathname === Paths.Offer || pathname === Paths.Policy;
-
-    if (legalPagesPaths) {
-      setActivatedLink('');
-    }
-  }, [pathname]);
-
   const handleScroll = useCallback(() => {
     if (window.scrollY === 0 && pathname === Paths.Main) {
       setActivatedLink(pathname as Paths);
       window.history.pushState(null, '', pathname);
     }
   }, [pathname]);
-
-  useEffect(() => {
-    if (activatedLink !== pathname) {
-      updateActiveLink();
-    }
-  }, [activatedLink, pathname, updateActiveLink]);
 
   useEffect(() => {
     handleScroll();
@@ -68,8 +54,10 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
+              console.log('Setting activated link to section path:', section.path);
               setActivatedLink(section.path);
               router.push(`#${section.id}`, { scroll: false });
+              console.log('URL updated with:', `${section.path}`);
             }
           }
         }
@@ -81,12 +69,21 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleActivateLink = (path: string) => {
     isNavigating.current = true;
-    if (activatedLink !== path) {
-      setActivatedLink(path);
-      setTimeout(() => {
-        isNavigating.current = false;
-      }, 500);
+
+    const section = sections?.current?.find((section) => section.path === path);
+
+    if (section) {
+      setActivatedLink(section.path);
+      router.push(`#${section.id}`, { scroll: false });
+    } else {
+      if (activatedLink !== path) {
+        setActivatedLink(path);
+      }
     }
+
+    setTimeout(() => {
+      isNavigating.current = false;
+    }, 500);
   };
 
   const clearActiveLink = () => {
