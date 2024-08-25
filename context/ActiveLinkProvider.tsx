@@ -68,18 +68,10 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   useIntersectionObserver(sectionRefs.current, { root: null, threshold: 0.3 }, handleIntersection);
 
   const handleActivateLink = (path: string) => {
+    console.log('handleActivateLink called with path:', path);
     isNavigating.current = true;
-
-    const section = sections?.current?.find((section) => section.path === path);
-
-    if (section) {
-      setActivatedLink(section.path);
-      router.push(`#${section.id}`, { scroll: false });
-    } else {
-      if (activatedLink !== path) {
-        setActivatedLink(path);
-      }
-    }
+    setActivatedLink(path);
+    console.log('Activated link set to:', path);
 
     setTimeout(() => {
       isNavigating.current = false;
