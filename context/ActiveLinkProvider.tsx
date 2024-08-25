@@ -19,11 +19,11 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { sections, sectionRefs } = useInitialiseSection();
-  const isNavigating = useRef<boolean>(false);
-
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
   const [isScrollingWithButton, setIsScrollingWithButton] = useState<boolean>(false);
+
+  const isNavigating = useRef<boolean>(false);
+  const { sections, sectionRefs } = useInitialiseSection();
 
   const updateScrollWithButtonState = (isScrolling: boolean) => {
     setIsScrollingWithButton(isScrolling);
@@ -54,10 +54,10 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
-              console.log('Setting activated link to section path:', section.path);
+              // console.log('Setting activated link to section path:', section.path);
               setActivatedLink(section.path);
               router.push(`#${section.id}`, { scroll: false });
-              console.log('URL updated with:', `${section.path}`);
+              // console.log('URL updated with:', `${section.path}`);
             }
           }
         }
@@ -70,9 +70,13 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const handleActivateLink = (path: string) => {
     isNavigating.current = true;
 
+    console.log('sections.current: ', sections.current);
+
     const section = sections?.current?.find((section) => section.path === path);
 
     if (section) {
+      // console.log('section.path: ', section.path);
+      // console.log('path: ', path);
       setActivatedLink(section.path);
       router.push(`#${section.id}`, { scroll: false });
     } else {
