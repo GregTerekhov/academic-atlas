@@ -20,7 +20,7 @@ resource "aws_iam_role" "ec2_role" {
 
 resource "tls_private_key" "example" {
   algorithm = "RSA"
-  rsa_bits   = 2048
+  rsa_bits  = 2048
 }
 # this pem key
 resource "aws_key_pair" "atlas_key" {
@@ -50,7 +50,7 @@ data "aws_subnets" "default_subnets" {
 }
 
 resource "aws_security_group" "instances" {
-  name = "instance-security-group"
+  name   = "instance-security-group"
   vpc_id = data.aws_vpc.default_vpc.id
 
   ingress {
@@ -83,10 +83,10 @@ resource "aws_instance" "instance" {
   ami                         = "ami-0bd800fdb25d9c14b"
   key_name                    = "atlas"
   instance_type               = "t2.micro"
-  subnet_id                   = data.aws_subnets.default_subnets.ids[0] 
+  subnet_id                   = data.aws_subnets.default_subnets.ids[0]
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
   vpc_security_group_ids      = [aws_security_group.instances.id]
-  associate_public_ip_address = true 
+  associate_public_ip_address = true
 
   depends_on = [aws_iam_instance_profile.ec2_profile, aws_security_group.instances]
 }
