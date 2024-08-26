@@ -11,10 +11,12 @@ export const useInitialiseSection = () => {
 
   const initialiseSections = useCallback(() => {
     const nodeList = document.querySelectorAll('section[id]');
+    console.log('nodeList: ', nodeList);
     sectionRefs.current = Array.from(nodeList);
 
     const adaptedLinks = getAdaptedLinks();
-    sections.current = adaptedLinks.map(({ path, id }) => {
+    const linksWithHash = adaptedLinks.filter((link) => link.path.includes('#'));
+    sections.current = linksWithHash.map(({ path, id }) => {
       return { id: id ?? '', path };
     });
 

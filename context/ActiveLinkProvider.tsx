@@ -19,11 +19,11 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { sections, sectionRefs } = useInitialiseSection();
-  const isNavigating = useRef<boolean>(false);
-
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
   const [isScrollingWithButton, setIsScrollingWithButton] = useState<boolean>(false);
+
+  const isNavigating = useRef<boolean>(false);
+  const { sections, sectionRefs } = useInitialiseSection();
 
   const updateScrollWithButtonState = (isScrolling: boolean) => {
     setIsScrollingWithButton(isScrolling);
@@ -49,29 +49,43 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       if (isNavigating.current || isScrollingWithButton) return;
 
       entries.forEach((entry) => {
+        console.log(entry);
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute('id');
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
-              console.log('Setting activated link to section path:', section.path);
+              // console.log('Setting activated link to section path:', section.path);
               setActivatedLink(section.path);
               router.push(`#${section.id}`, { scroll: false });
-              console.log('URL updated with:', `${section.path}`);
+              // console.log('URL updated with:', `${section.path}`);
             }
           }
         }
       });
     },
-    [activatedLink, sections, router, isScrollingWithButton],
+    [isScrollingWithButton, sections, activatedLink, router],
   );
   useIntersectionObserver(sectionRefs.current, { root: null, threshold: 0.3 }, handleIntersection);
 
   const handleActivateLink = (path: string) => {
     console.log('handleActivateLink called with path:', path);
-    isNavigating.current = true;
-    setActivatedLink(path);
-    console.log('Activated link set to:', path);
+    console.log('sections.current: ', sections.current);
+
+    const section = sections?.current?.find((section) => section.path === path);
+
+    if (section) {
+      // console.log('section.path: ', section.path);
+      // console.log('path: ', path);
+      setActivatedLink(section.path);
+      router.push(`#${section.id}`, { scroll: false });
+    } else {
+      isNavigating.current = true;
+
+      // if (activatedLink !== path) {
+      setActivatedLink(path);
+      // }
+    }
 
     setTimeout(() => {
       isNavigating.current = false;
