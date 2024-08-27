@@ -1,5 +1,6 @@
 export { useAccordion } from './useAccordion';
 export { useActivateLink } from './useActiveLink';
+export { useAutoSetRange } from './useAutoSetRange';
 export { useBreadcrumbs } from './useBreadcrumbs';
 export { useButtonDisabled } from './useButtonDisabled';
 export { useDropdown } from './useDropdown';
@@ -10,5 +11,4 @@ export { useIntersectionObserver } from './useIntersectionObserver';
 export { usePlagiarismCheck } from './usePlagiarismCheck';
 export { usePricePopupControls } from './usePricePopupControls';
 export { useRangeSettings } from './useRangeStyles';
-export { useAutoSetRange } from './useAutoSetRange';
 export { useScrollController } from './useScrollController';
