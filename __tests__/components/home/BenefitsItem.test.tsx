@@ -13,10 +13,6 @@ jest.mock('ui', () => ({
 }));
 
 describe('BenefitsItem component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('should render correctly with given props', () => {
     const props = {
       iconName: IconName.Benefits1,

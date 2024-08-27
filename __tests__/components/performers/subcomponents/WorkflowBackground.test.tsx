@@ -28,22 +28,25 @@ describe('WorkflowBackground subComponent', () => {
 
   const testCases = [
     {
-      description: 'tablet icon with correct styles',
+      description: 'tablet',
       iconHref: `/images/icons.svg#icon-${IconName.PartnershipStepMd}`,
       expectedClass: 'hidden md:max-lg:block',
     },
     {
-      description: 'desktop icon with correct styles',
+      description: 'desktop',
       iconHref: `/images/icons.svg#icon-${IconName.PartnershipStepLg}`,
       expectedClass: 'max-lg:hidden',
     },
   ];
 
-  it.each(testCases)('should render $description', ({ iconHref, expectedClass }) => {
-    const { container } = render(<WorkflowBackground />);
+  it.each(testCases)(
+    'should render $description icon with correct styles',
+    ({ iconHref, expectedClass }) => {
+      const { container } = render(<WorkflowBackground />);
 
-    const icon = container.querySelector(`svg > use[href='${iconHref}']`);
-    expect(icon).toBeInTheDocument();
-    expect(icon?.closest('svg')).toHaveClass(expectedClass);
-  });
+      const icon = container.querySelector(`svg > use[href='${iconHref}']`);
+      expect(icon).toBeInTheDocument();
+      expect(icon?.closest('svg')).toHaveClass(expectedClass);
+    },
+  );
 });

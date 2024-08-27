@@ -58,7 +58,7 @@ describe('Workflow component', () => {
     jest.clearAllMocks();
   });
 
-  test('should render component with correct props and data ', () => {
+  test('should render component with correct props and data', () => {
     setup(mockData);
 
     const workflowHeader = screen.getByRole('heading', {
