@@ -1,9 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
 import { ISlide } from 'types';
-
 import { CarouselFeedback } from 'components';
-
 import { getCarouselFeedbackStyles } from 'styles';
 
 jest.mock('components/home/subcomponents', () => ({
@@ -59,23 +57,13 @@ describe('CarouselFeedback Component', () => {
     }
   });
 
-  it('should apply correct styles when isActive is true', () => {
-    setup();
+  it.each([
+    { isActive: true, expectedStyles: getCarouselFeedbackStyles(true) },
+    { isActive: false, expectedStyles: getCarouselFeedbackStyles(false) },
+  ])('should apply correct styles when isActive is $isActive', ({ isActive, expectedStyles }) => {
+    setup({ isActive });
 
     const container = screen.getByText('Test title').closest('div');
-    const expectedStyles = getCarouselFeedbackStyles(true);
-
-    expect(container).toHaveClass(expectedStyles.slideClass);
-    expect(screen.getByTestId('mock-image')).toHaveClass(expectedStyles.imageClass);
-    expect(screen.getByText('Test title')).toHaveClass(expectedStyles.nameClass);
-    expect(screen.getByText('Test description')).toHaveClass(expectedStyles.feedbackClass);
-  });
-
-  it('should apply correct styles when isActive is false', () => {
-    setup({ isActive: false });
-
-    const container = screen.getByText('Test title').closest('div');
-    const expectedStyles = getCarouselFeedbackStyles(false);
 
     expect(container).toHaveClass(expectedStyles.slideClass);
     expect(screen.getByTestId('mock-image')).toHaveClass(expectedStyles.imageClass);

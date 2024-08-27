@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-conditional-expect */
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { AriaLabelTrigger, IconName } from 'types';
+import { AriaLabel, AriaLabelTrigger, IconName } from 'types';
 import { getAriaLabelSwitcher } from 'helpers';
 import { useMenu } from 'context';
 
@@ -25,12 +25,17 @@ jest.mock('template', () => ({
 }));
 
 jest.mock('ui', () => ({
-  SvgIconUI: jest.fn(({ id }) => (
-    <svg
-      data-testid='svg-icon'
-      id={id}
-    ></svg>
-  )),
+  SvgIconUI: jest.fn(({ id, ariaLabel, props }) => {
+    console.log('SvgIconUI received id:', id);
+    return (
+      <svg
+        data-testid='svg-icon'
+        id={id}
+        aria-label={ariaLabel}
+        {...props}
+      ></svg>
+    );
+  }),
 }));
 
 jest.mock('components/layout/menu', () => jest.fn(() => <div data-testid='menu' />));
@@ -50,11 +55,13 @@ const setup = (menuState: Partial<ReturnType<typeof useMenu>>) => {
     handleToggleMenu: jest.fn(),
   });
 
-  mockGetAriaLabelSwitcher.mockImplementation((isNavMenuOpen, isCalcMenuOpen) => {
-    if (isNavMenuOpen) return AriaLabelTrigger.CloseNavigation;
-    if (isCalcMenuOpen) return AriaLabelTrigger.CloseCalculation;
-    return AriaLabelTrigger.Default;
-  });
+  mockGetAriaLabelSwitcher.mockImplementation(
+    (isNavMenuOpen, isCalcMenuOpen, showCalculationMenu) => {
+      if (isNavMenuOpen) return AriaLabelTrigger.CloseNavigation;
+      if (isCalcMenuOpen || showCalculationMenu) return AriaLabelTrigger.CloseCalculation;
+      return AriaLabelTrigger.Default;
+    },
+  );
 
   render(<ToggleMenuTrigger />);
 };
@@ -69,6 +76,7 @@ describe('ToggleMenuTrigger Component', () => {
       menuState: { isNavMenuOpen: false, isCalcMenuOpen: false },
       expectedIconId: IconName.Burger,
       expectedAriaLabel: AriaLabelTrigger.Default,
+      expectedIconAriaLabel: AriaLabel.Burger,
       shouldShowMobileMenu: false,
       shouldShowMobileMenuContent: false,
       shouldShowPriceCalculator: false,
@@ -77,14 +85,16 @@ describe('ToggleMenuTrigger Component', () => {
       menuState: { isNavMenuOpen: true, isCalcMenuOpen: false },
       expectedIconId: IconName.Close,
       expectedAriaLabel: AriaLabelTrigger.CloseNavigation,
+      expectedIconAriaLabel: AriaLabel.CloseMenu,
       shouldShowMobileMenu: true,
       shouldShowMobileMenuContent: true,
       shouldShowPriceCalculator: false,
     },
     {
-      menuState: { isNavMenuOpen: true, isCalcMenuOpen: false, showCalculationMenu: true },
+      menuState: { isNavMenuOpen: false, isCalcMenuOpen: false, showCalculationMenu: true },
       expectedIconId: IconName.Close,
-      expectedAriaLabel: AriaLabelTrigger.CloseNavigation, // FIXME: fix ariaLabel in getAriaLabelSwitcher
+      expectedAriaLabel: AriaLabelTrigger.CloseCalculation,
+      expectedIconAriaLabel: AriaLabel.CloseMenu,
       shouldShowMobileMenu: true,
       shouldShowMobileMenuContent: false,
       shouldShowPriceCalculator: true,
@@ -97,6 +107,7 @@ describe('ToggleMenuTrigger Component', () => {
       menuState,
       expectedIconId,
       expectedAriaLabel,
+      expectedIconAriaLabel,
       shouldShowMobileMenu,
       shouldShowMobileMenuContent,
       shouldShowPriceCalculator,
@@ -105,6 +116,7 @@ describe('ToggleMenuTrigger Component', () => {
 
       const iconElement = screen.getByTestId('svg-icon');
       expect(iconElement).toHaveAttribute('id', expectedIconId);
+      expect(iconElement).toHaveAttribute('aria-label', expectedIconAriaLabel);
 
       expect(screen.getByRole('button')).toHaveAttribute('aria-label', expectedAriaLabel);
 

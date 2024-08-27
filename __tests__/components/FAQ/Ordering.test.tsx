@@ -41,7 +41,7 @@ jest.mock('template', () => ({
         />
       </picture>
       <h2>{SectionDescriptions[title as keyof typeof SectionDescriptions]}</h2>
-      {ctaText && <div>{ctaText}</div>}
+      {ctaText && <p>{ctaText}</p>}
       {children}
     </section>
   )),

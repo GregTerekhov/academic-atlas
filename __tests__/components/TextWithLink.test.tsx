@@ -34,6 +34,19 @@ describe('TextWithLink Component', () => {
 
   const getLinkElement = () => screen.getByText('Telegram-бот');
 
+  const testBase64String = [
+    {
+      order: TelegramScenario.Order,
+      expectedHref: 'https://t.me/AcademicAtlasBot?start=mockedBase64String',
+      returnValue: 'mockedBase64String',
+    },
+    {
+      order: '' as TelegramScenario,
+      expectedHref: '#',
+      returnValue: undefined,
+    },
+  ];
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -57,18 +70,7 @@ describe('TextWithLink Component', () => {
     });
   });
 
-  it.each([
-    {
-      order: TelegramScenario.Order,
-      expectedHref: 'https://t.me/AcademicAtlasBot?start=mockedBase64String',
-      returnValue: 'mockedBase64String',
-    },
-    {
-      order: '' as TelegramScenario,
-      expectedHref: '#',
-      returnValue: undefined,
-    },
-  ])(
+  it.each(testBase64String)(
     'should update href and create base64String correctly on click (order: $order)',
     async ({ order, expectedHref, returnValue }) => {
       mockGetAndEncodeDataObject.mockReturnValue(returnValue);

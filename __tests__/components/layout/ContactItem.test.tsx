@@ -27,12 +27,6 @@ describe('ContactItem Component', () => {
     render(<ContactItem {...props} />);
   };
 
-  beforeEach(() => {
-    mockUseMenu.mockReturnValue(mockUseMenuOptions);
-
-    jest.clearAllMocks();
-  });
-
   const defaultProps = {
     href: 'mailto:test@example.com',
     iconName: 'email' as IconName,
@@ -43,6 +37,12 @@ describe('ContactItem Component', () => {
     variant: PositionInLayout.Footer,
     iconAriaLabel: 'email-icon' as AriaLabel,
   };
+
+  beforeEach(() => {
+    mockUseMenu.mockReturnValue(mockUseMenuOptions);
+
+    jest.clearAllMocks();
+  });
 
   it('should render the ContactItem correctly', () => {
     renderContactItem();
@@ -70,10 +70,13 @@ describe('ContactItem Component', () => {
     expect(linkElement).toHaveClass(expectedClass);
   });
 
-  it('should call toggleNavMenu if isNavMenuOpen is open', async () => {
+  it.each([
+    ['call', true],
+    ['not call', false],
+  ])('should %s toggleNavMenu if isNavMenuOpen is %s', async (_, isNavMenuOpen) => {
     mockUseMenu.mockReturnValue({
       ...mockUseMenuOptions,
-      isNavMenuOpen: true,
+      isNavMenuOpen,
     });
 
     renderContactItem();
@@ -81,23 +84,15 @@ describe('ContactItem Component', () => {
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
     fireEvent.click(linkElement);
 
-    await waitFor(() => {
-      expect(mockToggleNavMenu).toHaveBeenCalled();
-    });
-  });
-
-  it('should not call toggleNavMenuOpen is false', () => {
-    mockUseMenu.mockReturnValue({
-      ...mockUseMenuOptions,
-      isNavMenuOpen: false,
-    });
-
-    renderContactItem();
-
-    const linkElement = screen.getByRole('link', { name: 'Email Email us' });
-    fireEvent.click(linkElement);
-
-    expect(mockToggleNavMenu).not.toHaveBeenCalled();
+    if (isNavMenuOpen) {
+      await waitFor(() => {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(mockToggleNavMenu).toHaveBeenCalled();
+      });
+    } else {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(mockToggleNavMenu).not.toHaveBeenCalled();
+    }
   });
 
   it('should generate correct aria-label using getAriaLabelContacts', () => {

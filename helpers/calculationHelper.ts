@@ -1,4 +1,5 @@
 import {
+  type ICalculation,
   type ICalculationData,
   type IDropdownData,
   BasePrice,
@@ -97,6 +98,16 @@ export const checkCalculationField = (data: ICalculationData): boolean => {
     data.workType !== WorkType.Default &&
     data.expertiseArea !== ExpertiseArea.Default &&
     data.executionTime !== ExecutionTime.Default
+  );
+};
+
+export const shouldResetValues = (data: ICalculation) => {
+  return (
+    data.workType !== WorkType.Default ||
+    data.expertiseArea !== ExpertiseArea.Default ||
+    data.executionTime !== ExecutionTime.Default ||
+    data.uniqueness !== Uniqueness.Zero ||
+    data.theme !== ''
   );
 };
 

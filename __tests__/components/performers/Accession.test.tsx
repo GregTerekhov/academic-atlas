@@ -137,6 +137,7 @@ describe('Accession component', () => {
     expect(telegramButton).toHaveAttribute('target', '_blank');
     expect(telegramButton).toHaveAttribute('rel', 'noopener noreferrer');
     expect(telegramButton).toHaveAttribute('aria-describedby', AriaId.AccessionProcedure);
+    expect(screen.getByText(AriaDescription.AccessionProcedure)).toBeInTheDocument();
   });
 
   test('should render AccessionItem components with correct ids', () => {
@@ -153,14 +154,5 @@ describe('Accession component', () => {
 
     const listElement = screen.getByTestId('accession-list');
     expect(listElement).toBeEmptyDOMElement();
-  });
-
-  test('should handle different aria attributes', () => {
-    setup();
-
-    const telegramButton = screen.getByRole('link', { name: PrimaryButtonLabel.Accession });
-
-    expect(telegramButton).toHaveAttribute('aria-describedby', AriaId.AccessionProcedure);
-    expect(screen.getByText(AriaDescription.AccessionProcedure)).toBeInTheDocument();
   });
 });

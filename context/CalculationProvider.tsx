@@ -4,6 +4,7 @@ import { ChangeEvent, createContext, useCallback, useContext, useState } from 'r
 
 import {
   type ICalculationData,
+  type ICalculation,
   type IWithChildren,
   ExecutionTime,
   ExpertiseArea,
@@ -23,11 +24,6 @@ interface ICalculationContext {
   handleRangeValueChange: (value: number) => void;
   handleCheckboxChange: (checked: boolean) => void;
   resetCalculation: () => void;
-}
-
-interface ICalculation extends ICalculationData {
-  uniqueness: number;
-  theme: string;
 }
 
 const CalculationContext = createContext<ICalculationContext | undefined>(undefined);

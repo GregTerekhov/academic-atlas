@@ -1,45 +1,37 @@
 import { render, screen } from '@testing-library/react';
 
-import { AriaLabel, CompanyContacts, Paths } from 'types';
+import { CompanyContacts, Paths } from 'types';
+import { getSubstituteProps } from 'helpers';
 import { LegalParagraph } from 'components/legal-documents/subcomponents';
 
 describe('Paragraph Component', () => {
-  it.each([
+  const testCases = [
     {
       value: `Contact us at ${CompanyContacts.Email} for more information.`,
-      substitute: CompanyContacts.Email,
-      ariaLabel: AriaLabel.Email,
-      isInternalLink: false,
+      substituteValue: 'email',
       expectedHref: `mailto:${CompanyContacts.Email}`,
       expectedText: CompanyContacts.Email,
     },
     {
       value: 'Please review our сторінці Політики конфіденційності for details.',
-      substitute: 'сторінці Політики конфіденційності',
-      ariaLabel: AriaLabel.Policy,
-      isInternalLink: true,
+      substituteValue: 'policyPageLink',
       expectedHref: Paths.Policy,
       expectedText: 'сторінці Політики конфіденційності',
     },
     {
-      value: 'Contact us for more information.',
-      substitute: 'some other text',
-      ariaLabel: AriaLabel.Email,
-      isInternalLink: false,
+      value: 'This text has no matching substitute.',
+      substituteValue: '',
       expectedHref: null,
-      expectedText: 'Contact us for more information.',
+      expectedText: 'This text has no matching substitute.',
     },
-  ])(
-    'renders text with correct link and attributes for value %s',
-    ({ value, substitute, ariaLabel, isInternalLink, expectedHref, expectedText }) => {
-      render(
-        <LegalParagraph
-          value={value}
-          substitute={substitute}
-          ariaLabel={ariaLabel}
-          isInternalLink={isInternalLink}
-        />,
-      );
+  ];
+
+  it.each(testCases)(
+    'renders text with correct link and attributes for value: $value',
+    ({ value, substituteValue, expectedHref, expectedText }) => {
+      const props = getSubstituteProps(value, substituteValue);
+
+      render(<LegalParagraph {...props} />);
 
       const textElement = screen.getByText(expectedText);
       expect(textElement).toBeInTheDocument();

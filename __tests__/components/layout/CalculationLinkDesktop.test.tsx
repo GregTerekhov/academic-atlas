@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
 
@@ -52,13 +53,22 @@ describe('CalculationLinkDesktop Component', () => {
     });
   };
 
+  const renderLink = () => render(<CalculationLinkDesktop />);
+
+  const clickButtonAndTogglePopup = (isOpen: boolean) => {
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    expect(togglePopupMock).toHaveBeenCalledWith(PopupID.CostSection);
+    togglePopup(isOpen);
+  };
+
   beforeEach(() => {
     setupMocks();
     jest.clearAllMocks();
   });
 
   it('should render button with correct attributes and styles', () => {
-    render(<CalculationLinkDesktop />);
+    renderLink();
 
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
@@ -69,46 +79,34 @@ describe('CalculationLinkDesktop Component', () => {
     );
   });
 
-  it('should open popup when togglePopup is called', () => {
-    render(<CalculationLinkDesktop />);
+  it.each([
+    { isOpen: true, shouldRender: true },
+    { isOpen: false, shouldRender: false },
+  ])(
+    'should handle popup and ModalTemplate rendering correctly when togglePopup is called',
+    async ({ isOpen, shouldRender }) => {
+      const { rerender } = renderLink();
 
-    const button = screen.getByRole('button');
+      clickButtonAndTogglePopup(isOpen);
 
-    fireEvent.click(button);
+      rerender(<CalculationLinkDesktop />);
 
-    expect(togglePopupMock).toHaveBeenCalledWith(PopupID.CostSection);
-  });
+      await waitFor(() => {
+        const modal = screen.queryByTestId('desktop-calculation-link-popup');
+        const priceCalculator = screen.queryByTestId('price-calculator');
 
-  it('should render ModalTemplate with PriceCalculator content when the popup is open', async () => {
-    const { rerender } = render(<CalculationLinkDesktop />);
+        if (shouldRender) {
+          expect(modal).toBeInTheDocument();
+          expect(priceCalculator).toBeInTheDocument();
+        } else {
+          expect(modal).toBeNull();
+          expect(priceCalculator).toBeNull();
+        }
 
-    const button = screen.getByRole('button');
-
-    fireEvent.click(button);
-    expect(togglePopupMock).toHaveBeenCalledWith(PopupID.CostSection);
-
-    togglePopup(true);
-
-    rerender(<CalculationLinkDesktop />);
-
-    await waitFor(() => {
-      const modal = screen.queryByTestId('desktop-calculation-link-popup');
-      expect(modal).toBeInTheDocument();
-      const priceCalculator = screen.queryByTestId('price-calculator');
-      expect(priceCalculator).toBeInTheDocument();
-    });
-  });
-
-  it('should not render ModalTemplate when the popup is closed', async () => {
-    const { rerender } = render(<CalculationLinkDesktop />);
-
-    togglePopup(false);
-
-    rerender(<CalculationLinkDesktop />);
-
-    await waitFor(() => {
-      const modal = screen.queryByTestId('desktop-calculation-link-popup');
-      expect(modal).toBeNull();
-    });
-  });
+        console.info(
+          `Popup is ${isOpen ? 'open' : 'closed'} and ModalTemplate ${shouldRender ? 'renders' : 'does not render'}`,
+        );
+      });
+    },
+  );
 });

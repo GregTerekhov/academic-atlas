@@ -34,7 +34,7 @@ describe('LegalLink Component', () => {
     [MenuLinks.Policy, Paths.Policy, AriaDescription.Policy],
     [MenuLinks.Offer, Paths.Offer, AriaDescription.Offer],
   ])(
-    'renders LegalLink with correct %s link and description',
+    'renders LegalLink with correct %s link and description for path %s',
     (linkLabel, expectedHref, expectedDescription) => {
       render(<LegalLink />);
 
