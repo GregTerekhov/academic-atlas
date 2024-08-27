@@ -23,7 +23,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const [isScrollingWithButton, setIsScrollingWithButton] = useState<boolean>(false);
 
   const isNavigating = useRef<boolean>(false);
-  const { sections, sectionRefs } = useInitialiseSection();
+  const { sections, sectionRefs, initialiseSections } = useInitialiseSection();
 
   const updateScrollWithButtonState = (isScrolling: boolean) => {
     setIsScrollingWithButton(isScrolling);
@@ -46,46 +46,55 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      if (isNavigating.current || isScrollingWithButton) return;
+      if (isNavigating.current || isScrollingWithButton || !pathname.startsWith(Paths.Main)) return;
+      initialiseSections();
 
       entries.forEach((entry) => {
-        console.log(entry);
+        console.log('Entry target:', entry.target);
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute('id');
+          console.log('Intersecting section id:', id);
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
-              // console.log('Setting activated link to section path:', section.path);
+              console.log('Setting activated link to section path:', section.path);
               setActivatedLink(section.path);
               router.push(`#${section.id}`, { scroll: false });
-              // console.log('URL updated with:', `${section.path}`);
+              console.log('URL updated with:', `${section.path}`);
             }
           }
         }
       });
     },
-    [isScrollingWithButton, sections, activatedLink, router],
+    [isScrollingWithButton, pathname, initialiseSections, sections, activatedLink, router],
   );
+
   useIntersectionObserver(sectionRefs.current, { root: null, threshold: 0.3 }, handleIntersection);
 
+  useEffect(() => {
+    if (pathname.startsWith(Paths.Main)) {
+      initialiseSections();
+    }
+  }, [pathname, initialiseSections, handleIntersection]);
+
   const handleActivateLink = (path: string) => {
-    console.log('handleActivateLink called with path:', path);
-    console.log('sections.current: ', sections.current);
+    isNavigating.current = true;
 
     const section = sections?.current?.find((section) => section.path === path);
+    console.log('section: ', section);
+    setActivatedLink(path);
 
-    if (section) {
-      // console.log('section.path: ', section.path);
-      // console.log('path: ', path);
-      setActivatedLink(section.path);
-      router.push(`#${section.id}`, { scroll: false });
-    } else {
-      isNavigating.current = true;
+    // if (section) {
+    //   console.log('section.path: ', section.path);
+    //   console.log('path: ', path);
+    //   setActivatedLink(section.path);
+    //   router.push(`#${section.id}`, { scroll: false });
+    // } else {
 
-      // if (activatedLink !== path) {
-      setActivatedLink(path);
-      // }
-    }
+    //   // if (activatedLink !== path) {
+    //   setActivatedLink(path);
+    //   // }
+    // }
 
     setTimeout(() => {
       isNavigating.current = false;

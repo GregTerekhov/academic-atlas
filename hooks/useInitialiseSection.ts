@@ -10,22 +10,35 @@ export const useInitialiseSection = () => {
   const [isInitialised, setIsInitialised] = useState(false);
 
   const initialiseSections = useCallback(() => {
-    const nodeList = document.querySelectorAll('section[id]');
-    console.log('nodeList: ', nodeList);
-    sectionRefs.current = Array.from(nodeList);
+    
+    setTimeout(() => {
+      const nodeList = document.querySelectorAll('section[id]');
+      console.log('nodeList: ', nodeList);
 
-    const adaptedLinks = getAdaptedLinks();
-    const linksWithHash = adaptedLinks.filter((link) => link.path.includes('#'));
-    sections.current = linksWithHash.map(({ path, id }) => {
-      return { id: id ?? '', path };
-    });
+      if (nodeList.length === 0) {
+        console.warn('No sections found in the DOM');
+        return;
+      }
 
-    setIsInitialised(true);
+      sectionRefs.current = Array.from(nodeList);
+      console.log('Initialised sections:', sections.current);
+
+      const adaptedLinks = getAdaptedLinks();
+      console.log('Adapted links:', adaptedLinks);
+
+      sections.current = adaptedLinks.map(({ path, id }) => {
+        return { id: id ?? '', path };
+      });
+
+      console.log('Initialised sectionRefs:', sectionRefs.current);
+
+      setIsInitialised(true);
+    }, 500); 
   }, []);
 
   useEffect(() => {
     initialiseSections();
   }, [initialiseSections]);
 
-  return { sections, sectionRefs, isInitialised };
+  return { sections, sectionRefs, isInitialised, initialiseSections };
 };

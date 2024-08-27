@@ -1,13 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useIntersectionObserver = (
   targets: Element[],
   options: IntersectionObserverInit,
   callback: IntersectionObserverCallback,
 ) => {
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
   useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
     if (targets.length === 0) return;
 
     const observer = new IntersectionObserver(callback, options);
