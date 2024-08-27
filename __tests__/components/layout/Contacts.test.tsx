@@ -51,6 +51,66 @@ describe('Contacts Component', () => {
     jest.clearAllMocks();
   });
 
+  const adaptiveTestCases = [
+    {
+      query: '(max-width: 1439px)',
+      contacts: [
+        {
+          href: `tel:${CompanyContacts.Phone}`,
+          iconName: IconName.Call,
+          defaultSize: IconSize.S,
+          iconSize: 'lg:size-8',
+          labelClass: 'text-medium max-lg:inline',
+          label: CompanyContacts.PhoneToPrint,
+          iconAriaLabel: AriaLabel.Phone,
+        },
+        {
+          href: `mailto:${CompanyContacts.Email}`,
+          iconName: IconName.Email,
+          defaultSize: IconSize.HalfM,
+          iconSize: '30',
+          labelClass: 'label-class',
+          label: CompanyContacts.Email,
+          iconAriaLabel: AriaLabel.Email,
+        },
+        {
+          href: `https://t.me/${CompanyContacts.Telegram}`,
+          iconName: IconName.Telegram,
+          defaultSize: IconSize.HalfM,
+          iconSize: '30',
+          labelClass: 'label-class',
+          label: CompanyContacts.Telegram,
+          iconAriaLabel: AriaLabel.Telegram,
+        },
+      ],
+      expectedCount: 3,
+    },
+    {
+      query: '(min-width: 1440px)',
+      contacts: [
+        {
+          href: `mailto:${CompanyContacts.Email}`,
+          iconName: IconName.Email,
+          defaultSize: IconSize.HalfM,
+          iconSize: '30',
+          labelClass: 'label-class',
+          label: CompanyContacts.Email,
+          iconAriaLabel: AriaLabel.Email,
+        },
+        {
+          href: `https://t.me/${CompanyContacts.Telegram}`,
+          iconName: IconName.Telegram,
+          defaultSize: IconSize.HalfM,
+          iconSize: '30',
+          labelClass: 'label-class',
+          label: CompanyContacts.Telegram,
+          iconAriaLabel: AriaLabel.Telegram,
+        },
+      ],
+      expectedCount: 2,
+    },
+  ];
+
   const testCases = [
     {
       variant: PositionInLayout.Footer,
@@ -86,6 +146,23 @@ describe('Contacts Component', () => {
     },
   ];
 
+  it.each(adaptiveTestCases)(
+    'should render correct number of contact items for screen size query: $query with $expectedCount items',
+    ({ query, contacts, expectedCount }) => {
+      window.matchMedia = jest.fn().mockImplementation((q) => ({
+        matches: q === query,
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+      }));
+
+      renderContacts(PositionInLayout.Header, contacts, 'header-styles');
+
+      const contactItems = screen.getAllByTestId('contact-item');
+      screen.debug();
+      expect(contactItems).toHaveLength(expectedCount);
+    },
+  );
+
   it.each(testCases)(
     'should render contacts for $variant variant',
     ({ variant, mockContacts, styles, hasHeading }) => {
@@ -101,7 +178,6 @@ describe('Contacts Component', () => {
         expect(heading).not.toBeInTheDocument();
       }
 
-      // Verify the number of contact items and mock function calls
       const contactItems = screen.getAllByTestId('contact-item');
       expect(contactItems).toHaveLength(mockContacts.length);
       expect(mockGetAdaptedContacts).toHaveBeenCalledWith(variant);
