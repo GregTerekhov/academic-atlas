@@ -12,7 +12,8 @@ import PriceCalculator from '../../calculation/product-price-calculator';
 export default function ToggleMenuTrigger() {
   const { isNavMenuOpen, isCalcMenuOpen, showCalculationMenu, handleToggleMenu } = useMenu();
 
-  const dynamicAriaLabel = getAriaLabelSwitcher(isNavMenuOpen, isCalcMenuOpen);
+  const dynamicAriaLabel = getAriaLabelSwitcher(isNavMenuOpen, isCalcMenuOpen, showCalculationMenu);
+  const isOpenMenu = showCalculationMenu || isNavMenuOpen || isCalcMenuOpen;
 
   return (
     <>
@@ -23,11 +24,15 @@ export default function ToggleMenuTrigger() {
         className='group size-10'
       >
         <SvgIconUI
-          id={isNavMenuOpen || isCalcMenuOpen ? IconName.Close : IconName.Burger}
+          id={
+            isNavMenuOpen || isCalcMenuOpen || showCalculationMenu
+              ? IconName.Close
+              : IconName.Burger
+          }
           size={{ width: IconSize.L, height: IconSize.L }}
           className='fill-darkBase/75 dark:fill-whiteBase lg:group-hover:fill-accentSecondary'
           ariaHidden={false}
-          ariaLabel={AriaLabel.Burger}
+          ariaLabel={isOpenMenu ? AriaLabel.CloseMenu : AriaLabel.Burger}
         />
       </button>
 

@@ -13,8 +13,11 @@ export const getAriaLabelContacts = (href: string, label: string): string => {
 export const getAriaLabelSwitcher = (
   isNavMenuOpen: boolean,
   isCalcMenuOpen: boolean,
+  showCalculationMenu: boolean,
 ): AriaLabelTrigger => {
   switch (true) {
+    case showCalculationMenu:
+      return AriaLabelTrigger.CloseCalculation;
     case isNavMenuOpen:
       return AriaLabelTrigger.CloseNavigation;
     case isCalcMenuOpen:
