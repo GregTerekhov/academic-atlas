@@ -15,7 +15,7 @@ export default function ThemeInput() {
 
   const { calculationData, handleThemeInputChange } = useCalculation();
 
-  const hasBackground = calculationData?.theme ? calculationData.theme !== '' && isBlurred : false;
+  const hasBackground = calculationData.theme !== '' ? isBlurred : false;
   const inputClass = getThemeInputStyles(hasBackground);
 
   return (
@@ -24,7 +24,7 @@ export default function ThemeInput() {
         type='text'
         id={id}
         name={id}
-        value={calculationData?.theme}
+        value={calculationData.theme}
         className={inputClass}
         placeholder='Введіть тему (не обов`язково)'
         onFocus={() => setIsBlurred(false)}
