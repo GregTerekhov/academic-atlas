@@ -1,5 +1,6 @@
 export * from './anchorLinks';
 export * from './breadcrumbsHelper';
+export * from './calculatePrice';
 export * from './calculationHelper';
 export * from './cookiesHelper';
 export * from './componentsHelper';
