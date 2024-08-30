@@ -27,8 +27,60 @@ describe('useHandleClickOutside hook', () => {
     }
   });
 
-  it('should call onClose when clicking outside the ref and isOpen is true', () => {
-    renderHook(() => useHandleClickOutside(ref, true, onClose));
+  const testCases = [
+    {
+      description: 'clicking outside the ref',
+      isPopupOpen: true,
+      event: new MouseEvent('mousedown', { bubbles: true }),
+      target: document.body,
+      shouldCallOnClose: true,
+    },
+    {
+      description: 'clicking inside the ref',
+      isPopupOpen: true,
+      event: new MouseEvent('mousedown', { bubbles: true }),
+      target: document.createElement('div'),
+      shouldCallOnClose: false,
+    },
+    {
+      description: 'pressing Escape key',
+      isPopupOpen: true,
+      event: new KeyboardEvent('keydown', { key: 'Escape' }),
+      target: window,
+      shouldCallOnClose: true,
+    },
+    {
+      description: 'pressing Escape key',
+      isPopupOpen: false,
+      event: new KeyboardEvent('keydown', { key: 'Escape' }),
+      target: window,
+      shouldCallOnClose: false,
+    },
+  ];
+
+  it.each(testCases)(
+    'should handle case of $description',
+    ({ isPopupOpen, event, target, shouldCallOnClose }) => {
+      renderHook(() => useHandleClickOutside(ref, isPopupOpen, onClose));
+
+      act(() => {
+        target.dispatchEvent(event);
+      });
+
+      if (shouldCallOnClose) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(onClose).toHaveBeenCalled();
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(onClose).not.toHaveBeenCalled();
+      }
+    },
+  );
+
+  it('should not call onClose if isOpen changes is false', () => {
+    const { rerender } = renderHook(({ isOpen }) => useHandleClickOutside(ref, isOpen, onClose), {
+      initialProps: { isOpen: true },
+    });
 
     act(() => {
       const outsideClickEvent = new MouseEvent('mousedown', { bubbles: true });
@@ -36,39 +88,15 @@ describe('useHandleClickOutside hook', () => {
     });
 
     expect(onClose).toHaveBeenCalled();
-  });
 
-  it('should not call onClose when clicking inside the ref and isOpen is true', () => {
-    renderHook(() => useHandleClickOutside(ref, true, onClose));
+    rerender({ isOpen: false });
 
     act(() => {
-      const insideClickEvent = new MouseEvent('mousedown', { bubbles: true });
-      ref.current?.dispatchEvent(insideClickEvent);
+      const outsideClickEvent = new MouseEvent('mousedown', { bubbles: true });
+      document.body.dispatchEvent(outsideClickEvent);
     });
 
-    expect(onClose).not.toHaveBeenCalled();
-  });
-
-  it('should call onClose when pressing Escape and isOpen is true', () => {
-    renderHook(() => useHandleClickOutside(ref, true, onClose));
-
-    act(() => {
-      const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-      window.dispatchEvent(escapeEvent);
-    });
-
-    expect(onClose).toHaveBeenCalled();
-  });
-
-  it('should not call onClose when pressing Escape and isOpen is false', () => {
-    renderHook(() => useHandleClickOutside(ref, false, onClose));
-
-    act(() => {
-      const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-      window.dispatchEvent(escapeEvent);
-    });
-
-    expect(onClose).not.toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it('should add and remove event listeners on mount and unmount', () => {

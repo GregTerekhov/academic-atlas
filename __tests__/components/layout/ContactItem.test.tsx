@@ -22,11 +22,10 @@ describe('ContactItem Component', () => {
     toggleNavMenu: mockToggleNavMenu,
   };
 
-  beforeEach(() => {
-    mockUseMenu.mockReturnValue(mockUseMenuOptions);
-
-    jest.clearAllMocks();
-  });
+  const renderContactItem = (props = defaultProps) => {
+    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
+    render(<ContactItem {...props} />);
+  };
 
   const defaultProps = {
     href: 'mailto:test@example.com',
@@ -39,10 +38,14 @@ describe('ContactItem Component', () => {
     iconAriaLabel: 'email-icon' as AriaLabel,
   };
 
-  it('should render the ContactItem correctly', () => {
-    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
+  beforeEach(() => {
+    mockUseMenu.mockReturnValue(mockUseMenuOptions);
 
-    render(<ContactItem {...defaultProps} />);
+    jest.clearAllMocks();
+  });
+
+  it('should render the ContactItem correctly', () => {
+    renderContactItem();
 
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
     expect(linkElement).toBeInTheDocument();
@@ -57,62 +60,39 @@ describe('ContactItem Component', () => {
     expect(labelElement).toBeInTheDocument();
   });
 
-  it('should apply the correct className for Footer variant', () => {
-    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
-
-    render(
-      <ContactItem
-        {...defaultProps}
-        variant={PositionInLayout.Footer}
-      />,
-    );
+  it.each([
+    [PositionInLayout.Footer, 'md:max-lg:py-2'],
+    [PositionInLayout.Header, 'group flex items-center gap-x-2'],
+  ])('should apply the correct className for %s variant', (variant, expectedClass) => {
+    renderContactItem({ ...defaultProps, variant });
 
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
-    expect(linkElement).toHaveClass('md:max-lg:py-2');
+    expect(linkElement).toHaveClass(expectedClass);
   });
 
-  it('should apply the correct className for Header variant', () => {
-    mockGetAriaLabelContacts.mockReturnValue('Email Email us');
-
-    render(
-      <ContactItem
-        {...defaultProps}
-        variant={PositionInLayout.Header}
-      />,
-    );
-
-    const linkElement = screen.getByRole('link', { name: 'Email Email us' });
-    expect(linkElement).toHaveClass('group flex items-center gap-x-2');
-  });
-
-  it('should call toggleNavMenu if isNavMenuOpen is open', async () => {
+  it.each([
+    ['call', true],
+    ['not call', false],
+  ])('should %s toggleNavMenu if isNavMenuOpen is %s', async (_, isNavMenuOpen) => {
     mockUseMenu.mockReturnValue({
       ...mockUseMenuOptions,
-      isNavMenuOpen: true,
+      isNavMenuOpen,
     });
 
-    render(<ContactItem {...defaultProps} />);
+    renderContactItem();
 
     const linkElement = screen.getByRole('link', { name: 'Email Email us' });
     fireEvent.click(linkElement);
 
-    await waitFor(() => {
-      expect(mockToggleNavMenu).toHaveBeenCalled();
-    });
-  });
-
-  it('should not call toggleNavMenuOpen is false', () => {
-    mockUseMenu.mockReturnValue({
-      ...mockUseMenuOptions,
-      isNavMenuOpen: false,
-    });
-
-    render(<ContactItem {...defaultProps} />);
-
-    const linkElement = screen.getByRole('link', { name: 'Email Email us' });
-    fireEvent.click(linkElement);
-
-    expect(mockToggleNavMenu).not.toHaveBeenCalled();
+    if (isNavMenuOpen) {
+      await waitFor(() => {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(mockToggleNavMenu).toHaveBeenCalled();
+      });
+    } else {
+      // eslint-disable-next-line jest/no-conditional-expect
+      expect(mockToggleNavMenu).not.toHaveBeenCalled();
+    }
   });
 
   it('should generate correct aria-label using getAriaLabelContacts', () => {

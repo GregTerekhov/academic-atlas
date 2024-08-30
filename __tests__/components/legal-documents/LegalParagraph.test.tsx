@@ -1,55 +1,48 @@
 import { render, screen } from '@testing-library/react';
 
-import { AriaLabel, CompanyContacts, Paths } from 'types';
+import { CompanyContacts, Paths } from 'types';
+import { getSubstituteProps } from 'helpers';
 import { LegalParagraph } from 'components/legal-documents/subcomponents';
 
 describe('Paragraph Component', () => {
-  const valueWithSubstituteEmail = `Contact us at ${CompanyContacts.Email} for more information.`;
-  const valueWithSubstitutePolicy = `Please review our сторінці Політики конфіденційності for details.`;
-  const valueWithoutSubstitute = 'Contact us for more information.';
+  const testCases = [
+    {
+      value: `Contact us at ${CompanyContacts.Email} for more information.`,
+      substituteValue: 'email',
+      expectedHref: `mailto:${CompanyContacts.Email}`,
+      expectedText: CompanyContacts.Email,
+    },
+    {
+      value: 'Please review our сторінці Політики конфіденційності for details.',
+      substituteValue: 'policyPageLink',
+      expectedHref: Paths.Policy,
+      expectedText: 'сторінці Політики конфіденційності',
+    },
+    {
+      value: 'This text has no matching substitute.',
+      substituteValue: '',
+      expectedHref: null,
+      expectedText: 'This text has no matching substitute.',
+    },
+  ];
 
-  it('renders text with a mailto link when substitute is email and isInternalLink is false', () => {
-    render(
-      <LegalParagraph
-        value={valueWithSubstituteEmail}
-        substitute={CompanyContacts.Email}
-        ariaLabel={AriaLabel.Email}
-        isInternalLink={false}
-      />,
-    );
+  it.each(testCases)(
+    'renders text with correct link and attributes for value: $value',
+    ({ value, substituteValue, expectedHref, expectedText }) => {
+      const props = getSubstituteProps(value, substituteValue);
 
-    const link = screen.getByText(CompanyContacts.Email);
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', `mailto:${CompanyContacts.Email}`);
-    expect(link).toHaveTextContent(CompanyContacts.Email);
-  });
+      render(<LegalParagraph {...props} />);
 
-  it('renders text with an internal link when substitute is сторінці Політики конфіденційності and isInternalLink is true', () => {
-    render(
-      <LegalParagraph
-        value={valueWithSubstitutePolicy}
-        substitute='сторінці Політики конфіденційності'
-        ariaLabel={AriaLabel.Policy}
-        isInternalLink={true}
-      />,
-    );
+      const textElement = screen.getByText(expectedText);
+      expect(textElement).toBeInTheDocument();
 
-    const link = screen.getByText('сторінці Політики конфіденційності');
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', Paths.Policy);
-    expect(link).toHaveTextContent('сторінці Політики конфіденційності');
-  });
-
-  it('renders text without a link when substitute is not in the value', () => {
-    render(
-      <LegalParagraph
-        value={valueWithoutSubstitute}
-        substitute='some other text'
-        ariaLabel={AriaLabel.Email}
-        isInternalLink={false}
-      />,
-    );
-
-    expect(screen.getByText(valueWithoutSubstitute)).toBeInTheDocument();
-  });
+      if (expectedHref) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(textElement).toHaveAttribute('href', expectedHref);
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(textElement).not.toHaveAttribute('href');
+      }
+    },
+  );
 });

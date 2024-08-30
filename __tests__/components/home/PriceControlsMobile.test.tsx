@@ -65,26 +65,21 @@ describe('PriceControlsMobile Component', () => {
     render(<PriceControlsMobile />);
 
     const button = screen.getByRole('button');
+    const ariaDescriptionElement = screen.getByTestId('aria-description-text');
+
     expect(button).toHaveAttribute('aria-describedby', AriaId.CalculationModule);
     expect(button).toHaveClass('h-16');
     expect(button).toHaveTextContent(PrimaryButtonLabel.CostCalculation);
-
-    const ariaDescriptionElement = screen.getByTestId('aria-description-text');
     expect(ariaDescriptionElement).toHaveAttribute('id', AriaId.CalculationModule);
     expect(ariaDescriptionElement).toHaveTextContent(AriaDescription.CalculationModule);
-  });
-
-  it('should render the components default state', () => {
-    setup({ isCalcMenuOpen: false });
-    render(<PriceControlsMobile />);
-
-    expect(screen.queryByTestId('mobile-calculation-menu')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('price-calculator-mobile')).not.toBeInTheDocument();
   });
 
   it('should call toggleCalcMenu when the the button is clicked', async () => {
     setup({ isCalcMenuOpen: false });
     const { rerender } = render(<PriceControlsMobile />);
+
+    expect(screen.queryByTestId('mobile-calculation-menu')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('price-calculator-mobile')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button'));
     expect(mockToggleCalcMenu).toHaveBeenCalled();
@@ -93,12 +88,9 @@ describe('PriceControlsMobile Component', () => {
 
     rerender(<PriceControlsMobile />);
 
-    await waitFor(
-      () => {
-        expect(screen.queryByTestId('mobile-calculation-menu')).toBeInTheDocument();
-        expect(screen.queryByTestId('price-calculator-mobile')).toBeInTheDocument();
-      },
-      { timeout: 2000 },
-    );
+    await waitFor(() => {
+      expect(screen.queryByTestId('mobile-calculation-menu')).toBeInTheDocument();
+      expect(screen.queryByTestId('price-calculator-mobile')).toBeInTheDocument();
+    });
   });
 });

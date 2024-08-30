@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { IconName } from 'types';
 import { WorkflowBackground } from 'components/performers/subcomponents';
@@ -11,11 +11,9 @@ jest.mock('styles', () => ({
 jest.mock('ui', () => ({
   SvgIconUI: jest.fn((props) => (
     <svg
-      width={props.width}
-      height={props.height}
+      width={props.size.width}
+      height={props.size.height}
       className={props.className}
-      aria-hidden={props.ariaHidden}
-      aria-label={!props.ariaHidden ? props.ariaLabel : undefined}
       role='img'
     >
       <use href={`/images/icons.svg#icon-${props.id}`}></use>
@@ -28,29 +26,27 @@ describe('WorkflowBackground subComponent', () => {
     jest.clearAllMocks();
   });
 
-  test('renders the icon with its styles for different screens', () => {
-    const { container } = render(<WorkflowBackground />);
+  const testCases = [
+    {
+      description: 'tablet',
+      iconHref: `/images/icons.svg#icon-${IconName.PartnershipStepMd}`,
+      expectedClass: 'hidden md:max-lg:block',
+    },
+    {
+      description: 'desktop',
+      iconHref: `/images/icons.svg#icon-${IconName.PartnershipStepLg}`,
+      expectedClass: 'max-lg:hidden',
+    },
+  ];
 
-    const tabletIconUse = container.querySelector(
-      `use[href='/images/icons.svg#icon-${IconName.PartnershipStepMd}']`,
-    );
-    expect(tabletIconUse).toBeInTheDocument();
-    screen.debug();
-    if (tabletIconUse) {
-      const tabletIconSvg = tabletIconUse.closest('svg');
-      // eslint-disable-next-line jest/no-conditional-expect
-      expect(tabletIconSvg).toHaveClass('hidden md:max-lg:block');
-    }
+  it.each(testCases)(
+    'should render $description icon with correct styles',
+    ({ iconHref, expectedClass }) => {
+      const { container } = render(<WorkflowBackground />);
 
-    const desktopIconUse = container.querySelector(
-      `use[href='/images/icons.svg#icon-${IconName.PartnershipStepLg}']`,
-    );
-    expect(desktopIconUse).toBeInTheDocument();
-
-    if (desktopIconUse) {
-      const desktopIconSvg = desktopIconUse.closest('svg');
-      // eslint-disable-next-line jest/no-conditional-expect
-      expect(desktopIconSvg).toHaveClass('max-lg:hidden');
-    }
-  });
+      const icon = container.querySelector(`svg > use[href='${iconHref}']`);
+      expect(icon).toBeInTheDocument();
+      expect(icon?.closest('svg')).toHaveClass(expectedClass);
+    },
+  );
 });

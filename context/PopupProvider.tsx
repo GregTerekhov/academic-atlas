@@ -5,6 +5,7 @@ import { createContext, useContext, useState, useRef, useCallback } from 'react'
 import { type IWithChildren } from 'types';
 import { useCalculation } from './CalculationProvider';
 import { useCalculationResult } from './CalculationResultProvider';
+import { shouldResetValues } from 'helpers/calculationHelper';
 
 interface IPopupRefs {
   [key: string]: React.RefObject<HTMLDivElement>;
@@ -25,19 +26,24 @@ const PopupContext = createContext<IPopupContext | undefined>(undefined);
 export const PopupProvider = ({ children }: IWithChildren) => {
   const [openPopups, setOpenPopups] = useState<{ [key: string]: boolean }>({});
 
-  const { resetCalculation } = useCalculation();
+  const { calculationData, resetCalculation } = useCalculation();
   const { handleResetCostResult } = useCalculationResult();
 
   const popupRefs = useRef<IPopupRefs>({});
 
   const resetValues = useCallback(() => {
     handleResetCostResult();
-    resetCalculation();
-  }, [handleResetCostResult, resetCalculation]);
+
+    if (shouldResetValues(calculationData)) {
+      resetCalculation();
+    }
+  }, [calculationData, handleResetCostResult, resetCalculation]);
 
   const setBodyOverflow = useCallback((isHidden: boolean) => {
     document.body.style.overflow = isHidden ? 'hidden' : 'auto';
   }, []);
+
+  const isPopupOpen = useCallback((id: string) => !!openPopups[id], [openPopups]);
 
   const togglePopup = useCallback(
     (id: string) => {
@@ -46,9 +52,11 @@ export const PopupProvider = ({ children }: IWithChildren) => {
 
         setBodyOverflow(isPopupOpen);
 
-        if (!isPopupOpen) {
-          resetValues();
-        }
+        setTimeout(() => {
+          if (!isPopupOpen) {
+            resetValues();
+          }
+        }, 0);
 
         return {
           ...prev,
@@ -71,8 +79,6 @@ export const PopupProvider = ({ children }: IWithChildren) => {
     },
     [resetValues, setBodyOverflow],
   );
-
-  const isPopupOpen = useCallback((id: string) => !!openPopups[id], [openPopups]);
 
   return (
     <PopupContext.Provider

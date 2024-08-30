@@ -36,71 +36,73 @@ const setup = (menuState: Partial<ReturnType<typeof useMenu>>) => {
   });
 };
 
+const renderAndAssertButton = (position: PositionInLayout, className: string) => {
+  render(<CalculationLinkMobile position={position} />);
+  const button = screen.getByRole('button');
+  expect(button).toHaveAttribute('aria-label', AriaLabel.CalculationModule);
+  expect(button).toHaveClass(className);
+};
+
+const assertMenuAndCalculatorPresence = async (shouldBePresent: boolean) => {
+  await waitFor(
+    () => {
+      const menu = screen.queryByTestId('mobile-calculation-menu');
+      const calculator = screen.queryByTestId('price-calculator-mobile');
+      if (shouldBePresent) {
+        expect(menu).toBeInTheDocument();
+        expect(calculator).toBeInTheDocument();
+      } else {
+        expect(menu).not.toBeInTheDocument();
+        expect(calculator).not.toBeInTheDocument();
+      }
+    },
+    { timeout: 2000 },
+  );
+};
+
 describe('CalculationLinkMobile Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should render button in the header with correct aria-label and styles', () => {
+  it.each([
+    [PositionInLayout.Header, 'text-medium md:text-big'],
+    [PositionInLayout.Footer, 'text-start text-sm max-sm:text-xs md:text-base'],
+  ])('should render button in the %s with correct aria-label and styles', (position, className) => {
     setup({ isCalcMenuOpen: false });
-    render(<CalculationLinkMobile position={PositionInLayout.Header} />);
-
-    const button = screen.getByRole('button');
-    expect(button).toHaveAttribute('aria-label', AriaLabel.CalculationModule);
-    expect(button).toHaveClass('text-medium md:text-big');
-    expect(button).toHaveTextContent(MenuLinks.Cost);
+    renderAndAssertButton(position, className);
+    expect(screen.getByRole('button')).toHaveTextContent(MenuLinks.Cost);
   });
 
-  it('should render button in the footer with correct styles', () => {
-    setup({ isCalcMenuOpen: false });
-    render(<CalculationLinkMobile position={PositionInLayout.Footer} />);
-
-    const button = screen.getByRole('button');
-    expect(button).toHaveClass('text-start text-sm max-sm:text-xs md:text-base');
-  });
-
-  it('should render the components default state', () => {
+  it("should render the component's default state correctly", () => {
     setup({ isCalcMenuOpen: false });
     render(<CalculationLinkMobile position={PositionInLayout.Header} />);
-
     expect(screen.queryByTestId('mobile-calculation-menu')).not.toBeInTheDocument();
     expect(screen.queryByTestId('price-calculator-mobile')).not.toBeInTheDocument();
   });
 
-  it('should call toggleCalcMenu when the position is in the Footer and the button is clicked', async () => {
-    setup({ isCalcMenuOpen: false });
-    const { rerender } = render(<CalculationLinkMobile position={PositionInLayout.Footer} />);
+  it.each([
+    [PositionInLayout.Footer, mockToggleCalcMenu],
+    [PositionInLayout.Header, mockChangeMenuContent],
+  ])(
+    'should call the appropriate menu function when the button is clicked in the %s and update the menu state',
+    async (position, mockFunction) => {
+      setup({
+        isCalcMenuOpen: false,
+        showCalculationMenu: position === PositionInLayout.Header && false,
+      });
 
-    fireEvent.click(screen.getByRole('button'));
-    expect(mockToggleCalcMenu).toHaveBeenCalled();
+      const { rerender } = render(<CalculationLinkMobile position={position} />);
 
-    setup({ isCalcMenuOpen: true });
+      fireEvent.click(screen.getByRole('button'));
+      expect(mockFunction).toHaveBeenCalled();
 
-    rerender(<CalculationLinkMobile position={PositionInLayout.Footer} />);
-
-    await waitFor(
-      () => {
-        expect(screen.queryByTestId('mobile-calculation-menu')).toBeInTheDocument();
-        expect(screen.queryByTestId('price-calculator-mobile')).toBeInTheDocument();
-      },
-      { timeout: 2000 },
-    );
-  });
-
-  it('should call changeMenuContent when the position is in the Header, isNavMenuOpen is true, and the button is clicked', async () => {
-    setup({ isNavMenuOpen: true, showCalculationMenu: false });
-    const { rerender } = render(<CalculationLinkMobile position={PositionInLayout.Header} />);
-
-    fireEvent.click(screen.getByRole('button'));
-    expect(mockChangeMenuContent).toHaveBeenCalled();
-
-    setup({ showCalculationMenu: true });
-
-    rerender(<CalculationLinkMobile position={PositionInLayout.Header} />);
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('mobile-calculation-menu')).toBeInTheDocument();
-      expect(screen.queryByTestId('price-calculator-mobile')).toBeInTheDocument();
-    });
-  });
+      setup({
+        isCalcMenuOpen: position === PositionInLayout.Footer,
+        showCalculationMenu: position === PositionInLayout.Header,
+      });
+      rerender(<CalculationLinkMobile position={position} />);
+      await assertMenuAndCalculatorPresence(true);
+    },
+  );
 });

@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
+import { ComponentProps } from 'react';
 
 import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
 import LegalLinkItem from 'components/layout/subcomponents/link-item';
@@ -25,59 +26,53 @@ describe('LegalLinkItem Component', () => {
     jest.clearAllMocks();
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+  const renderComponent = (props: ComponentProps<typeof LegalLinkItem>) =>
+    render(<LegalLinkItem {...props} />);
 
-  it('renders link with correct attributes and descriptions', () => {
-    render(
-      <LegalLinkItem
-        href={Paths.Policy}
-        ariaId={AriaId.Policy}
-        ariaDescription={AriaDescription.Policy}
-        linkLabel={MenuLinks.Policy}
-      />,
-    );
+  it.each([
+    [Paths.Policy, AriaId.Policy, AriaDescription.Policy, MenuLinks.Policy],
+    [Paths.Offer, AriaId.Offer, AriaDescription.Offer, MenuLinks.Offer],
+  ] as [Paths, AriaId, AriaDescription, MenuLinks][])(
+    'renders link with correct attributes and descriptions for %s',
+    (href, ariaId, ariaDescription, linkLabel) => {
+      renderComponent({ href, ariaId, ariaDescription, linkLabel });
 
-    const linkItem = screen.getByText(MenuLinks.Policy);
+      const linkItem = screen.getByText(linkLabel);
+      expect(linkItem).toBeInTheDocument();
+      expect(linkItem).toHaveAttribute('href', href);
+      expect(linkItem).toHaveAttribute('aria-describedby', ariaId);
 
-    expect(linkItem).toBeInTheDocument();
-    expect(linkItem).toHaveAttribute('href', Paths.Policy);
-    expect(linkItem).toHaveAttribute('aria-describedby', AriaId.Policy);
+      const descriptionElement = screen.getByText(ariaDescription);
+      expect(descriptionElement).toBeInTheDocument();
+    },
+  );
 
-    const descriptionElement = screen.getByText(AriaDescription.Policy);
-    expect(descriptionElement).toBeInTheDocument();
-  });
+  it.each([
+    [Paths.Policy, 'page'],
+    [Paths.Offer, undefined],
+  ] as [Paths, string | undefined][])(
+    'sets aria-current correctly based on pathname',
+    (href, expectedAriaCurrent) => {
+      mockUsePathname.mockReturnValue(href);
 
-  it('sets aria-current when pathname matches href', () => {
-    mockUsePathname.mockReturnValue(Paths.Policy);
+      renderComponent({
+        href: Paths.Policy,
+        ariaId: AriaId.Policy,
+        ariaDescription: AriaDescription.Policy,
+        linkLabel: MenuLinks.Policy,
+      });
 
-    render(
-      <LegalLinkItem
-        href={Paths.Policy}
-        ariaId={AriaId.Policy}
-        ariaDescription={AriaDescription.Policy}
-        linkLabel={MenuLinks.Policy}
-      />,
-    );
+      const linkElement = screen.getByText(MenuLinks.Policy);
 
-    const linkElement = screen.getByText(MenuLinks.Policy);
-    expect(linkElement).toHaveAttribute('aria-current', 'page');
-  });
-
-  it('does not set aria-current when pathname does not match href', () => {
-    render(
-      <LegalLinkItem
-        href={Paths.Offer}
-        ariaId={AriaId.Offer}
-        ariaDescription={AriaDescription.Offer}
-        linkLabel={MenuLinks.Offer}
-      />,
-    );
-
-    const linkElement = screen.getByText(MenuLinks.Offer);
-    expect(linkElement).not.toHaveAttribute('aria-current');
-  });
+      if (expectedAriaCurrent) {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(linkElement).toHaveAttribute('aria-current', expectedAriaCurrent);
+      } else {
+        // eslint-disable-next-line jest/no-conditional-expect
+        expect(linkElement).not.toHaveAttribute('aria-current');
+      }
+    },
+  );
 
   it('calls clearActiveLink when link is clicked', () => {
     render(

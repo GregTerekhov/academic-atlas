@@ -39,12 +39,7 @@ jest.mock('template', () => ({
 }));
 
 jest.mock('styles', () => ({
-  getSectionClasses: jest.fn(() => 'mocked-section-classes'),
-  getTitleClasses: jest.fn(() => 'mocked-title-classes'),
-  getExtraSectionOverlayStyles: jest.fn(() => 'mocked-overlay-styles'),
-  generateBackgroundImagePaths: jest.fn(() => 'mocked-background-image-paths'),
   getPrimaryButtonStyles: jest.fn(() => 'primary-button-styles'),
-  getCtaTextStyles: jest.fn(() => 'mocked-cta-text-styles'),
 }));
 
 describe('Performers Component', () => {

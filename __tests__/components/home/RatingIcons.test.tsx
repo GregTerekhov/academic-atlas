@@ -10,6 +10,16 @@ jest.mock('ui', () => ({
 }));
 
 describe('RatingIcons Component', () => {
+  const setup = (rating: number, index: number) => {
+    render(
+      <RatingIcons
+        rating={rating}
+        index={index}
+      />,
+    );
+    return screen.getByTestId(`rating-icon-${index}`);
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -18,14 +28,8 @@ describe('RatingIcons Component', () => {
     const rating = 3;
     const index = 2;
 
-    render(
-      <RatingIcons
-        rating={rating}
-        index={index}
-      />,
-    );
+    const icon = setup(rating, index);
 
-    const icon = screen.getByTestId(`rating-icon-${index}`);
     expect(icon).toBeInTheDocument();
     expect(SvgIconUI).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -37,16 +41,11 @@ describe('RatingIcons Component', () => {
     );
   });
 
-  it('should render RatingDown icon when index is equal or greater than rating', () => {
+  it('should render RatingDown icon when index is equal to or greater than rating', () => {
     const rating = 3;
     const index = 3;
 
-    render(
-      <RatingIcons
-        rating={rating}
-        index={index}
-      />,
-    );
+    setup(rating, index);
 
     expect(SvgIconUI).toHaveBeenCalledWith(
       expect.objectContaining({

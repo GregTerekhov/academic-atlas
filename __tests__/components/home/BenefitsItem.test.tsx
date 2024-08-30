@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import BenefitsItem from 'components/home/subcomponents/benefits-item';
+
 import { IconName, BenefitLabel } from 'types';
+import BenefitsItem from 'components/home/subcomponents/benefits-item';
 
 jest.mock('ui', () => ({
   SvgIconUI: jest.fn(({ id }) => (
@@ -12,10 +13,6 @@ jest.mock('ui', () => ({
 }));
 
 describe('BenefitsItem component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('should render correctly with given props', () => {
     const props = {
       iconName: IconName.Benefits1,

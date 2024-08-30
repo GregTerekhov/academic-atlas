@@ -1,30 +1,18 @@
 import { render, screen } from '@testing-library/react';
-import Image from 'next/image';
 
-import { CtaText, ImageSize, SectionDescriptions, SectionTitle } from 'types';
+import { CtaText, type IImageProps, SectionDescriptions, SectionTitle } from 'types';
 
 import Hero from 'components/FAQ/hero';
 import { ImageUI } from 'ui';
-
-interface IImageProps {
-  src: string;
-  alt: string;
-  width: ImageSize;
-  height: ImageSize;
-  className: string;
-  priority?: boolean;
-}
 
 jest.mock('ui', () => ({
   ImageUI: jest.fn().mockImplementation((props: IImageProps) => {
     const { ...restProps } = props;
 
     return (
-      <Image
+      <div
         {...restProps}
-        alt={props.alt}
-        priority={true}
-        data-priority={false}
+        data-priority={true}
         data-testid='image-ui'
       />
     );

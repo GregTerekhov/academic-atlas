@@ -1,6 +1,6 @@
 'use client';
 
-import { IconName, IconSize } from 'types';
+import { AriaLabel, IconName, IconSize } from 'types';
 import { useCalculation } from 'context';
 
 import { SvgIconUI } from 'ui';
@@ -14,6 +14,7 @@ interface IPlagiarismCheckboxProps {
 
 export default function PlagiarismCheckbox({ id, label }: IPlagiarismCheckboxProps) {
   const { handleCheckboxChange, isChecked } = useCalculation();
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -49,6 +50,7 @@ export default function PlagiarismCheckbox({ id, label }: IPlagiarismCheckboxPro
             size={{ width: IconSize.M, height: IconSize.M }}
             className='fill-whiteBase'
             ariaHidden={false}
+            ariaLabel={AriaLabel.Check}
           />
         )}
       </span>

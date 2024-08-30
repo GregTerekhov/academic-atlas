@@ -1,4 +1,5 @@
 import {
+  type ICalculation,
   type ICalculationData,
   type IDropdownData,
   BasePrice,
@@ -42,7 +43,9 @@ const thresholds: { [key in Uniqueness]: { increased: number; standard: number }
   [Uniqueness.Highest]: { increased: ZERO_THRESHOLD, standard: ZERO_THRESHOLD },
 };
 
-const expertiseMultiplier = (selectedExpertiseArea: ExpertiseArea): CalculationMultiplier => {
+export const expertiseMultiplier = (
+  selectedExpertiseArea: ExpertiseArea,
+): CalculationMultiplier => {
   switch (true) {
     case humanitiesAndEconomics.has(selectedExpertiseArea):
       return CalculationMultiplier.Standard;
@@ -56,7 +59,9 @@ const expertiseMultiplier = (selectedExpertiseArea: ExpertiseArea): CalculationM
   }
 };
 
-const executionTimeMultiplier = (selectedExecutionTime: ExecutionTime): CalculationMultiplier => {
+export const executionTimeMultiplier = (
+  selectedExecutionTime: ExecutionTime,
+): CalculationMultiplier => {
   switch (true) {
     case selectedExecutionTime === ExecutionTime.MediumTerm:
       return CalculationMultiplier.IncreasedStandard;
@@ -68,8 +73,8 @@ const executionTimeMultiplier = (selectedExecutionTime: ExecutionTime): Calculat
   }
 };
 
-const uniquenessMultiplier = (
-  workTypeData: IDropdownData,
+export const uniquenessMultiplier = (
+  workTypeData: Partial<IDropdownData>,
   customUniqueness?: number,
 ): CalculationMultiplier => {
   if (!customUniqueness) return CalculationMultiplier.NoMultiplier;
@@ -97,6 +102,16 @@ export const checkCalculationField = (data: ICalculationData): boolean => {
     data.workType !== WorkType.Default &&
     data.expertiseArea !== ExpertiseArea.Default &&
     data.executionTime !== ExecutionTime.Default
+  );
+};
+
+export const shouldResetValues = (data: ICalculation) => {
+  return (
+    data.workType !== WorkType.Default ||
+    data.expertiseArea !== ExpertiseArea.Default ||
+    data.executionTime !== ExecutionTime.Default ||
+    data.uniqueness !== Uniqueness.Zero ||
+    data.theme !== ''
   );
 };
 
@@ -159,7 +174,7 @@ export const findSelectedObject = (selectedWorkType: WorkType): IDropdownData | 
   return getWorkType().find((workType) => workType.option === selectedWorkType);
 };
 
-const getBasePrice = (type: WorkType): BasePrice => {
+export const getBasePrice = (type: WorkType): BasePrice => {
   const workTypeData = findSelectedObject(type);
 
   if (!workTypeData || !workTypeData.basePrice) {
@@ -167,27 +182,6 @@ const getBasePrice = (type: WorkType): BasePrice => {
   }
 
   return workTypeData.basePrice;
-};
-
-export const calculatePrice = (
-  type: WorkType,
-  area: ExpertiseArea,
-  time: ExecutionTime,
-  uniqueness?: number,
-): number => {
-  const workTypeData = findSelectedObject(type);
-
-  if (!workTypeData) {
-    throw new Error('Invalid work type selected');
-  }
-
-  let basePrice = getBasePrice(type);
-
-  basePrice *= expertiseMultiplier(area);
-  basePrice *= executionTimeMultiplier(time);
-  basePrice *= uniquenessMultiplier(workTypeData, uniqueness);
-
-  return basePrice;
 };
 
 export const uniquenessMapping = {

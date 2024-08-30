@@ -1,10 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import Image from 'next/image';
 
 import { ISlide } from 'types';
-
 import { CarouselFeedback } from 'components';
-
 import { getCarouselFeedbackStyles } from 'styles';
 
 jest.mock('components/home/subcomponents', () => ({
@@ -12,10 +9,12 @@ jest.mock('components/home/subcomponents', () => ({
 }));
 
 jest.mock('ui', () => ({
-  ImageUI: jest.fn((props) => (
-    <Image
+  ImageUI: jest.fn(({ props, id, className }) => (
+    <div
+      data-testid='mock-image'
+      className={className}
       {...props}
-      alt={props.alt || 'default alt text'}
+      id={id}
     />
   )),
 }));
@@ -29,19 +28,27 @@ const slideMock: ISlide = {
   memberRating: 3,
 };
 
+const setup = (props = {}) => {
+  render(
+    <CarouselFeedback
+      slide={slideMock}
+      isActive={true}
+      {...props}
+    />,
+  );
+};
+
 describe('CarouselFeedback Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('should render correctly with all subcomponents', () => {
-    render(
-      <CarouselFeedback
-        slide={slideMock}
-        isActive={true}
-      />,
-    );
-    expect(screen.getByAltText('Test image')).toBeInTheDocument();
+    setup();
+
+    const imageElement = screen.getByTestId('mock-image');
+
+    expect(imageElement).toBeInTheDocument();
     expect(screen.getByText('Test title')).toBeInTheDocument();
     expect(screen.getByText('Test description')).toBeInTheDocument();
 
@@ -50,34 +57,16 @@ describe('CarouselFeedback Component', () => {
     }
   });
 
-  it('should apply correct styles when isActive is true', () => {
-    render(
-      <CarouselFeedback
-        slide={slideMock}
-        isActive={true}
-      />,
-    );
+  it.each([
+    { isActive: true, expectedStyles: getCarouselFeedbackStyles(true) },
+    { isActive: false, expectedStyles: getCarouselFeedbackStyles(false) },
+  ])('should apply correct styles when isActive is $isActive', ({ isActive, expectedStyles }) => {
+    setup({ isActive });
+
     const container = screen.getByText('Test title').closest('div');
-    const expectedStyles = getCarouselFeedbackStyles(true);
 
     expect(container).toHaveClass(expectedStyles.slideClass);
-    expect(container?.querySelector('div > img')).toHaveClass(expectedStyles.imageClass);
-    expect(screen.getByText('Test title')).toHaveClass(expectedStyles.nameClass);
-    expect(screen.getByText('Test description')).toHaveClass(expectedStyles.feedbackClass);
-  });
-
-  it('should apply correct styles when isActive is false', () => {
-    render(
-      <CarouselFeedback
-        slide={slideMock}
-        isActive={false}
-      />,
-    );
-    const container = screen.getByText('Test title').closest('div');
-    const expectedStyles = getCarouselFeedbackStyles(false);
-
-    expect(container).toHaveClass(expectedStyles.slideClass);
-    expect(container?.querySelector('div > img')).toHaveClass(expectedStyles.imageClass);
+    expect(screen.getByTestId('mock-image')).toHaveClass(expectedStyles.imageClass);
     expect(screen.getByText('Test title')).toHaveClass(expectedStyles.nameClass);
     expect(screen.getByText('Test description')).toHaveClass(expectedStyles.feedbackClass);
   });

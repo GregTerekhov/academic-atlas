@@ -144,6 +144,11 @@ export interface ICalculationData {
   expertiseArea: ExpertiseArea;
   executionTime: ExecutionTime;
 }
+
+export interface ICalculation extends ICalculationData {
+  uniqueness: number;
+  theme: string;
+}
 export interface IDropdownData {
   typeId: string;
   option: DropdownOption;

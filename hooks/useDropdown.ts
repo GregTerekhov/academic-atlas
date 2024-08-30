@@ -49,8 +49,14 @@ export const useDropdown = ({ label: initialLabel, onOptionSelect }: IUseDropdow
     setIsDropdownOpen(false);
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const toggleDropdown = (e: React.MouseEvent | React.KeyboardEvent) => {
+    if (
+      e.type === 'click' ||
+      (e.type === 'keydown' && (e as React.KeyboardEvent).key === 'Enter') ||
+      (e.type === 'keydown' && (e as React.KeyboardEvent).key === ' ')
+    ) {
+      setIsDropdownOpen((prevState) => !prevState);
+    }
   };
 
   useHandleClickOutside(dropdownRef, isDropdownOpen, closeDropdown);

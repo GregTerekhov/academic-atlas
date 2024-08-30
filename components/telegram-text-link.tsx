@@ -7,11 +7,11 @@ import { getAndEncodeDataObject } from 'helpers';
 
 interface ITextWithLinkProps {
   order: TelegramScenario;
-  textWithLink: string;
+  text: string;
   ariaHidden?: boolean;
 }
 
-export default function TextWithLink({ order, textWithLink, ariaHidden = false }: ITextWithLinkProps) {
+export default function TextWithLink({ order, text, ariaHidden = false }: ITextWithLinkProps) {
   const [clientRendered, setClientRendered] = useState(false);
   const [href, setHref] = useState('#');
 
@@ -20,7 +20,6 @@ export default function TextWithLink({ order, textWithLink, ariaHidden = false }
   }, []);
 
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
-
     const base64String = getAndEncodeDataObject(order);
 
     if (!base64String) {
@@ -31,7 +30,7 @@ export default function TextWithLink({ order, textWithLink, ariaHidden = false }
     setHref(`https://t.me/AcademicAtlasBot?start=${base64String}`);
   };
 
-  const parts = textWithLink.split('Telegram-бот');
+  const parts = text.split('Telegram-бот');
 
   return (
     <span>

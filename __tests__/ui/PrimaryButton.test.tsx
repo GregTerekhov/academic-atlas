@@ -20,80 +20,93 @@ describe('PrimaryButtonUI Component', () => {
       />,
     );
 
-  it('should render the button with correct text and aria attributes', () => {
-    renderButton();
+  describe('Rendering and Attributes', () => {
+    it('should render the button with correct text and aria attributes', () => {
+      renderButton();
 
-    const buttonClass = getPrimaryButtonStyles(false, false);
+      const buttonClass = getPrimaryButtonStyles(false, false);
 
-    const button = screen.getByRole('button', { name: /click me/i });
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute('aria-describedby', defaultProps.ariaId);
-    expect(button).toHaveAttribute('type', ButtonType.Button);
-    expect(button).not.toBeDisabled();
-    expect(button).toHaveClass(`${buttonClass} h-16`);
-  });
+      const button = screen.getByRole('button', { name: /click me/i });
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute('aria-describedby', defaultProps.ariaId);
+      expect(button).toHaveAttribute('type', ButtonType.Button);
+      expect(button).not.toBeDisabled();
+      expect(button).toHaveClass(`${buttonClass} h-16`);
+    });
 
-  it('calls handleClick when the button is clicked', () => {
-    const handleClick = jest.fn();
-    renderButton({ handleClick });
+    it('renders AriaDescriptionText with correct id and description', () => {
+      renderButton();
 
-    const button = screen.getByRole('button', { name: /click me/i });
+      const description = screen.getByTestId('aria-description-text');
+      expect(description).toBeInTheDocument();
+      expect(description).toHaveAttribute('id', defaultProps.ariaId);
+      expect(description).toHaveTextContent(AriaDescription.DefaultOrdering);
+    });
 
-    fireEvent.click(button);
-    expect(handleClick).toHaveBeenCalled();
-  });
+    it.each([
+      [false, false],
+      [true, false],
+      [false, true],
+      [true, true],
+    ])(
+      'applies correct styles based in isOnLightBackground (%p) and isDisabled (%p) props',
+      (isOnLightBackground, isDisabled) => {
+        renderButton({ isOnLightBackground, isDisabled });
 
-  it('applies correct styles based on isOnLightBackground and isDisabled props', () => {
-    const { rerender } = renderButton({ isOnLightBackground: true });
+        const buttonClass = getPrimaryButtonStyles(isOnLightBackground, isDisabled);
 
-    const buttonClassOnLightBg = getPrimaryButtonStyles(true, false);
-
-    const button = screen.getByRole('button', { name: /click me/i });
-    expect(button).toHaveClass(buttonClassOnLightBg);
-
-    rerender(
-      <PrimaryButtonUI
-        {...defaultProps}
-        isDisabled
-      />,
+        const button = screen.getByRole('button', { name: /click me/i });
+        expect(button).toHaveClass(buttonClass);
+      },
     );
-
-    const buttonClassOnLightBgAndDisabled = getPrimaryButtonStyles(true, true);
-
-    expect(button).toHaveClass(buttonClassOnLightBgAndDisabled);
   });
 
-  it('renders AriaDescriptionText with correct id and description', () => {
-    renderButton();
+  describe('Interaction', () => {
+    it('calls handleClick when the button is clicked', () => {
+      const handleClick = jest.fn();
+      renderButton({ handleClick });
 
-    const description = screen.getByTestId('aria-description-text');
-    expect(description).toBeInTheDocument();
-    expect(description).toHaveAttribute('id', defaultProps.ariaId);
-    expect(description).toHaveTextContent(AriaDescription.DefaultOrdering);
+      const button = screen.getByRole('button', { name: /click me/i });
+
+      fireEvent.click(button);
+      expect(handleClick).toHaveBeenCalled();
+    });
+
+    it('does not call handleClick when the button is disabled', () => {
+      const handleClick = jest.fn();
+      renderButton({ handleClick, isDisabled: true });
+
+      const button = screen.getByRole('button', { name: /click me/i });
+
+      fireEvent.click(button);
+      expect(handleClick).not.toHaveBeenCalled();
+    });
   });
 
-  it('sets aria-disabled when the button is disabled', () => {
-    renderButton({ isDisabled: true });
+  describe('Button Type and Children', () => {
+    it('has correct button type by default', () => {
+      renderButton();
 
-    const button = screen.getByRole('button', { name: /click me/i });
-    expect(button).toBeDisabled();
-    expect(button).toHaveAttribute('aria-disabled', 'true');
+      const button = screen.getByRole('button', { name: /click me/i });
+      expect(button).toHaveAttribute('type', ButtonType.Button);
+    });
+
+    it('renders children correctly', () => {
+      renderButton({ children: <span>Icon</span> });
+
+      const button = screen.getByRole('button', { name: /icon/i });
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveTextContent('Icon');
+    });
   });
 
-  it('does not call handleClick when the button is disabled', () => {
-    const handleClick = jest.fn();
-    renderButton({ handleClick, isDisabled: true });
+  describe('Aria-disabled Attribute', () => {
+    it('sets aria-disabled when the button is disabled', () => {
+      renderButton({ isDisabled: true });
 
-    const button = screen.getByRole('button', { name: /click me/i });
-
-    fireEvent.click(button);
-    expect(handleClick).not.toHaveBeenCalled();
-  });
-
-  it('has correct button type by default', () => {
-    renderButton();
-
-    const button = screen.getByRole('button', { name: /click me/i });
-    expect(button).toHaveAttribute('type', ButtonType.Button);
+      const button = screen.getByRole('button', { name: /click me/i });
+      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+    });
   });
 });

@@ -14,8 +14,11 @@ import { getAndEncodeDataObject } from 'helpers';
 import { AriaDescriptionUI, SvgIconUI } from 'ui';
 
 import { getPrimaryButtonStyles } from 'styles';
+import { useState } from 'react';
 
 export default function TelegramSubmitButton() {
+  const [href, setHref] = useState('#');
+
   const { calculationData } = useCalculation();
   const { workType, executionTime, expertiseArea, uniqueness } = calculationData;
 
@@ -34,7 +37,7 @@ export default function TelegramSubmitButton() {
     }
     // console.log('Final URL:', `https://t.me/AcademicAtlasBot?start=${base64String}`);
 
-    e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
+    setHref(`https://t.me/AcademicAtlasBot?start=${base64String}`);
   };
 
   const linkClass = getPrimaryButtonStyles(true);
@@ -42,7 +45,7 @@ export default function TelegramSubmitButton() {
   return (
     <>
       <a
-        href='#'
+        href={href}
         onClick={handleLinkClick}
         target='_blank'
         rel='noopener noreferrer'

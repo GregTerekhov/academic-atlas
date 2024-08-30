@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { BACKGROUNDS, SectionDescriptions, SectionTitle } from 'types';
-import { DEVICES } from 'helpers';
+import { SectionDescriptions, SectionTitle } from 'types';
 import { AboutUs } from 'components';
 
 jest.mock('components/home/subcomponents', () => ({
@@ -18,22 +17,23 @@ jest.mock('data', () => ({
   })),
 }));
 
+jest.mock('template', () => ({
+  SectionTemplate: jest.fn(({ title, children }) => {
+    return (
+      <section id={title}>
+        <h2>
+          {title === SectionTitle.AboutUs ? SectionDescriptions[SectionTitle.AboutUs] : title}
+        </h2>
+        {children}
+      </section>
+    );
+  }),
+}));
+
 jest.mock('helpers', () => ({
   getIdValues: jest.fn(() => ({
     AboutUs: 'about-us',
   })),
-  generateBackgroundImagePaths: jest.fn((section: SectionTitle) => {
-    const baseName = BACKGROUNDS[section];
-    if (!baseName) return null;
-
-    return DEVICES.reduce(
-      (paths, device) => {
-        paths[device] = `/backgroundImage/${baseName}-${device}.webp`;
-        return paths;
-      },
-      {} as Record<string, string>,
-    );
-  }),
 }));
 
 describe('AboutUs Component', () => {
@@ -54,7 +54,6 @@ describe('AboutUs Component', () => {
       name: SectionDescriptions[SectionTitle.AboutUs],
     });
     expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent(SectionDescriptions[SectionTitle.AboutUs]);
 
     const sectionElement = heading.closest('section');
     expect(sectionElement).toHaveAttribute('id', 'about-us');

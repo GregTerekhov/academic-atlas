@@ -25,7 +25,7 @@ export default function WorkflowItem({ count, header, desc, gridMarkup }: IWorkf
         {header === 'Реєстрація' ? (
           <TextWithLink
             order={TelegramScenario.Join}
-            textWithLink={desc}
+            text={desc}
           />
         ) : (
           <p className='generalText'>{desc}</p>

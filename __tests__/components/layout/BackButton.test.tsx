@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-conditional-expect */
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { useCalculation, useCalculationResult } from 'context';
@@ -15,51 +16,43 @@ jest.mock('ui', () => ({
 describe('BackButton Component', () => {
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockUseCalculationResult = useCalculationResult as jest.Mock;
+  const handleResetCostResult = jest.fn();
+  const resetCalculation = jest.fn();
+
+  const setupMocks = (hasSubmitData: boolean) => {
+    mockUseCalculation.mockReturnValue({ resetCalculation });
+    mockUseCalculationResult.mockReturnValue({
+      hasSubmitData,
+      handleResetCostResult,
+    });
+  };
+
+  const renderComponent = () => render(<BackButton />);
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should not render the button if hasSubmitData is false', () => {
-    const resetCalculation = jest.fn();
+  it.each`
+    hasSubmitData | shouldRenderButton
+    ${false}      | ${false}
+    ${true}       | ${true}
+  `(
+    'should $shouldRenderButton render the button when hasSubmitData is $hasSubmitData',
+    ({ hasSubmitData, shouldRenderButton }) => {
+      setupMocks(hasSubmitData);
+      renderComponent();
 
-    mockUseCalculation.mockReturnValue({ resetCalculation });
-    mockUseCalculationResult.mockReturnValue({ hasSubmitData: false });
+      const button = screen.queryByRole('button');
 
-    render(<BackButton />);
-
-    const button = screen.queryByRole('button');
-    expect(button).not.toBeInTheDocument();
-  });
-
-  it('should render the button if hasSubmitData is true', () => {
-    const resetCalculation = jest.fn();
-
-    mockUseCalculation.mockReturnValue({ resetCalculation });
-    mockUseCalculationResult.mockReturnValue({ hasSubmitData: true });
-
-    render(<BackButton />);
-
-    const button = screen.getByRole('button');
-    expect(button).toBeInTheDocument();
-  });
-
-  it('should call handleResetCostResult and resetCalculation when is button is clicked', () => {
-    const handleResetCostResult = jest.fn();
-    const resetCalculation = jest.fn();
-
-    mockUseCalculation.mockReturnValue({ resetCalculation });
-    mockUseCalculationResult.mockReturnValue({
-      hasSubmitData: true,
-      handleResetCostResult,
-    });
-
-    render(<BackButton />);
-
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
-
-    expect(handleResetCostResult).toHaveBeenCalled();
-    expect(resetCalculation).toHaveBeenCalled();
-  });
+      if (shouldRenderButton) {
+        expect(button).toBeInTheDocument();
+        fireEvent.click(button!);
+        expect(handleResetCostResult).toHaveBeenCalled();
+        expect(resetCalculation).toHaveBeenCalled();
+      } else {
+        expect(button).not.toBeInTheDocument();
+      }
+    },
+  );
 });

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
 import { CtaText, PrimaryButtonLabel, SectionDescriptions, SectionTitle } from 'types';
-
 import { Hero } from 'components';
 
 jest.mock('helpers', () => ({
@@ -11,8 +10,8 @@ jest.mock('helpers', () => ({
 jest.mock('template', () => ({
   SectionTemplate: jest.fn(({ title, children, ctaText }) => {
     return (
-      <section>
-        <h1>{title === SectionTitle.Hero ? SectionDescriptions[SectionTitle.Hero] : title}</h1>
+      <section id={title}>
+        <h1>{SectionDescriptions[SectionTitle.Hero]}</h1>
         <p>{ctaText}</p>
         {children}
       </section>

@@ -1,8 +1,10 @@
+/* eslint-disable jest/no-conditional-expect */
 /* eslint-disable @next/next/no-img-element */
 
 import { render, screen } from '@testing-library/react';
 
 import { CtaText, SectionDescriptions, SectionTitle } from 'types';
+import { generateBackgroundImagePaths } from 'helpers';
 import { SectionTemplate } from 'template';
 import { getExtraSectionOverlayStyles, getTitleClasses } from 'styles';
 
@@ -33,19 +35,36 @@ jest.mock('components', () => ({
   CallToActionText: jest.fn(({ ctaStyle, ctaText }) => <div className={ctaStyle}>{ctaText}</div>),
 }));
 
+jest.mock('helpers', () => ({
+  generateBackgroundImagePaths: jest.fn((section) => {
+    if (section === SectionTitle.Hero) {
+      return {
+        largeDesktop: '/backgroundImage/hero-largeDesktop.webp',
+        desktop: '/backgroundImage/hero-desktop.webp',
+        tablet: '/backgroundImage/hero-tablet.webp',
+        mobile: '/backgroundImage/hero-mobile.webp',
+      };
+    }
+    return null;
+  }),
+}));
+
 describe('Section template', () => {
+  const mockGenerateBackgroundImagePaths = generateBackgroundImagePaths as jest.Mock;
+
   const renderSectionTemplate = (props = {}) => {
     const defaultProps = {
-      id: SectionTitle.AboutUs,
       title: SectionTitle.AboutUs,
-      sectionStyle: 'be-section',
+      children: <div>Children Content</div>,
+      id: SectionTitle.AboutUs,
       titleStyles: 'title-style',
       noAlignment: 'no-align',
-      hasCtaText: false,
-      ctaText: CtaText.NoText,
       ctaStyle: '',
+      sectionStyle: 'be-section',
+      isBigTitle: false,
+      ctaText: CtaText.NoText,
+      hasCtaText: false,
       priority: false,
-      children: <div>Children Content</div>,
       ...props,
     };
 
@@ -56,99 +75,187 @@ describe('Section template', () => {
     jest.clearAllMocks();
   });
 
-  it('should render the section with the correct title and classes', () => {
-    renderSectionTemplate();
+  describe('Rendering and Basic Functionality', () => {
+    it('renders the section with the correct title and classes', () => {
+      renderSectionTemplate();
 
-    const section = screen.getByTestId(`section-${SectionTitle.AboutUs}`);
-    expect(section).toHaveClass(
-      'bg-transparent text-darkBase dark:text-whiteBase be-section relative py-20 md:py-24 lg:py-[120px]',
+      const section = screen.getByTestId(`section-${SectionTitle.AboutUs}`);
+      expect(section).toHaveClass(
+        'bg-transparent text-darkBase dark:text-whiteBase be-section relative py-20 md:py-24 lg:py-[120px]',
+      );
+
+      const titleElement = screen.getByText(SectionDescriptions[SectionTitle.AboutUs]);
+      expect(titleElement.tagName).toBe('H2');
+      expect(titleElement).toHaveClass(getTitleClasses(false, false, 'title-style', 'no-align'));
+    });
+
+    it.each([
+      [undefined, false],
+      ['Children Content', true],
+    ])('renders children content correctly when content is %s', (children, shouldRender) => {
+      renderSectionTemplate({ children });
+
+      if (shouldRender) {
+        expect(screen.getByText('Children Content')).toBeInTheDocument();
+      } else {
+        expect(screen.queryByText('Children Content')).not.toBeInTheDocument();
+      }
+    });
+
+    it('handles missing optional props gracefully', () => {
+      renderSectionTemplate({
+        ctaText: undefined,
+        ctaStyle: undefined,
+        titleStyle: undefined,
+      });
+
+      const section = screen.getByTestId(`section-${SectionTitle.AboutUs}`);
+      expect(section).toBeInTheDocument();
+    });
+  });
+
+  describe('CallToActionText Rendering', () => {
+    it.each([
+      [true, CtaText.MainPromotions, 'cta-style'],
+      [false, CtaText.MainPromotions, ''],
+    ])(
+      'renders CallToActionText based on hasCtaText=%s',
+      (hasCtaText, expectedText, expectedStyle) => {
+        renderSectionTemplate({
+          title: SectionTitle.Promotions,
+          hasCtaText,
+          ctaText: expectedText,
+          ctaStyle: expectedStyle,
+        });
+
+        if (hasCtaText) {
+          const ctaElement = screen.getByText(expectedText);
+          expect(ctaElement).toBeInTheDocument();
+          expect(ctaElement).toHaveClass(expectedStyle);
+        } else {
+          expect(screen.queryByText(expectedText)).not.toBeInTheDocument();
+        }
+      },
+    );
+  });
+
+  describe('Background Image and Overlay', () => {
+    it.each([
+      [SectionTitle.Hero, true, true, true],
+      [SectionTitle.OurServices, false, false, false],
+    ])(
+      'renders background image and overlay for title=%s = %s',
+      (title, shouldRenderImages, shouldRenderOverlay, priority) => {
+        renderSectionTemplate({ title, sectionStyle: '', priority });
+
+        if (shouldRenderImages && shouldRenderOverlay) {
+          const pictures = screen.getAllByAltText(SectionDescriptions[SectionTitle.Hero]);
+          expect(pictures).toHaveLength(4);
+
+          const backgroundImagePaths = {
+            largeDesktop: '/backgroundImage/hero-largeDesktop.webp',
+            desktop: '/backgroundImage/hero-desktop.webp',
+            tablet: '/backgroundImage/hero-tablet.webp',
+            mobile: '/backgroundImage/hero-mobile.webp',
+          };
+
+          pictures.forEach((picture, index) => {
+            expect(picture).toBeInTheDocument();
+            const src = Object.values(backgroundImagePaths)[index];
+            expect(picture).toHaveAttribute('src', src);
+          });
+
+          expect(screen.getByTestId('overlay')).toHaveClass(getExtraSectionOverlayStyles());
+        } else {
+          expect(
+            screen.queryByAltText(SectionDescriptions[SectionTitle.OurServices]),
+          ).not.toBeInTheDocument();
+          expect(screen.queryByTestId('overlay')).not.toBeInTheDocument();
+        }
+      },
     );
 
-    const titleElement = screen.getByText(SectionDescriptions[SectionTitle.AboutUs]);
-    expect(titleElement.tagName).toBe('H2');
-    expect(titleElement).toHaveClass(getTitleClasses(false, false, 'title-style', 'no-align'));
+    it('does not render background images if generateBackgroundImagePaths returns null', () => {
+      const generateBackgroundImagePaths = jest.fn(() => null);
+      jest.mock('helpers', () => ({ generateBackgroundImagePaths }));
+
+      renderSectionTemplate({ title: SectionTitle.AboutUs });
+
+      expect(
+        screen.queryByAltText(SectionDescriptions[SectionTitle.AboutUs]),
+      ).not.toBeInTheDocument();
+    });
   });
 
-  it('should render CallToActionText if hasCtaText is true', () => {
-    renderSectionTemplate({
-      hasCtaText: true,
-      ctaText: CtaText.MainPromotions,
-      ctaStyle: 'cta-style',
+  describe('Title Tag and Styling', () => {
+    it.each([
+      ['H1', true, '', SectionTitle.Hero, getTitleClasses(true, false, '', 'no-align')],
+      [
+        'H2',
+        false,
+        'title-style',
+        SectionTitle.AboutUs,
+        getTitleClasses(false, false, 'title-style', 'no-align'),
+      ],
+    ])(
+      'renders %s tag and styles correctly when isBigTitle=%s and titleStyle=%s',
+      (expectedTag, isBigTitle, titleStyle, title, expectedClasses) => {
+        renderSectionTemplate({ title, isBigTitle, titleStyle });
+
+        const titleElement = screen.getByText(SectionDescriptions[title]);
+        expect(titleElement.tagName).toBe(expectedTag);
+        expect(titleElement).toHaveClass(expectedClasses);
+      },
+    );
+
+    it('applies sectionStyle correctly when is provided', () => {
+      const sectionStyle = 'custom-style';
+      renderSectionTemplate({ sectionStyle });
+
+      const section = screen.getByTestId(`section-${SectionTitle.AboutUs}`);
+      expect(section).toHaveClass(sectionStyle);
     });
 
-    const ctaElement = screen.getByText(CtaText.MainPromotions);
-    expect(ctaElement).toBeInTheDocument();
-    expect(ctaElement).toHaveClass('cta-style');
-  });
+    it('applies titleStyle correctly when is provided', () => {
+      const titleStyle = 'custom-title-style';
+      renderSectionTemplate({ title: SectionTitle.AboutUs, titleStyle });
 
-  it('should render background image and overlay if background image paths are available', () => {
-    renderSectionTemplate({ title: SectionTitle.Hero, sectionStyle: '', priority: true });
-
-    const pictures = screen.getAllByAltText(SectionDescriptions[SectionTitle.Hero]);
-    expect(pictures).toHaveLength(4);
-
-    const backgroundImagePaths = {
-      largeDesktop: '/backgroundImage/hero-largeDesktop.webp',
-      desktop: '/backgroundImage/hero-desktop.webp',
-      tablet: '/backgroundImage/hero-tablet.webp',
-      mobile: '/backgroundImage/hero-mobile.webp',
-    };
-
-    const getBackgroundImagePaths = jest.fn(() => backgroundImagePaths);
-    jest.mock('helpers', () => ({ generateBackgroundImagePaths: getBackgroundImagePaths }));
-
-    pictures.forEach((picture, index) => {
-      expect(picture).toBeInTheDocument();
-
-      const src = Object.values(backgroundImagePaths)[index];
-      expect(picture).toHaveAttribute('src', src);
+      const titleElement = screen.getByText(SectionDescriptions[SectionTitle.AboutUs]);
+      expect(titleElement).toHaveClass(getTitleClasses(false, false, titleStyle, 'no-align'));
     });
 
-    expect(screen.getByTestId('overlay')).toHaveClass(getExtraSectionOverlayStyles());
-  });
+    it('applies correct title classes based on isBigTitle and hasCtaText', () => {
+      renderSectionTemplate({
+        title: SectionTitle.AboutUs,
+        isBigTitle: true,
+        hasCtaText: true,
+        titleStyle: 'big-title-style',
+      });
 
-  it('should render an h1 tag if isBigTitle is true', () => {
-    renderSectionTemplate({
-      title: SectionTitle.Hero,
-      isBigTitle: true,
+      const titleElement = screen.getByText(SectionDescriptions[SectionTitle.AboutUs]);
+      expect(titleElement.tagName).toBe('H1');
+      expect(titleElement).toHaveClass(getTitleClasses(true, true, 'big-title-style', 'no-align'));
     });
-
-    const titleElement = screen.getByText(SectionDescriptions[SectionTitle.Hero]);
-    expect(titleElement.tagName).toBe('H1');
-    expect(titleElement).toHaveClass(getTitleClasses(true, false, '', 'no-align'));
   });
 
-  it('should render an h2 tag if isBigTitle is false', () => {
-    renderSectionTemplate({
-      title: SectionTitle.AboutUs,
-      titleStyles: 'title-style',
-      isBigTitle: false,
+  describe('Rendering for Each Title Value', () => {
+    it('renders correctly for each possible title value', () => {
+      const titles = Object.values(SectionTitle);
+      titles.forEach((title) => {
+        renderSectionTemplate({ title });
+
+        const section = screen.getByTestId(`section-${title}`);
+        expect(section).toBeInTheDocument();
+        expect(screen.getByText(SectionDescriptions[title])).toBeInTheDocument();
+      });
     });
-
-    const titleElement = screen.getByText(SectionDescriptions[SectionTitle.AboutUs]);
-    expect(titleElement.tagName).toBe('H2');
-    expect(titleElement).toHaveClass(getTitleClasses(false, false, 'title-style', 'no-align'));
   });
 
-  it('should render children content', () => {
-    renderSectionTemplate();
+  describe('Background Image Paths Function Call', () => {
+    it('should call generateBackgroundImagePaths with the correct title', () => {
+      renderSectionTemplate({ title: SectionTitle.Hero });
 
-    expect(screen.getByText('Children Content')).toBeInTheDocument();
-  });
-
-  it('should not render CallToActionText if hasCtaText is false', () => {
-    renderSectionTemplate({
-      hasCtaText: false,
+      expect(mockGenerateBackgroundImagePaths).toHaveBeenCalledWith(SectionTitle.Hero);
     });
-
-    expect(screen.queryByText(CtaText.MainPerformers)).not.toBeInTheDocument();
-  });
-
-  it('should not render overlay if background image paths are nit available', () => {
-    renderSectionTemplate({
-      title: SectionTitle.OurServices,
-    });
-
-    expect(screen.queryByTestId('overlay')).not.toBeInTheDocument();
   });
 });

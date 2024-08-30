@@ -146,6 +146,23 @@ describe('PopupProvider', () => {
     });
   });
 
+  it('should not call resetValues when opening popup in togglePopup', () => {
+    render(<MockPopupContext />, { wrapper: Wrapper });
+
+    fireEvent.click(screen.getByText('Toggle Popup'));
+
+    expect(mockResetValues).not.toHaveBeenCalled();
+  });
+
+  it('should call resetValues and setBodyOverflow(false) when closePopup is called', () => {
+    render(<MockPopupContext />, { wrapper: Wrapper });
+
+    fireEvent.click(screen.getByText('Close Popup'));
+
+    expect(mockResetValues).toHaveBeenCalled();
+    expect(mockSetBodyOverflow).toHaveBeenCalledWith(false);
+  });
+
   it('should call setBodyOverflow and not call resetValues when opening popup, but call resetValues when closing', async () => {
     const { rerender } = render(<MockPopupContext />, { wrapper: Wrapper });
 

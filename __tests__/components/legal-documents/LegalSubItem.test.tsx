@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { ISubItem } from 'types';
+import { type ISubItem } from 'types';
 import { LegalSubItem } from 'components/legal-documents/subcomponents';
 
 describe('LegalSubItem Component', () => {

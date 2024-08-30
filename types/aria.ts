@@ -1,6 +1,7 @@
 export enum AriaLabel {
   Burger = 'Бургер-меню',
   CalculationModule = 'Модуль калькуляції',
+  Check = 'Іконка перевірки',
   CloseButton = 'Кнопка закриття',
   CloseMenu = 'Закрити меню',
   CloseModal = 'Закриття модалки',

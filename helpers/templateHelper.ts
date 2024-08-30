@@ -2,7 +2,7 @@ import { BACKGROUNDS, SectionTitle } from '../types';
 
 export const DEVICES = ['largeDesktop', 'desktop', 'tablet', 'mobile'];
 
-const getBackgroundImagePaths = (baseName: string, device: string): string => {
+export const getBackgroundImagePaths = (baseName: string, device: string): string => {
   return `/backgroundImage/${baseName}-${device}.webp`;
 };
 
