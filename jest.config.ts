@@ -120,8 +120,15 @@ const config: Config = {
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
-  // reporters: undefined,
-
+  reporters: [
+  'default',
+  [
+    'jest-allure',
+    {
+      resultsDir: 'allure-results',
+    },
+  ],
+],
   // Automatically reset mock state before every test
   // resetMocks: false,
 
@@ -158,7 +165,7 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jsdom',
+  testEnvironment: 'allure-jest/jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

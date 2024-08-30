@@ -1,0 +1,45 @@
+name: Run Tests and Publish Allure Report 1
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+  workflow_dispatch: 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jest tests with Allure
+        run: npm run test
+        continue-on-error: true
+      
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+
+      - name: Download Allure Results
+        uses: actions/download-artifact@v4
+        with:
+          name: allure-results
+
+      - name: Setup Allure
+        run: |
+          npm install -g allure-commandline
+          npm install -g allure-jest
+          allure generate allure-results --clean -o allure-report
