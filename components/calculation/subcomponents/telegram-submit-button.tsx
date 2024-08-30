@@ -32,6 +32,7 @@ export default function TelegramSubmitButton() {
       e.preventDefault();
       return;
     }
+    // console.log('Final URL:', `https://t.me/AcademicAtlasBot?start=${base64String}`);
 
     e.currentTarget.href = `https://t.me/AcademicAtlasBot?start=${base64String}`;
   };

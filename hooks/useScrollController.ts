@@ -3,13 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useIntersectionObserver } from './useIntersectionObserver';
-import { useActiveLink } from 'context';
 
 export const useScrollController = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const footerRef = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const { updateScrollWithButtonState } = useActiveLink();
 
   useEffect(() => {
     if (!footerRef.current) {
@@ -54,15 +52,11 @@ export const useScrollController = () => {
 
   const scrollToTop = () => {
     //FIXME: add new logic in test
-    updateScrollWithButtonState(true);
+
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-
-    setTimeout(() => {
-      updateScrollWithButtonState(false);
-    }, 1000);
   };
 
   return { buttonRef, isVisible, scrollToTop };
