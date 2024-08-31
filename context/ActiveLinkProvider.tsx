@@ -60,9 +60,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   useEffect(() => {
     if (pathname === Paths.Main) {
-      initialiseSections();
-
-      const intersectionTimerId = setTimeout(() => {
+      initialiseSections().then(() => {
         const observer = new IntersectionObserver(handleSectionIntersection, {
           root: null,
           threshold: 0.3,
@@ -71,13 +69,8 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         sectionRefs.current.forEach((ref) => {
           if (ref) observer.observe(ref);
         });
-      }, 1000);
-
-      return () => {
-        clearTimeout(intersectionTimerId);
-      };
+      });
     }
-    return undefined;
   }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
   const handleActivateLink = (path: string) => {

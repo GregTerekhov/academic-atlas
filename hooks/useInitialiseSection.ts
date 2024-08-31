@@ -8,20 +8,26 @@ export const useInitialiseSection = () => {
   const sections = useRef<{ id: string; path: string }[]>([]);
   const sectionRefs = useRef<Element[]>([]);
   //FIXME: add new logic in test
+
   const initialiseSections = useCallback(() => {
-    const initialisationTimerId = setTimeout(() => {
-      const nodeList = document.querySelectorAll('section[id]');
-      sectionRefs.current = Array.from(nodeList);
+    return new Promise<void>((resolve) => {
+      const observer = new MutationObserver((_, observer) => {
+        const nodeList = document.querySelectorAll('section[id]');
+        if (nodeList.length > 0) {
+          sectionRefs.current = Array.from(nodeList);
 
-      const adaptedLinks = getAdaptedLinks();
-      sections.current = adaptedLinks.map(({ path, id }) => {
-        return { id: id ?? '', path };
+          const adaptedLinks = getAdaptedLinks();
+          sections.current = adaptedLinks.map(({ path, id }) => {
+            return { id: id ?? '', path };
+          });
+
+          observer.disconnect();
+          resolve();
+        }
       });
-    }, 500);
 
-    return () => {
-      clearTimeout(initialisationTimerId);
-    };
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
   }, []);
 
   return { sections, sectionRefs, initialiseSections };
