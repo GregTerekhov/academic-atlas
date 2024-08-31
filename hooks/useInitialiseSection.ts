@@ -7,7 +7,7 @@ import { getAdaptedLinks } from 'data';
 export const useInitialiseSection = () => {
   const sections = useRef<{ id: string; path: string }[]>([]);
   const sectionRefs = useRef<Element[]>([]);
-
+  //FIXME: add new logic in test
   const initialiseSections = useCallback(() => {
     const initialisationTimerId = setTimeout(() => {
       const nodeList = document.querySelectorAll('section[id]');

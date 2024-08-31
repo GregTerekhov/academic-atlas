@@ -8,7 +8,7 @@ export const useIntersectionObserver = (
   callback: IntersectionObserverCallback,
 ) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
-
+  //FIXME: add new logic in test
   useEffect(() => {
     if (observerRef.current) {
       observerRef.current.disconnect();

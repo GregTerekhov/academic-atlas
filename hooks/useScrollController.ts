@@ -51,8 +51,6 @@ export const useScrollController = () => {
   );
 
   const scrollToTop = () => {
-    //FIXME: add new logic in test
-
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
