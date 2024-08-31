@@ -60,16 +60,20 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   useEffect(() => {
     if (pathname === Paths.Main) {
-      initialiseSections().then(() => {
-        const observer = new IntersectionObserver(handleSectionIntersection, {
-          root: null,
-          threshold: 0.3,
-        });
+      initialiseSections()
+        .then(() => {
+          const observer = new IntersectionObserver(handleSectionIntersection, {
+            root: null,
+            threshold: 0.3,
+          });
 
-        sectionRefs.current.forEach((ref) => {
-          if (ref) observer.observe(ref);
+          sectionRefs.current.forEach((ref) => {
+            if (ref) observer.observe(ref);
+          });
+        })
+        .catch((error) => {
+          console.error('Failed to initialize sections:', error);
         });
-      });
     }
   }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
@@ -78,21 +82,20 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     const sectionId = isSection ? path.split('#')[1] : '';
     const section = sections.current.find((section) => section.id === sectionId);
 
-    // isNavigating.current = true;
+    isNavigating.current = true;
 
     if (isSection && section) {
       setActivatedLink(section.path);
       router.push(`#${section.id}`, { scroll: false });
     } else {
       if (activatedLink !== path) {
-        isNavigating.current = true;
         setActivatedLink(path);
       }
     }
 
     const navigationTimerId = setTimeout(() => {
       isNavigating.current = false;
-    }, 2000);
+    }, 1000);
 
     return () => {
       clearTimeout(navigationTimerId);

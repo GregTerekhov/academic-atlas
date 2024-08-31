@@ -10,23 +10,23 @@ export const useInitialiseSection = () => {
   //FIXME: add new logic in test
 
   const initialiseSections = useCallback(() => {
-    return new Promise<void>((resolve) => {
-      const observer = new MutationObserver((_, observer) => {
+    return new Promise<void>((resolve, reject) => {
+      try {
         const nodeList = document.querySelectorAll('section[id]');
-        if (nodeList.length > 0) {
-          sectionRefs.current = Array.from(nodeList);
-
-          const adaptedLinks = getAdaptedLinks();
-          sections.current = adaptedLinks.map(({ path, id }) => {
-            return { id: id ?? '', path };
-          });
-
-          observer.disconnect();
-          resolve();
+        if (nodeList.length === 0) {
+          throw new Error('No sections found');
         }
-      });
 
-      observer.observe(document.body, { childList: true, subtree: true });
+        sectionRefs.current = Array.from(nodeList);
+        const adaptedLinks = getAdaptedLinks();
+        sections.current = adaptedLinks.map(({ path, id }) => {
+          return { id: id ?? '', path };
+        });
+
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
     });
   }, []);
 
