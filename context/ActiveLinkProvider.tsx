@@ -78,7 +78,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     const sectionId = isSection ? path.split('#')[1] : '';
     const section = sections.current.find((section) => section.id === sectionId);
 
-    isNavigating.current = true;
+    // isNavigating.current = true;
 
     if (isSection && section) {
       setActivatedLink(section.path);
@@ -92,7 +92,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
     const navigationTimerId = setTimeout(() => {
       isNavigating.current = false;
-    }, 1000);
+    }, 2000);
 
     return () => {
       clearTimeout(navigationTimerId);
