@@ -44,7 +44,6 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("entry.isIntersecting", entry.isIntersecting);
           const id = entry.target.getAttribute('id');
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
@@ -79,19 +78,33 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
   const handleActivateLink = (path: string) => {
-    const isSection = path.includes('#');
-    const sectionId = isSection ? path.split('#')[1] : '';
-    const section = sections.current.find((section) => section.id === sectionId);
+    const sectionId = path.split('#')[1];
 
-    isNavigating.current = true;
+    const activateLink = () => {
+      const section = sections.current.find((section) => section.id === sectionId);
+    
+      isNavigating.current = true;
 
-    if (isSection && section) {
-      setActivatedLink(section.path);
-      router.push(`#${section.id}`, { scroll: true });
-    } else {
-      if (activatedLink !== path) {
-        setActivatedLink(path);
+      if (section) {
+        setActivatedLink(section.path);
+        router.push(`#${section.id}`, { scroll: false });
+      } else {
+        if (activatedLink !== path) {
+          setActivatedLink(path);
+        }
       }
+    };
+
+    if (sections.current && sections.current.length > 0) {
+      activateLink();
+    } else {
+      initialiseSections()
+        .then(() => {
+          activateLink();
+        })
+        .catch((error) => {
+          console.error('Failed to initialize sections before activating link:', error);
+        });
     }
 
     const navigationTimerId = setTimeout(() => {
