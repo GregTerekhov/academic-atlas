@@ -8,6 +8,7 @@ export const useInitialiseSection = () => {
   const sections = useRef<{ id: string; path: string }[]>([]);
   const sectionRefs = useRef<Element[]>([]);
   //FIXME: add new logic in test
+
   const initialiseSections = useCallback(() => {
     return new Promise<void>((resolve, reject) => {
       try {
