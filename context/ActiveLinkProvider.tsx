@@ -79,32 +79,28 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleActivateLink = (path: string) => {
     const sectionId = path.split('#')[1];
+    const section = sections.current.find((section) => section.id === sectionId);
 
-    const activateLink = () => {
-      const section = sections.current.find((section) => section.id === sectionId);
-    
-      isNavigating.current = true;
+    isNavigating.current = true;
 
-      if (section) {
+    if (section) {
+      if (sectionRefs) {
         setActivatedLink(section.path);
         router.push(`#${section.id}`, { scroll: false });
       } else {
-        if (activatedLink !== path) {
-          setActivatedLink(path);
-        }
+        initialiseSections()
+          .then(() => {
+            setActivatedLink(section.path);
+            router.push(`#${section.id}`, { scroll: false });
+          })
+          .catch((error) => {
+            console.error('Failed to initialize sections before activating link:', error);
+          });
       }
-    };
-
-    if (sections.current && sections.current.length > 0) {
-      activateLink();
     } else {
-      initialiseSections()
-        .then(() => {
-          activateLink();
-        })
-        .catch((error) => {
-          console.error('Failed to initialize sections before activating link:', error);
-        });
+      if (activatedLink !== path) {
+        setActivatedLink(path);
+      }
     }
 
     const navigationTimerId = setTimeout(() => {
