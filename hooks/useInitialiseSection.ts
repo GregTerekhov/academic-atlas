@@ -9,19 +9,24 @@ export const useInitialiseSection = () => {
   const sectionRefs = useRef<Element[]>([]);
   //FIXME: add new logic in test
   const initialiseSections = useCallback(() => {
-    const initialisationTimerId = setTimeout(() => {
-      const nodeList = document.querySelectorAll('section[id]');
-      sectionRefs.current = Array.from(nodeList);
+    return new Promise<void>((resolve, reject) => {
+      try {
+        const nodeList = document.querySelectorAll('section[id]');
+        if (nodeList.length === 0) {
+          throw new Error('No sections found');
+        }
 
-      const adaptedLinks = getAdaptedLinks();
-      sections.current = adaptedLinks.map(({ path, id }) => {
-        return { id: id ?? '', path };
-      });
-    }, 500);
+        sectionRefs.current = Array.from(nodeList);
+        const adaptedLinks = getAdaptedLinks();
+        sections.current = adaptedLinks.map(({ path, id }) => {
+          return { id: id ?? '', path };
+        });
 
-    return () => {
-      clearTimeout(initialisationTimerId);
-    };
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
   }, []);
 
   return { sections, sectionRefs, initialiseSections };

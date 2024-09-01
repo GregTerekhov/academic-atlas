@@ -44,6 +44,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          console.log("entry.isIntersecting", entry.isIntersecting);
           const id = entry.target.getAttribute('id');
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
@@ -60,24 +61,21 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   useEffect(() => {
     if (pathname === Paths.Main) {
-      initialiseSections();
+      initialiseSections()
+        .then(() => {
+          const observer = new IntersectionObserver(handleSectionIntersection, {
+            root: null,
+            threshold: 0.3,
+          });
 
-      const intersectionTimerId = setTimeout(() => {
-        const observer = new IntersectionObserver(handleSectionIntersection, {
-          root: null,
-          threshold: 0.3,
+          sectionRefs.current.forEach((ref) => {
+            if (ref) observer.observe(ref);
+          });
+        })
+        .catch((error) => {
+          console.error('Failed to initialize sections:', error);
         });
-
-        sectionRefs.current.forEach((ref) => {
-          if (ref) observer.observe(ref);
-        });
-      }, 1000);
-
-      return () => {
-        clearTimeout(intersectionTimerId);
-      };
     }
-    return undefined;
   }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
   const handleActivateLink = (path: string) => {
@@ -89,10 +87,9 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
     if (isSection && section) {
       setActivatedLink(section.path);
-      router.push(`#${section.id}`, { scroll: false });
+      router.push(`#${section.id}`, { scroll: true });
     } else {
       if (activatedLink !== path) {
-        isNavigating.current = true;
         setActivatedLink(path);
       }
     }
