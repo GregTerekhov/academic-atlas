@@ -58,10 +58,31 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     [sections, activatedLink, router],
   );
 
+  // useEffect( () => {
+  //   if (pathname === Paths.Main) {
+  //     initialiseSections()
+  //       .then(() => {
+  //         const observer = new IntersectionObserver(handleSectionIntersection, {
+  //           root: null,
+  //           threshold: 0.3,
+  //         });
+
+  //         sectionRefs.current.forEach((ref) => {
+  //           if (ref) observer.observe(ref);
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         console.error('Failed to initialize sections:', error);
+  //       });
+  //   }
+  // }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
+
   useEffect(() => {
-    if (pathname === Paths.Main) {
-      initialiseSections()
-        .then(() => {
+    const initialiseAndObserve = async () => {
+      if (pathname === Paths.Main) {
+        try {
+          await initialiseSections();
+
           const observer = new IntersectionObserver(handleSectionIntersection, {
             root: null,
             threshold: 0.3,
@@ -70,33 +91,34 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           sectionRefs.current.forEach((ref) => {
             if (ref) observer.observe(ref);
           });
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error('Failed to initialize sections:', error);
-        });
-    }
+        }
+      }
+    };
+
+    initialiseAndObserve();
   }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
-  const handleActivateLink = (path: string) => {
+  const handleActivateLink = async (path: string) => {
     const sectionId = path.split('#')[1];
-    const section = sections.current.find((section) => section.id === sectionId);
 
+    if (!sections.current || sectionRefs.current.length === 0) {
+      try {
+        await initialiseSections();
+      } catch (error) {
+        console.error('Failed to initialize sections before activating link:', error);
+        return;
+      }
+    }
+
+    const section = sections.current.find((section) => section.id === sectionId);
     isNavigating.current = true;
 
     if (section) {
-      if (sectionRefs) {
-        setActivatedLink(section.path);
-        router.push(`#${section.id}`, { scroll: false });
-      } else {
-        initialiseSections()
-          .then(() => {
-            setActivatedLink(section.path);
-            router.push(`#${section.id}`, { scroll: false });
-          })
-          .catch((error) => {
-            console.error('Failed to initialize sections before activating link:', error);
-          });
-      }
+      setActivatedLink(section.path);
+
+      router.push(`#${section.id}`, { scroll: false });
     } else {
       if (activatedLink !== path) {
         setActivatedLink(path);
