@@ -57,7 +57,6 @@ describe('InputFields subComponent', () => {
   });
 
   test('renders the correct number of DropdownUI components', () => {
-    screen.debug();
     renderComponent();
 
     const dropdowns = screen.getAllByTestId('dropdown-ui');

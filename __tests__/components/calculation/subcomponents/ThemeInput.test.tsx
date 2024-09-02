@@ -80,7 +80,6 @@ describe('ThemeInput subComponent', () => {
 
     const descriptionElement = screen.getByText(AriaDescription.ThemeInput);
 
-    screen.debug();
     expect(descriptionElement).toBeInTheDocument();
     expect(descriptionElement).toHaveAttribute('id', AriaId.ThemeInput);
   });

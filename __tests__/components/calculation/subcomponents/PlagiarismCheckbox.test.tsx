@@ -57,14 +57,31 @@ describe('PlagiarismCheckbox subComponent', () => {
     expect(screen.getByText('Наявність перевірки на плагіат')).toBeInTheDocument();
   });
 
-  test('render the custom checkbox with correct aria attributes and class', () => {
-    renderComponent();
+  test.each`
+    isChecked | expectedClass       | ariaChecked
+    ${false}  | ${'bg-transparent'} | ${false}
+  `(
+    'render custom checkbox with expected class to be $expectedClass when isChecked is $isChecked',
+    ({ isChecked, expectedClass, ariaChecked }) => {
+      mockUseCalculation({ isChecked, handleCheckboxChange: jest.fn() });
 
-    const checkbox = screen.getByRole('checkbox');
-    expect(checkbox).toBeInTheDocument();
-    expect(checkbox).toHaveAttribute('aria-checked', 'false');
-    expect(checkbox).toHaveClass('bg-transparent');
-  });
+      renderComponent();
+
+      const checkbox = screen.getByRole('checkbox');
+      expect(checkbox).toHaveAttribute('aria-checked', `${ariaChecked}`);
+      expect(checkbox).toHaveClass(expectedClass);
+
+      const checkIcon = screen.queryByTestId('check-icon');
+
+      if (isChecked) {
+        expect(checkIcon).toHaveAttribute('id', IconName.Check);
+        expect(checkIcon).toHaveAttribute('aria-hidden', 'false');
+        expect(checkIcon).toHaveAttribute('aria-label', AriaLabel.Check);
+      } else {
+        expect(checkIcon).not.toBeInTheDocument();
+      }
+    },
+  );
 
   test('calls handleCheckboxChange with the correct value when checkbox is clicked', () => {
     const mockHandleCheckboxChange = jest.fn();
@@ -93,27 +110,5 @@ describe('PlagiarismCheckbox subComponent', () => {
 
     fireEvent.keyDown(checkbox, { key: ' ' });
     expect(mockContextValue.handleCheckboxChange).toHaveBeenCalledWith(true);
-  });
-
-  test('renders SvgIconUI when is isChecked is true', () => {
-    mockUseCalculation.mockReturnValue({
-      ...mockContextValue,
-      isChecked: true,
-    });
-
-    renderComponent();
-
-    const checkIcon = screen.getByTestId('check-icon');
-    expect(checkIcon).toBeInTheDocument();
-    expect(checkIcon).toHaveAttribute('id', IconName.Check);
-    expect(checkIcon).toHaveAttribute('aria-hidden', 'false');
-    expect(checkIcon).toHaveAttribute('aria-label', AriaLabel.Check);
-  });
-
-  test('does not render SvgIconUI when is isChecked is false', () => {
-    renderComponent();
-
-    const checkIcon = screen.queryByTestId('check-icon');
-    expect(checkIcon).not.toBeInTheDocument();
   });
 });

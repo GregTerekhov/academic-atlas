@@ -22,29 +22,35 @@ describe('RangeInput subComponent', () => {
   const mockUseRangeSettings = useRangeSettings as jest.Mock;
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockGetDisabledRangeStyles = getDisabledRangeStyles as jest.Mock;
+  const mockHandleChange = jest.fn();
 
-  beforeEach(() => {
+  const setupMocks = (isChecked: boolean, uniqueness: RangeValue, showMinimalText: boolean) => {
+    mockUseCalculation.mockReturnValue({
+      isChecked,
+      calculationData: { uniqueness },
+    });
+
+    mockUseRangeSettings.mockReturnValue({
+      showMinimalText,
+      rangeInputClass: '',
+      handleChange: mockHandleChange,
+      updateThumbColor: jest.fn(),
+    });
+
+    mockGetDisabledRangeStyles.mockReturnValue(
+      !isChecked ? 'text-disabled-foreground' : 'text-darkBase dark:text-whiteBase',
+    );
+  };
+
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
   test('should render subComponent with default props and values', () => {
-    mockUseCalculation.mockReturnValue({
-      isChecked: false,
-      calculationData: { uniqueness: RangeValue.MIN },
-    });
-
-    mockUseRangeSettings.mockReturnValue({
-      showMinimalText: false,
-      rangeInputClass: '',
-      handleChange: jest.fn(),
-      updateThumbColor: jest.fn(),
-    });
-
-    mockGetDisabledRangeStyles.mockReturnValue('text-disabled-foreground');
+    setupMocks(false, RangeValue.MIN, false);
 
     render(<RangeInput id='test-id' />);
 
-    screen.debug();
     const inputRange = screen.getByRole('slider');
     expect(inputRange).toBeInTheDocument();
     expect(inputRange).toHaveAttribute('aria-label', AriaLabel.Range);
@@ -58,15 +64,7 @@ describe('RangeInput subComponent', () => {
   `(
     'render with correct classes and input state when isChecked = $isChecked and uniqueness = $uniqueness',
     ({ isChecked, isDisabled, uniqueness, expectedClass, value }) => {
-      mockUseCalculation.mockReturnValue({ isChecked, calculationData: { uniqueness } });
-      mockUseRangeSettings.mockReturnValue({
-        showMinimalText: false,
-        rangeInputClass: '',
-        handleChange: jest.fn(),
-        updateThumbColor: jest.fn(),
-      });
-
-      mockGetDisabledRangeStyles.mockReturnValue(expectedClass);
+      setupMocks(isChecked, uniqueness, false);
 
       render(<RangeInput id='test-id' />);
 
@@ -94,19 +92,7 @@ describe('RangeInput subComponent', () => {
   `(
     'display minimal text conditionally when showMinimalText  is $showMinimalText',
     ({ showMinimalText, fullTextClass, shortTextClass }) => {
-      mockUseCalculation.mockReturnValue({
-        isChecked: true,
-        calculationData: { uniqueness: RangeValue.MIN },
-      });
-
-      mockUseRangeSettings.mockReturnValue({
-        showMinimalText,
-        rangeInputClass: '',
-        handleChange: jest.fn(),
-        updateThumbColor: jest.fn(),
-      });
-
-      mockGetDisabledRangeStyles.mockReturnValue('text-darkBase dark:text-whiteBase');
+      setupMocks(false, RangeValue.MIN, showMinimalText);
 
       render(<RangeInput id='test-id' />);
 
@@ -126,21 +112,7 @@ describe('RangeInput subComponent', () => {
   );
 
   test('calls handleChange on input change', () => {
-    const mockHandleChange = jest.fn();
-
-    mockUseCalculation.mockReturnValue({
-      isChecked: true,
-      calculationData: { uniqueness: RangeValue.MIN },
-    });
-
-    mockUseRangeSettings.mockReturnValue({
-      showMinimalText: false,
-      rangeInputClass: '',
-      handleChange: mockHandleChange,
-      updateThumbColor: jest.fn(),
-    });
-
-    mockGetDisabledRangeStyles.mockReturnValue('text-disabled-foreground');
+    setupMocks(true, RangeValue.MIN, false);
 
     render(<RangeInput id='test-id' />);
 

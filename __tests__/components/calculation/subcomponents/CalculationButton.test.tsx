@@ -31,35 +31,26 @@ jest.mock('ui', () => ({
   ),
 }));
 
-const mockUseCalculationResult = useCalculationResult as jest.Mock;
+describe('CalculationButton subComponent', () => {
+  const mockUseCalculationResult = useCalculationResult as jest.Mock;
 
-const calcButtonSetup = (props = {}) => {
-  const defaultProps = {
-    isDisabled: true,
-    handleShowCostResult: jest.fn(),
-    ...props,
+  const setup = (isDisabled: boolean = true) => {
+    return render(<CalculationButton isDisabled={isDisabled} />);
   };
 
-  const mockICalculationButtonProps = {
-    isDisabled: defaultProps.isDisabled,
-  };
-
-  mockUseCalculationResult.mockReturnValue({
-    handleShowCostResult: defaultProps.handleShowCostResult,
+  beforeEach(() => {
+    mockUseCalculationResult.mockReturnValue({
+      handleShowCostResult: jest.fn(),
+    });
   });
 
-  return render(<CalculationButton {...mockICalculationButtonProps} />);
-};
-
-describe('CalculationButton subComponent', () => {
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test('should render subComponent with correct attributes and props', () => {
-    calcButtonSetup();
+  test('should render PrimaryButtonUI main attributes and props correctly', () => {
+    setup();
 
-    screen.debug();
     const calculationButtonTag = screen.getByRole('button', {
       name: PrimaryButtonLabel.CostCalculation,
     });
@@ -70,6 +61,10 @@ describe('CalculationButton subComponent', () => {
       expect.objectContaining({ isOnLightBackground: true }),
       {},
     );
+  });
+
+  test('should render PrimaryButtonUI description correctly', () => {
+    setup();
 
     const calculationButtonDesc = screen.getByText(AriaDescription.CostOutput);
     expect(calculationButtonDesc).toBeInTheDocument();
@@ -78,8 +73,11 @@ describe('CalculationButton subComponent', () => {
 
   test('should check the disable state', () => {
     const mockHandleShowCostResult = jest.fn();
+    mockUseCalculationResult.mockReturnValue({
+      handleShowCostResult: mockHandleShowCostResult,
+    });
 
-    const { rerender } = calcButtonSetup({ handleShowCostResult: mockHandleShowCostResult });
+    const { rerender } = setup();
 
     const calculationButtonTag = screen.getByRole('button', {
       name: PrimaryButtonLabel.CostCalculation,

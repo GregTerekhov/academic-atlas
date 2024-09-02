@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { TelegramSubmitButton } from 'components/calculation/subcomponents';
+import TelegramSubmitButton from 'components/calculation/subcomponents/telegram-submit-button';
 import { useCalculation } from 'context';
 import { getAndEncodeDataObject } from 'helpers';
 import { getPrimaryButtonStyles } from 'styles';
