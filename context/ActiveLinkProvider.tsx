@@ -103,10 +103,13 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const handleActivateLink = async (path: string) => {
     const sectionId = path.split('#')[1];
 
-    if (!sections.current || sectionRefs.current.length === 0) {
+    if (sectionRefs.current.length === 0) {
+      console.log('sections.current', sections.current);
+
+      console.log('sectionRefs', sectionRefs);
+      console.log('sectionRefs.current.length', sectionRefs.current.length);
       try {
         await initialiseSections();
-         await new Promise((resolve) => setTimeout(resolve, 200)); 
       } catch (error) {
         console.error('Failed to initialize sections before activating link:', error);
         return;
@@ -114,12 +117,13 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     }
 
     const section = sections.current.find((section) => section.id === sectionId);
+
     isNavigating.current = true;
 
     if (section) {
       setActivatedLink(section.path);
+
       router.push(`#${section.id}`, { scroll: false });
-      
     } else {
       if (activatedLink !== path) {
         setActivatedLink(path);

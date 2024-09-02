@@ -2,7 +2,7 @@
 
 import { useCallback, useRef } from 'react';
 
-import { getAdaptedLinks } from 'data';
+import { getAdaptedLinks, getFooterLinks } from 'data';
 
 export const useInitialiseSection = () => {
   const sections = useRef<{ id: string; path: string }[]>([]);
@@ -16,8 +16,22 @@ export const useInitialiseSection = () => {
         throw new Error('No sections found');
       }
       sectionRefs.current = Array.from(nodeList);
+
       const adaptedLinks = getAdaptedLinks();
-      sections.current = adaptedLinks.map(({ path, id }) => {
+      const footerLinks = getFooterLinks();
+      const allLinks = [...adaptedLinks, ...footerLinks];
+
+      const uniqueLinks = allLinks.reduce(
+        (acc, current) => {
+          if (current !== undefined && !acc.some((link) => link.id === current.id)) {
+            acc.push(current as { id: string; path: string });
+          }
+          return acc;
+        },
+        [] as { id: string; path: string }[],
+      );
+
+      sections.current = uniqueLinks.map(({ path, id }) => {
         return { id: id ?? '', path };
       });
     } catch (error) {

@@ -29,6 +29,7 @@ export default function FooterMenu() {
           <li key={label}>
             <Link
               href={path}
+              scroll={true}
               aria-current={getMenuAriaCurrent(path, pathname)}
               onClick={() => {
                 handleActivateLink(path);
