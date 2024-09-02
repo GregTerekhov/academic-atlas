@@ -1,7 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { CalculationButton } from 'components/calculation/subcomponents';
-import { useCalculationResult } from 'context';
+
 import { AriaDescription, AriaId, PrimaryButtonLabel } from 'types';
+import { useCalculationResult } from 'context';
+import { CalculationButton } from 'components/calculation/subcomponents';
 import { PrimaryButtonUI } from 'ui';
 
 jest.mock('context', () => ({
@@ -33,14 +34,21 @@ jest.mock('ui', () => ({
 
 describe('CalculationButton subComponent', () => {
   const mockUseCalculationResult = useCalculationResult as jest.Mock;
+  const mockHandleShowCostResult = jest.fn();
 
   const setup = (isDisabled: boolean = true) => {
-    return render(<CalculationButton isDisabled={isDisabled} />);
+    render(<CalculationButton isDisabled={isDisabled} />);
+
+    const button = screen.getByRole('button', {
+      name: PrimaryButtonLabel.CostCalculation,
+    });
+
+    return { button };
   };
 
   beforeEach(() => {
     mockUseCalculationResult.mockReturnValue({
-      handleShowCostResult: jest.fn(),
+      handleShowCostResult: mockHandleShowCostResult,
     });
   });
 
@@ -49,14 +57,12 @@ describe('CalculationButton subComponent', () => {
   });
 
   test('should render PrimaryButtonUI main attributes and props correctly', () => {
-    setup();
+    const { button } = setup();
 
-    const calculationButtonTag = screen.getByRole('button', {
-      name: PrimaryButtonLabel.CostCalculation,
-    });
-    expect(calculationButtonTag).toBeInTheDocument();
-    expect(calculationButtonTag).toBeDisabled();
-    expect(calculationButtonTag).toHaveAttribute('aria-describedby', AriaId.CostOutput);
+    expect(button).toBeInTheDocument();
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-describedby', AriaId.CostOutput);
+
     expect(PrimaryButtonUI).toHaveBeenCalledWith(
       expect.objectContaining({ isOnLightBackground: true }),
       {},
@@ -71,24 +77,39 @@ describe('CalculationButton subComponent', () => {
     expect(calculationButtonDesc).toHaveAttribute('id', AriaId.CostOutput);
   });
 
-  test('should check the disable state', () => {
-    const mockHandleShowCostResult = jest.fn();
-    mockUseCalculationResult.mockReturnValue({
-      handleShowCostResult: mockHandleShowCostResult,
-    });
+  test.each`
+    isDisabled | isCalled
+    ${false}   | ${true}
+    ${true}    | ${false}
+  `(
+    'calls handle handleShowCostResult when isDisabled is $isDisabled',
+    ({ isDisabled, isCalled }) => {
+      const { button } = setup(isDisabled);
 
-    const { rerender } = setup();
+      fireEvent.click(button);
 
-    const calculationButtonTag = screen.getByRole('button', {
-      name: PrimaryButtonLabel.CostCalculation,
-    });
+      if (isCalled) {
+        expect(mockHandleShowCostResult).toHaveBeenCalled();
+      } else {
+        expect(mockHandleShowCostResult).not.toHaveBeenCalled();
+      }
+    },
+  );
 
-    fireEvent.click(calculationButtonTag);
-    expect(mockHandleShowCostResult).not.toHaveBeenCalled();
+  test.each`
+    isDisabled | expectedState
+    ${false}   | ${false}
+    ${true}    | ${true}
+  `(
+    'buttons disabled state is $expectedState when isDisabled is $isDisabled',
+    ({ isDisabled, expectedState }) => {
+      const { button } = setup(isDisabled);
 
-    rerender(<CalculationButton isDisabled={false} />);
-
-    fireEvent.click(calculationButtonTag);
-    expect(mockHandleShowCostResult).toHaveBeenCalled();
-  });
+      if (expectedState) {
+        expect(button).toBeDisabled();
+      } else {
+        expect(button).not.toBeDisabled();
+      }
+    },
+  );
 });
