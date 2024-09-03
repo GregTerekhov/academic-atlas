@@ -73,7 +73,6 @@ describe('PlagiarismCheckbox subComponent', () => {
       setupMocks({ isChecked });
       renderComponent();
 
-      screen.debug();
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toHaveAttribute('aria-checked', `${ariaChecked}`);
       expect(checkbox).toHaveClass(expectedClass);
