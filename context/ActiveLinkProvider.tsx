@@ -83,10 +83,10 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleActivateLink = async (path: string) => {
     const sectionId = path.split('#')[1];
-    const expectedSectionCount = 6;
+    const expectedSectionCount = 5;
     let retries = 0;
 
-    while (sectionRefs.current.length < expectedSectionCount && retries < 3) {
+    while (sectionRefs.current.length < expectedSectionCount && retries <= 3) {
       console.log('sections.current', sections.current);
 
       console.log('sectionRefs', sectionRefs);

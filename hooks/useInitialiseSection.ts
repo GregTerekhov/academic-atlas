@@ -15,6 +15,8 @@ export const useInitialiseSection = () => {
       if (nodeList.length === 0) {
         throw new Error('No sections found');
       }
+
+      sectionRefs.current = [];
       sectionRefs.current = Array.from(nodeList);
 
       const adaptedLinks = getAdaptedLinks();
