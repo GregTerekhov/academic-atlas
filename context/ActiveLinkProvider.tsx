@@ -84,18 +84,22 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const handleActivateLink = async (path: string) => {
     const sectionId = path.split('#')[1];
     const expectedSectionCount = 6;
+    let retries = 0;
 
-    if (sectionRefs.current.length < expectedSectionCount) {
+    while (sectionRefs.current.length < expectedSectionCount && retries < 3) {
       console.log('sections.current', sections.current);
 
       console.log('sectionRefs', sectionRefs);
       console.log('sectionRefs.current.length', sectionRefs.current.length);
-      try {
-        await initialiseSections();
-      } catch (error) {
-        console.error('Failed to initialize sections before activating link:', error);
-        return;
-      }
+
+      await initialiseSections();
+      retries += 1;
+      console.log('retries', retries);
+    }
+
+    if (sectionRefs.current.length < expectedSectionCount) {
+      console.error('Failed to initialize sections, exiting');
+      return;
     }
 
     const section = sections.current.find((section) => section.id === sectionId);
