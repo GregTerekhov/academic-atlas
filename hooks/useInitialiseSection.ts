@@ -9,7 +9,7 @@ export const useInitialiseSection = () => {
   const sectionRefs = useRef<Element[]>([]);
   //FIXME: add new logic in test
 
-  const initialiseSections = useCallback(async () => {
+  const initialiseSections = useCallback(() => {
     try {
       const nodeList = document.querySelectorAll('section[id]');
       if (nodeList.length === 0) {

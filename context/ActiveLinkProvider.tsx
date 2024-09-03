@@ -59,48 +59,51 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   );
 
   useEffect(() => {
-    const initialiseAndObserve = async () => {
+    const initialiseAndObserve = () => {
       if (pathname === Paths.Main) {
-        try {
-          await initialiseSections();
+        initialiseSections();
 
-          const observer = new IntersectionObserver(handleSectionIntersection, {
-            root: null,
-            threshold: 0.3,
-          });
+        const observer = new IntersectionObserver(handleSectionIntersection, {
+          root: null,
+          threshold: 0.3,
+        });
 
-          sectionRefs.current.forEach((ref) => {
-            if (ref) observer.observe(ref);
-          });
-        } catch (error) {
-          console.error('Failed to initialize sections:', error);
-        }
+        sectionRefs.current.forEach((ref) => {
+          if (ref) observer.observe(ref);
+        });
       }
     };
 
     initialiseAndObserve();
   }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
-  const handleActivateLink = async (path: string) => {
+  const handleActivateLink = (path: string) => {
     const sectionId = path.split('#')[1];
-    const expectedSectionCount = 5;
-    let retries = 0;
+    console.log('path', path);
+    console.log('sectionId', sectionId);
 
-    while (sectionRefs.current.length < expectedSectionCount && retries <= 3) {
-      console.log('sections.current', sections.current);
+    console.log('sections.current', sections.current);
 
-      console.log('sectionRefs', sectionRefs);
-      console.log('sectionRefs.current.length', sectionRefs.current.length);
+    console.log('sectionRefs', sectionRefs);
+    console.log('sectionRefs.current.length', sectionRefs.current.length);
+    // const expectedSectionCount = 5;
+    // let retries = 0;
 
-      await initialiseSections();
-      retries += 1;
-      console.log('retries', retries);
-    }
+    // while (sectionRefs.current.length < expectedSectionCount && retries <= 3) {
+    //   console.log('sections.current', sections.current);
 
-    if (sectionRefs.current.length < expectedSectionCount) {
-      console.error('Failed to initialize sections, exiting');
-      return;
-    }
+    //   console.log('sectionRefs', sectionRefs);
+    //   console.log('sectionRefs.current.length', sectionRefs.current.length);
+
+    //   await initialiseSections();
+    //   retries += 1;
+    //   console.log('retries', retries);
+    // }
+
+    // if (sectionRefs.current.length < expectedSectionCount) {
+    //   console.error('Failed to initialize sections, exiting');
+    //   return;
+    // }
 
     const section = sections.current.find((section) => section.id === sectionId);
 
