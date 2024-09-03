@@ -75,6 +75,7 @@ describe('PlagiarismCheckbox subComponent', () => {
 
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toHaveAttribute('aria-checked', `${ariaChecked}`);
+      expect(checkbox).toHaveAttribute('tabIndex', `0`);
       expect(checkbox).toHaveClass(expectedClass);
 
       const checkIcon = screen.queryByTestId('check-icon');
@@ -118,5 +119,15 @@ describe('PlagiarismCheckbox subComponent', () => {
 
     fireEvent.keyDown(checkbox, { key: ' ' });
     expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
+  });
+
+  test('focuses on checkbox when Tab is pressed', () => {
+    setupMocks();
+    renderComponent();
+
+    const checkbox = screen.getByRole('checkbox');
+
+    checkbox.focus();
+    expect(checkbox).toHaveFocus();
   });
 });
