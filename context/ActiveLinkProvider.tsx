@@ -58,25 +58,6 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     [sections, activatedLink, router],
   );
 
-  // useEffect( () => {
-  //   if (pathname === Paths.Main) {
-  //     initialiseSections()
-  //       .then(() => {
-  //         const observer = new IntersectionObserver(handleSectionIntersection, {
-  //           root: null,
-  //           threshold: 0.3,
-  //         });
-
-  //         sectionRefs.current.forEach((ref) => {
-  //           if (ref) observer.observe(ref);
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.error('Failed to initialize sections:', error);
-  //       });
-  //   }
-  // }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
-
   useEffect(() => {
     const initialiseAndObserve = async () => {
       if (pathname === Paths.Main) {
@@ -103,6 +84,11 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const handleActivateLink = async (path: string) => {
     const sectionId = path.split('#')[1];
 
+    console.log('sections.current', sections.current);
+
+    console.log('sectionRefs', sectionRefs);
+    console.log('sectionRefs.current.length', sectionRefs.current.length);
+
     if (sectionRefs.current.length === 0) {
       console.log('sections.current', sections.current);
 
@@ -123,9 +109,11 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     if (section) {
       setActivatedLink(section.path);
 
+      console.log('if (section). section.path', section.path);
       router.push(`#${section.id}`, { scroll: false });
     } else {
       if (activatedLink !== path) {
+        console.log('no section. path', path);
         setActivatedLink(path);
       }
     }
