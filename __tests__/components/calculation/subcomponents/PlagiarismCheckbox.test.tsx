@@ -35,38 +35,45 @@ describe('PlagiarismCheckbox subComponent', () => {
       />,
     );
 
-  const mockContextValue = {
-    isChecked: false,
-    handleCheckboxChange: jest.fn(),
-  };
+  const setupMocks = (props = {}) => {
+    const mockContextValue = {
+      isChecked: false,
+      handleCheckboxChange: jest.fn(),
+      ...props,
+    };
 
-  beforeEach(() => {
     mockUseCalculation.mockReturnValue(mockContextValue);
     mockGetCheckboxStyles.mockImplementation((isChecked: boolean) =>
       isChecked ? 'bg-accent-lightGradient' : 'bg-transparent',
     );
-  });
+  };
+
+  beforeEach(() => {});
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   test('should render correctly with a given label', () => {
+    setupMocks();
     renderComponent();
 
     expect(screen.getByText('Наявність перевірки на плагіат')).toBeInTheDocument();
   });
 
   test.each`
-    isChecked | expectedClass       | ariaChecked
-    ${false}  | ${'bg-transparent'} | ${false}
+    isChecked | expectedClass                | ariaChecked
+    ${false}  | ${'bg-transparent'}          | ${false}
+    ${true}   | ${'bg-accent-lightGradient'} | ${true}
   `(
     'render custom checkbox with expected class to be $expectedClass when isChecked is $isChecked',
     ({ isChecked, expectedClass, ariaChecked }) => {
-      mockUseCalculation({ isChecked, handleCheckboxChange: jest.fn() });
+      mockUseCalculation.mockReturnValue({ isChecked: isChecked, handleCheckboxChange: jest.fn() });
 
+      setupMocks({ isChecked });
       renderComponent();
 
+      screen.debug();
       const checkbox = screen.getByRole('checkbox');
       expect(checkbox).toHaveAttribute('aria-checked', `${ariaChecked}`);
       expect(checkbox).toHaveClass(expectedClass);
@@ -87,7 +94,6 @@ describe('PlagiarismCheckbox subComponent', () => {
     const mockHandleCheckboxChange = jest.fn();
 
     mockUseCalculation.mockReturnValue({
-      ...mockContextValue,
       handleCheckboxChange: mockHandleCheckboxChange,
     });
 
@@ -101,14 +107,17 @@ describe('PlagiarismCheckbox subComponent', () => {
   });
 
   test('calls handleCheckboxChange with the correct value when Enter or Space is pressed', () => {
+    const mockHandleCheckboxChange = jest.fn();
+
+    setupMocks({ handleCheckboxChange: mockHandleCheckboxChange });
     renderComponent();
 
     const checkbox = screen.getByRole('checkbox');
 
     fireEvent.keyDown(checkbox, { key: 'Enter' });
-    expect(mockContextValue.handleCheckboxChange).toHaveBeenCalledWith(true);
+    expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
 
     fireEvent.keyDown(checkbox, { key: ' ' });
-    expect(mockContextValue.handleCheckboxChange).toHaveBeenCalledWith(true);
+    expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
   });
 });
