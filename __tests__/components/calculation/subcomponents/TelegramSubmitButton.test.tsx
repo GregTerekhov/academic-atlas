@@ -1,19 +1,22 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import TelegramSubmitButton from 'components/calculation/subcomponents/telegram-submit-button';
-import { useCalculation } from 'context';
-import { getAndEncodeDataObject } from 'helpers';
-import { getPrimaryButtonStyles } from 'styles';
+
 import {
   AriaDescription,
   AriaId,
+  AriaLabel,
   ExecutionTime,
   ExpertiseArea,
   type ICalculation,
+  IconName,
   PrimaryButtonLabel,
   TelegramScenario,
   Uniqueness,
   WorkType,
 } from 'types';
+import { useCalculation } from 'context';
+import { getAndEncodeDataObject } from 'helpers';
+import TelegramSubmitButton from 'components/calculation/subcomponents/telegram-submit-button';
+import { getPrimaryButtonStyles } from 'styles';
 
 jest.mock('context', () => ({
   useCalculation: jest.fn(),
@@ -46,7 +49,7 @@ jest.mock('ui', () => ({
   )),
 }));
 
-describe('TelegramSubmitButton subComponent', () => {
+describe('TelegramSubmitButton Component', () => {
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockGetAndEncodeDataObject = getAndEncodeDataObject as jest.Mock;
   const mockGetPrimaryButtonStyles = getPrimaryButtonStyles as jest.Mock;
@@ -58,84 +61,114 @@ describe('TelegramSubmitButton subComponent', () => {
     return screen.getByRole('link', { name: new RegExp(PrimaryButtonLabel.SwitchToTelegram, 'i') });
   };
 
-  const testCases = [
-    {
-      calculationData: {
-        workType: WorkType.Default,
-        expertiseArea: ExpertiseArea.Default,
-        executionTime: ExecutionTime.Default,
-        uniqueness: Uniqueness.Zero,
-      },
-      expectedHref: '#',
-      encodedData: undefined,
-    },
-    {
-      calculationData: {
-        workType: WorkType.Abstracts,
-        expertiseArea: ExpertiseArea.AgriculturalSciences,
-        executionTime: ExecutionTime.LongTerm,
-        uniqueness: Uniqueness.Highest,
-      },
-      expectedHref: 'https://t.me/AcademicAtlasBot?start=encodedDataString',
-      encodedData: 'encodedDataString',
-    },
-  ];
-
   beforeEach(() => {
     mockGetAndEncodeDataObject.mockReset();
   });
 
-  test('should render the button with correct initial attribute', () => {
-    const linkElement = setup({
-      workType: WorkType.Default,
-      expertiseArea: ExpertiseArea.Default,
-      executionTime: ExecutionTime.Default,
-      uniqueness: Uniqueness.Zero,
+  describe('Initial Render', () => {
+    test('should render the button with correct initial attribute', () => {
+      const linkElement = setup({
+        workType: WorkType.Default,
+        expertiseArea: ExpertiseArea.Default,
+        executionTime: ExecutionTime.Default,
+        uniqueness: Uniqueness.Zero,
+      });
+
+      expect(linkElement).toBeInTheDocument();
+      expect(linkElement).toHaveAttribute('href', '#');
+      expect(linkElement).toHaveAttribute('target', '_blank');
+      expect(linkElement).toHaveAttribute('rel', 'noopener noreferrer');
+      expect(linkElement).toHaveAttribute('aria-describedby', 'price-button');
     });
 
-    expect(linkElement).toBeInTheDocument();
-    expect(linkElement).toHaveAttribute('href', '#');
-    expect(linkElement).toHaveAttribute('target', '_blank');
-    expect(linkElement).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(linkElement).toHaveAttribute('aria-describedby', 'price-button');
+    test('should render the icon with correct attributes', () => {
+      setup({
+        workType: WorkType.Default,
+        expertiseArea: ExpertiseArea.Default,
+        executionTime: ExecutionTime.Default,
+        uniqueness: Uniqueness.Zero,
+      });
 
-    const ariaDescription = screen.getByTestId('aria-desc');
-    expect(ariaDescription).toBeInTheDocument();
-    expect(ariaDescription).toHaveAttribute('id', AriaId.ComplexOrdering);
-    expect(ariaDescription).toHaveTextContent(AriaDescription.ComplexOrdering);
-  });
-
-  test('applies correct styles based on prop', () => {
-    mockGetPrimaryButtonStyles.mockReturnValue('mock-light-class-active');
-
-    const linkElement = setup({
-      workType: WorkType.Default,
-      expertiseArea: ExpertiseArea.Default,
-      executionTime: ExecutionTime.Default,
-      uniqueness: Uniqueness.Zero,
+      const iconElement = screen.getByTestId('icon-test');
+      expect(iconElement).toBeInTheDocument();
+      expect(iconElement).toHaveAttribute('aria-hidden', 'false');
+      expect(iconElement).toHaveAttribute('id', IconName.Telegram);
+      expect(iconElement).toHaveAttribute('aria-label', AriaLabel.Telegram);
     });
 
-    expect(mockGetPrimaryButtonStyles).toHaveBeenCalledWith(true);
-    expect(linkElement).toHaveClass('mock-light-class-active');
+    test('should render the aria description with correct attributes', () => {
+      setup({
+        workType: WorkType.Default,
+        expertiseArea: ExpertiseArea.Default,
+        executionTime: ExecutionTime.Default,
+        uniqueness: Uniqueness.Zero,
+      });
+
+      const ariaDescription = screen.getByTestId('aria-desc');
+      expect(ariaDescription).toBeInTheDocument();
+      expect(ariaDescription).toHaveAttribute('id', AriaId.ComplexOrdering);
+      expect(ariaDescription).toHaveTextContent(AriaDescription.ComplexOrdering);
+    });
   });
 
-  test.each(testCases)(
-    'updates the href correctly based on calculation data',
-    ({ calculationData, expectedHref, encodedData }) => {
-      mockGetAndEncodeDataObject.mockReturnValue(encodedData);
+  describe('Styles Application', () => {
+    test('applies correct styles based on prop', () => {
+      mockGetPrimaryButtonStyles.mockReturnValue('mock-light-class-active');
 
-      const linkElement = setup(calculationData);
+      const linkElement = setup({
+        workType: WorkType.Default,
+        expertiseArea: ExpertiseArea.Default,
+        executionTime: ExecutionTime.Default,
+        uniqueness: Uniqueness.Zero,
+      });
 
-      fireEvent.click(linkElement);
+      expect(mockGetPrimaryButtonStyles).toHaveBeenCalledWith(true);
+      expect(linkElement).toHaveClass('mock-light-class-active');
+    });
+  });
 
-      expect(getAndEncodeDataObject).toHaveBeenCalledWith(
-        TelegramScenario.Order,
-        calculationData.workType,
-        calculationData.expertiseArea,
-        calculationData.executionTime,
-        calculationData.uniqueness,
-      );
-      expect(linkElement).toHaveAttribute('href', expectedHref);
-    },
-  );
+  describe('Href Update Based on Calculation Data', () => {
+    const testCases = [
+      {
+        calculationData: {
+          workType: WorkType.Default,
+          expertiseArea: ExpertiseArea.Default,
+          executionTime: ExecutionTime.Default,
+          uniqueness: Uniqueness.Zero,
+        },
+        expectedHref: '#',
+        encodedData: undefined,
+      },
+      {
+        calculationData: {
+          workType: WorkType.Abstracts,
+          expertiseArea: ExpertiseArea.AgriculturalSciences,
+          executionTime: ExecutionTime.LongTerm,
+          uniqueness: Uniqueness.Highest,
+        },
+        expectedHref: 'https://t.me/AcademicAtlasBot?start=encodedDataString',
+        encodedData: 'encodedDataString',
+      },
+    ];
+
+    test.each(testCases)(
+      'updates the href correctly based on calculation data',
+      ({ calculationData, expectedHref, encodedData }) => {
+        mockGetAndEncodeDataObject.mockReturnValue(encodedData);
+
+        const linkElement = setup(calculationData);
+
+        fireEvent.click(linkElement);
+
+        expect(getAndEncodeDataObject).toHaveBeenCalledWith(
+          TelegramScenario.Order,
+          calculationData.workType,
+          calculationData.expertiseArea,
+          calculationData.executionTime,
+          calculationData.uniqueness,
+        );
+        expect(linkElement).toHaveAttribute('href', expectedHref);
+      },
+    );
+  });
 });

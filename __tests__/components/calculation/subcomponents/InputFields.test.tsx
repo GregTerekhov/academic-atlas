@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { InputFields } from 'components/calculation/subcomponents';
-import { useDropdownList } from 'hooks';
+
 import { DropdownAriaId } from 'types';
+import { useDropdownList } from 'hooks';
+import { InputFields } from 'components/calculation/subcomponents';
 
 jest.mock('hooks', () => ({
   useDropdownList: jest.fn(),
@@ -19,7 +20,7 @@ jest.mock('components/calculation/subcomponents/theme-input', () =>
   jest.fn(() => <div data-testid='theme-input'></div>),
 );
 
-describe('InputFields subComponent', () => {
+describe('InputFields Component', () => {
   const mockUseDropdownList = useDropdownList as jest.Mock;
   const mockDropDownList = [
     {

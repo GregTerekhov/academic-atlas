@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { PlagiarismCheckbox } from 'components/calculation/subcomponents';
-import { useCalculation } from 'context';
-import { getCheckboxStyles } from 'styles';
+
 import { AriaLabel, IconName } from 'types';
+import { useCalculation } from 'context';
+import { PlagiarismCheckbox } from 'components/calculation/subcomponents';
+import { getCheckboxStyles } from 'styles';
 
 jest.mock('context', () => ({
   useCalculation: jest.fn(),
@@ -23,7 +24,7 @@ jest.mock('ui', () => ({
   )),
 }));
 
-describe('PlagiarismCheckbox subComponent', () => {
+describe('PlagiarismCheckbox Component', () => {
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockGetCheckboxStyles = getCheckboxStyles as jest.Mock;
 
@@ -48,86 +49,94 @@ describe('PlagiarismCheckbox subComponent', () => {
     );
   };
 
-  beforeEach(() => {});
-
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test('should render correctly with a given label', () => {
-    setupMocks();
-    renderComponent();
+  describe('Rendering and Styles', () => {
+    test('should render correctly with a given label', () => {
+      setupMocks();
+      renderComponent();
 
-    expect(screen.getByText('Наявність перевірки на плагіат')).toBeInTheDocument();
+      expect(screen.getByText('Наявність перевірки на плагіат')).toBeInTheDocument();
+    });
+
+    test.each`
+      isChecked | expectedClass                | ariaChecked
+      ${false}  | ${'bg-transparent'}          | ${false}
+      ${true}   | ${'bg-accent-lightGradient'} | ${true}
+    `(
+      'render custom checkbox with expected class to be $expectedClass when isChecked is $isChecked',
+      ({ isChecked, expectedClass, ariaChecked }) => {
+        mockUseCalculation.mockReturnValue({ isChecked, handleCheckboxChange: jest.fn() });
+
+        setupMocks({ isChecked });
+        renderComponent();
+
+        const checkbox = screen.getByRole('checkbox');
+        expect(checkbox).toHaveAttribute('aria-checked', `${ariaChecked}`);
+        expect(checkbox).toHaveAttribute('tabIndex', '0');
+        expect(checkbox).toHaveClass(expectedClass);
+
+        const checkIcon = screen.queryByTestId('check-icon');
+
+        if (isChecked) {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(checkIcon).toBeInTheDocument();
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(checkIcon).toHaveAttribute('id', IconName.Check);
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(checkIcon).toHaveAttribute('aria-hidden', 'false');
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(checkIcon).toHaveAttribute('aria-label', AriaLabel.Check);
+        } else {
+          // eslint-disable-next-line jest/no-conditional-expect
+          expect(checkIcon).not.toBeInTheDocument();
+        }
+      },
+    );
   });
 
-  test.each`
-    isChecked | expectedClass                | ariaChecked
-    ${false}  | ${'bg-transparent'}          | ${false}
-    ${true}   | ${'bg-accent-lightGradient'} | ${true}
-  `(
-    'render custom checkbox with expected class to be $expectedClass when isChecked is $isChecked',
-    ({ isChecked, expectedClass, ariaChecked }) => {
-      mockUseCalculation.mockReturnValue({ isChecked: isChecked, handleCheckboxChange: jest.fn() });
+  describe('Interactions', () => {
+    test('calls handleCheckboxChange with the correct value when checkbox is clicked', () => {
+      const mockHandleCheckboxChange = jest.fn();
 
-      setupMocks({ isChecked });
+      mockUseCalculation.mockReturnValue({
+        handleCheckboxChange: mockHandleCheckboxChange,
+      });
+
+      renderComponent();
+
+      const hiddenInput = screen.getByLabelText('Наявність перевірки на плагіат');
+
+      fireEvent.click(hiddenInput);
+
+      expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
+    });
+
+    test('calls handleCheckboxChange with the correct value when Enter or Space is pressed', () => {
+      const mockHandleCheckboxChange = jest.fn();
+
+      setupMocks({ handleCheckboxChange: mockHandleCheckboxChange });
       renderComponent();
 
       const checkbox = screen.getByRole('checkbox');
-      expect(checkbox).toHaveAttribute('aria-checked', `${ariaChecked}`);
-      expect(checkbox).toHaveAttribute('tabIndex', `0`);
-      expect(checkbox).toHaveClass(expectedClass);
 
-      const checkIcon = screen.queryByTestId('check-icon');
+      fireEvent.keyDown(checkbox, { key: 'Enter' });
+      expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
 
-      if (isChecked) {
-        expect(checkIcon).toHaveAttribute('id', IconName.Check);
-        expect(checkIcon).toHaveAttribute('aria-hidden', 'false');
-        expect(checkIcon).toHaveAttribute('aria-label', AriaLabel.Check);
-      } else {
-        expect(checkIcon).not.toBeInTheDocument();
-      }
-    },
-  );
-
-  test('calls handleCheckboxChange with the correct value when checkbox is clicked', () => {
-    const mockHandleCheckboxChange = jest.fn();
-
-    mockUseCalculation.mockReturnValue({
-      handleCheckboxChange: mockHandleCheckboxChange,
+      fireEvent.keyDown(checkbox, { key: ' ' });
+      expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
     });
 
-    renderComponent();
+    test('focuses on checkbox when Tab is pressed', () => {
+      setupMocks();
+      renderComponent();
 
-    const hiddenInput = screen.getByLabelText('Наявність перевірки на плагіат');
+      const checkbox = screen.getByRole('checkbox');
 
-    fireEvent.click(hiddenInput);
-
-    expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
-  });
-
-  test('calls handleCheckboxChange with the correct value when Enter or Space is pressed', () => {
-    const mockHandleCheckboxChange = jest.fn();
-
-    setupMocks({ handleCheckboxChange: mockHandleCheckboxChange });
-    renderComponent();
-
-    const checkbox = screen.getByRole('checkbox');
-
-    fireEvent.keyDown(checkbox, { key: 'Enter' });
-    expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
-
-    fireEvent.keyDown(checkbox, { key: ' ' });
-    expect(mockHandleCheckboxChange).toHaveBeenCalledWith(true);
-  });
-
-  test('focuses on checkbox when Tab is pressed', () => {
-    setupMocks();
-    renderComponent();
-
-    const checkbox = screen.getByRole('checkbox');
-
-    checkbox.focus();
-    expect(checkbox).toHaveFocus();
+      checkbox.focus();
+      expect(checkbox).toHaveFocus();
+    });
   });
 });

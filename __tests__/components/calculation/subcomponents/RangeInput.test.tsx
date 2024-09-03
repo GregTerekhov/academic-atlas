@@ -19,17 +19,13 @@ jest.mock('styles', () => ({
   getDisabledRangeStyles: jest.fn(),
 }));
 
-describe('RangeInput subComponent', () => {
+describe('RangeInput Component', () => {
   const mockUseRangeSettings = useRangeSettings as jest.Mock;
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockGetDisabledRangeStyles = getDisabledRangeStyles as jest.Mock;
   const mockHandleChange = jest.fn();
 
-  const setupMocks = (
-    isChecked: boolean,
-    uniqueness: RangeValue,
-    showMinimalText: boolean = false,
-  ) => {
+  const setupMocks = (isChecked: boolean, uniqueness: RangeValue, showMinimalText = false) => {
     mockUseCalculation.mockReturnValue({
       isChecked,
       calculationData: { uniqueness },
@@ -64,8 +60,8 @@ describe('RangeInput subComponent', () => {
 
   test.each`
     isChecked | isDisabled | uniqueness        | expectedLabelClass                     | expectedInputClass      | value
-    ${true}   | ${false}   | ${RangeValue.MIN} | ${'text-darkBase dark:text-whiteBase'} | ${'cursor-pointer'}     | ${RangeValue.MIN.toString()}
-    ${false}  | ${true}    | ${RangeValue.MAX} | ${'text-disabled-foreground'}          | ${'cursor-not-allowed'} | ${RangeValue.MAX.toString()}
+    ${true}   | ${false}   | ${RangeValue.MAX} | ${'text-darkBase dark:text-whiteBase'} | ${'cursor-pointer'}     | ${RangeValue.MAX.toString()}
+    ${false}  | ${true}    | ${RangeValue.MIN} | ${'text-disabled-foreground'}          | ${'cursor-not-allowed'} | ${RangeValue.MIN.toString()}
   `(
     'render with correct classes and input state when isChecked = $isChecked and uniqueness = $uniqueness',
     ({ isChecked, isDisabled, uniqueness, expectedLabelClass, expectedInputClass, value }) => {
@@ -80,8 +76,10 @@ describe('RangeInput subComponent', () => {
       expect(input).toHaveClass(expectedInputClass);
 
       if (isDisabled) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(input).toBeDisabled();
       } else {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(input).not.toBeDisabled();
       }
 
@@ -101,12 +99,15 @@ describe('RangeInput subComponent', () => {
       if (showMinimalText) {
         const shortText = screen.getByText(/мін\./i);
 
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(shortText).toHaveClass(shortTextClass);
       } else {
         const fullText = screen.queryByText(/мінімальний/i);
         if (fullText) {
+          // eslint-disable-next-line jest/no-conditional-expect
           expect(fullText).toHaveClass(fullTextClass);
         } else {
+          // eslint-disable-next-line jest/no-conditional-expect
           expect(fullText).toBeNull();
         }
       }

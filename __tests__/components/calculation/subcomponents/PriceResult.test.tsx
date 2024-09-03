@@ -1,14 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { PriceResult } from 'components/calculation/subcomponents';
+
+import { ExecutionTime, ExpertiseArea, type ICalculation, Uniqueness, WorkType } from 'types';
 import { useCalculation } from 'context';
 import { calculatePrice, roundPriceToInterval } from 'helpers';
-import {
-  ExecutionTime,
-  ExpertiseArea,
-  ICalculation,
-  Uniqueness,
-  WorkType,
-} from 'types/calculation';
+import { PriceResult } from 'components/calculation/subcomponents';
 
 jest.mock('context', () => ({
   useCalculation: jest.fn(),
@@ -29,7 +24,7 @@ jest.mock('components/calculation/subcomponents/telegram-submit-button', () =>
   jest.fn(() => <div data-testid='tg-submit'></div>),
 );
 
-describe('PriceResult subComponent', () => {
+describe('PriceResult Component', () => {
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockCalculatePrice = calculatePrice as jest.Mock;
   const mockRoundPriceToInterval = roundPriceToInterval as jest.Mock;
