@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { Paths, type IWithChildren } from '../types';
@@ -19,7 +19,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const router = useRouter();
 
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
-  // const isNavigating = useRef<boolean>(false);
+  const isNavigating = useRef<boolean>(false);
 
   const { sections, sectionRefs, initialiseSections } = useInitialiseSection();
 
@@ -40,7 +40,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleSectionIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      // if (isNavigating.current) return;
+      if (isNavigating.current) return;
 
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -59,7 +59,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   );
 
   useEffect(() => {
-     initialiseSections();
+    initialiseSections();
   }, [initialiseSections]);
 
   useEffect(() => {
@@ -80,9 +80,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     };
 
     initialiseAndObserve();
-  }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
-
-
+  }, [pathname, handleSectionIntersection, sectionRefs]);
 
   const handleActivateLink = (path: string) => {
     const sectionId = path.split('#')[1];
@@ -96,14 +94,14 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
     const section = sections.current.find((section) => section.id === sectionId);
 
-    // isNavigating.current = true;
+    isNavigating.current = true;
 
     if (section) {
       setActivatedLink(section.path);
 
       console.log('if (section). section.path', section.path);
       console.log('if section. section.id', section.id);
-      router.push(`#${section.id}`, { scroll: false });
+      router.push(`#${section.id}`);
     } else {
       if (activatedLink !== path) {
         console.log('no section. path', path);
@@ -111,13 +109,13 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       }
     }
 
-    // const navigationTimerId = setTimeout(() => {
-    //   isNavigating.current = false;
-    // }, 1000);
+    const navigationTimerId = setTimeout(() => {
+      isNavigating.current = false;
+    }, 0);
 
-    // return () => {
-    //   clearTimeout(navigationTimerId);
-    // };
+    return () => {
+      clearTimeout(navigationTimerId);
+    };
   };
 
   const clearActiveLink = () => {
