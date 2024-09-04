@@ -9,7 +9,7 @@ export const getNavigationLinkStyles = (isActive: boolean) => {
     ? 'text-accentPrimary dark:text-accentSecondary'
     : 'dark:text-whiteBase';
 
-  return `${linkClass} text-medium hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-big`;
+  return `${linkClass} text-medium hover:text-accentPrimary dark:hover:text-accentSecondary md:text-big`;
 };
 
 export const getContactListStyles = (variant: PositionInLayout) => {

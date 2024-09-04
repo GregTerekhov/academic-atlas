@@ -31,7 +31,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   }, [pathname]);
 
   useEffect(() => {
-    handleScroll();
+    //handleScroll(undefined);
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -84,7 +84,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleActivateLink = (path: string) => {
     const sectionId = path.split('#')[1];
-    
+
     console.log('sections.current', sections.current);
 
     console.log('sectionRefs', sectionRefs);
@@ -99,8 +99,9 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
       console.log('if (section). section.path', section.path);
       console.log('if (section). section.id', section.id);
-      router.push(`#${section.id}`);
+      router.push(`#${section.id}`, { scroll: false });
     } else {
+      console.log('no section. path', path);
       if (activatedLink !== path) {
         console.log('no section. path', path);
         setActivatedLink(path);
