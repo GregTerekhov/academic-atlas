@@ -84,9 +84,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleActivateLink = (path: string) => {
     const sectionId = path.split('#')[1];
-    console.log('path', path);
-    console.log('sectionId', sectionId);
-
+    
     console.log('sections.current', sections.current);
 
     console.log('sectionRefs', sectionRefs);
@@ -100,7 +98,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       setActivatedLink(section.path);
 
       console.log('if (section). section.path', section.path);
-      console.log('if section. section.id', section.id);
+      console.log('if (section). section.id', section.id);
       router.push(`#${section.id}`);
     } else {
       if (activatedLink !== path) {
@@ -111,7 +109,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
     const navigationTimerId = setTimeout(() => {
       isNavigating.current = false;
-    }, 0);
+    }, 500);
 
     return () => {
       clearTimeout(navigationTimerId);
