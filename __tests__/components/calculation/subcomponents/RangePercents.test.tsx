@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
+
+import { RangeValue } from 'types';
 import RangePercents from 'components/calculation/subcomponents/range-percents';
 import { getDisabledRangeStyles } from 'styles';
-import { RangeValue } from 'types';
 
 jest.mock('styles', () => ({
   getDisabledRangeStyles: jest.fn(),
 }));
 
-describe('RangePercents', () => {
+describe('RangePercents Component', () => {
   const mockGetDisabledRangeStyles = getDisabledRangeStyles as jest.Mock;
 
   const setup = (value: number, isChecked: boolean) => {

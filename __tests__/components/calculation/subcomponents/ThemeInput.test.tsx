@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { ThemeInput } from 'components/calculation/subcomponents';
-import { useCalculation } from 'context';
-import { getThemeInputStyles } from 'styles';
+
 import { AriaDescription, AriaId } from 'types';
+import { useCalculation } from 'context';
+import { ThemeInput } from 'components/calculation/subcomponents';
+import { getThemeInputStyles } from 'styles';
 
 jest.mock('context', () => ({
   useCalculation: jest.fn(),
@@ -14,7 +15,7 @@ jest.mock('ui', () => ({
 
 jest.mock('styles', () => ({ getThemeInputStyles: jest.fn() }));
 
-describe('ThemeInput subComponent', () => {
+describe('ThemeInput Component', () => {
   const mockUseCalculation = useCalculation as jest.Mock;
   const mockGetThemeInputStyles = getThemeInputStyles as jest.Mock;
   const mockHandleThemeInputChange = jest.fn();
@@ -40,47 +41,64 @@ describe('ThemeInput subComponent', () => {
     jest.clearAllMocks();
   });
 
-  test('renders the input with correct attributes and classes', () => {
-    renderComponent();
+  describe('Rendering', () => {
+    test('renders the input with correct attributes', () => {
+      renderComponent();
 
-    const inputElement = screen.getByPlaceholderText('Введіть тему (не обов`язково)');
-    expect(inputElement).toBeInTheDocument();
-    expect(inputElement).toHaveAttribute('type', 'text');
-    expect(inputElement).toHaveAttribute('aria-describedby', AriaId.ThemeInput);
+      const inputElement = screen.getByPlaceholderText('Введіть тему (не обов`язково)');
+      expect(inputElement).toBeInTheDocument();
+      expect(inputElement).toHaveAttribute('type', 'text');
+      expect(inputElement).toHaveAttribute('autocomplete', 'off');
+      expect(inputElement).toHaveAttribute('aria-describedby', AriaId.ThemeInput);
+    });
+
+    test('renders the aria description props correctly', () => {
+      renderComponent();
+
+      const descriptionElement = screen.getByText(AriaDescription.ThemeInput);
+
+      expect(descriptionElement).toBeInTheDocument();
+      expect(descriptionElement).toHaveAttribute('id', AriaId.ThemeInput);
+    });
   });
 
-  test.each`
-    themeValue     | action     | expectedClass      | hasBackground
-    ${''}          | ${'blur'}  | ${'mocked-class'}  | ${false}
-    ${'New Theme'} | ${'blur'}  | ${'blurred-class'} | ${true}
-    ${''}          | ${'focus'} | ${'mocked-class'}  | ${false}
-  `(
-    'changes input class correctly when theme is "$themeValue" and action is "$action"',
-    ({ themeValue, action, expectedClass, hasBackground }) => {
-      setupMocks(themeValue);
+  describe('Styles and States', () => {
+    test.each`
+      themeValue     | action     | expectedClass      | hasBackground
+      ${''}          | ${'blur'}  | ${'mocked-class'}  | ${false}
+      ${'New Theme'} | ${'blur'}  | ${'blurred-class'} | ${true}
+      ${''}          | ${'focus'} | ${'mocked-class'}  | ${false}
+    `(
+      'changes input class correctly when theme is "$themeValue" and action is "$action"',
+      ({ themeValue, action, expectedClass, hasBackground }) => {
+        setupMocks(themeValue);
 
+        renderComponent();
+
+        const inputElement = screen.getByPlaceholderText('Введіть тему (не обов`язково)');
+
+        if (action === 'focus') {
+          fireEvent.focus(inputElement);
+        } else {
+          fireEvent.blur(inputElement);
+        }
+
+        expect(mockGetThemeInputStyles).toHaveBeenCalledWith(hasBackground);
+
+        expect(inputElement).toHaveClass(expectedClass);
+      },
+    );
+  });
+
+  describe('Interaction', () => {
+    test('changes input value correctly', () => {
       renderComponent();
 
       const inputElement = screen.getByPlaceholderText('Введіть тему (не обов`язково)');
 
-      if (action === 'focus') {
-        fireEvent.focus(inputElement);
-      } else {
-        fireEvent.blur(inputElement);
-      }
+      fireEvent.change(inputElement, { target: { value: 'New Theme' } });
 
-      expect(mockGetThemeInputStyles).toHaveBeenCalledWith(hasBackground);
-
-      expect(inputElement).toHaveClass(expectedClass);
-    },
-  );
-
-  test('renders the aria description props correctly', () => {
-    renderComponent();
-
-    const descriptionElement = screen.getByText(AriaDescription.ThemeInput);
-
-    expect(descriptionElement).toBeInTheDocument();
-    expect(descriptionElement).toHaveAttribute('id', AriaId.ThemeInput);
+      expect(mockHandleThemeInputChange).toHaveBeenCalledWith(expect.any(Object));
+    });
   });
 });

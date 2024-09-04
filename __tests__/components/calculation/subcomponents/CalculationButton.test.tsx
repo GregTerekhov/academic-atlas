@@ -32,11 +32,11 @@ jest.mock('ui', () => ({
   ),
 }));
 
-describe('CalculationButton subComponent', () => {
+describe('CalculationButton Component', () => {
   const mockUseCalculationResult = useCalculationResult as jest.Mock;
   const mockHandleShowCostResult = jest.fn();
 
-  const setup = (isDisabled: boolean = true) => {
+  const setup = (isDisabled = true) => {
     render(<CalculationButton isDisabled={isDisabled} />);
 
     const button = screen.getByRole('button', {
@@ -89,8 +89,10 @@ describe('CalculationButton subComponent', () => {
       fireEvent.click(button);
 
       if (isCalled) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(mockHandleShowCostResult).toHaveBeenCalled();
       } else {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(mockHandleShowCostResult).not.toHaveBeenCalled();
       }
     },
@@ -106,8 +108,10 @@ describe('CalculationButton subComponent', () => {
       const { button } = setup(isDisabled);
 
       if (expectedState) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(button).toBeDisabled();
       } else {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(button).not.toBeDisabled();
       }
     },
