@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { throttle } from 'lodash';
 
 import { Paths, type IWithChildren } from '../types';
 import { useInitialiseSection } from 'hooks';
@@ -65,29 +66,24 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     initialiseSections();
   }, [initialiseSections]);
 
-
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
+
+    const throttledHandleIntersection = throttle(handleSectionIntersection, 500);
 
     const initialiseAndObserve = () => {
       if (pathname === Paths.Main) {
         // Ensure sections are reset when back on the home page
         initialiseSections();
 
-        const timeoutId = setTimeout(() => {
-          observer = new IntersectionObserver(handleSectionIntersection, {
-            root: null,
-            threshold: 0.6,
-          });
+        observer = new IntersectionObserver(handleSectionIntersection, {
+          root: null,
+          threshold: 0.6,
+        });
 
-          sectionRefs.current.forEach((ref) => {
-            if (ref) observer?.observe(ref);
-          });
-        }, 1000);
-
-        return () => {
-          clearTimeout(timeoutId);
-        };
+        sectionRefs.current.forEach((ref) => {
+          if (ref) observer?.observe(ref);
+        });
       }
     };
 
@@ -99,6 +95,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       sectionRefs.current.forEach((ref) => {
         if (ref) observer?.unobserve(ref);
       });
+      throttledHandleIntersection.cancel();
     };
   }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
@@ -135,7 +132,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         activatedLink,
         setActivatedLink,
         handleActivateLink,
-        clearActiveLink
+        clearActiveLink,
       }}
     >
       {children}
