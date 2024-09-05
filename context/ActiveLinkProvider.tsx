@@ -31,7 +31,6 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   }, [pathname]);
 
   useEffect(() => {
-    //handleScroll(undefined);
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -40,9 +39,13 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleSectionIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
+      console.log('isNavigating.current', isNavigating.current);
       if (isNavigating.current) return;
 
       entries.forEach((entry) => {
+        console.log('sectionRefs', sectionRefs);
+        console.log('entry', entry);
+        console.log('entry.isIntersecting', entry.isIntersecting);
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute('id');
           if (id && sections?.current) {
@@ -55,62 +58,67 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         }
       });
     },
-    [sections, activatedLink, router],
+    [sectionRefs, sections, activatedLink, router],
   );
 
   useEffect(() => {
     initialiseSections();
   }, [initialiseSections]);
 
+
   useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+
     const initialiseAndObserve = () => {
       if (pathname === Paths.Main) {
-        // console.log("pathname in initialiseAndObserve", pathname);
-        // initialiseSections();
+        // Ensure sections are reset when back on the home page
+        initialiseSections();
 
-        const observer = new IntersectionObserver(handleSectionIntersection, {
-          root: null,
-          threshold: 0.3,
-        });
+        const timeoutId = setTimeout(() => {
+          observer = new IntersectionObserver(handleSectionIntersection, {
+            root: null,
+            threshold: 0.6,
+          });
 
-        sectionRefs.current.forEach((ref) => {
-          if (ref) observer.observe(ref);
-        });
+          sectionRefs.current.forEach((ref) => {
+            if (ref) observer?.observe(ref);
+          });
+        }, 1000);
+
+        return () => {
+          clearTimeout(timeoutId);
+        };
       }
     };
 
     initialiseAndObserve();
-  }, [pathname, handleSectionIntersection, sectionRefs]);
+
+    // Always cleanup observers to avoid issues
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      sectionRefs.current.forEach((ref) => {
+        if (ref) observer?.unobserve(ref);
+      });
+    };
+  }, [pathname, handleSectionIntersection, sectionRefs, initialiseSections]);
 
   const handleActivateLink = (path: string) => {
     const sectionId = path.split('#')[1];
-
-    console.log('sections.current', sections.current);
-
-    console.log('sectionRefs', sectionRefs);
-    console.log('sectionRefs.current.length', sectionRefs.current.length);
-
     const section = sections.current.find((section) => section.id === sectionId);
 
     isNavigating.current = true;
 
     if (section) {
       setActivatedLink(section.path);
-
-      console.log('if (section). section.path', section.path);
-      console.log('if (section). section.id', section.id);
-      router.push(`#${section.id}`, { scroll: false });
     } else {
-      console.log('no section. path', path);
       if (activatedLink !== path) {
-        console.log('no section. path', path);
         setActivatedLink(path);
       }
     }
 
     const navigationTimerId = setTimeout(() => {
       isNavigating.current = false;
-    }, 500);
+    }, 1000);
 
     return () => {
       clearTimeout(navigationTimerId);
@@ -127,7 +135,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         activatedLink,
         setActivatedLink,
         handleActivateLink,
-        clearActiveLink,
+        clearActiveLink
       }}
     >
       {children}
