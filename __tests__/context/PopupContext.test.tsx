@@ -14,48 +14,7 @@ jest.mock('context/PopupProvider', () => {
   };
 });
 
-const mockUsePopup = usePopup as jest.Mock;
-const mockSetBodyOverflow = jest.fn((isHidden: boolean) => {
-  document.body.style.overflow = isHidden ? 'hidden' : 'auto';
-});
-const mockResetValues = jest.fn(() => {
-  mockResetCalculation();
-  mockHandleResetCostResult();
-});
-const mockTogglePopup = jest.fn((id: string) => {
-  const newOpenState = !mockOpenPopups[id];
-  mockOpenPopups = { ...mockOpenPopups, [id]: newOpenState };
-
-  mockSetBodyOverflow(newOpenState);
-
-  if (!newOpenState) {
-    mockResetValues();
-  }
-});
-const mockClosePopup = jest.fn((id: string) => {
-  mockOpenPopups = { ...mockOpenPopups, [id]: false };
-
-  mockSetBodyOverflow(false);
-  mockResetValues();
-});
-
-let mockOpenPopups: { [key: string]: boolean } = { 'test-popup': false };
-const mockIsPopupOpen = jest.fn((key: string) => !!mockOpenPopups[key]);
-
-const mockResetCalculation = jest.fn();
-const mockHandleResetCostResult = jest.fn();
-
-mockUsePopup.mockReturnValue({
-  isPopupOpen: mockIsPopupOpen,
-  togglePopup: mockTogglePopup,
-  closePopup: mockClosePopup,
-  setBodyOverflow: mockSetBodyOverflow,
-  resetValues: mockResetValues,
-  popupRefs: { current: {} },
-  openPopups: mockOpenPopups,
-});
-
-const MockPopupContext = () => {
+const PopupTestComponent = () => {
   const {
     isPopupOpen,
     togglePopup,
@@ -98,28 +57,71 @@ const MockPopupContext = () => {
   );
 };
 
-const Wrapper = ({ children }: { children: ReactNode }) => (
-  <CalculationProvider>
-    <CalculationResultProvider>
-      <PopupProvider>{children}</PopupProvider>
-    </CalculationResultProvider>
-  </CalculationProvider>
-);
-
 describe('PopupProvider', () => {
+  const mockUsePopup = usePopup as jest.Mock;
+  const mockSetBodyOverflow = jest.fn((isHidden: boolean) => {
+    document.body.style.overflow = isHidden ? 'hidden' : 'auto';
+  });
+  const mockResetValues = jest.fn(() => {
+    mockResetCalculation();
+    mockHandleResetCostResult();
+  });
+  const mockTogglePopup = jest.fn((id: string) => {
+    const newOpenState = !mockOpenPopups[id];
+    mockOpenPopups = { ...mockOpenPopups, [id]: newOpenState };
+
+    mockSetBodyOverflow(newOpenState);
+
+    if (!newOpenState) {
+      setTimeout(() => {
+        mockResetValues();
+      }, 0);
+    }
+  });
+  const mockClosePopup = jest.fn((id: string) => {
+    mockOpenPopups = { ...mockOpenPopups, [id]: false };
+
+    mockSetBodyOverflow(false);
+    mockResetValues();
+  });
+
+  let mockOpenPopups: { [key: string]: boolean } = { 'test-popup': false };
+  const mockIsPopupOpen = jest.fn((key: string) => !!mockOpenPopups[key]);
+
+  const mockResetCalculation = jest.fn();
+  const mockHandleResetCostResult = jest.fn();
+
+  mockUsePopup.mockReturnValue({
+    isPopupOpen: mockIsPopupOpen,
+    togglePopup: mockTogglePopup,
+    closePopup: mockClosePopup,
+    setBodyOverflow: mockSetBodyOverflow,
+    resetValues: mockResetValues,
+    popupRefs: { current: {} },
+    openPopups: mockOpenPopups,
+  });
+
+  const Wrapper = ({ children }: { children: ReactNode }) => (
+    <CalculationProvider>
+      <CalculationResultProvider>
+        <PopupProvider>{children}</PopupProvider>
+      </CalculationResultProvider>
+    </CalculationProvider>
+  );
+
   beforeEach(() => {
     jest.clearAllMocks();
     mockOpenPopups = { 'test-popup': false };
   });
 
   it('should initialise with no popups open', () => {
-    render(<MockPopupContext />, { wrapper: Wrapper });
+    render(<PopupTestComponent />, { wrapper: Wrapper });
 
     expect(screen.getByTestId('popup-status')).toHaveTextContent('test-popup: Closed');
   });
 
   it('should call setBodyOverflow and reset when toggling popup', async () => {
-    const { rerender } = render(<MockPopupContext />, { wrapper: Wrapper });
+    const { rerender } = render(<PopupTestComponent />, { wrapper: Wrapper });
 
     fireEvent.click(screen.getByText('Toggle Popup'));
     expect(mockTogglePopup).toHaveBeenCalledWith('test-popup');
@@ -127,7 +129,7 @@ describe('PopupProvider', () => {
     expect(mockResetValues).not.toHaveBeenCalled();
 
     mockOpenPopups = { 'test-popup': true };
-    rerender(<MockPopupContext />);
+    rerender(<PopupTestComponent />);
 
     await waitFor(() =>
       expect(screen.getByTestId('popup-status')).toHaveTextContent('test-popup: Open'),
@@ -139,23 +141,72 @@ describe('PopupProvider', () => {
     expect(mockResetValues).toHaveBeenCalled();
 
     mockOpenPopups = { 'test-popup': false };
-    rerender(<MockPopupContext />);
+    rerender(<PopupTestComponent />);
 
     await waitFor(() => {
       expect(screen.getByTestId('popup-status')).toHaveTextContent('test-popup: Closed');
     });
   });
 
+  it('calls resetValues after popup is closed with timeout', async () => {
+    const { rerender } = render(<PopupTestComponent />, { wrapper: Wrapper });
+
+    fireEvent.click(screen.getByText('Toggle Popup'));
+    expect(mockTogglePopup).toHaveBeenCalledWith('test-popup');
+    expect(mockSetBodyOverflow).toHaveBeenCalledWith(true);
+    expect(mockResetValues).not.toHaveBeenCalled();
+
+    mockOpenPopups = { 'test-popup': true };
+    rerender(<PopupTestComponent />);
+
+    await waitFor(() =>
+      expect(screen.getByTestId('popup-status')).toHaveTextContent('test-popup: Open'),
+    );
+
+    fireEvent.click(screen.getByText('Close Popup'));
+    expect(mockClosePopup).toHaveBeenCalledWith('test-popup');
+    expect(mockSetBodyOverflow).toHaveBeenCalledWith(false);
+
+    await waitFor(() => expect(mockResetValues).toHaveBeenCalled());
+  });
+
   it('should not call resetValues when opening popup in togglePopup', () => {
-    render(<MockPopupContext />, { wrapper: Wrapper });
+    render(<PopupTestComponent />, { wrapper: Wrapper });
 
     fireEvent.click(screen.getByText('Toggle Popup'));
 
     expect(mockResetValues).not.toHaveBeenCalled();
   });
 
+  it('calls setBodyOverflow with true when opening a popup', () => {
+    render(<PopupTestComponent />, { wrapper: Wrapper });
+
+    fireEvent.click(screen.getByText('Toggle Popup'));
+    expect(mockSetBodyOverflow).toHaveBeenCalledWith(true);
+  });
+
+  it('should update openPopups correctly when togglePopup is called', () => {
+    render(<PopupTestComponent />, { wrapper: Wrapper });
+
+    fireEvent.click(screen.getByText('Toggle Popup'));
+    expect(mockOpenPopups['test-popup']).toBe(true);
+
+    fireEvent.click(screen.getByText('Toggle Popup'));
+    expect(mockOpenPopups['test-popup']).toBe(false);
+  });
+
+  it('should reset values after timeout when popup is closed', async () => {
+    render(<PopupTestComponent />, { wrapper: Wrapper });
+
+    fireEvent.click(screen.getByText('Toggle Popup'));
+
+    fireEvent.click(screen.getByText('Toggle Popup'));
+
+    await waitFor(() => expect(mockResetValues).toHaveBeenCalled());
+  });
+
   it('should call resetValues and setBodyOverflow(false) when closePopup is called', () => {
-    render(<MockPopupContext />, { wrapper: Wrapper });
+    render(<PopupTestComponent />, { wrapper: Wrapper });
 
     fireEvent.click(screen.getByText('Close Popup'));
 
@@ -164,7 +215,7 @@ describe('PopupProvider', () => {
   });
 
   it('should call setBodyOverflow and not call resetValues when opening popup, but call resetValues when closing', async () => {
-    const { rerender } = render(<MockPopupContext />, { wrapper: Wrapper });
+    const { rerender } = render(<PopupTestComponent />, { wrapper: Wrapper });
 
     fireEvent.click(screen.getByText('Toggle Popup'));
     expect(mockTogglePopup).toHaveBeenCalledWith('test-popup');
@@ -172,7 +223,7 @@ describe('PopupProvider', () => {
     expect(mockResetValues).not.toHaveBeenCalled();
 
     mockOpenPopups = { 'test-popup': true };
-    rerender(<MockPopupContext />);
+    rerender(<PopupTestComponent />);
 
     await waitFor(() =>
       expect(screen.getByTestId('popup-status')).toHaveTextContent('test-popup: Open'),
@@ -185,7 +236,7 @@ describe('PopupProvider', () => {
   });
 
   it('should call resetCalculation and handleResetCostResult inside resetValues', () => {
-    render(<MockPopupContext />, { wrapper: Wrapper });
+    render(<PopupTestComponent />, { wrapper: Wrapper });
 
     fireEvent.click(screen.getByText('Reset Values'));
     expect(mockResetValues).toHaveBeenCalled();
@@ -194,24 +245,27 @@ describe('PopupProvider', () => {
   });
 
   it('should correctly handle non-existing popups in isPopupOpen', () => {
-    render(<MockPopupContext />, { wrapper: Wrapper });
+    render(<PopupTestComponent />, { wrapper: Wrapper });
 
     expect(mockIsPopupOpen('non-existing-popup')).toBe(false);
     expect(screen.queryByTestId('popup-non-existing-popup')).not.toBeInTheDocument();
   });
 
   it('should correctly update body overflow style when setBodyOverflow is called', () => {
-    render(<MockPopupContext />, { wrapper: Wrapper });
+    render(<PopupTestComponent />, { wrapper: Wrapper });
 
     fireEvent.click(screen.getByText('Set Body Overflow Hidden'));
     expect(document.body.style.overflow).toBe('hidden');
+    expect(mockSetBodyOverflow).toHaveBeenCalledWith(true);
 
     fireEvent.click(screen.getByText('Reset Body Overflow'));
     expect(document.body.style.overflow).toBe('auto');
+
+    expect(mockSetBodyOverflow).toHaveBeenCalledWith(false);
   });
 
   it('should handle popupRefs correctly', () => {
-    const { rerender } = render(<MockPopupContext />, { wrapper: Wrapper });
+    const { rerender } = render(<PopupTestComponent />, { wrapper: Wrapper });
 
     const popupRefKey = 'test-popup';
     const testRef = createRef<HTMLDivElement>();
@@ -221,7 +275,7 @@ describe('PopupProvider', () => {
       popupRefs: { current: { [popupRefKey]: testRef } },
     });
 
-    rerender(<MockPopupContext />);
+    rerender(<PopupTestComponent />);
 
     expect(screen.getByTestId(`popup-ref-${popupRefKey}`)).toHaveTextContent(
       `${popupRefKey}: ${testRef.current ? 'Exists' : 'Does not exist'}`,
@@ -235,7 +289,7 @@ describe('PopupProvider', () => {
     });
 
     expect(() =>
-      render(<MockPopupContext />, { wrapper: ({ children }) => <>{children}</> }),
+      render(<PopupTestComponent />, { wrapper: ({ children }) => <>{children}</> }),
     ).toThrow('usePopup must be used within a PopupProvider');
   });
 });
