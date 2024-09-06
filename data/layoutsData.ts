@@ -102,9 +102,10 @@ export const getFooterLinks = (): ILinks[] => {
 };
 
 export const getAdaptedLinks = (): ILinks[] => {
-  const { Services, AboutUs, Feedback } = getIdValues();
+  const { Main, Services, AboutUs, Feedback } = getIdValues();
   return [
     {
+      id: Main,
       path: Paths.Main,
       label: MenuLinks.Main,
       activeLink: '/',

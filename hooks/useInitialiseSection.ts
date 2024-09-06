@@ -2,7 +2,7 @@
 
 import { useCallback, useRef } from 'react';
 
-import { getAdaptedLinks, getFooterLinks } from 'data';
+import { getAdaptedLinks } from 'data';
 
 export const useInitialiseSection = () => {
   const sections = useRef<{ id: string; path: string }[]>([]);
@@ -12,30 +12,34 @@ export const useInitialiseSection = () => {
   const initialiseSections = useCallback(() => {
     try {
       const nodeList = document.querySelectorAll('section[id]');
+      // console.log("nodeList", nodeList);
+
+      // const mainElement = document.querySelector('#main');
+      
       if (nodeList.length === 0) {
         throw new Error('No sections found');
       }
 
-      sectionRefs.current = [];
+      // sectionRefs.current = [];
       sectionRefs.current = Array.from(nodeList);
 
       const adaptedLinks = getAdaptedLinks();
-      const footerLinks = getFooterLinks();
-      const allLinks = [...adaptedLinks, ...footerLinks];
 
-      const uniqueLinks = allLinks.reduce(
-        (acc, current) => {
-          if (current !== undefined && !acc.some((link) => link.id === current.id)) {
-            acc.push(current as { id: string; path: string });
-          }
-          return acc;
-        },
-        [] as { id: string; path: string }[],
-      );
+      // const uniqueLinks = adaptedLinks.reduce(
+      //   (acc, current) => {
+      //     if (current !== undefined && !acc.some((link) => link.id === current.id)) {
+      //       acc.push(current as { id: string; path: string });
+      //     }
+      //     return acc;
+      //   },
+      //   [] as { id: string; path: string }[],
+      // );
 
-      sections.current = uniqueLinks.map(({ path, id }) => {
-        return { id: id ?? '', path };
-      });
+        sections.current = adaptedLinks.map(({ path, id }) => {
+          return { id: id ?? '', path };
+        });
+
+      //  console.log('sections.current', sections.current);
     } catch (error) {
       console.error('Error during section initialization:', error);
       throw error;

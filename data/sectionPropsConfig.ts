@@ -51,6 +51,7 @@ export const getSectionProps = (
       isBigTitle: true,
       hasCtaText: true,
       priority: true,
+      id: sectionId ?? '',
     },
     homePerformers: {
       title: SectionTitle.Performers,
