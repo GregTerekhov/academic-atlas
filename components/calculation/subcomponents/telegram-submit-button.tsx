@@ -28,13 +28,15 @@ export default function TelegramSubmitButton() {
       workType,
       expertiseArea,
       executionTime,
-      uniqueness,
+      uniqueness?.toString(),
     );
 
     if (!base64String) {
       e.preventDefault();
       return;
     }
+
+    // console.log('base64String.length: ', base64String.length);
 
     setHref(`https://t.me/AcademicAtlasBot?start=${base64String}`);
   };
