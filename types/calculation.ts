@@ -107,6 +107,71 @@ export enum CalculationMultiplier {
   IT = 1.8,
 }
 
+export interface IEncryptedData {
+  command: TelegramScenario;
+  workType?: string;
+  expertiseArea?: string;
+  executionTime?: string;
+  uniqueness?: string;
+}
+
+type ExcludeDefault<T> = T extends 'Default' ? never : T;
+
+export const keyAbbreviations: Record<keyof IEncryptedData, string> = {
+  command: 'c',
+  workType: 'w',
+  expertiseArea: 'a',
+  executionTime: 't',
+  uniqueness: 'u',
+};
+
+export const valueAbbreviations: Record<
+  | ExcludeDefault<keyof typeof WorkType>
+  | ExcludeDefault<keyof typeof ExpertiseArea>
+  | ExcludeDefault<keyof typeof ExecutionTime>,
+  string
+> = {
+  Abstracts: 'ab',
+  ArchitectureAndConstruction: 'ac',
+  AutomationAndInstrumentation: 'ai',
+  AgriculturalSciences: 'as',
+  Biology: 'bl',
+  BachelorTheses: 'bt',
+  CultureAndArt: 'ca',
+  ChemicalAndBioengineering: 'cb',
+  CaseStudyReports: 'cs',
+  CivilSecurity: 'cv',
+  Diplomas: 'di',
+  Education: 'ed',
+  ElectricalEngineering: 'ee',
+  ElectronicsAndTelecommunications: 'et',
+  FormalSciences: 'fs',
+  Healthcare: 'hc',
+  Humanities: 'hu',
+  IT: 'it',
+  Journalism: 'jo',
+  LongTerm: 'lg',
+  Law: 'lw',
+  Management: 'ma',
+  MediumTerm: 'md',
+  MechanicalEngineering: 'me',
+  MilitarySciences: 'ml',
+  MasterTheses: 'mt',
+  NaturalSciences: 'ns',
+  Presentations: 'pr',
+  ProductionAndTechnology: 'pt',
+  PracticalWorks: 'pw',
+  SocialSciences: 'ss',
+  ServiceSector: 'sv',
+  SocialWork: 'sw',
+  Theology: 'tl',
+  TeamPapers: 'tm',
+  TestPapers: 'ts',
+  Transport: 'tt',
+  Urgent: 'ur',
+  VeterinaryMedicine: 'vm',
+};
+
 export const humanitiesAndEconomics = new Set([
   ExpertiseArea.Education,
   ExpertiseArea.CultureAndArt,
