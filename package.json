@@ -17,6 +17,7 @@
     "@radix-ui/react-switch": "^1.0.3",
     "lodash.debounce": "^4.0.8",
     "next": "14.2.3",
+    "pako": "^2.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.33.5",

@@ -6,9 +6,11 @@ export const getIdValues = () => {
       const path = Paths[key as keyof typeof Paths];
       const id = path.includes('/#') ? path.replace('/#', '') : path;
 
+      const finalId = path === '/' ? 'main' : id;
+
       return {
         ...acc,
-        [key]: id,
+        [key]: finalId,
       };
     },
     {} as { [key in keyof typeof Paths]?: string },

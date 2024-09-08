@@ -63,7 +63,7 @@ const createServiceObject = (data: IEncryptedData): IEncryptedData => {
 
 const encodeData = (data: IEncryptedData | Record<string, string>): string => {
   const encDataString = JSON.stringify(data);
-  // const urlEncodedString = encodeURIComponent(encDataString); //FIXME: --- add encodeURIComponent on front and decodeURIComponent on back
+
   return btoa(encDataString);
 };
 
@@ -80,6 +80,7 @@ const handleSimpleScenario = (
   }
 
   const dataToBot = createServiceObject({ command, workType: workTypeKey });
+
   return encodeData(dataToBot);
 };
 
@@ -161,6 +162,7 @@ const handleComplexScenario = (
 
 const handleDefaultScenario = (command: TelegramScenario): string => {
   const dataToBot = createServiceObject({ command });
+
   return encodeData(dataToBot);
 };
 

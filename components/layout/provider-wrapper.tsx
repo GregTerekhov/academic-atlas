@@ -1,6 +1,6 @@
 import { type IWithChildren } from 'types';
 import {
-  // ActiveLinkProvider,
+  ActiveLinkProvider,
   CalculationProvider,
   CalculationResultProvider,
   MenuProvider,
@@ -18,20 +18,21 @@ export default function ProviderWrapper({
   theme,
   storageKey,
 }: Readonly<IProviderWrapperProps>) {
+  //FIXME: add new logic in test
   return (
     <ThemeProvider
       storageKey={storageKey}
       startTheme={theme}
     >
-      {/* <ActiveLinkProvider> */}
-      <CalculationProvider>
-        <CalculationResultProvider>
-          <MenuProvider>
-            <PopupProvider>{children}</PopupProvider>
-          </MenuProvider>
-        </CalculationResultProvider>
-      </CalculationProvider>
-      {/* </ActiveLinkProvider> */}
+      <ActiveLinkProvider>
+        <CalculationProvider>
+          <CalculationResultProvider>
+            <MenuProvider>
+              <PopupProvider>{children}</PopupProvider>
+            </MenuProvider>
+          </CalculationResultProvider>
+        </CalculationProvider>
+      </ActiveLinkProvider>
     </ThemeProvider>
   );
 }

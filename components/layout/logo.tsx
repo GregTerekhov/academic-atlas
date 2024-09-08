@@ -12,8 +12,7 @@ import {
   AriaDescription,
   AriaLabel,
 } from 'types';
-import { useMenu } from 'context';
-import { useActivateLink } from 'hooks';
+import { useActiveLink, useMenu } from 'context';
 
 import { AriaDescriptionUI, SvgIconUI } from 'ui';
 
@@ -24,7 +23,7 @@ interface ISvgIconProps {
 export default function Logo({ position }: ISvgIconProps) {
   const pathname = usePathname();
   const { isNavMenuOpen, isCalcMenuOpen, closeMenu } = useMenu();
-  const { handleActivateLink } = useActivateLink();
+  const { handleActivateLink } = useActiveLink();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const doesNeedScroll = pathname === Paths.Main && (!isNavMenuOpen || !isCalcMenuOpen);

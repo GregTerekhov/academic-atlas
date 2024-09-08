@@ -56,28 +56,34 @@ export const getAdaptedContacts = (variant: PositionInLayout) => {
 };
 
 export const getFooterLinks = (): ILinks[] => {
+  const { Services, AboutUs, Feedback, Overview, Promotions } = getIdValues();
   return [
     {
+      id: Overview,
       path: Paths.Overview,
       label: MenuLinks.Overview,
       activeLink: '#overview',
     },
     {
+      id: AboutUs,
       path: Paths.AboutUs,
       label: MenuLinks.AboutUs,
       activeLink: '#about-us',
     },
     {
+      id: Feedback,
       path: Paths.Feedback,
       label: MenuLinks.Feedback,
       activeLink: '#feedback',
     },
     {
+      id: Services,
       path: Paths.Services,
       label: MenuLinks.Services,
       activeLink: '#services',
     },
     {
+      id: Promotions,
       path: Paths.Promotions,
       label: MenuLinks.Promotions,
       activeLink: '#promotions',
@@ -96,9 +102,10 @@ export const getFooterLinks = (): ILinks[] => {
 };
 
 export const getAdaptedLinks = (): ILinks[] => {
-  const { Services, AboutUs, Feedback } = getIdValues();
+  const { Main, Services, AboutUs, Feedback } = getIdValues();
   return [
     {
+      id: Main,
       path: Paths.Main,
       label: MenuLinks.Main,
       activeLink: '/',

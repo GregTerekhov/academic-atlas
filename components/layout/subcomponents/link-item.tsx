@@ -1,10 +1,10 @@
 'use client';
 
+import { useActiveLink } from 'context';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
-import { useActivateLink } from 'hooks';
 
 import { AriaDescriptionUI } from 'ui';
 
@@ -22,7 +22,7 @@ export default function LegalLinkItem({
   linkLabel,
 }: ILegalLinkItemProps) {
   const pathname = usePathname();
-  const { clearActiveLink } = useActivateLink();
+  const { handleActivateLink } = useActiveLink();
 
   return (
     <>
@@ -30,7 +30,9 @@ export default function LegalLinkItem({
         href={href}
         aria-describedby={ariaId}
         aria-current={pathname === href ? 'page' : undefined}
-        onClick={clearActiveLink}
+        onClick={() => {
+          handleActivateLink(href);
+        }}
         className='text-xs hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-sm lg:text-base'
       >
         {linkLabel}

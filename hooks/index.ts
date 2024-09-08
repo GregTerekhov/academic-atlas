@@ -1,5 +1,4 @@
 export { useAccordion } from './useAccordion';
-export { useActivateLink } from './useActiveLink';
 export { useAutoSetRange } from './useAutoSetRange';
 export { useBreadcrumbs } from './useBreadcrumbs';
 export { useButtonDisabled } from './useButtonDisabled';
