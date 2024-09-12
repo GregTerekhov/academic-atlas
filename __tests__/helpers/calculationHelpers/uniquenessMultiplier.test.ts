@@ -5,6 +5,7 @@ describe('uniquenessMultiplier', () => {
   it.each([
     // NoMultiplier cases
     [CalculationMultiplier.NoMultiplier, { uniquenessPercentage: Uniqueness.Standard }, undefined],
+    [CalculationMultiplier.NoMultiplier, { uniquenessPercentage: 999 as Uniqueness }, undefined],
     [
       CalculationMultiplier.NoMultiplier,
       { uniquenessPercentage: Uniqueness.Standard },

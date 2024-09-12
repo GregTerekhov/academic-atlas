@@ -23,15 +23,15 @@ export default function ProviderWrapper({
       storageKey={storageKey}
       startTheme={theme}
     >
-      <ActiveLinkProvider>
-        <CalculationProvider>
-          <CalculationResultProvider>
-            <MenuProvider>
+      <CalculationProvider>
+        <CalculationResultProvider>
+          <MenuProvider>
+            <ActiveLinkProvider>
               <PopupProvider>{children}</PopupProvider>
-            </MenuProvider>
-          </CalculationResultProvider>
-        </CalculationProvider>
-      </ActiveLinkProvider>
+            </ActiveLinkProvider>
+          </MenuProvider>
+        </CalculationResultProvider>
+      </CalculationProvider>
     </ThemeProvider>
   );
 }

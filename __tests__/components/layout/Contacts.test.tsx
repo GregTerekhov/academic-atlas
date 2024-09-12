@@ -158,7 +158,6 @@ describe('Contacts Component', () => {
       renderContacts(PositionInLayout.Header, contacts, 'header-styles');
 
       const contactItems = screen.getAllByTestId('contact-item');
-      screen.debug();
       expect(contactItems).toHaveLength(expectedCount);
     },
   );
