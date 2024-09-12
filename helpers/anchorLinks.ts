@@ -1,4 +1,4 @@
-import { Paths } from '../types';
+import { Paths, SectionTitle } from '../types';
 
 export const getIdValues = () => {
   return Object.keys(Paths).reduce(
@@ -6,7 +6,7 @@ export const getIdValues = () => {
       const path = Paths[key as keyof typeof Paths];
       const id = path.includes('/#') ? path.replace('/#', '') : path;
 
-      const finalId = path === '/' ? 'main' : id;
+      const finalId = path === '/' ? SectionTitle.Hero : id;
 
       return {
         ...acc,

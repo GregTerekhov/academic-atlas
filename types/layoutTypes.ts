@@ -40,7 +40,7 @@ export enum Paths {
 }
 
 export enum SectionTitle {
-  Hero = 'hero',
+  Hero = 'main',
   OurServices = 'our-services',
   FindOutCost = 'find-out-cost',
   HowItWorks = 'service-overview',
@@ -113,7 +113,6 @@ export enum CalculationTitle {
 export interface ILinks {
   label: MenuLinks;
   path: Paths;
-  activeLink: string;
   id?: string | undefined;
 }
 

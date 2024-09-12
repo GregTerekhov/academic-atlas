@@ -5,11 +5,11 @@ describe('getNavigationLinkStyles', () => {
   it.each([
     [
       true,
-      'text-accentPrimary dark:text-accentSecondary text-medium hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-big',
+      'text-accentPrimary dark:text-accentSecondary text-medium hover:text-accentPrimary dark:hover:text-accentSecondary md:text-big',
     ],
     [
       false,
-      'dark:text-whiteBase text-medium hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-big',
+      'dark:text-whiteBase text-medium hover:text-accentPrimary dark:hover:text-accentSecondary md:text-big',
     ],
   ])('should return correct styles for isActive=%s', (isActive, expected) => {
     expect(getNavigationLinkStyles(isActive)).toBe(expected);

@@ -3,25 +3,25 @@ import { usePathname } from 'next/navigation';
 import { ComponentProps } from 'react';
 
 import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
-import LegalLinkItem from 'components/layout/subcomponents/link-item';
 import { useActiveLink } from 'context';
+import LegalLinkItem from 'components/layout/subcomponents/link-item';
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
 }));
 
-jest.mock('hooks', () => ({
+jest.mock('context', () => ({
   useActiveLink: jest.fn(),
 }));
 
 describe('LegalLinkItem Component', () => {
   const mockUsePathname = usePathname as jest.Mock;
   const mockUseActiveLink = useActiveLink as jest.Mock;
-  const mockClearActiveLink = jest.fn();
+  const mockHandleActivateLink = jest.fn();
 
   beforeEach(() => {
     mockUsePathname.mockReturnValue(Paths.Main);
-    mockUseActiveLink.mockReturnValue({ clearActiveLink: mockClearActiveLink });
+    mockUseActiveLink.mockReturnValue({ handleActivateLink: mockHandleActivateLink });
 
     jest.clearAllMocks();
   });
@@ -74,7 +74,7 @@ describe('LegalLinkItem Component', () => {
     },
   );
 
-  it('calls clearActiveLink when link is clicked', () => {
+  it('calls handleActivateLink when link is clicked', () => {
     render(
       <LegalLinkItem
         href={Paths.Policy}
@@ -87,6 +87,6 @@ describe('LegalLinkItem Component', () => {
     const linkElement = screen.getByText(MenuLinks.Policy);
     fireEvent.click(linkElement);
 
-    expect(mockClearActiveLink).toHaveBeenCalled();
+    expect(mockHandleActivateLink).toHaveBeenCalledWith(Paths.Policy);
   });
 });

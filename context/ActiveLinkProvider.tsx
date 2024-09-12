@@ -30,7 +30,6 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleSectionIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-    
       if (isNavigating.current || isScrollingWithButton) return;
 
       entries.forEach((entry) => {
@@ -56,7 +55,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
 
-    const initialiseAndObserve = () => {      
+    const initialiseAndObserve = () => {
       if (pathname === Paths.Main) {
         initialiseSections();
 
