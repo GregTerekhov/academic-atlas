@@ -37,6 +37,11 @@ export enum AriaLabelTrigger {
   CloseCalculation = 'Кнопка закриття меню калькуляції',
 }
 
+export enum AriaCurrent {
+  Page = 'page',
+  Location = 'location',
+}
+
 export interface IBaseId {
   id: string;
 }
