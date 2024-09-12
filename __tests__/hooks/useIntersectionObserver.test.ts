@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
 
 describe('useIntersectionObserver hook', () => {
@@ -44,7 +44,9 @@ describe('useIntersectionObserver hook', () => {
       useIntersectionObserver(mockElements, options, mockCallback),
     );
 
-    unmount();
+    act(() => {
+      unmount();
+    });
 
     expect(unobserveMock).toHaveBeenCalledTimes(2);
     expect(unobserveMock).toHaveBeenCalledWith(mockElements[0]);
