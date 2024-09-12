@@ -351,52 +351,52 @@ export const getAccession = (): IAccession[] => {
 export const getFAQQuestions = (): IQuestions[] => {
   return [
     {
-      id: 'Question 1',
+      id: 'Question_1',
       title: QuestionTitle.Issue1,
       answer: QuestionAnswer.Answer1,
     },
     {
-      id: 'Question 2',
+      id: 'Question_2',
       title: QuestionTitle.Issue2,
       answer: QuestionAnswer.Answer2,
     },
     {
-      id: 'Question 3',
+      id: 'Question_3',
       title: QuestionTitle.Issue3,
       answer: QuestionAnswer.Answer3,
     },
     {
-      id: 'Question 4',
+      id: 'Question_4',
       title: QuestionTitle.Issue4,
       answer: QuestionAnswer.Answer4,
     },
     {
-      id: 'Question 5',
+      id: 'Question_5',
       title: QuestionTitle.Issue5,
       answer: QuestionAnswer.Answer5,
     },
     {
-      id: 'Question 6',
+      id: 'Question_6',
       title: QuestionTitle.Issue6,
       answer: QuestionAnswer.Answer6,
     },
     {
-      id: 'Question 7',
+      id: 'Question_7',
       title: QuestionTitle.Issue7,
       answer: QuestionAnswer.Answer7,
     },
     {
-      id: 'Question 8',
+      id: 'Question_8',
       title: QuestionTitle.Issue8,
       answer: QuestionAnswer.Answer8,
     },
     {
-      id: 'Question 9',
+      id: 'Question_9',
       title: QuestionTitle.Issue9,
       answer: QuestionAnswer.Answer9,
     },
     {
-      id: 'Question 10',
+      id: 'Question_10',
       title: QuestionTitle.Issue10,
       answer: QuestionAnswer.Answer10,
     },

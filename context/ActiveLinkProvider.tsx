@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { Paths, type IWithChildren } from '../types';
 import { useInitialiseSection } from 'hooks';
+import { useMenu } from './MenuProvider';
 interface IActiveLinkContext {
   activatedLink: string;
   setActivatedLink: (path: string) => void;
@@ -19,8 +20,10 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const router = useRouter();
 
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
-  const [isScrollingWithButton, setIsScrollingWithButton] = useState<boolean>(false);
+  const [isScrollingWithButton, setIsScrollingWithButton] = useState(false);
   const isNavigating = useRef<boolean>(false);
+
+  const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
   const { sections, sectionRefs, initialiseSections } = useInitialiseSection();
 
@@ -83,6 +86,8 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const handleActivateLink = (path: string) => {
     isNavigating.current = true;
     setActivatedLink(path);
+
+    if (isNavMenuOpen) toggleNavMenu();
 
     const navigationTimerId = setTimeout(() => {
       isNavigating.current = false;

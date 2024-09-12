@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { AriaLabel, ButtonType, PositionInLayout } from 'types';
-import { useMenu, useActiveLink } from 'context';
+import { AriaLabel, PositionInLayout } from 'types';
+import { useActiveLink } from 'context';
 import { getAdaptedLinks } from 'data';
 import { getMenuAriaCurrent, mapArray } from 'helpers';
 
@@ -13,7 +13,6 @@ import CalculationLinkMobile from './calculation-link-mobile';
 import { getNavigationLinkStyles } from 'styles';
 
 export default function Navigation() {
-  const { isNavMenuOpen, toggleNavMenu } = useMenu();
   const { activatedLink, handleActivateLink } = useActiveLink();
   const pathname = usePathname();
 
@@ -38,18 +37,7 @@ export default function Navigation() {
                 aria-current={ariaCurrent}
                 className={linkClass}
               >
-                {isNavMenuOpen ? (
-                  <button
-                    type={ButtonType.Button}
-                    onClick={() => {
-                      toggleNavMenu();
-                    }}
-                  >
-                    {label}
-                  </button>
-                ) : (
-                  label
-                )}
+                {label}
               </Link>
             </li>
           );
