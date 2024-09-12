@@ -36,8 +36,6 @@ export default function TelegramSubmitButton() {
       return;
     }
 
-    // console.log('base64String.length: ', base64String.length);
-
     setHref(`https://t.me/AcademicAtlasBot?start=${base64String}`);
   };
 

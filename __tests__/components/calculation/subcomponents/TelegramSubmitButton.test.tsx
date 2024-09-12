@@ -165,7 +165,7 @@ describe('TelegramSubmitButton Component', () => {
           calculationData.workType,
           calculationData.expertiseArea,
           calculationData.executionTime,
-          calculationData.uniqueness,
+          calculationData.uniqueness.toString(),
         );
         expect(linkElement).toHaveAttribute('href', expectedHref);
       },
