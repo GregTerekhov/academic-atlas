@@ -8,7 +8,7 @@ export const useIntersectionObserver = (
   callback: IntersectionObserverCallback,
 ) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
-  //FIXME: add new logic in test
+
   useEffect(() => {
     if (observerRef.current) {
       observerRef.current.disconnect();
@@ -17,21 +17,21 @@ export const useIntersectionObserver = (
     if (targets.length === 0) return;
 
     const observer = new IntersectionObserver(callback, options);
+    observerRef.current = observer;
 
     targets.forEach((element) => {
-      observer.observe(element);
+      observerRef.current?.observe(element);
     });
 
     return () => {
-      if (observer) {
+      if (observerRef.current) {
         targets.forEach((element) => {
-          observer.unobserve(element);
+          observerRef.current?.unobserve(element);
         });
-        observer.disconnect();
+        observerRef.current?.disconnect();
       }
     };
   }, [callback, options, targets]);
 
   return {};
 };
-    

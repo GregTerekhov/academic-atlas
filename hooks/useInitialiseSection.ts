@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { getAdaptedLinks } from 'data';
 
@@ -14,7 +14,8 @@ export const useInitialiseSection = () => {
       const nodeList = document.querySelectorAll('section[id]');
 
       if (nodeList.length === 0) {
-        throw new Error('No sections found');
+        console.warn('No sections found');
+        return;
       }
 
       sectionRefs.current = Array.from(nodeList);
@@ -26,9 +27,13 @@ export const useInitialiseSection = () => {
       });
     } catch (error) {
       console.error('Error during section initialization:', error);
-      throw error;
+      // throw error;
     }
   }, []);
+
+  useEffect(() => {
+    initialiseSections();
+  }, [initialiseSections]);
 
   return { sections, sectionRefs, initialiseSections };
 };

@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { AriaLabel, PositionInLayout } from 'types';
+import { useActiveLink } from 'context';
 import { getFooterLinks } from 'data';
 import { getMenuAriaCurrent, mapArray } from 'helpers';
 
 import { CalculationLinkDesktop, CalculationLinkMobile } from './subcomponents';
-import { useActiveLink } from 'context/ActiveLinkProvider';
 
 export default function FooterMenu() {
   const pathname = usePathname();

@@ -1,4 +1,4 @@
-import { AriaLabelTrigger, Paths } from '../types';
+import { AriaCurrent, AriaLabelTrigger, Paths } from '../types';
 
 export const getAriaLabelContacts = (href: string, label: string): string => {
   if (href.startsWith('tel:')) {
@@ -29,14 +29,11 @@ export const getAriaLabelSwitcher = (
 };
 
 export const getMenuAriaCurrent = (path: Paths, pathname: string, isActive: boolean = false) => {
-  if (path.startsWith('#')) {
-    return 'location';
+  if (isActive && path.startsWith('/#')) {
+    return AriaCurrent.Location;
   }
   if (pathname === path) {
-    return 'page';
-  }
-  if (isActive && !path.startsWith('#')) {
-    return 'page';
+    return AriaCurrent.Page;
   }
 
   return undefined;

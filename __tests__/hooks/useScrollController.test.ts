@@ -1,7 +1,12 @@
 import { act, renderHook } from '@testing-library/react';
 
+import { useActiveLink } from 'context';
 import { useIntersectionObserver } from 'hooks';
 import { useScrollController } from 'hooks/useScrollController';
+
+jest.mock('context', () => ({
+  useActiveLink: jest.fn(),
+}));
 
 jest.mock('hooks', () => ({
   useIntersectionObserver: jest.fn(),
@@ -9,6 +14,8 @@ jest.mock('hooks', () => ({
 
 describe('useScrollController hook', () => {
   const mockUseIntersectionObserver = useIntersectionObserver as jest.Mock;
+  const mockUseActiveLink = useActiveLink as jest.Mock;
+  const mockUpdateScrollWithButtonState = jest.fn();
 
   beforeEach(() => {
     window.scrollTo = jest.fn();
@@ -16,7 +23,8 @@ describe('useScrollController hook', () => {
     jest.clearAllMocks();
 
     mockUseIntersectionObserver.mockImplementation((elements, _, callback) => {
-      const entries = elements.map((el: IntersectionObserverEntry) => ({
+      const entries = elements.map((el: HTMLElement) => ({
+        // const entries = elements.map((el: IntersectionObserverEntry) => ({
         isIntersecting: false,
         target: el,
       }));
@@ -26,6 +34,10 @@ describe('useScrollController hook', () => {
         observe: jest.fn(),
         unobserve: jest.fn(),
       };
+    });
+
+    mockUseActiveLink.mockReturnValue({
+      updateScrollWithButtonState: mockUpdateScrollWithButtonState,
     });
   });
 
@@ -42,6 +54,7 @@ describe('useScrollController hook', () => {
 
   it('should update isVisible based on scroll position', () => {
     const header = document.createElement('header');
+
     document.body.appendChild(header);
     Object.defineProperty(header, 'getBoundingClientRect', {
       value: () => ({ height: 120 }),
@@ -67,6 +80,8 @@ describe('useScrollController hook', () => {
   });
 
   it('should position button as fixed by default', () => {
+    jest.useFakeTimers();
+
     const button = document.createElement('button');
     const header = document.createElement('header');
 
@@ -102,11 +117,18 @@ describe('useScrollController hook', () => {
 
     document.body.removeChild(header);
     document.body.removeChild(button);
+
+    jest.useRealTimers();
   });
 
   it('should position button as absolute when footer is intersecting', () => {
+    jest.useFakeTimers();
+
     const button = document.createElement('button');
     document.body.appendChild(button);
+
+    const footer = document.createElement('footer');
+    document.body.appendChild(footer);
 
     const { result } = renderHook(() => useScrollController());
 
@@ -120,7 +142,7 @@ describe('useScrollController hook', () => {
     act(() => {
       const mockCall = mockUseIntersectionObserver.mock.calls[0];
       if (mockCall && mockCall[2]) {
-        mockCall[2]([{ isIntersecting: true, target: document.querySelector('footer') }]);
+        mockCall[2]([{ isIntersecting: true, target: footer }]);
       }
     });
 
@@ -133,18 +155,58 @@ describe('useScrollController hook', () => {
     });
 
     document.body.removeChild(button);
+    document.body.removeChild(footer);
+
+    jest.useRealTimers();
   });
 
   it('should scroll to top when scrollTop is called', () => {
+    jest.useFakeTimers();
+
     const { result } = renderHook(() => useScrollController());
 
     const scrollToMock = jest.spyOn(window, 'scrollTo');
 
-    result.current.scrollToTop();
+    act(() => {
+      result.current.scrollToTop();
+    });
 
     expect(scrollToMock).toHaveBeenCalledWith({
       top: 0,
       behavior: 'smooth',
     });
+
+    expect(mockUpdateScrollWithButtonState).toHaveBeenCalledWith(true);
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(mockUpdateScrollWithButtonState).toHaveBeenCalledWith(false);
+
+    jest.useRealTimers();
+  });
+
+  it('should clear timeout when scrollToTop is called multiple items', () => {
+    jest.useFakeTimers();
+    const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
+
+    const { result } = renderHook(() => useScrollController());
+
+    act(() => {
+      result.current.scrollToTop();
+      result.current.scrollToTop();
+    });
+
+    expect(mockUpdateScrollWithButtonState).toHaveBeenCalledWith(true);
+    expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(mockUpdateScrollWithButtonState).toHaveBeenCalledWith(false);
+    clearTimeoutSpy.mockRestore();
+    jest.useRealTimers();
   });
 });

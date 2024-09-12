@@ -62,41 +62,34 @@ export const getFooterLinks = (): ILinks[] => {
       id: Overview,
       path: Paths.Overview,
       label: MenuLinks.Overview,
-      activeLink: '#overview',
     },
     {
       id: AboutUs,
       path: Paths.AboutUs,
       label: MenuLinks.AboutUs,
-      activeLink: '#about-us',
     },
     {
       id: Feedback,
       path: Paths.Feedback,
       label: MenuLinks.Feedback,
-      activeLink: '#feedback',
     },
     {
       id: Services,
       path: Paths.Services,
       label: MenuLinks.Services,
-      activeLink: '#services',
     },
     {
       id: Promotions,
       path: Paths.Promotions,
       label: MenuLinks.Promotions,
-      activeLink: '#promotions',
     },
     {
       path: Paths.FAQ,
       label: MenuLinks.FAQ,
-      activeLink: 'FAQ',
     },
     {
       path: Paths.Partnership,
       label: MenuLinks.Partnership,
-      activeLink: 'partnership',
     },
   ];
 };
@@ -108,35 +101,29 @@ export const getAdaptedLinks = (): ILinks[] => {
       id: Main,
       path: Paths.Main,
       label: MenuLinks.Main,
-      activeLink: '/',
     },
     {
       id: Services,
       path: Paths.Services,
       label: MenuLinks.Services,
-      activeLink: '#services',
     },
     {
       id: AboutUs,
       path: Paths.AboutUs,
       label: MenuLinks.AboutUs,
-      activeLink: '#about-us',
     },
     {
       id: Feedback,
       path: Paths.Feedback,
       label: MenuLinks.Feedback,
-      activeLink: '#feedback',
     },
     {
       path: Paths.FAQ,
       label: MenuLinks.FAQ,
-      activeLink: 'FAQ',
     },
     {
       path: Paths.Partnership,
       label: MenuLinks.Partnership,
-      activeLink: 'partnership',
     },
   ];
 };

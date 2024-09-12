@@ -1,3 +1,8 @@
+const HOURS = 24;
+const MINUTES = 60;
+const SECONDS = 60;
+const MILLISECONDS = 1000;
+
 export const getCookie = (name: string): string | null => {
   const matches = `; ${document.cookie}`.match(`;\\s*${name}=([^;]+)`);
   return matches ? matches[1] : null;
@@ -8,7 +13,7 @@ export const setCookie = (name: string, value: string, days: number): void => {
 
   if (days) {
     const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    date.setTime(date.getTime() + days * HOURS * MINUTES * SECONDS * MILLISECONDS);
     expires = `; expires=${date.toUTCString()}`;
   }
 

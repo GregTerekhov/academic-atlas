@@ -1,11 +1,12 @@
-import { getAndEncodeDataObject } from 'helpers';
+import { abbreviateObjectKeysAndValues, getAndEncodeDataObject } from 'helpers';
 import {
   ExecutionTime,
   ExpertiseArea,
+  type IEncryptedData,
   TelegramScenario,
   Uniqueness,
   WorkType,
-} from 'types/calculation';
+} from 'types';
 
 beforeEach(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -35,14 +36,14 @@ describe('getAndEncodeDataObject', () => {
       WorkType.BachelorTheses,
       ExpertiseArea.CultureAndArt,
       ExecutionTime.LongTerm,
-      Uniqueness.Standard,
+      Uniqueness.Standard.toString(),
     );
     const expectedData = {
-      command: TelegramScenario.Order,
-      workType: 'BachelorTheses', //FIXME: change after the cyrillic data implementation
-      expertiseArea: 'CultureAndArt', //FIXME: change after the cyrillic data implementation
-      executionTime: 'LongTerm', //FIXME: change after the cyrillic data implementation
-      uniqueness: Uniqueness.Standard,
+      c: 'ord',
+      w: 'bt', //FIXME: change after the cyrillic data implementation
+      a: 'ca', //FIXME: change after the cyrillic data implementation
+      t: 'lg', //FIXME: change after the cyrillic data implementation
+      u: Uniqueness.Standard.toString(),
     };
 
     const expectedString = JSON.stringify(expectedData);
@@ -77,10 +78,20 @@ describe('getAndEncodeDataObject', () => {
       WorkType.BachelorTheses,
       'InvalidExpertiseArea' as ExpertiseArea,
       ExecutionTime.LongTerm,
-      Uniqueness.Standard,
+      Uniqueness.Standard.toString(),
     );
 
     expect(result).toBeUndefined();
     expect(consoleErrorSpy).toHaveBeenCalledWith('Invalid value');
+  });
+
+  it('should return an empty array when value is null', () => {
+    const mockData = {
+      uniqueness: null,
+    };
+
+    const result = abbreviateObjectKeysAndValues(mockData as unknown as IEncryptedData);
+
+    expect(result).toEqual({});
   });
 });

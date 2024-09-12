@@ -48,7 +48,14 @@ jest.mock('data', () => ({
       isBigTitle: true,
       hasCtaText: true,
       priority: true,
+      id: SectionTitle.Hero,
     },
+  })),
+}));
+
+jest.mock('helpers', () => ({
+  getIdValues: jest.fn(() => ({
+    Main: SectionTitle.Hero,
   })),
 }));
 

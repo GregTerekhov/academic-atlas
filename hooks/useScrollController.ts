@@ -2,13 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useIntersectionObserver } from './useIntersectionObserver';
 import { useActiveLink } from 'context';
+import { useIntersectionObserver } from './useIntersectionObserver';
 
 export const useScrollController = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const footerRef = useRef<HTMLElement | null>(null);
+  const timerIdRef = useRef<NodeJS.Timeout | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+
   const { updateScrollWithButtonState } = useActiveLink();
 
   useEffect(() => {
@@ -61,13 +63,13 @@ export const useScrollController = () => {
       behavior: 'smooth',
     });
 
-    const timerId = setTimeout(() => {
+    if (timerIdRef.current) {
+      clearTimeout(timerIdRef.current);
+    }
+
+    timerIdRef.current = setTimeout(() => {
       updateScrollWithButtonState(false);
     }, 1000);
-
-    return () => {
-      clearTimeout(timerId);
-    };
   };
 
   return { buttonRef, isVisible, scrollToTop };

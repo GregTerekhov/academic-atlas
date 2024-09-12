@@ -18,7 +18,6 @@ export default function ProviderWrapper({
   theme,
   storageKey,
 }: Readonly<IProviderWrapperProps>) {
-  //FIXME: add new logic in test
   return (
     <ThemeProvider
       storageKey={storageKey}

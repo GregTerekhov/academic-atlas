@@ -26,7 +26,6 @@ jest.mock('template', () => ({
 
 jest.mock('ui', () => ({
   SvgIconUI: jest.fn(({ id, ariaLabel, props }) => {
-    console.log('SvgIconUI received id:', id);
     return (
       <svg
         data-testid='svg-icon'
