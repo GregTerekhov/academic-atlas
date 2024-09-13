@@ -13,7 +13,7 @@ export default function HeroMatrix() {
   return (
     <MappedListTemplate<IHeroGrid>
       items={cells}
-      className='hidden w-max md:grid md:grid-rows-3 md:gap-2 lg:gap-1'
+      className='hidden w-max md:grid md:grid-rows-3 md:gap-1'
     >
       {({ id, className, imageSrc, imageAlt }) => (
         <li
