@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 
 import { getAdaptedLinks } from 'data';
 import { useInitialiseSection } from 'hooks';
@@ -7,19 +7,19 @@ jest.mock('data', () => ({
   getAdaptedLinks: jest.fn(),
 }));
 
-const mockGetAdaptedLinks = getAdaptedLinks as jest.Mock;
-
-const setupDocumentBody = (sections: string) => {
-  document.body.innerHTML = sections;
-};
-
 describe('useInitialiseSection hook', () => {
+  const mockGetAdaptedLinks = getAdaptedLinks as jest.Mock;
+
+  const setupDocumentBody = (sections: string) => {
+    document.body.innerHTML = sections;
+  };
+
   type Section = {
     id: string;
     path: string;
   };
 
-  const runHookAndAssert = (expectedSections: Section[], expectedRefsLength: number) => {
+  const runHookAndAssert = async (expectedSections: Section[], expectedRefsLength: number) => {
     const { result } = renderHook(() => useInitialiseSection());
 
     expect(result.current.sections.current).toEqual(expectedSections);
@@ -30,9 +30,20 @@ describe('useInitialiseSection hook', () => {
     }
   };
 
+  let consoleWarnSpy: jest.SpyInstance;
+  let consoleErrorSpy: jest.SpyInstance;
+
   beforeEach(() => {
     jest.clearAllMocks();
     setupDocumentBody('');
+
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleWarnSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
   });
 
   // eslint-disable-next-line jest/expect-expect
@@ -81,5 +92,31 @@ describe('useInitialiseSection hook', () => {
 
     runHookAndAssert(expectedSections, 2);
     expect(true).toBe(true);
+  });
+
+  it('logs warning when no sections are found', () => {
+    renderHook(() => useInitialiseSection());
+
+    expect(consoleWarnSpy).toHaveBeenCalledWith('No sections found');
+  });
+
+  it('logs error when an error occurs during initialisation', async () => {
+    mockGetAdaptedLinks.mockImplementation(() => {
+      throw new Error('Test error');
+    });
+
+    setupDocumentBody(`
+    <section id='services'></section>
+    <section id='about-us'></section>
+    `);
+
+    renderHook(() => useInitialiseSection());
+
+    await act(async () => {});
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'Error during section initialisation:',
+      expect.any(Error),
+    );
   });
 });
