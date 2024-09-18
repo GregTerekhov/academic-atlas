@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 
 import { useActiveLink } from 'context';
-import { useIntersectionObserver } from 'hooks';
+import { useIntersectionObserver, useScrollResetTimeout } from 'hooks';
 import { useScrollController } from 'hooks/useScrollController';
 
 jest.mock('context', () => ({
@@ -10,12 +10,16 @@ jest.mock('context', () => ({
 
 jest.mock('hooks', () => ({
   useIntersectionObserver: jest.fn(),
+  useScrollResetTimeout: jest.fn(),
 }));
 
 describe('useScrollController hook', () => {
   const mockUseIntersectionObserver = useIntersectionObserver as jest.Mock;
+  const mockUseScrollResetTimeout = useScrollResetTimeout as jest.Mock;
   const mockUseActiveLink = useActiveLink as jest.Mock;
+
   const mockUpdateScrollWithButtonState = jest.fn();
+  const mockStartTimeout = jest.fn();
 
   beforeEach(() => {
     window.scrollTo = jest.fn();
@@ -24,7 +28,6 @@ describe('useScrollController hook', () => {
 
     mockUseIntersectionObserver.mockImplementation((elements, _, callback) => {
       const entries = elements.map((el: HTMLElement) => ({
-        // const entries = elements.map((el: IntersectionObserverEntry) => ({
         isIntersecting: false,
         target: el,
       }));
@@ -39,10 +42,32 @@ describe('useScrollController hook', () => {
     mockUseActiveLink.mockReturnValue({
       updateScrollWithButtonState: mockUpdateScrollWithButtonState,
     });
+
+    mockUseScrollResetTimeout.mockReturnValue(mockStartTimeout);
   });
 
+  const createHeaderAndButton = () => {
+    const header = document.createElement('header');
+    const button = document.createElement('button');
+
+    document.body.appendChild(header);
+    document.body.appendChild(button);
+    Object.defineProperty(header, 'getBoundingClientRect', {
+      value: () => ({ height: 120 }),
+    });
+
+    return { header, button };
+  };
+
+  const updateScrollPosition = (scrollY: number) => {
+    act(() => {
+      window.scrollY = scrollY;
+      window.dispatchEvent(new Event('scroll'));
+    });
+  };
+
   afterEach(() => {
-    jest.restoreAllMocks();
+    document.body.innerHTML = '';
   });
 
   it('should initialise refs and set isVisible to false by default', () => {
@@ -53,44 +78,21 @@ describe('useScrollController hook', () => {
   });
 
   it('should update isVisible based on scroll position', () => {
-    const header = document.createElement('header');
-
-    document.body.appendChild(header);
-    Object.defineProperty(header, 'getBoundingClientRect', {
-      value: () => ({ height: 120 }),
-    });
+    createHeaderAndButton();
 
     const { result } = renderHook(() => useScrollController());
 
-    act(() => {
-      window.scrollY = 1200;
-      window.dispatchEvent(new Event('scroll'));
-    });
-
+    updateScrollPosition(1200);
     expect(result.current.isVisible).toBe(true);
 
-    act(() => {
-      window.scrollY = 0;
-      window.dispatchEvent(new Event('scroll'));
-    });
-
+    updateScrollPosition(0);
     expect(result.current.isVisible).toBe(false);
-
-    document.body.removeChild(header);
   });
 
   it('should position button as fixed by default', () => {
     jest.useFakeTimers();
 
-    const button = document.createElement('button');
-    const header = document.createElement('header');
-
-    document.body.appendChild(header);
-    Object.defineProperty(header, 'getBoundingClientRect', {
-      value: () => ({ height: 120 }),
-    });
-
-    document.body.appendChild(button);
+    const { button } = createHeaderAndButton();
 
     const { result } = renderHook(() => useScrollController());
 
@@ -101,10 +103,7 @@ describe('useScrollController hook', () => {
       });
     });
 
-    act(() => {
-      window.scrollY = 1200;
-      window.dispatchEvent(new Event('scroll'));
-    });
+    updateScrollPosition(1200);
 
     act(() => {
       jest.runAllTimers();
@@ -115,49 +114,31 @@ describe('useScrollController hook', () => {
       });
     });
 
-    document.body.removeChild(header);
-    document.body.removeChild(button);
-
     jest.useRealTimers();
   });
 
   it('should position button as absolute when footer is intersecting', () => {
-    jest.useFakeTimers();
-
-    const button = document.createElement('button');
-    document.body.appendChild(button);
-
-    const footer = document.createElement('footer');
-    document.body.appendChild(footer);
-
+    const { button } = createHeaderAndButton();
     const { result } = renderHook(() => useScrollController());
 
-    act(() => {
-      Object.defineProperty(result.current.buttonRef, 'current', {
-        value: button,
-        writable: true,
-      });
+    Object.defineProperty(result.current.buttonRef, 'current', {
+      value: button,
+      writable: true,
     });
 
     act(() => {
       const mockCall = mockUseIntersectionObserver.mock.calls[0];
       if (mockCall && mockCall[2]) {
-        mockCall[2]([{ isIntersecting: true, target: footer }]);
+        mockCall[2]([{ isIntersecting: true, target: document.createElement('footer') }]);
       }
     });
 
     act(() => {
-      jest.runAllTimers();
       requestAnimationFrame(() => {
         expect(button.style.position).toBe('absolute');
         expect(button.style.bottom).toBe('16px');
       });
     });
-
-    document.body.removeChild(button);
-    document.body.removeChild(footer);
-
-    jest.useRealTimers();
   });
 
   it('should scroll to top when scrollTop is called', () => {
@@ -183,6 +164,8 @@ describe('useScrollController hook', () => {
     });
 
     expect(mockUpdateScrollWithButtonState).toHaveBeenCalledWith(false);
+
+    scrollToMock.mockRestore();
 
     jest.useRealTimers();
   });

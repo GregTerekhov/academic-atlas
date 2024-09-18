@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { AriaDescription, AriaId, AriaLabel, Paths, PrimaryButtonLabel } from 'types';
+import { useActiveLink } from 'context';
 
 import { PrimaryButtonUI } from 'ui';
 
@@ -11,6 +12,11 @@ import { getPrimaryButtonStyles } from 'styles';
 
 const NotFoundNavigation = () => {
   const router = useRouter();
+  const { updateActiveLink } = useActiveLink();
+
+  const handleHomeClick = () => {
+    updateActiveLink(Paths.Main);
+  };
   const primaryButtonStyle = getPrimaryButtonStyles();
 
   return (
@@ -30,6 +36,7 @@ const NotFoundNavigation = () => {
           href={Paths.Main}
           className={`${primaryButtonStyle} h-16`}
           role='link'
+          onClick={handleHomeClick}
         >
           {PrimaryButtonLabel.ToMainPage}
         </Link>

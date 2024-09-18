@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
+import { useIntersectionObserver } from 'hooks';
 
 describe('useIntersectionObserver hook', () => {
   let observeMock: jest.Mock;
@@ -62,5 +62,28 @@ describe('useIntersectionObserver hook', () => {
 
     expect(observeMock).not.toHaveBeenCalled();
     expect(disconnectMock).not.toHaveBeenCalled();
+  });
+
+  it('should disconnect previous and observe new targets when targets change', () => {
+    const mockCallback = jest.fn();
+    const options = {};
+
+    const { rerender, unmount } = renderHook(
+      ({ targets }) => useIntersectionObserver(targets, options, mockCallback),
+      {
+        initialProps: { targets: [document.createElement('div')] },
+      },
+    );
+
+    const newTargets = [document.createElement('div'), document.createElement('div')];
+
+    rerender({ targets: newTargets });
+
+    expect(disconnectMock).toHaveBeenCalledTimes(2);
+    expect(observeMock).toHaveBeenCalledTimes(3);
+    expect(observeMock).toHaveBeenCalledWith(newTargets[0]);
+    expect(observeMock).toHaveBeenCalledWith(newTargets[1]);
+
+    unmount();
   });
 });

@@ -32,6 +32,7 @@ const config: Config = {
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
     '<rootDir>/helpers/tailwindPlugins.ts',
+    '<rootDir>/helpers/swiperConfig.ts',
   ],
 
   // Indicates which provider should be used to instrument code for coverage
