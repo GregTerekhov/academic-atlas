@@ -4,21 +4,19 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { getAdaptedLinks } from 'data';
 
-export const useInitialiseSection = () => {
+export const useInitialiseSection = (sectionsFromProps: Element[], areSectionsReady: boolean) => {
   const sections = useRef<{ id: string; path: string }[]>([]);
   const sectionRefs = useRef<Element[]>([]);
   //FIXME: add new logic in test
 
   const initialiseSections = useCallback(() => {
     try {
-      const nodeList = document.querySelectorAll('section[id]');
-
-      if (nodeList.length === 0) {
+      if (!areSectionsReady || sectionsFromProps.length === 0) {
         console.warn('No sections found');
         return;
       }
 
-      sectionRefs.current = Array.from(nodeList);
+      sectionRefs.current = sectionsFromProps;
 
       const adaptedLinks = getAdaptedLinks();
 
@@ -27,13 +25,14 @@ export const useInitialiseSection = () => {
       });
     } catch (error) {
       console.error('Error during section initialization:', error);
-      // throw error;
     }
-  }, []);
+  }, [sectionsFromProps, areSectionsReady]);
 
   useEffect(() => {
-    initialiseSections();
-  }, [initialiseSections]);
+    if (areSectionsReady) {
+      initialiseSections();
+    }
+  }, [areSectionsReady, initialiseSections]);
 
   return { sections, sectionRefs, initialiseSections };
 };

@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { type IWithChildren } from '../types';
+import { Paths, type IWithChildren } from '../types';
 import { useInitialiseSection } from 'hooks';
 import { useMenu } from './MenuProvider';
 
@@ -22,11 +22,34 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
   const [isScrollingWithButton, setIsScrollingWithButton] = useState(false);
+  const [areSectionsReady, setAreSectionsReady] = useState(false);
   const isNavigating = useRef<boolean>(false);
 
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
-  const { sections, sectionRefs, initialiseSections } = useInitialiseSection();
+  const sectionRefs = useRef<Element[]>([]);
+  const { sections, initialiseSections } = useInitialiseSection(
+    sectionRefs.current,
+    areSectionsReady,
+  );
+
+  const findSectionsInDOM = useCallback(() => {
+    const nodeList = document.querySelectorAll('section[id]');
+    sectionRefs.current = Array.from(nodeList);
+
+    if (sectionRefs.current.length > 2) {
+      setAreSectionsReady(true);
+    } else {
+      console.warn('Not enough sections found in the DOM. Retrying...');
+      setTimeout(findSectionsInDOM, 100);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pathname === Paths.Main) {
+      findSectionsInDOM();
+    }
+  }, [pathname, findSectionsInDOM]);
 
   const updateScrollWithButtonState = (isScrolling: boolean) => {
     setIsScrollingWithButton(isScrolling);
@@ -34,9 +57,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleSectionIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      console.log('IntersectionObserver entries:', entries);
-      console.log('isNavigating.current', isNavigating.current);
-
+      console.log('Handling section intersection...');
       if (isNavigating.current || isScrollingWithButton) return;
 
       entries.forEach((entry) => {
@@ -64,38 +85,30 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
-    
-    const initialiseAndObserve = () => {
-     
-      initialiseSections();
 
-      observer = new IntersectionObserver(handleSectionIntersection, {
-        root: null,
-        threshold: 0.7,
-      });
+    const startObserving = () => {
+      console.log('Starting to observe sections...');
+      if (areSectionsReady) {
+        observer = new IntersectionObserver(handleSectionIntersection, {
+          root: null,
+          threshold: 0.7,
+        });
 
-      sectionRefs.current.forEach((ref, index) => {
-        if (ref) {
-          console.log(`Observing section ${index}: ${ref.id}`);
-          observer?.observe(ref);
-        } else {
-          console.log(`Section ${index} is not found or undefined.`);
-        }
-      });
-      // }
+        sectionRefs.current.forEach((ref) => {
+          if (ref) {
+            console.log(`Observing section ${ref.id}`);
+            observer?.observe(ref);
+          }
+        });
+      } else {
+        console.warn('Sections are not ready for observation.');
+      }
     };
 
-   
-    if (observer) {
-      sectionRefs.current.forEach((ref, index) => {
-        if (ref) {
-          console.log(`Observing section ${index}: ${ref.id}`);
-          observer?.observe(ref);
-        }
-      });
+    if (areSectionsReady) {
+      initialiseSections();
+      startObserving();
     }
-
-    initialiseAndObserve();
 
     return () => {
       if (observer) {
@@ -105,9 +118,8 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           if (ref) observer?.unobserve(ref);
         });
       }
-     
     };
-  }, [pathname, handleSectionIntersection, initialiseSections, sectionRefs]);
+  }, [pathname, handleSectionIntersection, initialiseSections, sectionRefs, areSectionsReady]);
 
   const handleActivateLink = (path: string) => {
     console.log('handleActivateLink');
