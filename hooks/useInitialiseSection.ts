@@ -7,9 +7,8 @@ import { getAdaptedLinks } from 'data';
 export const useInitialiseSection = () => {
   const sections = useRef<{ id: string; path: string }[]>([]);
   const sectionRefs = useRef<Element[]>([]);
-  //FIXME: add new logic in test
 
-  const initialiseSections = useCallback(() => {
+  const initialiseSections = useCallback(async () => {
     try {
       const nodeList = document.querySelectorAll('section[id]');
 
@@ -26,8 +25,7 @@ export const useInitialiseSection = () => {
         return { id: id ?? '', path };
       });
     } catch (error) {
-      console.error('Error during section initialization:', error);
-      // throw error;
+      console.error('Error during section initialisation:', error);
     }
   }, []);
 
