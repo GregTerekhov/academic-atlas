@@ -47,7 +47,12 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   }, []);
 
   useEffect(() => {
-    if (pathname === Paths.Main) {
+    if (
+      pathname === Paths.Main ||
+      pathname === Paths.AboutUs ||
+      pathname === Paths.Feedback ||
+      pathname === Paths.Services
+    ) {
       findSectionsInDOM();
     }
   }, [pathname, findSectionsInDOM]);
@@ -84,7 +89,12 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     let observer: IntersectionObserver | null = null;
 
     const startObserving = () => {
-      if (pathname === Paths.Main) {
+      if (
+        pathname === Paths.Main ||
+        pathname === Paths.AboutUs ||
+        pathname === Paths.Feedback ||
+        pathname === Paths.Services
+      ) {
         initialiseSections();
 
         observer = new IntersectionObserver(handleSectionIntersecting, {
@@ -93,13 +103,8 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         });
 
         sectionRefs.current.forEach((ref) => {
-          if (ref) {
-            console.log(`Observing section ${ref.id}`);
-            observer?.observe(ref);
-          }
+          if (ref) observer?.observe(ref);
         });
-      } else {
-        console.warn('Sections are not ready for observation.');
       }
     };
 
