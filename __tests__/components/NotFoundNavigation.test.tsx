@@ -1,15 +1,17 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { useRouter } from 'next/navigation';
 
 import { ButtonType, PrimaryButtonLabel, AriaId, Paths, AriaDescription, AriaLabel } from 'types';
+import { useActiveLink } from 'context';
 import { NotFoundNavigation } from 'components';
 import { getPrimaryButtonStyles } from 'styles';
 
-const mockBack = jest.fn();
-
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => ({
-    back: mockBack,
-  })),
+  useRouter: jest.fn(),
+}));
+
+jest.mock('context', () => ({
+  useActiveLink: jest.fn(),
 }));
 
 jest.mock('ui', () => ({
@@ -36,10 +38,24 @@ jest.mock('ui', () => ({
 jest.mock('styles', () => ({ getPrimaryButtonStyles: jest.fn(() => 'primary-button-styles') }));
 
 describe('NotFoundNavigation', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+  const mockUseRouter = useRouter as jest.Mock;
+  const mockUseActiveLink = useActiveLink as jest.Mock;
 
+  const mockBack = jest.fn();
+  const mockUpdateActiveLink = jest.fn();
+
+  const setupMocks = () => {
+    mockUseRouter.mockReturnValue({ back: mockBack });
+    mockUseActiveLink.mockReturnValue({ updateActiveLink: mockUpdateActiveLink });
+  };
+
+  beforeEach(() => {
+    setupMocks();
     render(<NotFoundNavigation />);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   test('render PrimaryButtonUI with correct props and handles click', () => {
@@ -54,6 +70,12 @@ describe('NotFoundNavigation', () => {
     expect(ariaDescription).toBeInTheDocument();
     expect(ariaDescription).toHaveAttribute('id', AriaId.ComeBack404);
     expect(ariaDescription).toHaveTextContent(AriaDescription.ComeBack404);
+  });
+
+  test('calls back function on click', () => {
+    const primaryButton = screen.getByRole('button', {
+      name: PrimaryButtonLabel.ToPreviousPage,
+    });
 
     fireEvent.click(primaryButton);
     expect(mockBack).toHaveBeenCalled();
@@ -66,6 +88,13 @@ describe('NotFoundNavigation', () => {
     expect(homeLink).toHaveAttribute('href', Paths.Main);
     expect(homeLink).toHaveAttribute('aria-label', AriaLabel.ComeBack);
     expect(homeLink).toHaveClass('primary-button-styles h-16');
+  });
+
+  test('calls updateActiveLink on click', () => {
+    const homeLink = screen.getByText(PrimaryButtonLabel.ToMainPage);
+    fireEvent.click(homeLink);
+
+    expect(mockUpdateActiveLink).toHaveBeenCalledWith(Paths.Main);
   });
 
   test('calls getPrimaryButtonStyles once', () => {

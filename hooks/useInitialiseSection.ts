@@ -7,11 +7,10 @@ import { getAdaptedLinks } from 'data';
 export const useInitialiseSection = (sectionsFromProps: Element[], areSectionsReady: boolean) => {
   const sections = useRef<{ id: string; path: string }[]>([]);
   const sectionRefs = useRef<Element[]>([]);
-  //FIXME: add new logic in test
 
-  const initialiseSections = useCallback(() => {
+  const initialiseSections = useCallback(async () => {
     try {
-      if (!areSectionsReady || sectionsFromProps.length === 0) {
+      if (!areSectionsReady || sectionsFromProps.length < 2) {
         console.warn('No sections found');
         return;
       }

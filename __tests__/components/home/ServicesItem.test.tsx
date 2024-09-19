@@ -9,6 +9,25 @@ jest.mock('helpers', () => ({
   getAndEncodeDataObject: jest.fn(),
 }));
 
+jest.mock('ui/aria-description', () =>
+  jest.fn(({ id, description }) => <span id={id}>{description}</span>),
+);
+
+jest.mock('ui/image', () =>
+  jest.fn((props) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      {...props}
+      alt={props.alt}
+      src={props.src}
+      width={props.width}
+      height={props.height}
+      className={props.className}
+      priority={props.priority ? 'true' : undefined}
+    />
+  )),
+);
+
 describe('ServiceItem Component', () => {
   const defaultMockData = {
     imageSrc: '/public/images/services-001.webp',

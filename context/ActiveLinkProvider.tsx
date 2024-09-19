@@ -9,9 +9,10 @@ import { useMenu } from './MenuProvider';
 
 interface IActiveLinkContext {
   activatedLink: string;
-  setActivatedLink: (path: string) => void;
+  isScrollingWithButton: boolean;
   handleActivateLink: (path: string) => void;
   updateScrollWithButtonState: (isScrolling: boolean) => void;
+  updateActiveLink: (path: string) => void;
 }
 
 const ActiveLinkContext = createContext<IActiveLinkContext | undefined>(undefined);
@@ -24,6 +25,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const [isScrollingWithButton, setIsScrollingWithButton] = useState(false);
   const [areSectionsReady, setAreSectionsReady] = useState(false);
   const isNavigating = useRef<boolean>(false);
+  const navigationTimerId = useRef<NodeJS.Timeout | null>(null);
 
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
@@ -40,7 +42,6 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     if (sectionRefs.current.length > 2) {
       setAreSectionsReady(true);
     } else {
-      console.warn('Not enough sections found in the DOM. Retrying...');
       setTimeout(findSectionsInDOM, 100);
     }
   }, []);
@@ -55,22 +56,18 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     setIsScrollingWithButton(isScrolling);
   };
 
-  const handleSectionIntersection = useCallback(
+  const handleSectionIntersecting = useCallback(
     (entries: IntersectionObserverEntry[]) => {
-      console.log('Handling section intersection...');
       if (isNavigating.current || isScrollingWithButton) return;
 
       entries.forEach((entry) => {
-        console.log(
-          `IntersectionObserver for ${entry.target.id}: isIntersecting = ${entry.isIntersecting}`,
-        );
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute('id');
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
-              if (section.path === '/') {
-                router.push('/', { scroll: false });
+              if (section.path === Paths.Main) {
+                router.push(Paths.Main, { scroll: false });
               } else {
                 router.push(`#${section.id}`, { scroll: false });
               }
@@ -87,9 +84,10 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     let observer: IntersectionObserver | null = null;
 
     const startObserving = () => {
-      console.log('Starting to observe sections...');
-      if (areSectionsReady) {
-        observer = new IntersectionObserver(handleSectionIntersection, {
+      if (pathname === Paths.Main) {
+        initialiseSections();
+
+        observer = new IntersectionObserver(handleSectionIntersecting, {
           root: null,
           threshold: 0.7,
         });
@@ -105,46 +103,51 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       }
     };
 
-    if (areSectionsReady) {
+    if (pathname === Paths.Main && areSectionsReady) {
       initialiseSections();
       startObserving();
     }
 
     return () => {
-      if (observer) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        sectionRefs.current.forEach((ref) => {
-          console.log(`Unobserving section ${ref.id}`);
-          if (ref) observer?.unobserve(ref);
-        });
-      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      sectionRefs.current.forEach((ref) => {
+        if (ref) observer?.unobserve(ref);
+      });
+      observer?.disconnect();
     };
-  }, [pathname, handleSectionIntersection, initialiseSections, sectionRefs, areSectionsReady]);
+  }, [pathname, handleSectionIntersecting, sectionRefs, initialiseSections, areSectionsReady]);
 
-  const handleActivateLink = (path: string) => {
-    console.log('handleActivateLink');
-
+  const handleActivateLink = async (path: string) => {
     isNavigating.current = true;
     setActivatedLink(path);
 
     if (isNavMenuOpen) toggleNavMenu();
 
-    const navigationTimerId = setTimeout(() => {
-      isNavigating.current = false;
-    }, 500);
+    if (navigationTimerId.current) {
+      clearTimeout(navigationTimerId.current);
+    }
 
-    return () => {
-      clearTimeout(navigationTimerId);
-    };
+    if ((path.includes('#') || path === Paths.Main) && pathname !== Paths.Main) {
+      await initialiseSections();
+    }
+
+    navigationTimerId.current = setTimeout(() => {
+      isNavigating.current = false;
+    }, 1500);
+  };
+
+  const updateActiveLink = (path: string) => {
+    setActivatedLink(path);
   };
 
   return (
     <ActiveLinkContext.Provider
       value={{
         activatedLink,
-        setActivatedLink,
+        isScrollingWithButton,
         handleActivateLink,
         updateScrollWithButtonState,
+        updateActiveLink,
       }}
     >
       {children}
@@ -155,7 +158,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 export const useActiveLink = () => {
   const context = useContext(ActiveLinkContext);
   if (context === undefined) {
-    throw new Error('useActiveLink must be used within a ActiveLinkProvider');
+    throw new Error('useActiveLink must be used within an ActiveLinkProvider');
   }
   return context;
 };
