@@ -32,8 +32,9 @@ const NotFoundNavigation = () => {
       </li>
       <li>
         <Link
-          aria-label={AriaLabel.ComeBack}
           href={Paths.Main}
+          scroll={true}
+          aria-label={AriaLabel.ComeBack}
           className={`${primaryButtonStyle} h-16`}
           role='link'
           onClick={handleHomeClick}
