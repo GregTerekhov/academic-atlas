@@ -38,6 +38,10 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const findSectionsInDOM = useCallback(() => {
     const checkSections = () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
       const nodeList = document.querySelectorAll('section[id]');
       sectionRefs.current = Array.from(nodeList);
 
@@ -49,12 +53,6 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     };
 
     checkSections();
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
   }, []);
 
   useEffect(() => {
