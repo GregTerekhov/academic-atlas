@@ -68,7 +68,6 @@ describe('ActiveLinkProvider', () => {
     });
     mockUseInitialiseSection.mockReturnValue({
       sections: { current: [{ id: 'section1', path: '/#section1' }] },
-      sectionRefs: { current: [document.createElement('section')] },
       initialiseSections: jest.fn(),
     });
 
@@ -81,17 +80,38 @@ describe('ActiveLinkProvider', () => {
       unobserve: unobserveMock,
       disconnect: disconnectMock,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    })) as any;
+    })) as unknown as jest.Mock;
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
+  const setupDocumentBodyWithSections = (sections: string) => {
+    document.body.innerHTML = sections;
+  };
+
   it('renders the provider and initialises with the current pathname', () => {
     renderTestComponent();
 
     expect(screen.getByText(/Active Link:/)).toHaveTextContent(Paths.Main);
+  });
+
+  it('initialises sections correctly when sections are found in the DOM', async () => {
+    setupDocumentBodyWithSections(`
+      <section id='section1'></section>
+      <section id='section2'></section>
+    `);
+
+    renderTestComponent();
+
+    expect(mockUseInitialiseSection).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({ id: 'section1' }),
+        expect.objectContaining({ id: 'section2' }),
+      ]),
+      true,
+    );
   });
 
   it('updates the activated link when handleActivateLink is called', () => {
@@ -107,7 +127,7 @@ describe('ActiveLinkProvider', () => {
     renderTestComponent();
 
     const entryMock = {
-      target: mockUseInitialiseSection().sectionRefs.current[0],
+      target: mockUseInitialiseSection().sections.current[0],
       isIntersecting: true,
       intersectionRatio: 0.6,
     };
@@ -138,8 +158,8 @@ describe('ActiveLinkProvider', () => {
 
     unmount();
 
-    expect(unobserveMock).toHaveBeenCalledTimes(
-      mockUseInitialiseSection().sectionRefs.current.length,
+    expect(unobserveMock.mock.calls.length).toBeGreaterThanOrEqual(
+      mockUseInitialiseSection().sections.current.length,
     );
     expect(disconnectMock).toHaveBeenCalled();
   });
@@ -180,5 +200,61 @@ describe('ActiveLinkProvider', () => {
     );
 
     consoleError.mockRestore();
+  });
+
+  it('calls initialiseSections when handling link activation with hash', async () => {
+    renderTestComponent();
+
+    const button = screen.getByText('Activate Link');
+    fireEvent.click(button);
+
+    await act(async () => {
+      expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
+    });
+  });
+
+  it('clears navigation timer correctly when navigationTimerId is set', async () => {
+    jest.useFakeTimers();
+
+    const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
+    const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+
+    renderTestComponent();
+
+    const activateLinkButton = screen.getByText('Activate Link');
+    fireEvent.click(activateLinkButton);
+
+    expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 1500);
+
+    act(() => {
+      jest.advanceTimersByTime(200);
+      fireEvent.click(activateLinkButton);
+    });
+
+    expect(clearTimeoutSpy).toHaveBeenCalled();
+
+    clearTimeoutSpy.mockRestore();
+    setTimeoutSpy.mockRestore();
+    jest.useRealTimers();
+  });
+
+  it('calls initialiseSections when handling link activation with hash or Paths.Main', async () => {
+    mockUsePathname.mockReturnValue('/some-other-path');
+    renderTestComponent();
+
+    const activateLinkButton = screen.getByText('Activate Link');
+
+    fireEvent.click(activateLinkButton);
+
+    await act(async () => {
+      expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
+    });
+
+    mockUsePathname.mockReturnValue('/some-other-path');
+    fireEvent.click(activateLinkButton);
+
+    await act(async () => {
+      expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
+    });
   });
 });

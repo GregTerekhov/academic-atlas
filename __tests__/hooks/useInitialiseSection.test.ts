@@ -10,73 +10,76 @@ jest.mock('data', () => ({
 describe('useInitialiseSection hook', () => {
   const mockGetAdaptedLinks = getAdaptedLinks as jest.Mock;
 
-  const setupDocumentBody = (sections: string) => {
-    document.body.innerHTML = sections;
-  };
-
   type Section = {
     id: string;
     path: string;
   };
 
-  const runHookAndAssert = async (expectedSections: Section[], expectedRefsLength: number) => {
-    const { result } = renderHook(() => useInitialiseSection());
-
-    expect(result.current.sections.current).toEqual(expectedSections);
-    expect(result.current.sectionRefs.current).toHaveLength(expectedRefsLength);
-    if (expectedRefsLength > 0) {
-      expect(result.current.sectionRefs.current[0]?.id).toBe('services');
-      expect(result.current.sectionRefs.current[1]?.id).toBe('about-us');
-    }
-  };
-
-  let consoleWarnSpy: jest.SpyInstance;
   let consoleErrorSpy: jest.SpyInstance;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    setupDocumentBody('');
-
-    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
-    consoleWarnSpy.mockRestore();
     consoleErrorSpy.mockRestore();
   });
 
+  const runHookAndAssert = async (
+    sectionsFromProps: Element[],
+    areSectionsReady: boolean,
+    expectedSections: Section[],
+  ) => {
+    const { result } = renderHook(() => useInitialiseSection(sectionsFromProps, areSectionsReady));
+    await act(async () => {
+      result.current.initialiseSections();
+    });
+
+    expect(result.current.sections.current).toEqual(expectedSections);
+  };
+
   // eslint-disable-next-line jest/expect-expect
-  it('should initialise sections correctly', () => {
+  it('should initialise sections correctly', async () => {
     const mockLinks = [
       { id: 'services', path: '/#services' },
       { id: 'about-us', path: '/#about-us' },
     ];
 
+    const sectionsFromProps = [
+      document.createElement('section'),
+      document.createElement('section'),
+    ];
+
+    sectionsFromProps[0].id = 'services';
+    sectionsFromProps[1].id = 'about-us';
+
     mockGetAdaptedLinks.mockReturnValue(mockLinks);
 
-    setupDocumentBody(`
-    <section id='services'></section>
-    <section id='about-us'></section>
-    `);
-
-    runHookAndAssert(mockLinks, 2);
+    await runHookAndAssert(sectionsFromProps, true, mockLinks);
   });
 
-  it('should call initialiseSections on mount', () => {
-    mockGetAdaptedLinks.mockReturnValue([]);
+  // eslint-disable-next-line jest/expect-expect
+  it('should handle cases where sections are not ready', async () => {
+    const sectionsFromProps: Element[] = [];
 
-    const { result } = renderHook(() => useInitialiseSection());
-
-    expect(result.current.sections.current).toEqual([]);
-    expect(result.current.sectionRefs.current).toHaveLength(0);
+    await runHookAndAssert(sectionsFromProps, false, []);
   });
 
-  it('should handle cases where id is null or undefined', () => {
+  // eslint-disable-next-line jest/expect-expect
+  it('should handle cases where id is null or undefined', async () => {
     const mockLinks = [
       { id: null, path: '/#services' },
       { id: undefined, path: '/#about-us' },
     ];
+
+    const sectionsFromProps = [
+      document.createElement('section'),
+      document.createElement('section'),
+    ];
+
+    sectionsFromProps[0].id = 'services';
+    sectionsFromProps[1].id = 'about-us';
 
     mockGetAdaptedLinks.mockReturnValue(mockLinks);
 
@@ -85,19 +88,7 @@ describe('useInitialiseSection hook', () => {
       { id: '', path: '/#about-us' },
     ];
 
-    setupDocumentBody(`
-    <section id='services'></section>
-    <section id='about-us'></section>
-    `);
-
-    runHookAndAssert(expectedSections, 2);
-    expect(true).toBe(true);
-  });
-
-  it('logs warning when no sections are found', () => {
-    renderHook(() => useInitialiseSection());
-
-    expect(consoleWarnSpy).toHaveBeenCalledWith('No sections found');
+    await runHookAndAssert(sectionsFromProps, true, expectedSections);
   });
 
   it('logs error when an error occurs during initialisation', async () => {
@@ -105,14 +96,15 @@ describe('useInitialiseSection hook', () => {
       throw new Error('Test error');
     });
 
-    setupDocumentBody(`
-    <section id='services'></section>
-    <section id='about-us'></section>
-    `);
+    const sectionsFromProps = [
+      document.createElement('section'),
+      document.createElement('section'),
+    ];
 
-    renderHook(() => useInitialiseSection());
+    sectionsFromProps[0].id = 'services';
+    sectionsFromProps[1].id = 'about-us';
 
-    await act(async () => {});
+    await runHookAndAssert(sectionsFromProps, true, []);
 
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       'Error during section initialisation:',
