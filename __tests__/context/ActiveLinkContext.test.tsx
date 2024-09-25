@@ -43,9 +43,7 @@ describe('ActiveLinkProvider', () => {
   const mockUseRouter = useRouter as jest.Mock;
   const mockUseInitialiseSection = useInitialiseSection as jest.Mock;
 
-  let observeMock: jest.Mock;
-  let unobserveMock: jest.Mock;
-  let disconnectMock: jest.Mock;
+  let observerInstance: { observe: jest.Mock; unobserve: jest.Mock; disconnect: jest.Mock };
 
   const renderTestComponent = () => {
     return render(
@@ -61,6 +59,14 @@ describe('ActiveLinkProvider', () => {
     );
   };
 
+  const clickOnButton = (name: string) => {
+    fireEvent.click(screen.getByText(name));
+  };
+
+  const setupDocumentBodyWithSections = (sections: string) => {
+    document.body.innerHTML = sections;
+  };
+
   beforeEach(() => {
     mockUsePathname.mockReturnValue(Paths.Main);
     mockUseRouter.mockReturnValue({
@@ -71,190 +77,185 @@ describe('ActiveLinkProvider', () => {
       initialiseSections: jest.fn(),
     });
 
-    observeMock = jest.fn();
-    unobserveMock = jest.fn();
-    disconnectMock = jest.fn();
+    observerInstance = {
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    };
 
-    global.IntersectionObserver = jest.fn(() => ({
-      observe: observeMock,
-      unobserve: unobserveMock,
-      disconnect: disconnectMock,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    })) as unknown as jest.Mock;
+    global.IntersectionObserver = jest.fn(() => observerInstance) as unknown as jest.Mock;
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  const setupDocumentBodyWithSections = (sections: string) => {
-    document.body.innerHTML = sections;
-  };
+  describe('Rendering and Initialisation', () => {
+    it('renders the provider and initialises with the current pathname', () => {
+      renderTestComponent();
 
-  it('renders the provider and initialises with the current pathname', () => {
-    renderTestComponent();
-
-    expect(screen.getByText(/Active Link:/)).toHaveTextContent(Paths.Main);
-  });
-
-  it('initialises sections correctly when sections are found in the DOM', async () => {
-    setupDocumentBodyWithSections(`
-      <section id='section1'></section>
-      <section id='section2'></section>
-    `);
-
-    renderTestComponent();
-
-    expect(mockUseInitialiseSection).toHaveBeenCalledWith(
-      expect.arrayContaining([
-        expect.objectContaining({ id: 'section1' }),
-        expect.objectContaining({ id: 'section2' }),
-      ]),
-      true,
-    );
-  });
-
-  it('updates the activated link when handleActivateLink is called', () => {
-    renderTestComponent();
-
-    const activateLinkButton = screen.getByText('Activate Link');
-    fireEvent.click(activateLinkButton);
-
-    expect(screen.getByText(/Active Link:/)).toHaveTextContent(Paths.Main);
-  });
-
-  it('activates the section when it intersects', () => {
-    renderTestComponent();
-
-    const entryMock = {
-      target: mockUseInitialiseSection().sections.current[0],
-      isIntersecting: true,
-      intersectionRatio: 0.6,
-    };
-
-    entryMock.target.getAttribute = jest.fn().mockReturnValue('section1');
-
-    const intersectionCallback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
-
-    act(() => {
-      intersectionCallback([entryMock]);
+      expect(screen.getByText(/Active Link:/)).toHaveTextContent(Paths.Main);
     });
 
-    expect(mockPush).toHaveBeenCalledWith('#section1', { scroll: false });
-    expect(screen.getByText(/Active Link:/)).toHaveTextContent('/#section1');
+    it('initialises sections correctly when sections are found in the DOM', async () => {
+      setupDocumentBodyWithSections(`
+        <section id='section1'></section>
+        <section id='section2'></section>
+      `);
+
+      renderTestComponent();
+
+      expect(mockUseInitialiseSection).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({ id: 'section1' }),
+          expect.objectContaining({ id: 'section2' }),
+        ]),
+        true,
+      );
+    });
   });
 
-  it('updates scroll state when updateScrollWithButtonState is called', () => {
-    renderTestComponent();
+  describe('Handling Link Activation', () => {
+    it('updates the activated link when handleActivateLink is called', () => {
+      renderTestComponent();
 
-    const updateScrollButton = screen.getByText('Update Scroll');
-    fireEvent.click(updateScrollButton);
+      clickOnButton('Activate Link');
 
-    expect(screen.getByText(/Scroll:/)).toHaveTextContent('Yes');
-  });
-
-  it('unobserves sections on component unmount', () => {
-    const { unmount } = renderTestComponent();
-
-    unmount();
-
-    expect(unobserveMock.mock.calls.length).toBeGreaterThanOrEqual(
-      mockUseInitialiseSection().sections.current.length,
-    );
-    expect(disconnectMock).toHaveBeenCalled();
-  });
-
-  it('sets navigation timer and clears it correctly', async () => {
-    jest.useFakeTimers();
-
-    const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
-    renderTestComponent();
-
-    const activateLinkButton = screen.getByText('Activate Link');
-    fireEvent.click(activateLinkButton);
-
-    await act(async () => {
-      jest.runAllTimers();
+      expect(screen.getByText(/Active Link:/)).toHaveTextContent(Paths.Main);
     });
 
-    expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 1500);
+    it('activates the section when it intersects', () => {
+      renderTestComponent();
 
-    setTimeoutSpy.mockRestore();
-    jest.useRealTimers();
+      const entryMock = {
+        target: mockUseInitialiseSection().sections.current[0],
+        isIntersecting: true,
+        intersectionRatio: 0.6,
+      };
+
+      entryMock.target.getAttribute = jest.fn().mockReturnValue('section1');
+
+      const intersectionCallback = (window.IntersectionObserver as jest.Mock).mock.calls[0][0];
+
+      act(() => {
+        intersectionCallback([entryMock]);
+      });
+
+      expect(mockPush).toHaveBeenCalledWith('#section1', { scroll: false });
+      expect(screen.getByText(/Active Link:/)).toHaveTextContent('/#section1');
+    });
+
+    it('updates scroll state when updateScrollWithButtonState is called', () => {
+      renderTestComponent();
+
+      clickOnButton('Update Scroll');
+
+      expect(screen.getByText(/Scroll:/)).toHaveTextContent('Yes');
+    });
+
+    it('unobserves sections on component unmount', () => {
+      const { unmount } = renderTestComponent();
+
+      unmount();
+
+      expect(observerInstance.unobserve.mock.calls.length).toBeGreaterThanOrEqual(
+        mockUseInitialiseSection().sections.current.length,
+      );
+      expect(observerInstance.disconnect).toHaveBeenCalled();
+    });
   });
 
-  it('initialises sections when the main path is activated', async () => {
-    renderTestComponent();
+  describe('Working with Section Initialisation', () => {
+    it('calls initialiseSections when handling link activation with hash', async () => {
+      renderTestComponent();
 
-    const activateLinkButton = screen.getByText('Activate Link');
-    fireEvent.click(activateLinkButton);
+      clickOnButton('Activate Link');
 
-    expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
-  });
+      await act(async () => {
+        expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
+      });
+    });
 
-  it('throws error when useActiveLink is used outside of ActiveLinkProvider', () => {
-    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    it('calls initialiseSections when handling link activation with hash or Paths.Main', async () => {
+      mockUsePathname.mockReturnValue('/some-other-path');
+      renderTestComponent();
 
-    expect(() => render(<TestComponent />)).toThrow(
-      'useActiveLink must be used within an ActiveLinkProvider',
-    );
+      clickOnButton('Activate Link');
 
-    consoleError.mockRestore();
-  });
+      await act(async () => {
+        expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
+      });
 
-  it('calls initialiseSections when handling link activation with hash', async () => {
-    renderTestComponent();
+      mockUsePathname.mockReturnValue('/some-other-path');
+      clickOnButton('Activate Link');
 
-    const button = screen.getByText('Activate Link');
-    fireEvent.click(button);
+      await act(async () => {
+        expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
+      });
+    });
 
-    await act(async () => {
+    it('initialises sections when the main path is activated', async () => {
+      renderTestComponent();
+
+      clickOnButton('Activate Link');
+
       expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
     });
   });
 
-  it('clears navigation timer correctly when navigationTimerId is set', async () => {
-    jest.useFakeTimers();
+  describe('Work with timers', () => {
+    let setTimeoutSpy: jest.SpyInstance;
+    let clearTimeoutSpy: jest.SpyInstance;
 
-    const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
-    const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+    beforeEach(() => {
+      jest.useFakeTimers();
 
-    renderTestComponent();
-
-    const activateLinkButton = screen.getByText('Activate Link');
-    fireEvent.click(activateLinkButton);
-
-    expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 1500);
-
-    act(() => {
-      jest.advanceTimersByTime(200);
-      fireEvent.click(activateLinkButton);
+      setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+      clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
     });
 
-    expect(clearTimeoutSpy).toHaveBeenCalled();
+    afterEach(() => {
+      setTimeoutSpy.mockRestore();
+      clearTimeoutSpy.mockRestore();
+      jest.useRealTimers();
+    });
 
-    clearTimeoutSpy.mockRestore();
-    setTimeoutSpy.mockRestore();
-    jest.useRealTimers();
+    it('sets navigation timer and clears it correctly', async () => {
+      renderTestComponent();
+
+      clickOnButton('Activate Link');
+
+      await act(async () => {
+        jest.runAllTimers();
+      });
+
+      expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 1500);
+    });
+
+    it('clears the previous navigation timer before setting a new one', () => {
+      renderTestComponent();
+
+      clickOnButton('Activate Link');
+      expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 1500);
+
+      act(() => {
+        jest.advanceTimersByTime(500);
+        clickOnButton('Activate Link');
+      });
+
+      expect(clearTimeoutSpy).toHaveBeenCalled();
+    });
   });
 
-  it('calls initialiseSections when handling link activation with hash or Paths.Main', async () => {
-    mockUsePathname.mockReturnValue('/some-other-path');
-    renderTestComponent();
+  describe('useActiveLink context hook', () => {
+    it('throws error when useActiveLink is used outside of ActiveLinkProvider', () => {
+      const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    const activateLinkButton = screen.getByText('Activate Link');
+      expect(() => render(<TestComponent />)).toThrow(
+        'useActiveLink must be used within an ActiveLinkProvider',
+      );
 
-    fireEvent.click(activateLinkButton);
-
-    await act(async () => {
-      expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
-    });
-
-    mockUsePathname.mockReturnValue('/some-other-path');
-    fireEvent.click(activateLinkButton);
-
-    await act(async () => {
-      expect(mockUseInitialiseSection().initialiseSections).toHaveBeenCalled();
+      consoleError.mockRestore();
     });
   });
 });

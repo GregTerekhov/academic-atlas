@@ -71,7 +71,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
-              if (section.path === Paths.Main) {
+              if (section.path === Paths.Main && !section.path.includes('#')) {
                 router.push(Paths.Main, { scroll: false });
               } else {
                 router.push(`#${section.id}`, { scroll: false });
