@@ -27,7 +27,6 @@ export const hasScrollbar = () => {
 export const toggleScrollLock = (isLocked: boolean) => {
   const root = document.firstElementChild;
   const body = document.body;
-  //Changes from #141 PR
 
   if (isLocked) {
     //Check on iPhone -->
@@ -51,7 +50,6 @@ export const toggleScrollLock = (isLocked: boolean) => {
     body.ontouchmove = null;
     body.classList.remove('no-scroll');
     root?.classList.remove('no-scroll');
-    //FIXME: add new logic in test
     //Check on iPhone --->
     const savedScrollPosition = sessionStorage.getItem('scrollPosition');
     if (savedScrollPosition) {
