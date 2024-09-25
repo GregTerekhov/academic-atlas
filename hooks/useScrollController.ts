@@ -57,7 +57,6 @@ export const useScrollController = () => {
 
   const scrollToTop = () => {
     updateScrollWithButtonState(true);
-    //FIXME: add new logic in test
 
     window.scrollTo({
       top: 0,
