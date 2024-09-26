@@ -21,11 +21,10 @@ describe('getAndEncodeDataObject', () => {
     const result = getAndEncodeDataObject(TelegramScenario.Order, WorkType.Presentations);
     const expectedData = {
       command: TelegramScenario.Order,
-      workType: 'Presentations', //FIXME: change after the cyrillic data implementation
+      workType: 'Presentations',
     };
 
     const expectedString = JSON.stringify(expectedData);
-    // const expectedUrlEncodedString = encodeURIComponent(expectedString); //FIXME: change after the cyrillic data implementation
     const expectedBase64 = btoa(expectedString);
     expect(result).toBe(expectedBase64);
   });
@@ -40,14 +39,13 @@ describe('getAndEncodeDataObject', () => {
     );
     const expectedData = {
       c: 'ord',
-      w: 'bt', //FIXME: change after the cyrillic data implementation
-      a: 'ca', //FIXME: change after the cyrillic data implementation
-      t: 'lg', //FIXME: change after the cyrillic data implementation
+      w: 'bt',
+      a: 'ca',
+      t: 'lg',
       u: Uniqueness.Standard.toString(),
     };
 
     const expectedString = JSON.stringify(expectedData);
-    // const expectedUrlEncodedString = encodeURIComponent(expectedString); //FIXME: change after the cyrillic data implementation
     const expectedBase64 = btoa(expectedString);
     expect(result).toBe(expectedBase64);
   });
@@ -59,7 +57,6 @@ describe('getAndEncodeDataObject', () => {
     };
 
     const expectedString = JSON.stringify(expectedData);
-    // const expectedUrlEncodedString = encodeURIComponent(expectedString); //FIXME: change after the cyrillic data implementation
     const expectedBase64 = btoa(expectedString);
     expect(result).toBe(expectedBase64);
   });

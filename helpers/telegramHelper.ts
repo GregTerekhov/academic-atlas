@@ -29,7 +29,6 @@ const createServiceObject = (data: IEncryptedData): IEncryptedData => {
 
 const encodeData = (data: IEncryptedData | Record<string, string>): string => {
   const encDataString = JSON.stringify(data);
-  // const urlEncodedString = encodeURIComponent(encDataString); //FIXME: --- add encodeURIComponent on front and decodeURIComponent on back
   return btoa(encDataString);
 };
 
