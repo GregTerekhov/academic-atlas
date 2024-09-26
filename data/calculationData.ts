@@ -89,6 +89,10 @@ export const getExpertiseArea = (): IDropdownData[] => {
       option: ExpertiseArea.SocialSciences,
     },
     {
+      typeId: 'area6',
+      option: ExpertiseArea.Transport,
+    },
+    {
       typeId: 'area7',
       option: ExpertiseArea.Journalism,
     },
@@ -171,10 +175,6 @@ export const getExpertiseArea = (): IDropdownData[] => {
     {
       typeId: 'area27',
       option: ExpertiseArea.CivilSecurity,
-    },
-    {
-      typeId: 'area28',
-      option: ExpertiseArea.Transport,
     },
   ];
 };
