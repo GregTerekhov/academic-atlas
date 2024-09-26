@@ -1,5 +1,5 @@
-import { getWorkType } from 'data/calculationData';
-import { BasePrice, Uniqueness, WorkType } from 'types/calculation';
+import { getWorkType } from 'data';
+import { BasePrice, Uniqueness, WorkType } from 'types';
 
 describe('getWorkType', () => {
   test('should return an array of work types with the correct structure', () => {

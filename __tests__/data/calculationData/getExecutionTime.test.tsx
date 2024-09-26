@@ -1,5 +1,5 @@
-import { getExecutionTime } from 'data/calculationData';
-import { ExecutionTime } from 'types/calculation';
+import { getExecutionTime } from 'data';
+import { ExecutionTime } from 'types';
 
 describe('getExecutionTime', () => {
   test('should return an array of execution time with the correct structure', () => {

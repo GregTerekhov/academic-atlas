@@ -1,5 +1,5 @@
-import { getExpertiseArea } from 'data/calculationData';
-import { ExpertiseArea } from 'types/calculation';
+import { getExpertiseArea } from 'data';
+import { ExpertiseArea } from 'types';
 
 describe('getExpertiseArea', () => {
   test('should return an array of expertise area with the correct structure', () => {
