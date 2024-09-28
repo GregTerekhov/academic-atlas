@@ -1,24 +1,32 @@
 import Link from 'next/link';
 
-import { Paths, PrimaryButtonLabel, SectionTitle } from 'types';
+import { AriaDescription, AriaId, Paths, PrimaryButtonLabel } from 'types';
+import { getSectionProps } from 'data';
 
 import { SectionTemplate } from 'template';
-import { PrimaryButtonUI } from 'ui';
+import { AriaDescriptionUI } from 'ui';
+
+import { getPrimaryButtonStyles } from 'styles';
 
 export default function Performers() {
+  const linkClass = getPrimaryButtonStyles();
+  const sectionProps = getSectionProps();
+  const mainPerformersProps = sectionProps.homePerformers;
+
   return (
-    <SectionTemplate
-      title={SectionTitle.Performers}
-      noAlignment='max-md:text-start'
-      hasAdditionalText
-    >
-      <p className='mb-8 text-medium md:text-center md:text-xl lg:mb-16 lg:text-2xl'>
-        Пиши, розвивайся, заробляй та ставай нашим виконавцем!
-      </p>
+    <SectionTemplate {...mainPerformersProps}>
       <div className='md:flex md:items-center md:justify-center'>
-        <Link href={Paths.Partnership}>
-          <PrimaryButtonUI>{PrimaryButtonLabel.Accession}</PrimaryButtonUI>
+        <Link
+          href={Paths.Partnership}
+          className={`${linkClass} py-[17px]`}
+          aria-describedby={AriaId.Performers}
+        >
+          {PrimaryButtonLabel.Accession}
         </Link>
+        <AriaDescriptionUI
+          id={AriaId.Performers}
+          description={AriaDescription.Performers}
+        />
       </div>
     </SectionTemplate>
   );

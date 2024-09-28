@@ -1,4 +1,8 @@
+'use client';
+
 import { type IContactLink, PositionInLayout } from 'types';
+import { useMenu } from 'context';
+import { getAriaLabelContacts } from 'helpers';
 
 import { SvgIconUI } from 'ui';
 
@@ -14,16 +18,17 @@ export default function ContactItem({
   labelClass,
   label,
   variant,
+  iconAriaLabel,
 }: IContactItem) {
-  const getAriaLabel = (href: string, label: string) => {
-    if (href.startsWith('tel:')) {
-      return `Call ${label}`;
-    } else if (href.startsWith('mailto:')) {
-      return `Email ${label}`;
-    } else {
-      return `Open link to ${label}`;
+  const { isNavMenuOpen, toggleNavMenu } = useMenu();
+
+  const handleClick = () => {
+    if (isNavMenuOpen) {
+      toggleNavMenu();
     }
   };
+
+  const ariaLabel = getAriaLabelContacts(href, label);
 
   return (
     <li>
@@ -31,15 +36,20 @@ export default function ContactItem({
         href={href}
         target='_blank'
         rel='noopener noreferrer'
-        aria-label={getAriaLabel(href, label)}
+        aria-label={ariaLabel}
         className={`${variant === PositionInLayout.Footer ? 'md:max-lg:py-2' : ''} group flex items-center gap-x-2`}
+        onClick={handleClick}
       >
         <SvgIconUI
           id={iconName}
           size={{ width: defaultSize, height: defaultSize }}
-          className={`${iconSize} fill-darkBase group-hover:fill-accentPrimary dark:fill-whiteBase`}
+          className={`${iconSize} fill-darkBase/75 group-hover:fill-accentPrimary dark:fill-whiteBase dark:group-hover:fill-accentSecondary`}
+          ariaHidden={false}
+          ariaLabel={iconAriaLabel}
         />
-        <span className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase`}>
+        <span
+          className={`${labelClass} hidden group-hover:text-accentPrimary dark:text-whiteBase dark:group-hover:text-accentSecondary`}
+        >
           {label}
         </span>
       </a>

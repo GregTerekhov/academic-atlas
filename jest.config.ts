@@ -1,8 +1,3 @@
-/**
- * For a detailed explanation regarding each configuration property, visit:
- * https://jestjs.io/docs/configuration
- */
-
 import type { Config } from 'jest';
 import nextJest from 'next/jest.js';
 
@@ -33,7 +28,12 @@ const config: Config = {
   coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: ['/node_modules/', '/.next/'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/.next/',
+    '<rootDir>/helpers/tailwindPlugins.ts',
+    '<rootDir>/helpers/swiperConfig.ts',
+  ],
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
@@ -71,14 +71,12 @@ const config: Config = {
   // maxWorkers: "50%",
 
   // An array of directory names to be searched recursively up from the requiring module's location
-  // moduleDirectories: [
-  //   "node_modules"
-  // ],
+  moduleDirectories: ['node_modules', '<rootDir>'],
 
   // An array of file extensions your modules use
   moduleFileExtensions: [
     'js',
-    // "mjs",
+    'mjs',
     // "cjs",
     // "jsx",
     'ts',
@@ -89,12 +87,17 @@ const config: Config = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '^components/(.*)$': './components/$1',
-    '^context/(.*)$': './context/$1',
-    '^helpers/(.*)$': './helpers/$1',
-    '^layout/(.*)$': './layout/$1',
-    '^template/(.*)$': './template/$1',
-    '^ui/(.*)$': './ui/$1',
+    '^components/(.*)$': '<rootDir>/components/$1',
+    '^context/(.*)$': '<rootDir>/context/$1',
+    '^data/(.*)$': '<rootDir>/data/$1',
+    '^helpers/(.*)$': '<rootDir>/helpers/$1',
+    '^hooks/(.*)$': '<rootDir>/hooks/$1',
+    '^layout/(.*)$': '<rootDir>/layout/$1',
+    '^styles/(.*)$': '<rootDir>/styles/$1',
+    '^template/(.*)$': '<rootDir>/template/$1',
+    '^types/(.*)$': '<rootDir>/types/$1',
+    '^ui/(.*)$': '<rootDir>/ui/$1',
+    '^swiper/(.*)$': '<rootDir>/node_modules/swiper/swiper-bundle.min.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -104,17 +107,24 @@ const config: Config = {
   // notify: false,
 
   // An enum that specifies notification mode. Requires { notify: true }
-  // notifyMode: "failure-change",
+  // notifyMode: 'failure-change',
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
-  // reporters: undefined,
-
+  reporters: [
+    'default',
+    [
+      'jest-allure',
+      {
+        resultsDir: 'allure-results',
+      },
+    ],
+  ],
   // Automatically reset mock state before every test
   // resetMocks: false,
 
@@ -139,10 +149,10 @@ const config: Config = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  // setupFiles: ['<rootDir>/jest.setup.ts'],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
@@ -151,7 +161,7 @@ const config: Config = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jsdom',
+  testEnvironment: 'allure-jest/jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -163,7 +173,7 @@ const config: Config = {
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/e2e_tests/'],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
@@ -177,13 +187,15 @@ const config: Config = {
   // A map from regular expressions to paths to transformers
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(js|jsx|mjs)$': 'ts-jest',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [
-  //   "/node_modules/",
-  //   "\\.pnp\\.[^\\/]+$"
-  // ],
+  transformIgnorePatterns: [
+    '<rootDir>/node_modules/(?!(swiper)/)',
+
+    //   "\\.pnp\\.[^\\/]+$"
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

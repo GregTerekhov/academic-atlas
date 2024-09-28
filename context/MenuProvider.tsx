@@ -1,8 +1,12 @@
 'use client';
 
-import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, useRef, useEffect } from 'react';
 
-import { useHandleClickOutside } from 'helpers';
+import { type IWithChildren } from 'types';
+import { useCalculation } from './CalculationProvider';
+import { useCalculationResult } from './CalculationResultProvider';
+import { toggleScrollLock } from 'helpers';
+import { useHandleClickOutside } from 'hooks';
 
 interface IMenuContext {
   isCalcMenuOpen: boolean;
@@ -12,57 +16,77 @@ interface IMenuContext {
   toggleNavMenu: () => void;
   closeMenu: () => void;
   changeMenuContent: () => void;
+  handleToggleMenu: () => void;
 }
 
 const MenuContext = createContext<IMenuContext | undefined>(undefined);
 
-export const MenuProvider = ({ children }: { children: ReactNode }) => {
-  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
-  const [isCalcMenuOpen, setIsCalcMenuOpen] = useState(false);
-  const [showCalculationMenu, setShowCalculationMenu] = useState(false);
+export const MenuProvider = ({ children }: IWithChildren) => {
+  const [menuState, setMenuState] = useState({
+    isNavMenuOpen: false,
+    isCalcMenuOpen: false,
+    showCalculationMenu: false,
+  });
 
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const { resetCalculation } = useCalculation();
+  const { handleResetCostResult } = useCalculationResult();
+
   useEffect(() => {
-    if (isNavMenuOpen || isCalcMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-  }, [isCalcMenuOpen, isNavMenuOpen]);
+    const { isNavMenuOpen, isCalcMenuOpen } = menuState;
+
+    toggleScrollLock(isNavMenuOpen || isCalcMenuOpen);
+  }, [menuState]);
+
+  const resetValues = () => {
+    handleResetCostResult();
+    resetCalculation();
+  };
 
   const toggleNavMenu = () => {
-    setIsNavMenuOpen(!isNavMenuOpen);
+    setMenuState((prevState) => ({ ...prevState, isNavMenuOpen: !prevState.isNavMenuOpen }));
   };
 
   const changeMenuContent = () => {
-    setShowCalculationMenu(true);
+    setMenuState((prevState) => ({ ...prevState, showCalculationMenu: true }));
   };
 
   const toggleCalcMenu = () => {
-    setIsCalcMenuOpen(!isCalcMenuOpen);
-    showCalculationMenu && setShowCalculationMenu(false);
+    setMenuState((prevState) => ({
+      ...prevState,
+      isCalcMenuOpen: !prevState.isCalcMenuOpen,
+      showCalculationMenu: prevState.isCalcMenuOpen ? false : prevState.showCalculationMenu,
+    }));
+    resetValues();
   };
 
   const closeMenu = () => {
-    setIsCalcMenuOpen(false);
-    setIsNavMenuOpen(false);
-    setShowCalculationMenu(false);
+    setMenuState({ isNavMenuOpen: false, isCalcMenuOpen: false, showCalculationMenu: false });
+    resetValues();
   };
 
-  useHandleClickOutside(menuRef, isCalcMenuOpen, closeMenu);
-  useHandleClickOutside(menuRef, isNavMenuOpen, closeMenu);
+  useHandleClickOutside(menuRef, menuState.isCalcMenuOpen || menuState.isNavMenuOpen, closeMenu);
+
+  const handleToggleMenu = (): void => {
+    if (menuState.isCalcMenuOpen) {
+      toggleCalcMenu();
+    } else if (menuState.showCalculationMenu) {
+      closeMenu();
+    } else {
+      toggleNavMenu();
+    }
+  };
 
   return (
     <MenuContext.Provider
       value={{
-        isCalcMenuOpen,
-        isNavMenuOpen,
-        showCalculationMenu,
+        ...menuState,
         changeMenuContent,
         toggleCalcMenu,
         toggleNavMenu,
         closeMenu,
+        handleToggleMenu,
       }}
     >
       {children}

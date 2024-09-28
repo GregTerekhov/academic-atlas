@@ -1,35 +1,58 @@
+'use client';
+
 import { RefObject } from 'react';
-import { IconName, IconSize } from 'types/ui';
+
+import { AriaLabel, ButtonType, IconName, IconSize, type IWithChildren, PopupID } from 'types';
+
+import { BackButton } from 'components';
 import { SvgIconUI } from 'ui';
 
-interface IModalProps {
-  children: React.ReactNode;
-  title: string;
-  closeModal: () => void;
+import { getBackdropStyles, getModalCloseIconStyles, getModalContainerStyles } from 'styles';
+
+interface IModalProps extends IWithChildren {
+  id: PopupID;
   modalRef: RefObject<HTMLDivElement>;
-  isOpen: boolean;
+  closeModal: () => void;
+  isOpen: (id: string) => boolean;
+  hasSubmitData: boolean;
 }
 
-export default function Modal({ closeModal, children, title, modalRef, isOpen }: IModalProps) {
+export default function Modal({
+  closeModal,
+  id,
+  children,
+  modalRef,
+  hasSubmitData,
+  isOpen,
+}: IModalProps) {
+  const backdropClass = getBackdropStyles();
+  const containerClass = getModalContainerStyles();
+  const iconClass = getModalCloseIconStyles();
+
   return (
-    isOpen && (
-      <div className='fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-auto bg-darkBase/75 transition-colors'>
+    isOpen(id) && (
+      <div className={backdropClass}>
         <div
+          aria-labelledby='modal'
+          role='dialog'
           ref={modalRef}
-          className='relative rounded-[20px] border-[2.4px] border-solid border-accentPrimary bg-whiteBase p-14 dark:bg-background-gradient dark:text-whiteBase  lg:w-[752px]'
+          className={containerClass}
         >
+          {hasSubmitData && <BackButton />}
           <button
-            type='button'
-            className='group absolute right-6 top-6 h-[30px] w-[30px] cursor-pointer'
+            type={ButtonType.Button}
+            className='group absolute right-6 top-6 size-[30px]'
             onClick={closeModal}
+            aria-label={AriaLabel.CloseButton}
           >
             <SvgIconUI
               id={IconName.Close}
               size={{ width: IconSize.M, height: IconSize.M }}
-              className='fill-darkBase group-hover:fill-accentPrimary group-focus:fill-accentPrimary dark:fill-whiteBase'
+              className={iconClass}
+              ariaHidden={false}
+              ariaLabel={AriaLabel.CloseModal}
             />
           </button>
-          <h2>{title}</h2>
           {children}
         </div>
       </div>

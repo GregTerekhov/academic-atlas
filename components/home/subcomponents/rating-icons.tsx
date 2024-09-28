@@ -1,4 +1,5 @@
 import { IconName, IconSize } from 'types';
+
 import { SvgIconUI } from 'ui';
 
 interface RatingIconProps {
@@ -12,8 +13,9 @@ export default function RatingIcons({ rating, index }: RatingIconProps) {
     <SvgIconUI
       key={index}
       id={iconId}
-      className='fill-accentPrimary md:size-6'
+      className='fill-accentSecondary md:size-6'
       size={{ width: IconSize.XXS, height: IconSize.XXS }}
+      data-testid={`rating-icon-${index}`}
     />
   );
 }

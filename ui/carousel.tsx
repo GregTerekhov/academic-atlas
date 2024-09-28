@@ -1,49 +1,36 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
 
-import { Breakpoints, Slide } from 'types';
+import { type ISlide } from 'types';
+import {
+  feedbackBreakpoints,
+  mapArray,
+  swiperConfig,
+  swiperEventHandlers,
+  swiperModules,
+} from 'helpers';
 
-import { CarouselFeedback } from 'components';
+import { CarouselWrapper } from 'template';
 
 import 'swiper/css/bundle';
 
-interface ICarouselProps<T extends Slide> {
+interface ICarouselProps<T extends ISlide> {
   slides: T[];
-  breakpoints: Breakpoints;
 }
 
-export default function Carousel<T extends Slide>({ slides, breakpoints }: ICarouselProps<T>) {
+export default function Carousel<T extends ISlide>({ slides }: ICarouselProps<T>) {
   return (
     <Swiper
-      modules={[Autoplay]}
-      grabCursor={true}
-      initialSlide={0}
-      loop={true}
-      longSwipes={false}
-      edgeSwipeThreshold={0}
-      mousewheel={{ invert: true }}
-      slideToClickedSlide={true}
-      watchSlidesProgress={true}
-      // url= //FIXME: --- додати значення для SSR
-      // userAgent={} //FIXME: --- додати значення для SSR
-      autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
-      breakpoints={breakpoints}
-      lazyPreloadPrevNext={1}
-      onSwiper={(swiper) => {
-        swiper.on('touchStart', function () {
-          swiper.autoplay.pause();
-        });
-        swiper.on('touchEnd', function () {
-          swiper.autoplay.resume();
-        });
-      }}
+      modules={swiperModules}
+      breakpoints={feedbackBreakpoints}
+      onSwiper={swiperEventHandlers}
+      {...swiperConfig}
     >
-      {slides.map((slide, index) => (
-        <SwiperSlide key={index}>
+      {mapArray(slides, (slide) => (
+        <SwiperSlide key={slide.id}>
           {({ isActive }) => (
-            <CarouselFeedback
+            <CarouselWrapper
               slide={slide}
               isActive={isActive}
             />

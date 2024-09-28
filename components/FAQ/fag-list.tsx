@@ -1,33 +1,38 @@
-import { WorkTitle } from 'types';
+import { TelegramScenario, type IQuestions } from 'types';
+import { getFAQQuestions } from 'data';
 
+import { Container } from 'layout';
+import { MappedListTemplate } from 'template';
 import { AccordionUI } from 'ui';
-import FAQItem from './fag-item';
-
-interface IListTitle {
-  title: WorkTitle;
-}
+import TextWithLink from '../telegram-text-link';
 
 export default function FAQList() {
-  const listTitle: IListTitle[] = [
-    { title: WorkTitle.Diplomas },
-    { title: WorkTitle.TeamPapers },
-    { title: WorkTitle.BachelorTheses },
-    { title: WorkTitle.TestPapers },
-    { title: WorkTitle.Abstracts },
-    { title: WorkTitle.PracticalWorks },
-  ];
+  const questions = getFAQQuestions();
+
   return (
-    <>
-      <p>FAQList</p>
-      {Array.isArray(listTitle) &&
-        listTitle.map(({ title }) => (
+    <Container>
+      <MappedListTemplate<IQuestions>
+        items={questions}
+        className='space-y-4 pb-8 md:space-y-6 md:pb-16 lg:space-y-8 lg:pb-[104px]'
+      >
+        {({ id, title, answer }) => (
           <AccordionUI
-            key={title}
+            key={id}
             title={title}
+            id={id}
           >
-            <FAQItem workTitle={title} />
+            {id === 'Question 2' || id === 'Question 6' ? (
+              <TextWithLink
+                order={TelegramScenario.Order}
+                text={answer}
+                ariaHidden={true}
+              />
+            ) : (
+              <>{answer}</>
+            )}
           </AccordionUI>
-        ))}
-    </>
+        )}
+      </MappedListTemplate>
+    </Container>
   );
 }

@@ -1,8 +1,9 @@
 import { SwiperOptions } from 'swiper/types';
+import { DropdownOption } from './calculation';
+import { DropdownAriaId } from './aria';
 
 export enum ButtonType {
   Button = 'button',
-  Submit = 'submit',
 }
 
 export type SvgSizes = {
@@ -13,6 +14,7 @@ export type SvgSizes = {
 export enum IconSize {
   XXS = 14,
   XS = 16,
+  HalfS = 18,
   S = 20,
   HalfM = 24,
   M = 30,
@@ -24,6 +26,10 @@ export enum IconSize {
   LogoSmallWidth = 77,
   XXXL = 80,
   Giant = 112,
+  WorkflowMdHeight = 640,
+  WorkflowMdWidth = 264,
+  WorkflowLgHeight = 480,
+  WorkflowLgWidth = 616,
 }
 
 export enum IconName {
@@ -32,12 +38,16 @@ export enum IconName {
   Benefits2 = 'guarantee',
   Benefits3 = 'corrections',
   Benefits4 = 'support',
+  BenefitPartnership1 = 'reward',
+  BenefitPartnership2 = 'schedule',
+  BenefitPartnership3 = 'progress',
   Burger = 'burger',
   Call = 'call',
+  Check = 'checkmark',
   Close = 'close',
   Email = 'email',
-  Fire = 'fire',
   Expand = 'expand',
+  Fire = 'fire',
   Logo = 'logo',
   Moon = 'moon',
   Overview1 = 'speaking',
@@ -50,11 +60,12 @@ export enum IconName {
   Question = 'question',
   RatingDown = 'star',
   RatingUp = 'star-full',
+  Requirements = 'requirements',
   Sun = 'sun',
   Telegram = 'telegram',
 }
 
-export interface Breakpoints {
+export interface IBreakpoints {
   [width: number]: SwiperOptions;
   [ratio: string]: SwiperOptions;
 }
@@ -66,4 +77,60 @@ export enum PrimaryButtonLabel {
   SwitchToTelegram = 'Перейти в Телеграм',
   ToPreviousPage = 'Перейти на попередню',
   ToMainPage = 'Перейти на головну',
+}
+
+export enum ImageSize {
+  Little80 = 80,
+  Little120 = 120,
+  Small144 = 144,
+  Small152 = 152,
+  Small180 = 180,
+  Medium192 = 192,
+  Medium200 = 200,
+  Medium208 = 208,
+  Medium216 = 216,
+  Big327 = 327,
+  Big334 = 334,
+  Big402 = 402,
+  Big512 = 512,
+}
+
+export enum BackgroundImageSizes {
+  ExtraLargeWidth = 2000,
+  DesktopWidth = 1440,
+  TabletWidth = 768,
+  MobileWidth = 375,
+  MobileHeight = 1080,
+  TabletHeight = 1600,
+  DesktopHeight = 1800,
+  ExtraLargeHeight = 4000,
+}
+
+export interface IOption {
+  typeId: string;
+  option: DropdownOption;
+}
+
+export interface IDropdownProps {
+  label: DropdownOption;
+  options: IOption[];
+  onOptionSelect: (option: DropdownOption) => void;
+  ariaId: DropdownAriaId;
+}
+
+export interface IImageProps {
+  src: string;
+  alt: string;
+  width: ImageSize;
+  height: ImageSize;
+  className: string;
+  priority?: boolean;
+}
+
+export interface IDropdownTriggerProps {
+  isOpen: boolean;
+  isOptionSelected: boolean;
+  selectedLabel: DropdownOption;
+  handleToggle: (e: React.MouseEvent | React.KeyboardEvent) => void;
+  ariaId: DropdownAriaId;
 }

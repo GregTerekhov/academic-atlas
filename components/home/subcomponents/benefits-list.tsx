@@ -1,20 +1,24 @@
-import { getBenefits } from 'helpers';
+import { type IBenefitsItem } from 'types';
+import { getBenefits } from 'data';
 
+import { MappedListTemplate } from 'template';
 import BenefitsItem from './benefits-item';
 
 export default function BenefitsList() {
   const benefits = getBenefits();
 
   return (
-    <ul className='flex max-md:flex-wrap max-md:justify-center max-md:gap-6 md:justify-between'>
-      {Array.isArray(benefits) &&
-        benefits.map(({ icon, label }) => (
-          <BenefitsItem
-            key={label}
-            icon={icon}
-            label={label}
-          />
-        ))}
-    </ul>
+    <MappedListTemplate<IBenefitsItem>
+      items={benefits}
+      className='max-lg:grid max-lg:grid-cols-2 max-lg:max-md:gap-6 md:max-lg:gap-y-6 lg:flex lg:justify-between'
+    >
+      {({ id, iconName, label }) => (
+        <BenefitsItem
+          key={id}
+          iconName={iconName}
+          label={label}
+        />
+      )}
+    </MappedListTemplate>
   );
 }

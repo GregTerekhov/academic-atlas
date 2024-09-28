@@ -1,18 +1,11 @@
-import { Breadcrumbs, ScrollController } from 'components';
-import { PrimaryButtonLabel } from 'types/ui';
-import { PrimaryButtonUI } from 'ui';
+import { type IWithChildren } from 'types';
+import { Breadcrumbs } from 'components';
 
-export default function NestedLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function NestedLayout({ children }: Readonly<IWithChildren>) {
   return (
     <>
       <Breadcrumbs />
-      <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
       {children}
-      <ScrollController />
     </>
   );
 }

@@ -1,33 +1,33 @@
-import Image from 'next/image';
+import { AriaDescription, AriaId, PrimaryButtonLabel, TelegramScenario } from 'types';
+import { getSectionProps, imageSettings } from 'data';
+import { getIdValues } from 'helpers';
 
-import { PrimaryButtonLabel, SectionTitle } from 'types';
-
-import { idValues } from 'helpers';
-
-import { SectionTemplate } from 'template';
-import { PrimaryButtonUI } from 'ui';
+import { SectionTemplate, TelegramButton } from 'template';
+import { ImageUI } from 'ui';
 
 export default function Promotions() {
-  const callToAction =
-    'Замовте готовий підшитий диплом у нас і отримайте його зі зручністю "Новою поштою"';
+  const { promotions } = imageSettings;
+  const { Promotions } = getIdValues();
+  const sectionProps = getSectionProps(undefined, Promotions);
+  const mainPromotionsProps = sectionProps.homePromotions;
+
+  const { src, width, height, className } = promotions;
+
   return (
-    <SectionTemplate
-      title={SectionTitle.Promotions}
-      id={idValues.Promotions ?? ''}
-      noAlignment='text-start'
-      hasAdditionalText
-    >
-      <p className='text-medium max-md:mb-4 md:mb-8 md:w-[421px] md:text-xl lg:mb-16 lg:w-[572px] lg:text-2xl'>
-        {callToAction}
-      </p>
-      <Image
-        src='/images/notes.webp'
-        alt='Notes'
-        width={216}
-        height={144}
-        className='max-md:mx-auto max-md:mb-8 md:absolute md:right-10 md:top-1/2 md:h-[152px] md:w-[224px] md:-translate-y-1/2 lg:h-[280px] lg:w-[416px]'
+    <SectionTemplate {...mainPromotionsProps}>
+      <ImageUI
+        src={src}
+        alt=''
+        width={width}
+        height={height}
+        className={className}
       />
-      <PrimaryButtonUI>{PrimaryButtonLabel.Ordering}</PrimaryButtonUI>
+      <TelegramButton
+        command={TelegramScenario.Order}
+        label={PrimaryButtonLabel.Ordering}
+        ariaId={AriaId.DefaultPromotionsOrdering}
+        ariaDescription={AriaDescription.DefaultPromotionsOrdering}
+      />
     </SectionTemplate>
   );
 }

@@ -1,19 +1,26 @@
-import { Container } from 'layout';
+import { type IWithChildren } from 'types';
 
-export default function MobileMenu({
-  children,
-  isOpen,
-}: Readonly<{
-  children: React.ReactNode;
+import { Container } from 'layout';
+import { BackButton } from 'components';
+
+import { getMobileMenuContainerStyles } from 'styles';
+
+interface IMobileMenuProps extends IWithChildren {
   isOpen: boolean;
-}>) {
+}
+
+export default function MobileMenu({ children, isOpen }: Readonly<IMobileMenuProps>) {
+  const containerClass = getMobileMenuContainerStyles(isOpen);
+
   return (
     <div
-      className={`fixed top-20 z-50 h-screen max-h-mobileMenu w-screen overflow-auto bg-whiteBase py-10 transition-[left] duration-500 before:fixed before:left-0 before:top-0 before:z-40 before:w-full before:content-[""] dark:bg-background-gradient md:top-24 md:max-h-tabletMenu ${
-        isOpen ? 'left-0' : '-left-full'
-      }`}
+      className={containerClass}
+      data-testid='mobile-menu'
     >
-      <Container>{children}</Container>
+      <Container>
+        <BackButton />
+        {children}
+      </Container>
     </div>
   );
 }

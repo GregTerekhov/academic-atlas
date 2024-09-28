@@ -1,12 +1,16 @@
-import { SectionTitle } from 'types';
+import { getSectionProps } from 'data';
 
 import { SectionTemplate } from 'template';
-import { PriceControls } from './subcomponents';
+import { PriceControlsDesktop, PriceControlsMobile } from './subcomponents';
 
 export default function Cost() {
+  const sectionProps = getSectionProps();
+  const mainCostProps = sectionProps.homeCost;
+
   return (
-    <SectionTemplate title={SectionTitle.FindOutCost}>
-      <PriceControls />
+    <SectionTemplate {...mainCostProps}>
+      <PriceControlsDesktop />
+      <PriceControlsMobile />
     </SectionTemplate>
   );
 }

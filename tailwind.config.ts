@@ -1,14 +1,16 @@
 import type { Config } from 'tailwindcss';
-import { hocusFunction, generalText } from './helpers';
+import { hocusFunction, commonComponents } from './helpers';
 
 const config: Config = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './context/**/*.{js,ts,jsx,tsx,mdx}',
+    './data/**/*.{js,ts,jsx,tsx,mdx}',
     './helpers/**/*.{js,ts,jsx,tsx,mdx}',
     './layout/**/*.{js,ts,jsx,tsx,mdx}',
     './template/**/*.{js,ts,jsx,tsx,mdx}',
+    './styles/**/*.{js,ts,jsx,tsx,mdx}',
     './ui/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
@@ -22,6 +24,9 @@ const config: Config = {
       center: true,
     },
     extend: {
+      fontFamily: {
+        philosopher: ['var(--font-philosopher)'],
+      },
       fontSize: {
         xs: '12px',
         sm: '14px',
@@ -45,9 +50,15 @@ const config: Config = {
       lineHeight: {
         130: '1.3',
       },
+      minHeight: {
+        mobileScreen: 'calc(100vh - 330px)',
+        tabletScreen: 'calc(100vh - 418px)',
+        desktopScreen: 'calc(100vh - 432px)',
+      },
       maxHeight: {
         mobileMenu: 'calc(100vh - 80px)',
         tabletMenu: 'calc(100vh - 96px)',
+        scroll: 'calc(100% - 32px)',
       },
       colors: {
         transparent: 'transparent',
@@ -62,26 +73,27 @@ const config: Config = {
           background: '#2f2f2f',
         },
         accentPrimary: {
+          DEFAULT: '#007cee',
+          darker: '#3048a5',
+        },
+        accentSecondary: {
           DEFAULT: '#f8a401',
           darker: '#d12600',
         },
-        accentSecondary: {
-          DEFAULT: '#2091f9',
-          darker: '#3048a5',
-        },
       },
       backgroundImage: {
-        hero: "url('/backgroundImage/hero.webp')",
-        'find-out-cost': "url('/backgroundImage/find-out-cost.webp')",
-        performers: "url('/backgroundImage/performers.webp')",
-        promotions: "url('/backgroundImage/promotions.webp')",
-        'service-overview': "url('/backgroundImage/service-overview.webp')",
-        'accent-gradient': 'linear-gradient(to right, #f8a401, #d12600)',
-        'background-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c )',
-        notFound: "url('/backgroundImage/404.webp')",
+        'accent-darkGradient': 'linear-gradient(to right, #f8a401, #d12600)',
+        'accent-lightGradient': 'linear-gradient(to right, #007cee, #3048a5)',
+        'section-overlay-dark': 'linear-gradient(to left, #1b1b1b4d, #1b1b1b)',
+        'section-overlay-light': 'linear-gradient(to left, #1b1b1b33, #1b1b1ba6)',
+        'background-light-gradient': 'linear-gradient(to bottom right, #007cee26, #fefefe)',
+        'background-dark-gradient': 'linear-gradient(to bottom right, #1b1b1b, #1b254c)',
+        'service-overview': "url('/backgroundImage/service-overview.png')",
+        'partnership-hero-dark': "url('/backgroundImage/partnership-hero-dark.webp')",
+        'partnership-hero-light': "url('/backgroundImage/partnership-hero-light.webp')",
       },
     },
   },
-  plugins: [hocusFunction, generalText],
+  plugins: [hocusFunction, commonComponents, require('@tailwindcss/typography')],
 };
 export default config;

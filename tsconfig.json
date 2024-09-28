@@ -21,6 +21,7 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "useUnknownInCatchVariables": true,
+    "downlevelIteration": true,
     // "noFallthroughCasesInSwitch": true,
 
     //Modules
@@ -39,9 +40,12 @@
     "paths": {
       "components/*": ["components/*"],
       "context/*": ["context/*"],
+      "data/*": ["data/*"],
       "helpers/*": ["helpers/*"],
+      "hooks/*": ["hooks/*"],
       "layout/*": ["layout/*"],
       "public/*": ["public/*"],
+      "styles/*": ["styles/*"],
       "template/*": ["template/*"],
       "types/*": ["types/*"],
       "ui/*": ["ui/*"]

@@ -1,50 +1,65 @@
-import { SectionTitle, SectionDescriptions } from 'types';
+import { SectionDescriptions, CtaText, type IWithChildren, type ISectionProps } from 'types';
+import { generateBackgroundImagePaths } from 'helpers';
 
 import { Container } from 'layout';
+import { CallToActionText } from 'components';
+import { BackgroundImageUI } from 'ui';
+
+import { getExtraSectionOverlayStyles, getSectionClasses, getTitleClasses } from 'styles';
+
+interface ISectionTemplate extends ISectionProps, IWithChildren {}
 
 export default function Section({
   title,
   children,
-  isBigTitle = false,
   id,
   titleStyle,
   noAlignment,
-  hasAdditionalText = false,
-}: Readonly<{
-  title: SectionTitle;
-  children: React.ReactNode;
-  isBigTitle?: boolean;
-  id?: string;
-  titleStyle?: string;
-  noAlignment?: string;
-  hasAdditionalText?: boolean;
-}>) {
-  const backgroundVariants: Partial<Record<SectionTitle, string>> = {
-    [SectionTitle.Hero]: 'bg-hero',
-    [SectionTitle.FindOutCost]: 'bg-find-out-cost',
-    [SectionTitle.Performers]: 'bg-performers',
-    [SectionTitle.Promotions]: 'bg-promotions',
-    [SectionTitle.NotFound]: 'bg-notFound',
-  };
+  ctaStyle,
+  sectionStyle = '',
+  isBigTitle = false,
+  ctaText = CtaText.NoText,
+  hasCtaText = false,
+  priority = false,
+}: Readonly<ISectionTemplate>) {
+  const sectionClasses = getSectionClasses(title);
+  const titleClass = getTitleClasses(isBigTitle, hasCtaText, titleStyle, noAlignment);
+  const backgroundImagePaths = generateBackgroundImagePaths(title);
+  const backgroundOverlayClass = getExtraSectionOverlayStyles();
 
   return (
     <section
       id={id}
-      className={
-        backgroundVariants[title]
-          ? `${backgroundVariants[title]} relative w-full bg-cover bg-center bg-no-repeat py-20 text-whiteBase before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-accentSecondary/10 before:content-[""] lg:py-[120px]`
-          : 'bg-transparent py-8 text-darkBase dark:text-whiteBase md:py-16 lg:py-[104px]'
-      }
+      data-testid={`section-${title}`}
+      className={`${sectionClasses} ${sectionStyle} relative py-20 md:py-24 lg:py-[120px]`}
     >
+      {backgroundImagePaths && (
+        <>
+          <BackgroundImageUI
+            alt={SectionDescriptions[title]}
+            largeDesktopSrc={backgroundImagePaths.largeDesktop}
+            desktopSrc={backgroundImagePaths.desktop}
+            tabletSrc={backgroundImagePaths.tablet}
+            mobileSrc={backgroundImagePaths.mobile}
+            priority={priority}
+          />
+          <div
+            className={backgroundOverlayClass}
+            data-testid='overlay'
+          ></div>
+        </>
+      )}
       <Container>
         {isBigTitle ? (
-          <h1 className={titleStyle ?? ''}>{SectionDescriptions[title]}</h1>
+          <h1 className={titleClass}>{SectionDescriptions[title]}</h1>
         ) : (
-          <h2
-            className={`${noAlignment ?? ''} ${hasAdditionalText ? 'mb-4 md:mb-6 lg:mb-8' : 'mb-8 md:mb-10 lg:mb-[72px]'}`}
-          >
-            {SectionDescriptions[title]}
-          </h2>
+          <h2 className={titleClass}>{SectionDescriptions[title]}</h2>
+        )}
+        {hasCtaText && (
+          <CallToActionText
+            ctaStyle={ctaStyle}
+            ctaText={ctaText}
+          />
         )}
         {children}
       </Container>

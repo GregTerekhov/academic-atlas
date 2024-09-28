@@ -1,18 +1,34 @@
-import { ButtonType, IconName, IconSize } from 'types';
+'use client';
+
+import { AriaLabel, ButtonType, IconName, IconSize } from 'types';
+import { useMenu } from 'context';
+import { useScrollController } from 'hooks';
 
 import { SvgIconUI } from 'ui';
 
+import { getScrollControllerStyles } from 'styles';
+
 export default function ScrollController() {
+  const { buttonRef, isVisible, scrollToTop } = useScrollController();
+  const { isNavMenuOpen, isCalcMenuOpen } = useMenu();
+
+  const oneOfMenuIsOpen = isNavMenuOpen || isCalcMenuOpen;
+  const triggerClass = getScrollControllerStyles(isVisible, oneOfMenuIsOpen);
+
   return (
     <button
+      ref={buttonRef}
       type={ButtonType.Button}
-      aria-label='Scroll up button'
-      className='fixed bottom-4 right-10 hidden size-10 items-center justify-center rounded-full border border-accentPrimary bg-whiteBase/10 md:flex lg:right-20 lg:size-16'
+      aria-label={AriaLabel.ScrollUp}
+      onClick={scrollToTop}
+      className={triggerClass}
     >
       <SvgIconUI
         id={IconName.Arrow}
         size={{ width: IconSize.HalfM, height: IconSize.HalfM }}
-        className='fill-accentPrimary lg:size-9'
+        className='fill-accentPrimary dark:fill-accentSecondary lg:size-9'
+        ariaHidden={false}
+        ariaLabel={AriaLabel.ScrollArrow}
       />
     </button>
   );

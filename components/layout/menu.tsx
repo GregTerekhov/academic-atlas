@@ -11,7 +11,7 @@ export default function Menu() {
         <Contacts variant={PositionInLayout.Header} />
       </div>
       <div className='hidden lg:block'>
-        <Navigation isDesktop />
+        <Navigation />
       </div>
     </>
   );

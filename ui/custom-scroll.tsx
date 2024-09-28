@@ -2,23 +2,25 @@
 
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 
-interface ICustomScroll {
-  children: React.ReactNode;
+import { type IWithChildren } from 'types';
+import { getScrollBarAreaStyles, getScrollThumbStyles } from 'styles';
+
+interface ICustomScroll extends IWithChildren {
   className?: string;
 }
 
 function CustomScroll({ children, className }: ICustomScroll) {
+  const scrollBarAreaClass = getScrollBarAreaStyles();
+  const thumbClass = getScrollThumbStyles();
+
   return (
-    <ScrollArea.Root
-      type='auto'
-      className={className}
-    >
-      <ScrollArea.Viewport className='h-full w-full'>{children}</ScrollArea.Viewport>
+    <ScrollArea.Root type='auto'>
+      <ScrollArea.Viewport className={className}>{children}</ScrollArea.Viewport>
       <ScrollArea.Scrollbar
         orientation='vertical'
-        className='touch-none select-none bg-darkBase/75 p-0.5 transition-colors data-[orientation=vertical]:h-full data-[orientation=vertical]:w-4'
+        className={scrollBarAreaClass}
       >
-        <ScrollArea.Thumb className="relative before:absolute before:h-full before:w-3 before:rounded-lg before:bg-disabled-foreground before:content-[''] " />
+        <ScrollArea.Thumb className={thumbClass} />
       </ScrollArea.Scrollbar>
     </ScrollArea.Root>
   );

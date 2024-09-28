@@ -1,12 +1,7 @@
-import { StatisticCount, StatisticLabel } from 'types';
+import { type IStatisticItem } from 'types';
+import { getFiguresTextStyles } from 'styles';
 
-interface IStatisticItem {
-  count: StatisticCount;
-  label: StatisticLabel;
-  hideOnSmallScreen?: boolean;
-  hideOnLargeScreen?: boolean;
-  showOnLargeScreen?: boolean;
-}
+type StatisticItemProps = Omit<IStatisticItem, 'id'>;
 
 export default function StatisticItem({
   count,
@@ -14,12 +9,18 @@ export default function StatisticItem({
   hideOnSmallScreen,
   hideOnLargeScreen,
   showOnLargeScreen,
-}: IStatisticItem) {
+}: StatisticItemProps) {
+  const figuresStyle = getFiguresTextStyles(
+    hideOnSmallScreen,
+    hideOnLargeScreen,
+    showOnLargeScreen,
+  );
+
   return (
     <p
-      className={`flex flex-col items-center justify-center ${hideOnSmallScreen ? 'hidden md:flex' : ''} ${hideOnLargeScreen ? 'hidden max-lg:flex' : ''} ${showOnLargeScreen ? 'hidden lg:flex' : ''} generalText`}
+      className={`generalText flex-col items-center justify-center max-sm:text-center ${figuresStyle}`}
     >
-      <strong className='bg-accent-gradient bg-clip-text text-6xl leading-130 tracking-[2px] text-transparent md:text-7xl lg:text-8xl'>
+      <strong className='gradientText bg-accent-lightGradient font-philosopher [-webkit-background-clip:text] dark:bg-accent-darkGradient max-sm:text-3xl'>
         {count}
       </strong>{' '}
       {label}

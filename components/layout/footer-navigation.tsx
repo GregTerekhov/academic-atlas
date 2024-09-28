@@ -1,34 +1,46 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { PositionInLayout } from 'types';
+import { AriaLabel, PositionInLayout } from 'types';
+import { useActiveLink } from 'context';
+import { getFooterLinks } from 'data';
+import { getMenuAriaCurrent, mapArray } from 'helpers';
 
-import { getFooterLinks } from 'helpers';
-
-import { CalculationModalTrigger } from './subcomponents';
+import { CalculationLinkDesktop, CalculationLinkMobile } from './subcomponents';
 
 export default function FooterMenu() {
+  const pathname = usePathname();
   const footerMenuLinks = getFooterLinks();
+  const { handleActivateLink } = useActiveLink();
 
   return (
-    <>
-      <nav>
-        <ul className='max-md:space-y-6 md:grid md:grid-cols-[226px_minmax(226px,_1fr)] md:grid-rows-4 md:gap-y-6 lg:grid-cols-[324px_minmax(324px,_1fr)] lg:gap-y-4'>
-          <li>
-            <CalculationModalTrigger position={PositionInLayout.Footer} />
+    <nav aria-label={AriaLabel.FooterNav}>
+      <ul
+        className='max-md:space-y-6 md:grid md:grid-cols-[200px_minmax(200px,_1fr)] md:grid-rows-4 md:gap-y-6 lg:grid-cols-[324px_minmax(324px,_1fr)] lg:gap-y-4'
+        role='list'
+      >
+        <li>
+          <CalculationLinkDesktop />
+          <CalculationLinkMobile position={PositionInLayout.Footer} />
+        </li>
+        {mapArray(footerMenuLinks, ({ path, label }) => (
+          <li key={label}>
+            <Link
+              href={path}
+              scroll={true}
+              aria-current={getMenuAriaCurrent(path, pathname)}
+              onClick={() => {
+                handleActivateLink(path);
+              }}
+              className='generalText hocus:text-accentPrimary dark:hocus:text-accentSecondary'
+            >
+              {label}
+            </Link>
           </li>
-          {Array.isArray(footerMenuLinks) &&
-            footerMenuLinks.map(({ path, label }) => (
-              <li key={label}>
-                <Link
-                  href={path}
-                  className='text-sm hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary md:text-base lg:text-big'
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-        </ul>
-      </nav>
-    </>
+        ))}
+      </ul>
+    </nav>
   );
 }

@@ -1,52 +1,49 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { ButtonType, MenuLinks, PositionInLayout } from 'types';
+import { AriaLabel, PositionInLayout } from 'types';
+import { useActiveLink } from 'context';
+import { getAdaptedLinks } from 'data';
+import { getMenuAriaCurrent, mapArray } from 'helpers';
 
-import { useMenu } from 'context';
-import { getHeaderLinks } from 'helpers';
+import CalculationLinkMobile from './calculation-link-mobile';
 
-import CalculationModalTrigger from './calculation-modal-trigger';
+import { getNavigationLinkStyles } from 'styles';
 
-interface INavigationProps {
-  isDesktop?: boolean;
-}
+export default function Navigation() {
+  const { activatedLink, handleActivateLink } = useActiveLink();
+  const pathname = usePathname();
 
-export default function Navigation({ isDesktop }: INavigationProps) {
-  const { isNavMenuOpen, toggleNavMenu } = useMenu();
-
-  const headerLinks = getHeaderLinks();
-
-  const adaptedLinks = isDesktop
-    ? headerLinks.filter((link) => link.label !== MenuLinks.Promotions)
-    : headerLinks;
+  const adaptedLinks = getAdaptedLinks();
 
   return (
-    <nav>
+    <nav aria-label={AriaLabel.Navigation}>
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
-        {Array.isArray(adaptedLinks) &&
-          adaptedLinks.map(({ path, label }) => (
+        {mapArray(adaptedLinks, ({ path, label }) => {
+          const isActive = path === activatedLink;
+          const ariaCurrent = getMenuAriaCurrent(path, pathname, isActive);
+          const linkClass = getNavigationLinkStyles(isActive);
+
+          return (
             <li key={label}>
               <Link
                 href={path}
-                className='text-medium hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentPrimary md:text-big'
+                scroll={true}
+                onClick={() => {
+                  handleActivateLink(path);
+                }}
+                aria-current={ariaCurrent}
+                className={linkClass}
               >
-                {isNavMenuOpen ? (
-                  <button
-                    type={ButtonType.Button}
-                    onClick={toggleNavMenu}
-                  >
-                    {label}
-                  </button>
-                ) : (
-                  label
-                )}
+                {label}
               </Link>
             </li>
-          ))}
+          );
+        })}
         <li className='hidden dark:text-whiteBase max-lg:block'>
-          <CalculationModalTrigger position={PositionInLayout.Header} />
+          <CalculationLinkMobile position={PositionInLayout.Header} />
         </li>
       </ul>
     </nav>

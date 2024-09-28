@@ -1,38 +1,11 @@
+import { AriaLabel } from './aria';
+import { WorkType } from './calculation';
+import { CompanyContacts } from './layoutTypes';
 import { IconName } from './ui';
-
-export enum Example {
-  'Ex1',
-  'Ex2',
-  'Ex3',
-  'Ex4',
-}
-
-export enum WorkType {
-  Default = 'Оберіть тип роботи',
-  Diplomas = 'Дипломні роботи',
-  TeamPapers = 'Курсові роботи та проєкти',
-  BachelorTheses = 'Бакалаврські та магістерські роботи',
-  TestPapers = 'Контрольні роботи',
-  Abstracts = 'Наукові статті та тези',
-  PracticalWorks = 'Практичні та лабораторні роботи',
-  Presentations = 'Презентації',
-  CaseStudyReports = 'Звіти з практики',
-}
-
-export interface IWorkType {
-  typeId: string;
-  option: WorkType;
-}
 
 export enum ThemeVariants {
   DARK = 'dark',
   LIGHT = 'light',
-}
-
-export interface IServiceItem {
-  imageSrc: string;
-  imageAlt: string;
-  serviceTitle: WorkType;
 }
 
 export enum StatisticCount {
@@ -58,28 +31,98 @@ export enum BenefitLabel {
   Support = 'Підтримка до захисту',
 }
 
-export interface IBenefitsItem {
-  icon: IconName;
-  label: BenefitLabel;
+export enum AriaLabelTrigger {
+  Default = 'Кнопка відкриття навігаційного бургер-меню',
+  CloseNavigation = 'Кнопка закриття навігаційного бургер-меню',
+  CloseCalculation = 'Кнопка закриття меню калькуляції',
 }
 
-export interface Slide {
-  memberName: string;
-  memberFeedback: string;
-  memberImage: string;
-  memberAlt: string;
-  memberRating: number;
-  memberFeedbackDate?: Date;
+export enum AriaCurrent {
+  Page = 'page',
+  Location = 'location',
 }
 
-export interface IOrderStep {
+export interface IBaseId {
   id: string;
-  step: string;
+}
+
+interface IBaseTitleDescription {
+  title: string;
+  description: string;
+}
+
+interface IBaseIcon {
   iconName: IconName;
 }
 
-export enum AriaLabelTrigger {
-  Default = 'Open navigation Menu',
-  CloseNavigation = 'Close navigation menu',
-  CloseCalculation = 'Close calculation menu',
+interface IBaseImageData {
+  imageSrc: string;
+  imageAlt: string;
+}
+
+export interface IServiceItem extends IBaseId, IBaseImageData {
+  serviceTitle: WorkType;
+  priority?: boolean | undefined;
+}
+
+export interface IBenefitsItem extends IBaseId, IBaseIcon {
+  label: BenefitLabel;
+}
+
+export interface ISlide extends IBaseId, IBaseTitleDescription, IBaseImageData {
+  memberRating: number;
+}
+
+export interface IOrderStep extends IBaseId, IBaseIcon {
+  step: string;
+}
+
+export interface IAboutUs extends IBaseId, IBaseTitleDescription, IBaseImageData {}
+export interface IPartnershipBenefits extends IBaseId, IBaseIcon, IBaseTitleDescription {}
+export interface IRequirements extends IBaseId, IBaseTitleDescription {}
+
+export interface IWorkflow extends IBaseId, IBaseTitleDescription {
+  gridMarkup: string;
+}
+
+export interface IAccession extends IBaseId {
+  desc: string;
+}
+
+export interface IHeroGrid extends IBaseId {
+  className: string;
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+export interface ISubItem {
+  id: string;
+  textField: string;
+}
+
+export interface ILegalInfoArticle {
+  id: number;
+  article: string;
+  paragraph: Record<string, string | { title: string; subItems: ISubItem[] }>;
+}
+
+export interface ISubstituteProps {
+  value: string;
+  substitute: CompanyContacts | string;
+  ariaLabel: AriaLabel;
+  isInternalLink: boolean;
+}
+
+export interface IRequisites {
+  id: string;
+  fieldName: string;
+}
+
+export interface IStatisticItem {
+  id: string;
+  count: StatisticCount;
+  label: StatisticLabel;
+  hideOnSmallScreen?: boolean;
+  hideOnLargeScreen?: boolean;
+  showOnLargeScreen?: boolean;
 }

@@ -1,17 +1,33 @@
-import NotFoundNavigation from 'components/not-found-controls';
-import { SectionTemplate } from 'template/index';
-import { SectionTitle } from 'types/layoutTypes';
+import type { Metadata } from 'next';
+
+import { getSectionProps, MetadataTexts } from 'data';
+
+import { SectionTemplate } from 'template';
+import { NotFoundNavigation } from 'components';
+
+import { get404PageTitleStyles } from 'styles';
+
+const { notFound } = MetadataTexts;
+const { title, description, keywords } = notFound;
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords,
+  // openGraph,    //FIXME: --- uncomment
+};
 
 export default function NotFound() {
+  const titleClass = get404PageTitleStyles();
+  const sectionProps = getSectionProps(titleClass);
+  const notFoundProps = sectionProps.page404;
+
   return (
-    <SectionTemplate
-      isBigTitle
-      title={SectionTitle.NotFound}
-      titleStyle='bg-accent-gradient bg-clip-text text-monstrousSm text-transparent md:text-[160px] lg:text-monstrousLg text-center'
-    >
-      <h2 className='flex flex-col'>
+    <SectionTemplate {...notFoundProps}>
+      <h2 className='mb-6 flex flex-col md:mb-8 lg:mb-10'>
         <span>Ой!</span>
-        Схоже, ми не можемо знайти сторінку, яку ви шукаєте
+        Схоже, ми не можемо знайти сторінку,
+        <br className='hidden max-lg:inline' /> яку ви шукаєте
       </h2>
       <NotFoundNavigation />
     </SectionTemplate>

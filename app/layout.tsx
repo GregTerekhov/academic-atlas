@@ -1,59 +1,42 @@
-import { Philosopher } from 'next/font/google';
 import { cookies } from 'next/headers';
 
-import type { Metadata } from 'next';
+import { type Viewport } from 'next';
+import { type IWithChildren } from 'types';
 
-import { DropdownProvider, MenuProvider, PopupProvider, ThemeProvider } from 'context';
 import { Footer, Header } from 'layout';
-import { ScrollController } from 'components';
+import { ProviderWrapper, ScrollController } from 'components';
 
+import { mulish, philosopher } from './fonts';
 import './globals.css';
-
-const philosopher = Philosopher({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  fallback: ['system-ui', 'arial'],
-});
-
-export const metadata: Metadata = {
-  title: 'Academic Atlas',
-  description:
-    "Professional writing services for master's theses, course papers, lab reports, and scientific articles. Get instant cost estimates based on type, specialty, deadline, and uniqueness percentage. High-quality, original work tailored to your academic needs.",
-};
 
 const THEME_STORAGE_KEY = 'theme-preference';
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
+export default function RootLayout({ children }: Readonly<IWithChildren>) {
   const theme = cookies().get(THEME_STORAGE_KEY)?.value;
 
   return (
     <html
       lang='uk'
-      className={theme}
+      className={`${theme} ${mulish.className} ${philosopher.variable}`}
       style={{ colorScheme: theme }}
     >
-      <body className={philosopher.className}>
-        <ThemeProvider
+      <body>
+        <ProviderWrapper
+          theme={theme}
           storageKey={THEME_STORAGE_KEY}
-          startTheme={theme}
         >
-          <MenuProvider>
-            <PopupProvider>
-              <DropdownProvider>
-                <Header />
-                <main className='relative bg-whiteBase dark:bg-background-gradient'>
-                  {children}
-                  <ScrollController />
-                </main>
-                <Footer />
-              </DropdownProvider>
-            </PopupProvider>
-          </MenuProvider>
-        </ThemeProvider>
+          <Header />
+          <main className='relative'>
+            {children}
+            <ScrollController />
+          </main>
+          <Footer />
+        </ProviderWrapper>
       </body>
     </html>
   );
