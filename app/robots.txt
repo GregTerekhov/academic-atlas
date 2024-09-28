@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /policy
 Allow: /
  
-Sitemap: https://academicatlas.com/sitemap.xml    //FIXME: --- add real path
+Sitemap: https://academic-atlas.com/sitemap.xml

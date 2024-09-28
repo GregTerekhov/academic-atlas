@@ -14,13 +14,13 @@ import {
 } from 'components';
 
 const { home } = MetadataTexts;
-const { title, description, keywords } = home;
+const { title, description, keywords, openGraph } = home;
 
 export const metadata: Metadata = {
   title,
   description,
   keywords,
-  // openGraph,    //FIXME: --- uncomment
+  openGraph,
 };
 
 export default function Home() {

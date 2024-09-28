@@ -12,13 +12,13 @@ import {
 } from 'components';
 
 const { partnership } = MetadataTexts;
-const { title, description, keywords } = partnership;
+const { title, description, keywords, openGraph } = partnership;
 
 export const metadata: Metadata = {
   title,
   description,
   keywords,
-  // openGraph,    //FIXME: --- uncomment
+  openGraph,
 };
 
 export default function Partnership() {

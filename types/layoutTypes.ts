@@ -163,21 +163,18 @@ export enum OpenGraphType {
 }
 
 export enum OpenGraphURL {
-  HOME = 'https://AcademicAtlas.com', //FIXME: --- add real path
-  FAQ = 'https://AcademicAtlas.com/faq', //FIXME: --- add real path,
-  PARTNERSHIP = 'https://AcademicAtlas.com/partnership', //FIXME: --- add real path,
-  POLICY = 'https://AcademicAtlas.com/legal', //FIXME: --- add real path,
-  NOT_FOUND = 'https://AcademicAtlas.com/', //FIXME: --- add real path,
-  OFFER = 'https://AcademicAtlas.com/offer', //FIXME: --- add real path,
+  HOME = 'https://academic-atlas.com',
+  FAQ = 'https://academic-atlas.com/faq',
+  PARTNERSHIP = 'https://academic-atlas.com/partnership',
+  POLICY = 'https://academic-atlas.com/legal',
+  NOT_FOUND = 'https://academic-atlas.com/',
+  OFFER = 'https://academic-atlas.com/offer',
 }
 
 export enum OpenGraphImageURL {
-  HOME = 'https://AcademicAtlas.com/images/og-image.jpg', //FIXME: --- add image,
-  FAQ = 'https://AcademicAtlas.com/images/faq-og-image.jpg', //FIXME: --- add image,
-  PARTNERSHIP = 'https://AcademicAtlas.com/images/partnership-og-image.jpg', //FIXME: --- add image,
-  POLICY = 'https://AcademicAtlas.com/images/legal-og-image.jpg', //FIXME: --- add image,
-  NOT_FOUND = 'https://AcademicAtlas.com/images/404-og-image.jpg', //FIXME: --- add image,
-  OFFER = 'https://AcademicAtlas.com/images/offer-og-image.jpg', //FIXME: --- add image,
+  HOME = 'https://academic-atlas.com/images/og-image.jpg',
+  FAQ = 'https://academic-atlas.com/images/faq-og-image.jpg',
+  PARTNERSHIP = 'https://academic-atlas.com/images/partnership-og-image.jpg',
 }
 
 export enum OpenGraphImageAlt {

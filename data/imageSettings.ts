@@ -141,7 +141,7 @@ export const imageSettings = {
     alt: 'A woman searches the bookshelves',
   },
   heroMatrixBottom: {
-    src: '/images/right-bottom-matrix-grid.jpg', //FIXME: --- change to webp
+    src: '/images/bottom-right-matrix-grid.webp',
     alt: 'A woman holds a mug with her right hand and is about to write something in a notebook with her left',
   },
 };

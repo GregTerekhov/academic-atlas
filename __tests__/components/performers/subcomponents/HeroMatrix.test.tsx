@@ -68,7 +68,7 @@ describe('HeroMatrix component', () => {
       id: 'bottom-right',
       className:
         'col-start-3 overflow-hidden rounded-bl-[30px] rounded-tr-[30px] bg-whiteBase/20  lg:rounded-bl-[60px] lg:rounded-tr-[60px]',
-      imageSrc: '/images/right-bottom-matrix-grid.jpg',
+      imageSrc: '/images/bottom-right-matrix-grid.jpg',
       imageAlt:
         'A woman holds a mug with her right hand and is about to write something in a notebook with her left',
     },
