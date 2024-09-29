@@ -5,10 +5,12 @@ import {
   OpenGraphImageAlt,
   OpenGraphImageURL,
   OpenGraphType,
+  OpenGraphURL,
 } from '../types';
 
 const OPEN_GRAPH_IMAGE_WIDTH = 1200;
 const OPEN_GRAPH_IMAGE_HEIGHT = 630;
+const DEFAULT_IMAGE = OpenGraphImageURL.HOME;
 
 export const MetadataTexts = {
   home: {
@@ -18,7 +20,7 @@ export const MetadataTexts = {
     openGraph: {
       title: MetadataTitle.HOME,
       description: MetadataDescription.HOME,
-      //   url: OpenGraphURL.HOME, //FIXME: uncomment
+      url: OpenGraphURL.HOME,
       type: OpenGraphType.Website,
       images: [
         {
@@ -37,7 +39,7 @@ export const MetadataTexts = {
     openGraph: {
       title: MetadataTitle.FAQ,
       description: MetadataDescription.FAQ,
-      //   url: OpenGraphURL.FAQ, //FIXME: uncomment
+      url: OpenGraphURL.FAQ,
       type: OpenGraphType.Article,
       images: [
         {
@@ -56,7 +58,7 @@ export const MetadataTexts = {
     openGraph: {
       title: MetadataTitle.PARTNERSHIP,
       description: MetadataDescription.PARTNERSHIP,
-      // url: OpenGraphURL.PARTNERSHIP, //FIXME: uncomment
+      url: OpenGraphURL.PARTNERSHIP,
       type: OpenGraphType.Article,
       images: [
         {
@@ -72,57 +74,57 @@ export const MetadataTexts = {
     title: MetadataTitle.POLICY,
     description: MetadataDescription.POLICY,
     keywords: MetadataKeywords.POLICY,
-    // openGraph: { //FIXME: delete or fix this code
-    //   title: MetadataTitle.POLICY,
-    //   description: MetadataDescription.POLICY,
-    //   //   url: OpenGraphURL.POLICY,
-    //   type: OpenGraphType.Article,
-    //   images: [
-    //     {
-    //       //   url: OpenGraphImageURL.POLICY,
-    //       width: OPEN_GRAPH_IMAGE_WIDTH,
-    //       height: OPEN_GRAPH_IMAGE_HEIGHT,
-    //       alt: OpenGraphImageAlt.POLICY,
-    //     },
-    //   ],
-    // },
+    openGraph: {
+      title: MetadataTitle.POLICY,
+      description: MetadataDescription.POLICY,
+      url: OpenGraphURL.POLICY,
+      type: OpenGraphType.Article,
+      images: [
+        {
+          url: DEFAULT_IMAGE,
+          width: OPEN_GRAPH_IMAGE_WIDTH,
+          height: OPEN_GRAPH_IMAGE_HEIGHT,
+          alt: OpenGraphImageAlt.POLICY,
+        },
+      ],
+    },
   },
   notFound: {
     title: MetadataTitle.NOT_FOUND,
     description: MetadataDescription.NOT_FOUND,
     keywords: MetadataKeywords.NOT_FOUND,
-    // openGraph: { //FIXME: delete or fix this code
-    //   title: MetadataTitle.NOT_FOUND,
-    //   description: MetadataDescription.NOT_FOUND,
-    //   //   url: OpenGraphURL.NOT_FOUND,
-    //   type: OpenGraphType.Article,
-    //   images: [
-    //     {
-    //       //   url: OpenGraphImageURL.NOT_FOUND,
-    //       width: OPEN_GRAPH_IMAGE_WIDTH,
-    //       height: OPEN_GRAPH_IMAGE_HEIGHT,
-    //       alt: OpenGraphImageAlt.NOT_FOUND,
-    //     },
-    //   ],
-    // },
+    openGraph: {
+      title: MetadataTitle.NOT_FOUND,
+      description: MetadataDescription.NOT_FOUND,
+      url: OpenGraphURL.NOT_FOUND,
+      type: OpenGraphType.Article,
+      images: [
+        {
+          url: DEFAULT_IMAGE,
+          width: OPEN_GRAPH_IMAGE_WIDTH,
+          height: OPEN_GRAPH_IMAGE_HEIGHT,
+          alt: OpenGraphImageAlt.NOT_FOUND,
+        },
+      ],
+    },
   },
   offer: {
     title: MetadataTitle.OFFER,
     description: MetadataDescription.OFFER,
     keywords: MetadataKeywords.OFFER,
-    // openGraph: { //FIXME: delete or fix this code
-    //   title: MetadataTitle.OFFER,
-    //   description: MetadataDescription.OFFER,
-    //   //   url: OpenGraphURL.OFFER,
-    //   type: OpenGraphType.Article,
-    //   images: [
-    //     {
-    //       //   url: OpenGraphImageURL.OFFER,
-    //       width: OPEN_GRAPH_IMAGE_WIDTH,
-    //       height: OPEN_GRAPH_IMAGE_HEIGHT,
-    //       alt: OpenGraphImageAlt.OFFER,
-    //     },
-    //   ],
-    // },
+    openGraph: {
+      title: MetadataTitle.OFFER,
+      description: MetadataDescription.OFFER,
+      url: OpenGraphURL.OFFER,
+      type: OpenGraphType.Article,
+      images: [
+        {
+          url: DEFAULT_IMAGE,
+          width: OPEN_GRAPH_IMAGE_WIDTH,
+          height: OPEN_GRAPH_IMAGE_HEIGHT,
+          alt: OpenGraphImageAlt.OFFER,
+        },
+      ],
+    },
   },
 };
