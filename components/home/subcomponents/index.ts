@@ -1,4 +1,5 @@
 export { default as BenefitsList } from './benefits-list';
+export { default as JoinButton } from './join-button';
 export { default as OverviewItem } from './overview-item';
 export { default as PriceControlsDesktop } from './price-controls-desktop';
 export { default as PriceControlsMobile } from './price-controls-mobile';

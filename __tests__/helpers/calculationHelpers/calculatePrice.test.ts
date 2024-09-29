@@ -23,15 +23,19 @@ describe('calculatePrice', () => {
   const mockExecutionTimeMultiplier = executionTimeMultiplier as jest.Mock;
   const mockUniquenessMultiplier = uniquenessMultiplier as jest.Mock;
 
+  const mockBasePrice = 1000;
+  const mockLowMultiplier = 1.2;
+  const mockHighMultiplier = 1.5;
+
   it('calculates the correct price based on multipliers and base price', () => {
     mockFindSelectedObject.mockReturnValue({
       option: WorkType.Diplomas,
-      basePrice: 1000,
+      basePrice: mockBasePrice,
     });
-    mockGetBasePrice.mockReturnValue(1000);
-    mockExpertiseMultiplier.mockReturnValue(1.2);
-    mockExecutionTimeMultiplier.mockReturnValue(1.5);
-    mockUniquenessMultiplier.mockReturnValue(1.2);
+    mockGetBasePrice.mockReturnValue(mockBasePrice);
+    mockExpertiseMultiplier.mockReturnValue(mockLowMultiplier);
+    mockExecutionTimeMultiplier.mockReturnValue(mockHighMultiplier);
+    mockUniquenessMultiplier.mockReturnValue(mockLowMultiplier);
 
     expect(
       calculatePrice(
@@ -40,7 +44,7 @@ describe('calculatePrice', () => {
         ExecutionTime.Urgent,
         90,
       ),
-    ).toBe(1000 * 1.2 * 1.5 * 1.2);
+    ).toBe(mockBasePrice * mockLowMultiplier * mockHighMultiplier * mockLowMultiplier);
   });
 
   it('throws an error for an invalid work type', () => {
