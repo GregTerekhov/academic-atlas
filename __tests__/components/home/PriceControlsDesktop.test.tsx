@@ -10,15 +10,18 @@ import { PriceControlsDesktop } from 'components/home/subcomponents';
 jest.mock('context', () => ({
   useCalculationResult: jest.fn(),
 }));
-
 jest.mock('hooks', () => ({
   usePricePopupControls: jest.fn(),
 }));
 
 jest.mock('template', () => ({
-  ModalTemplate: jest.fn(({ children, isOpen, id }) =>
-    isOpen(id) ? <div data-testid='desktop-price-controls-popup'>{children}</div> : null,
-  ),
+  ModalTemplate: jest.fn(({ children, isOpen, id, closeModal }) => {
+    if (isOpen(id)) {
+      closeModal();
+      return <div data-testid='desktop-price-controls-popup'>{children}</div>;
+    }
+    return null;
+  }),
 }));
 
 jest.mock('ui', () => ({

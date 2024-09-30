@@ -2,7 +2,7 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
 
-import { AriaLabel, MenuLinks, PopupID } from 'types';
+import { AriaLabel, ButtonType, MenuLinks, PopupID } from 'types';
 import { useCalculationResult } from 'context';
 import { usePricePopupControls } from 'hooks';
 import CalculationLinkDesktop from 'components/layout/subcomponents/calculation-link-desktop';
@@ -16,9 +16,13 @@ jest.mock('hooks', () => ({
 }));
 
 jest.mock('template', () => ({
-  ModalTemplate: jest.fn(({ children, isOpen, id }) =>
-    isOpen(id) ? <div data-testid='desktop-calculation-link-popup'>{children}</div> : null,
-  ),
+  ModalTemplate: jest.fn(({ children, isOpen, id, closeModal }) => {
+    if (isOpen(id)) {
+      closeModal();
+      return <div data-testid='desktop-calculation-link-popup'>{children}</div>;
+    }
+    return null;
+  }),
 }));
 
 jest.mock('components/calculation/product-price-calculator', () =>
@@ -56,7 +60,7 @@ describe('CalculationLinkDesktop Component', () => {
   const renderLink = () => render(<CalculationLinkDesktop />);
 
   const clickButtonAndTogglePopup = (isOpen: boolean) => {
-    const button = screen.getByRole('button');
+    const button = screen.getByText(MenuLinks.Cost);
     fireEvent.click(button);
     expect(togglePopupMock).toHaveBeenCalledWith(PopupID.CostSection);
     togglePopup(isOpen);
@@ -64,6 +68,9 @@ describe('CalculationLinkDesktop Component', () => {
 
   beforeEach(() => {
     setupMocks();
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -74,6 +81,7 @@ describe('CalculationLinkDesktop Component', () => {
     expect(button).toBeInTheDocument();
     expect(button).toHaveTextContent(MenuLinks.Cost);
     expect(button).toHaveAttribute('aria-label', AriaLabel.CalculationModule);
+    expect(button).toHaveAttribute('type', ButtonType.Button);
     expect(button).toHaveClass(
       'hidden hocus:text-accentPrimary dark:text-whiteBase dark:hocus:text-accentSecondary',
     );
@@ -88,7 +96,6 @@ describe('CalculationLinkDesktop Component', () => {
       const { rerender } = renderLink();
 
       clickButtonAndTogglePopup(isOpen);
-
       rerender(<CalculationLinkDesktop />);
 
       await waitFor(() => {
