@@ -1,6 +1,5 @@
 import {
   MetadataDescription,
-  MetadataKeywords,
   MetadataTitle,
   OpenGraphImageAlt,
   OpenGraphImageURL,
@@ -16,7 +15,7 @@ export const MetadataTexts = {
   home: {
     title: MetadataTitle.HOME,
     description: MetadataDescription.HOME,
-    keywords: MetadataKeywords.HOME,
+    canonicalUrl: OpenGraphURL.HOME,
     openGraph: {
       title: MetadataTitle.HOME,
       description: MetadataDescription.HOME,
@@ -35,7 +34,7 @@ export const MetadataTexts = {
   faq: {
     title: MetadataTitle.FAQ,
     description: MetadataDescription.FAQ,
-    keywords: MetadataKeywords.FAQ,
+    canonicalUrl: OpenGraphURL.FAQ,
     openGraph: {
       title: MetadataTitle.FAQ,
       description: MetadataDescription.FAQ,
@@ -54,7 +53,7 @@ export const MetadataTexts = {
   partnership: {
     title: MetadataTitle.PARTNERSHIP,
     description: MetadataDescription.PARTNERSHIP,
-    keywords: MetadataKeywords.PARTNERSHIP,
+    canonicalUrl: OpenGraphURL.PARTNERSHIP,
     openGraph: {
       title: MetadataTitle.PARTNERSHIP,
       description: MetadataDescription.PARTNERSHIP,
@@ -73,7 +72,7 @@ export const MetadataTexts = {
   legal: {
     title: MetadataTitle.POLICY,
     description: MetadataDescription.POLICY,
-    keywords: MetadataKeywords.POLICY,
+    canonicalUrl: OpenGraphURL.POLICY,
     openGraph: {
       title: MetadataTitle.POLICY,
       description: MetadataDescription.POLICY,
@@ -92,7 +91,6 @@ export const MetadataTexts = {
   notFound: {
     title: MetadataTitle.NOT_FOUND,
     description: MetadataDescription.NOT_FOUND,
-    keywords: MetadataKeywords.NOT_FOUND,
     openGraph: {
       title: MetadataTitle.NOT_FOUND,
       description: MetadataDescription.NOT_FOUND,
@@ -111,7 +109,7 @@ export const MetadataTexts = {
   offer: {
     title: MetadataTitle.OFFER,
     description: MetadataDescription.OFFER,
-    keywords: MetadataKeywords.OFFER,
+    canonicalUrl: OpenGraphURL.OFFER,
     openGraph: {
       title: MetadataTitle.OFFER,
       description: MetadataDescription.OFFER,

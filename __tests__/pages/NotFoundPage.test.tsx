@@ -30,8 +30,7 @@ jest.mock('data', () => ({
   MetadataTexts: {
     notFound: {
       title: 'props.title',
-      description: 'props.description',
-      keywords: 'props.keywords',
+      description: 'props.description'
     },
   },
 }));
