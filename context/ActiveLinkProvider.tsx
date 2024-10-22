@@ -101,7 +101,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
             observer = new IntersectionObserver(handleSectionIntersecting, {
               root: null,
-              threshold: threshold,
+              threshold,
             });
 
             sectionRefs.current.forEach((ref) => {

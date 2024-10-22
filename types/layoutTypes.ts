@@ -12,7 +12,7 @@ export enum MenuLinks {
   Partnership = 'Виконавцям',
   Offer = 'Договір публічної оферти',
   Policy = 'Політика конфіденційності',
-  FAQ = 'Часті запитання',
+  Faq = 'Часті запитання',
 }
 
 export enum PositionInLayout {
@@ -33,7 +33,7 @@ export enum Paths {
   AboutUs = '/#about-us',
   Promotions = '/#promotions',
   Feedback = '/#feedback',
-  FAQ = '/faq',
+  Faq = '/faq',
   Offer = '/offer',
   Policy = '/policy',
   Partnership = '/partnership',
