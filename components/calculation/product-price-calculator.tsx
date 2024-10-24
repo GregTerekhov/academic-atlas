@@ -17,12 +17,12 @@ export default function PriceCalculator() {
         <PriceResult />
       ) : (
         <>
-          <h2
+          <p
             id='modal'
-            className='mb-8 !text-xl text-darkBase dark:text-whiteBase md:mb-10 md:!text-3xl'
+            className='mb-8 text-center font-philosopher text-1.5xl font-bold leading-130 text-darkBase dark:text-whiteBase md:mb-10 md:text-3xl lg:text-4xl'
           >
             {CalculationTitle.CalculationForm}
-          </h2>
+          </p>
           <InputFields shouldPlagiarismCheck={shouldPlagiarismCheck} />
           {shouldPlagiarismCheck && <PlagiarismSection />}
           <CalculationButton isDisabled={isButtonDisabled} />
