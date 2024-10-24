@@ -14,12 +14,11 @@ import {
 } from 'components';
 
 const { home } = MetadataTexts;
-const { title, description, keywords, openGraph } = home;
+const { title, description, openGraph } = home;
 
 export const metadata: Metadata = {
   title,
   description,
-  keywords,
   openGraph,
 };
 

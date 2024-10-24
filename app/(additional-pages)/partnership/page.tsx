@@ -12,12 +12,11 @@ import {
 } from 'components';
 
 const { partnership } = MetadataTexts;
-const { title, description, keywords, openGraph } = partnership;
+const { title, description, openGraph } = partnership;
 
 export const metadata: Metadata = {
   title,
   description,
-  keywords,
   openGraph,
 };
 

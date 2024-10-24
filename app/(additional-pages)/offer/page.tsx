@@ -8,12 +8,11 @@ import { LegalList } from 'components';
 import { getLegalArticleStyles } from 'styles';
 
 const { offer } = MetadataTexts;
-const { title, description, keywords, openGraph } = offer;
+const { title, description, openGraph } = offer;
 
 export const metadata: Metadata = {
   title,
   description,
-  keywords,
   openGraph,
 };
 

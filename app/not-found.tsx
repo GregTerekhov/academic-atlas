@@ -8,12 +8,11 @@ import { NotFoundNavigation } from 'components';
 import { get404PageTitleStyles } from 'styles';
 
 const { notFound } = MetadataTexts;
-const { title, description, keywords, openGraph } = notFound;
+const { title, description, openGraph } = notFound;
 
 export const metadata: Metadata = {
   title,
   description,
-  keywords,
   openGraph,   
 };
 
