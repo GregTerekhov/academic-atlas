@@ -92,13 +92,22 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       if (pathname === Paths.Main && areSectionsReady) {
         initialiseSections();
 
-        observer = new IntersectionObserver(handleSectionIntersecting, {
-          root: null,
-          threshold: 0.6,
-        });
+        const sections = sectionRefs.current as HTMLElement[];
 
-        sectionRefs.current.forEach((ref) => {
-          if (ref) observer?.observe(ref);
+        sections.forEach((section) => {
+          if (section) {
+            const sectionHeight = section.offsetHeight;
+            const threshold = sectionHeight > window.innerHeight ? 0.3 : 0.6;
+
+            observer = new IntersectionObserver(handleSectionIntersecting, {
+              root: null,
+              threshold,
+            });
+
+            sectionRefs.current.forEach((ref) => {
+              if (ref) observer?.observe(ref);
+            });
+          }
         });
       }
     };
