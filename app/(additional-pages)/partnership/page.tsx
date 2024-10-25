@@ -12,12 +12,15 @@ import {
 } from 'components';
 
 const { partnership } = MetadataTexts;
-const { title, description, openGraph } = partnership;
+const { title, description, openGraph, canonicalUrl } = partnership;
 
 export const metadata: Metadata = {
   title,
   description,
   openGraph,
+  alternates: {
+    canonical: canonicalUrl,
+  },
 };
 
 export default function Partnership() {

@@ -14,12 +14,15 @@ import {
 } from 'components';
 
 const { home } = MetadataTexts;
-const { title, description, openGraph } = home;
+const { title, description, openGraph, canonicalUrl } = home;
 
 export const metadata: Metadata = {
   title,
   description,
   openGraph,
+  alternates: {
+    canonical: canonicalUrl,
+  },
 };
 
 export default function Home() {

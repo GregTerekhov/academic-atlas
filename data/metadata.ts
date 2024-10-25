@@ -15,6 +15,7 @@ export const MetadataTexts = {
   home: {
     title: MetadataTitle.HOME,
     description: MetadataDescription.HOME,
+    canonicalUrl: OpenGraphURL.HOME,
     openGraph: {
       title: MetadataTitle.HOME,
       description: MetadataDescription.HOME,
@@ -33,6 +34,7 @@ export const MetadataTexts = {
   faq: {
     title: MetadataTitle.FAQ,
     description: MetadataDescription.FAQ,
+    canonicalUrl: OpenGraphURL.FAQ,
     openGraph: {
       title: MetadataTitle.FAQ,
       description: MetadataDescription.FAQ,
@@ -51,6 +53,7 @@ export const MetadataTexts = {
   partnership: {
     title: MetadataTitle.PARTNERSHIP,
     description: MetadataDescription.PARTNERSHIP,
+    canonicalUrl: OpenGraphURL.PARTNERSHIP,
     openGraph: {
       title: MetadataTitle.PARTNERSHIP,
       description: MetadataDescription.PARTNERSHIP,
@@ -69,6 +72,7 @@ export const MetadataTexts = {
   legal: {
     title: MetadataTitle.POLICY,
     description: MetadataDescription.POLICY,
+    canonicalUrl: OpenGraphURL.POLICY,
     openGraph: {
       title: MetadataTitle.POLICY,
       description: MetadataDescription.POLICY,
@@ -105,6 +109,7 @@ export const MetadataTexts = {
   offer: {
     title: MetadataTitle.OFFER,
     description: MetadataDescription.OFFER,
+    canonicalUrl: OpenGraphURL.OFFER,
     openGraph: {
       title: MetadataTitle.OFFER,
       description: MetadataDescription.OFFER,

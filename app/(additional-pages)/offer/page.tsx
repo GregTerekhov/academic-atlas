@@ -8,12 +8,15 @@ import { LegalList } from 'components';
 import { getLegalArticleStyles } from 'styles';
 
 const { offer } = MetadataTexts;
-const { title, description, openGraph } = offer;
+const { title, description, openGraph, canonicalUrl } = offer;
 
 export const metadata: Metadata = {
   title,
   description,
   openGraph,
+  alternates: {
+    canonical: canonicalUrl,
+  },
 };
 
 export default function OfferAgreement() {
