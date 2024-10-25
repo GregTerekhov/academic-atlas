@@ -1,14 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import {
-  AriaDescription,
-  AriaId,
-  CtaText,
-  Paths,
-  PrimaryButtonLabel,
-  SectionDescriptions,
-  SectionTitle,
-} from 'types';
+import { CtaText, SectionDescriptions, SectionTitle } from 'types';
 
 import { Performers } from 'components';
 
@@ -24,9 +16,9 @@ jest.mock('data', () => ({
   })),
 }));
 
-jest.mock('ui', () => ({
-  AriaDescriptionUI: jest.fn(({ id, description }) => <span id={id}>{description}</span>),
-}));
+jest.mock('components/home/subcomponents/join-button', () =>
+  jest.fn(() => <div data-testid='join-button'></div>),
+);
 
 jest.mock('template', () => ({
   SectionTemplate: jest.fn(({ children, title, ctaText }) => (
@@ -36,10 +28,6 @@ jest.mock('template', () => ({
       {children}
     </div>
   )),
-}));
-
-jest.mock('styles', () => ({
-  getPrimaryButtonStyles: jest.fn(() => 'primary-button-styles'),
 }));
 
 describe('Performers Component', () => {
@@ -59,13 +47,6 @@ describe('Performers Component', () => {
     const ctaText = screen.getByText(CtaText.MainPerformers);
     expect(ctaText).toBeInTheDocument();
 
-    const link = screen.getByRole('link', { name: PrimaryButtonLabel.Accession });
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', Paths.Partnership);
-    expect(link).toHaveAttribute('aria-describedby', AriaId.Performers);
-    expect(link).toHaveClass('primary-button-styles py-[17px]');
-
-    const ariaDescription = screen.getByText(AriaDescription.Performers);
-    expect(ariaDescription).toBeInTheDocument();
+    expect(screen.getByTestId('join-button')).toBeInTheDocument();
   });
 });

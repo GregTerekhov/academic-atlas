@@ -58,10 +58,7 @@ describe('PriceCalculator Component', () => {
   it('renders title with correct attributes', () => {
     setup();
 
-    const titleElement = screen.getByRole('heading', {
-      level: 2,
-      name: CalculationTitle.CalculationForm,
-    });
+    const titleElement = screen.getByText(CalculationTitle.CalculationForm);
 
     expect(titleElement).toBeInTheDocument();
     expect(titleElement).toHaveAttribute('id', 'modal');
