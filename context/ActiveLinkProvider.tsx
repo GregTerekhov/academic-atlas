@@ -27,6 +27,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const isNavigating = useRef<boolean>(false);
   const navigationTimerId = useRef<NodeJS.Timeout | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [prevScrollTop, setPrevScrollTop] = useState<number>(0);
 
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
@@ -63,6 +64,11 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleSectionIntersecting = useCallback(
     (entries: IntersectionObserverEntry[]) => {
+      const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+      const isScrollingDown = currentScrollTop > prevScrollTop;
+
+      setPrevScrollTop(currentScrollTop);
+
       if (isNavigating.current || isScrollingWithButton) return;
 
       entries.forEach((entry) => {
@@ -71,6 +77,14 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
+              if (isScrollingDown && section.path === Paths.Main) {
+                return;
+              }
+
+              if (!isScrollingDown && section.path === Paths.Services) {
+                return;
+              }
+
               if (section.path === Paths.Main && !section.path.includes('#')) {
                 router.push(Paths.Main, { scroll: false });
               } else {
@@ -82,7 +96,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         }
       });
     },
-    [isScrollingWithButton, sections, activatedLink, router],
+    [prevScrollTop, isScrollingWithButton, sections, activatedLink, router],
   );
 
   useEffect(() => {
@@ -92,13 +106,22 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       if (pathname === Paths.Main && areSectionsReady) {
         initialiseSections();
 
-        observer = new IntersectionObserver(handleSectionIntersecting, {
-          root: null,
-          threshold: 0.6,
-        });
+        const sections = sectionRefs.current as HTMLElement[];
 
-        sectionRefs.current.forEach((ref) => {
-          if (ref) observer?.observe(ref);
+        sections.forEach((section) => {
+          if (section) {
+            const sectionHeight = section.offsetHeight;
+            const threshold = sectionHeight > window.innerHeight ? 0.3 : 0.6;
+
+            observer = new IntersectionObserver(handleSectionIntersecting, {
+              root: null,
+              threshold,
+            });
+
+            sectionRefs.current.forEach((ref) => {
+              if (ref) observer?.observe(ref);
+            });
+          }
         });
       }
     };
