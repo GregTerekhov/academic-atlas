@@ -29,7 +29,7 @@ export default function Navigation() {
           return (
             <li key={label}>
               <Link
-                href={{ pathname: path }}
+                href={path}
                 scroll={true}
                 onClick={() => {
                   handleActivateLink(path);
