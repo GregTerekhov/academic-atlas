@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { AriaLabel, PositionInLayout } from 'types';
+import { AriaLabel, Paths, PositionInLayout } from 'types';
 import { useActiveLink } from 'context';
 import { getAdaptedLinks } from 'data';
 import { getMenuAriaCurrent, mapArray } from 'helpers';
@@ -29,7 +29,7 @@ export default function Navigation() {
           return (
             <li key={label}>
               <Link
-                href={path}
+                href={path as Paths}
                 scroll={true}
                 onClick={() => {
                   handleActivateLink(path);
