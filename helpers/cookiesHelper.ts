@@ -1,3 +1,5 @@
+'use client';
+
 const HOURS = 24;
 const MINUTES = 60;
 const SECONDS = 60;

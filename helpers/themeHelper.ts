@@ -1,3 +1,5 @@
+'use client';
+
 import { ThemeVariants } from '../types';
 import { eraseCookie, getCookie, setCookie } from './cookiesHelper';
 

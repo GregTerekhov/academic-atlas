@@ -1,3 +1,5 @@
+'use client';
+
 export const getScrollBarWidth = () => {
   const outer = document.createElement('div');
   outer.style.visibility = 'hidden';
