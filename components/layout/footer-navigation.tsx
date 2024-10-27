@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { AriaLabel, ILinks, Paths, PositionInLayout } from 'types';
+import { AriaLabel, ILinks, PositionInLayout } from 'types';
 import { useActiveLink } from 'context';
 import { getFooterLinks } from 'data';
 import { getMenuAriaCurrent, mapArray } from 'helpers';
@@ -28,7 +28,7 @@ export default function FooterMenu() {
         {mapArray(footerMenuLinks, ({ path, label }: ILinks) => (
           <li key={label}>
             <Link
-              href={path as Paths}
+              href={{ pathname: path }}
               scroll={true}
               aria-current={getMenuAriaCurrent(path, pathname)}
               onClick={() => {
