@@ -87,7 +87,7 @@ export const uniquenessMultiplier = (
 
   const threshold = thresholds[defaultUniqueness];
 
-  if (!threshold) return CalculationMultiplier.NoMultiplier; //FIXME: cover with tests
+  if (!threshold) return CalculationMultiplier.NoMultiplier;
 
   const difference = customUniqueness - defaultUniqueness;
 
