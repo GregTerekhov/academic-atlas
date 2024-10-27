@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Header } from 'layout';
-import { getHeaderStyles } from 'styles/layouts';
+import { getHeaderStyles } from 'styles';
 
 jest.mock('components', () => ({
   Logo: jest.fn(({ position }) => <div>Logo - {position}</div>),
