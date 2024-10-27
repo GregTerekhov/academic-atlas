@@ -6,6 +6,8 @@ import { useActiveLink } from 'context';
 import { useIntersectionObserver } from './useIntersectionObserver';
 import { useScrollResetTimeout } from './useScrollResetTimeout';
 
+const OFFSET = 16;
+
 export const useScrollController = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const footerRef = useRef<HTMLElement | null>(null);
@@ -42,9 +44,8 @@ export const useScrollController = () => {
     const button = buttonRef.current;
     if (!button) return;
 
-    const offset = 16;
     entries.forEach((entry) => {
-      button.style.bottom = `${offset}px`;
+      button.style.bottom = `${OFFSET}px`;
       button.style.position = entry.isIntersecting ? 'absolute' : 'fixed';
     });
   }, []);
