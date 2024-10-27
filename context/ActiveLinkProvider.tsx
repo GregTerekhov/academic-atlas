@@ -12,10 +12,15 @@ interface IActiveLinkContext {
   isScrollingWithButton: boolean;
   handleActivateLink: (path: Paths) => void;
   updateScrollWithButtonState: (isScrolling: boolean) => void;
-  updateActiveLink: (path: string) => void;
+  updateActiveLink: (path: Paths) => void;
 }
 
 const ActiveLinkContext = createContext<IActiveLinkContext | undefined>(undefined);
+
+const DESKTOP_THRESHOLD = 0.3;
+const MOBILE_THRESHOLD = 0.6;
+const SECTION_CHECK_INTERVAL = 200;
+const NAVIGATION_DELAY = 1500;
 
 export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const pathname = usePathname();
@@ -24,14 +29,15 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
   const [isScrollingWithButton, setIsScrollingWithButton] = useState(false);
   const [areSectionsReady, setAreSectionsReady] = useState(false);
+  const [prevScrollTop, setPrevScrollTop] = useState<number>(0);
+
   const isNavigating = useRef<boolean>(false);
   const navigationTimerId = useRef<NodeJS.Timeout | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [prevScrollTop, setPrevScrollTop] = useState<number>(0);
+  const sectionRefs = useRef<Element[]>([]);
 
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
-  const sectionRefs = useRef<Element[]>([]);
   const { sections, initialiseSections } = useInitialiseSection(
     sectionRefs.current,
     areSectionsReady,
@@ -49,7 +55,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       if (sectionRefs.current.length > 1) {
         setAreSectionsReady(true);
       } else {
-        timeoutRef.current = setTimeout(checkSections, 200);
+        timeoutRef.current = setTimeout(checkSections, SECTION_CHECK_INTERVAL);
       }
     };
 
@@ -111,7 +117,8 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         sections.forEach((section) => {
           if (section) {
             const sectionHeight = section.offsetHeight;
-            const threshold = sectionHeight > window.innerHeight ? 0.3 : 0.6;
+            const threshold =
+              sectionHeight > window.innerHeight ? DESKTOP_THRESHOLD : MOBILE_THRESHOLD;
 
             observer = new IntersectionObserver(handleSectionIntersecting, {
               root: null,
@@ -153,13 +160,13 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
     navigationTimerId.current = setTimeout(() => {
       isNavigating.current = false;
-    }, 1500);
+    }, NAVIGATION_DELAY);
   };
 
   const updateScrollWithButtonState = (isScrolling: boolean) =>
     setIsScrollingWithButton(isScrolling);
 
-  const updateActiveLink = (path: string) => setActivatedLink(path);
+  const updateActiveLink = (path: Paths) => setActivatedLink(path);
 
   return (
     <ActiveLinkContext.Provider
