@@ -10,7 +10,7 @@ import { useMenu } from './MenuProvider';
 interface IActiveLinkContext {
   activatedLink: string;
   isScrollingWithButton: boolean;
-  handleActivateLink: (path: Paths) => void;
+  handleActivateLink: (path: string) => void;
   updateScrollWithButtonState: (isScrolling: boolean) => void;
   updateActiveLink: (path: Paths) => void;
 }
@@ -144,7 +144,8 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
     };
   }, [pathname, initialiseSections, areSectionsReady, sectionRefs, handleSectionIntersecting]);
 
-  const handleActivateLink = async (path: Paths) => {
+  const handleActivateLink = async (path: string) => {
+    console.log('path: ', path);
     isNavigating.current = true;
     setActivatedLink(path);
 
