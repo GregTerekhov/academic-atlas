@@ -11,7 +11,7 @@ export default function OverviewItem({ iconName, step }: Readonly<IOverviewItem>
   return (
     <li className='flex items-center gap-x-2 lg:gap-x-4'>
       <div className='flex items-center gap-x-4 md:gap-x-6 lg:gap-x-10'>
-        <div className='relative flex size-[28px] items-center justify-center rounded-full bg-whiteBase/10 lg:size-10'>
+        <div className='relative flex size-[28px] items-center justify-center rounded-full bg-accentPrimary/10 dark:bg-whiteBase/10 lg:size-10'>
           <div className='absolute size-4 rounded-full bg-accentPrimary lg:size-6'></div>
         </div>
         <SvgIconUI

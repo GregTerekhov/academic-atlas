@@ -17,8 +17,8 @@ interface IActiveLinkContext {
 
 const ActiveLinkContext = createContext<IActiveLinkContext | undefined>(undefined);
 
-const DESKTOP_THRESHOLD = 0.3;
-const MOBILE_THRESHOLD = 0.6;
+const DESKTOP_THRESHOLD = 0.7;
+const MOBILE_THRESHOLD = 0.4;
 const SECTION_CHECK_INTERVAL = 200;
 const NAVIGATION_DELAY = 1500;
 
@@ -118,7 +118,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           if (section) {
             const sectionHeight = section.offsetHeight;
             const threshold =
-              sectionHeight > window.innerHeight ? DESKTOP_THRESHOLD : MOBILE_THRESHOLD;
+              sectionHeight > window.innerHeight ? MOBILE_THRESHOLD : DESKTOP_THRESHOLD;
 
             observer = new IntersectionObserver(handleSectionIntersecting, {
               root: null,

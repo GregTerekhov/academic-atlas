@@ -27,7 +27,7 @@ export default function LegalLinkItem({
   return (
     <>
       <Link
-        href={{ pathname: href }}
+        href={href}
         aria-describedby={ariaId}
         aria-current={pathname === href ? 'page' : undefined}
         onClick={() => {
