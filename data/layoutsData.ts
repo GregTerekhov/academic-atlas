@@ -56,33 +56,33 @@ export const getAdaptedContacts = (variant: PositionInLayout) => {
 };
 
 export const getFooterLinks = (): ILinks[] => {
-  const { Services, AboutUs, Feedback, Overview, Promotions } = getIdValues();
+  // const { Services, AboutUs, Feedback, Overview, Promotions } = getIdValues();
   return [
-    {
-      id: Overview,
-      path: Paths.Overview,
-      label: MenuLinks.Overview,
-    },
-    {
-      id: AboutUs,
-      path: Paths.AboutUs,
-      label: MenuLinks.AboutUs,
-    },
-    {
-      id: Feedback,
-      path: Paths.Feedback,
-      label: MenuLinks.Feedback,
-    },
-    {
-      id: Services,
-      path: Paths.Services,
-      label: MenuLinks.Services,
-    },
-    {
-      id: Promotions,
-      path: Paths.Promotions,
-      label: MenuLinks.Promotions,
-    },
+    // {
+    //   id: Overview,
+    //   path: Paths.Overview,
+    //   label: MenuLinks.Overview,
+    // },
+    // {
+    //   id: AboutUs,
+    //   path: Paths.AboutUs,
+    //   label: MenuLinks.AboutUs,
+    // },
+    // {
+    //   id: Feedback,
+    //   path: Paths.Feedback,
+    //   label: MenuLinks.Feedback,
+    // },
+    // {
+    //   id: Services,
+    //   path: Paths.Services,
+    //   label: MenuLinks.Services,
+    // },
+    // {
+    //   id: Promotions,
+    //   path: Paths.Promotions,
+    //   label: MenuLinks.Promotions,
+    // },
     {
       path: Paths.FAQ,
       label: MenuLinks.FAQ,
