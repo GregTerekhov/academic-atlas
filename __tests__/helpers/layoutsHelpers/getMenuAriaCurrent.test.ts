@@ -7,7 +7,7 @@ describe('getMenuAriaCurrent', () => {
   });
 
   it('returns page for exact pathname match', () => {
-    expect(getMenuAriaCurrent(Paths.FAQ, '/faq', false)).toBe(AriaCurrent.Page);
+    expect(getMenuAriaCurrent(Paths.FAQ, '/FAQ', false)).toBe(AriaCurrent.Page);
   });
 
   it('returns undefined for non-matching paths and inactive states', () => {
