@@ -28,7 +28,7 @@ export default function FooterMenu() {
         {mapArray(footerMenuLinks, ({ path, label }: ILinks) => (
           <li key={label}>
             <Link
-              href={{ pathname: path }}
+              href={path}
               scroll={true}
               aria-current={getMenuAriaCurrent(path, pathname)}
               onClick={() => {
