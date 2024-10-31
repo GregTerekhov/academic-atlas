@@ -28,7 +28,7 @@ export default function Navigation() {
 
           return (
             <li key={label}>
-              <Link
+              {/* <Link
                 href={path}
                 scroll={true}
                 onClick={() => {
@@ -38,7 +38,7 @@ export default function Navigation() {
                 className={linkClass}
               >
                 {label}
-              </Link>
+              </Link> */}
             </li>
           );
         })}

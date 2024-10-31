@@ -26,7 +26,7 @@ export default function LegalLinkItem({
 
   return (
     <>
-      <Link
+      {/* <Link
         href={href}
         aria-describedby={ariaId}
         aria-current={pathname === href ? 'page' : undefined}
@@ -36,7 +36,7 @@ export default function LegalLinkItem({
         className='text-xs hocus:text-accentPrimary dark:hocus:text-accentSecondary md:text-sm lg:text-base'
       >
         {linkLabel}
-      </Link>
+      </Link> */}
       <AriaDescriptionUI
         id={ariaId}
         description={ariaDescription}
