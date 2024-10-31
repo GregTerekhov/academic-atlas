@@ -27,7 +27,7 @@ export default function FooterMenu() {
         </li>
         {mapArray(footerMenuLinks, ({ path, label }: ILinks) => (
           <li key={label}>
-            <Link
+            {/* <Link
               href={path}
               scroll={true}
               aria-current={getMenuAriaCurrent(path, pathname)}
@@ -37,7 +37,7 @@ export default function FooterMenu() {
               className='generalText hocus:text-accentPrimary dark:hocus:text-accentSecondary'
             >
               {label}
-            </Link>
+            </Link> */}
           </li>
         ))}
       </ul>
