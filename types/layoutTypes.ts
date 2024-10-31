@@ -25,6 +25,8 @@ export enum PopupID {
   FooterMenu = 'footer-menu-link',
 }
 
+//comment for push commit
+
 export enum Paths {
   Main = '/',
   Services = '/#services',
