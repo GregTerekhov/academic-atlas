@@ -8,7 +8,7 @@ import {
   AriaDescription,
 } from 'types';
 import { getSectionProps } from 'data';
-import Ordering from 'components/faq/ordering';
+import Ordering from 'components/FAQ/ordering';
 
 jest.mock('data', () => ({
   getSectionProps: jest.fn(),
