@@ -84,7 +84,7 @@ export const getFooterLinks = (): ILinks[] => {
       label: MenuLinks.Promotions,
     },
     {
-      path: Paths.Main,
+      path: Paths.FAQ,
       label: MenuLinks.FAQ,
     },
     {
@@ -118,7 +118,7 @@ export const getAdaptedLinks = (): ILinks[] => {
       label: MenuLinks.Feedback,
     },
     {
-      path: Paths.Main,
+      path: Paths.FAQ,
       label: MenuLinks.FAQ,
     },
     {

@@ -6,9 +6,9 @@ describe('getMenuAriaCurrent', () => {
     expect(getMenuAriaCurrent(Paths.AboutUs, '/', true)).toBe(AriaCurrent.Location);
   });
 
-  // it('returns page for exact pathname match', () => {
-  //   expect(getMenuAriaCurrent(Paths.FAQ, '/faq', false)).toBe(AriaCurrent.Page);
-  // });
+  it('returns page for exact pathname match', () => {
+    expect(getMenuAriaCurrent(Paths.FAQ, '/faq', false)).toBe(AriaCurrent.Page);
+  });
 
   it('returns undefined for non-matching paths and inactive states', () => {
     expect(getMenuAriaCurrent('/current-page' as Paths, '/different-page', false)).toBeUndefined();

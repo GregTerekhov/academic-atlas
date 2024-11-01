@@ -35,7 +35,7 @@ export enum Paths {
   AboutUs = '/#about-us',
   Promotions = '/#promotions',
   Feedback = '/#feedback',
-  // FAQ = '/faq',
+  FAQ = '/faq',
   Offer = '/offer',
   Policy = '/policy',
   Partnership = '/partnership',
