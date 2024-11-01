@@ -26,13 +26,13 @@ export default function Navigation() {
           const ariaCurrent = getMenuAriaCurrent(path, pathname, isActive);
           const linkClass = getNavigationLinkStyles(isActive);
 
-          type pathAsType = '/' | '/faq' | '/offer' | '/partnership';
-          const altPath: pathAsType = '/partnership';
+          // type pathAsType = '/' | '/faq' | '/offer' | '/partnership';
+          // const altPath: pathAsType = '/partnership';
 
           return (
             <li key={label}>
               <Link
-                href={altPath}
+                href={'/faq'}
                 scroll={true}
                 onClick={() => {
                   handleActivateLink(path);
