@@ -32,7 +32,7 @@ export default function Navigation() {
           return (
             <li key={label}>
               <Link
-                href={'/partnership'}
+                href={`/faq`}
                 scroll={true}
                 onClick={() => {
                   handleActivateLink(path);

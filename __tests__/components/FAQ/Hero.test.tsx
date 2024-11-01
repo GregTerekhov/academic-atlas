@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 
 import { CtaText, type IImageProps, SectionDescriptions, SectionTitle } from 'types';
 
-import Hero from 'components/FAQ/hero';
+import Hero from 'components/faq/hero';
 import { ImageUI } from 'ui';
 
 jest.mock('ui', () => ({
