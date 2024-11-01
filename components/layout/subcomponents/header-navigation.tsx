@@ -24,6 +24,7 @@ export default function Navigation() {
   // const pathname = usePathname();
 
   const adaptedLinks = getAdaptedLinks();
+  const router = useRouter();
 
   return (
     <nav aria-label={AriaLabel.Navigation}>
@@ -40,7 +41,6 @@ export default function Navigation() {
 
             // type pathAsType = '/' | '/faq' | '/offer' | '/partnership';
             // const altPath: pathAsType = '/partnership';
-            const router = useRouter();
 
             return (
               <li key={label}>
