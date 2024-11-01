@@ -1,28 +1,20 @@
 'use client';
 
-// import Link from 'next/link';
-import {
-  // usePathname,
-  useRouter,
-} from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { AriaDescription, AriaId, AriaLabel, PositionInLayout } from 'types';
-// import { useActiveLink } from 'context';
+import { AriaLabel, PositionInLayout } from 'types';
+import { useActiveLink } from 'context';
 import { getAdaptedLinks } from 'data';
-import {
-  // getMenuAriaCurrent,
-  mapArray,
-} from 'helpers';
+import { getMenuAriaCurrent, mapArray } from 'helpers';
 
 import CalculationLinkMobile from './calculation-link-mobile';
 
-// import { getNavigationLinkStyles } from 'styles';
-import { PrimaryButtonUI } from 'ui';
+import { getNavigationLinkStyles } from 'styles';
 
 export default function Navigation() {
-  // const { activatedLink, handleActivateLink } = useActiveLink();
-  // const pathname = usePathname();
-  const router = useRouter();
+  const { activatedLink, handleActivateLink } = useActiveLink();
+  const pathname = usePathname();
 
   const adaptedLinks = getAdaptedLinks();
 
@@ -30,17 +22,17 @@ export default function Navigation() {
     <nav aria-label={AriaLabel.Navigation}>
       <ul className='max-lg:space-y-6 lg:flex lg:gap-x-8'>
         {mapArray(adaptedLinks, ({ path, label }) => {
-          // const isActive = path === activatedLink;
-          // const ariaCurrent = getMenuAriaCurrent(path, pathname, isActive);
-          // const linkClass = getNavigationLinkStyles(isActive);
+          const isActive = path === activatedLink;
+          const ariaCurrent = getMenuAriaCurrent(path, pathname, isActive);
+          const linkClass = getNavigationLinkStyles(isActive);
 
           // type pathAsType = '/' | '/faq' | '/offer' | '/partnership';
           // const altPath: pathAsType = '/partnership';
 
           return (
             <li key={label}>
-              {/* <Link
-                href={'/faq'}
+              <Link
+                href={'/offer'}
                 scroll={true}
                 onClick={() => {
                   handleActivateLink(path);
@@ -49,14 +41,7 @@ export default function Navigation() {
                 className={linkClass}
               >
                 {label}
-              </Link> */}
-              <PrimaryButtonUI
-                ariaId={AriaId.Performers}
-                ariaDescription={AriaDescription.Performers}
-                handleClick={() => router.push('/offer')}
-              >
-                {label}
-              </PrimaryButtonUI>
+              </Link>
             </li>
           );
         })}
