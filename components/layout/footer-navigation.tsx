@@ -1,19 +1,22 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+// import Link from 'next/link';
+// import { usePathname } from 'next/navigation';
 
 import { AriaLabel, ILinks, PositionInLayout } from 'types';
-import { useActiveLink } from 'context';
+// import { useActiveLink } from 'context';
 import { getFooterLinks } from 'data';
-import { getMenuAriaCurrent, mapArray } from 'helpers';
+import {
+  // getMenuAriaCurrent,
+  mapArray,
+} from 'helpers';
 
 import { CalculationLinkDesktop, CalculationLinkMobile } from './subcomponents';
 
 export default function FooterMenu() {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const footerMenuLinks = getFooterLinks();
-  const { handleActivateLink } = useActiveLink();
+  // const { handleActivateLink } = useActiveLink();
 
   return (
     <nav aria-label={AriaLabel.FooterNav}>
@@ -25,9 +28,14 @@ export default function FooterMenu() {
           <CalculationLinkDesktop />
           <CalculationLinkMobile position={PositionInLayout.Footer} />
         </li>
-        {mapArray(footerMenuLinks, ({ path, label }: ILinks) => (
-          <li key={label}>
-            {/* <Link
+        {mapArray(
+          footerMenuLinks,
+          ({
+            // path,
+            label,
+          }: ILinks) => (
+            <li key={label}>
+              {/* <Link
               href={path}
               scroll={true}
               aria-current={getMenuAriaCurrent(path, pathname)}
@@ -38,8 +46,9 @@ export default function FooterMenu() {
             >
               {label}
             </Link> */}
-          </li>
-        ))}
+            </li>
+          ),
+        )}
       </ul>
     </nav>
   );

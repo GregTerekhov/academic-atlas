@@ -1,8 +1,8 @@
 'use client';
 
-import { useActiveLink } from 'context';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+// import { useActiveLink } from 'context';
+// import Link from 'next/link';
+// import { usePathname } from 'next/navigation';
 
 import { AriaDescription, AriaId, MenuLinks, Paths } from 'types';
 
@@ -16,13 +16,13 @@ interface ILegalLinkItemProps {
 }
 
 export default function LegalLinkItem({
-  href,
+  // href,
   ariaId,
   ariaDescription,
-  linkLabel,
+  // linkLabel,
 }: ILegalLinkItemProps) {
-  const pathname = usePathname();
-  const { handleActivateLink } = useActiveLink();
+  // const pathname = usePathname();
+  // const { handleActivateLink } = useActiveLink();
 
   return (
     <>
