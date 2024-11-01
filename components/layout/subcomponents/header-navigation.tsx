@@ -27,7 +27,7 @@ export default function Navigation() {
           const linkClass = getNavigationLinkStyles(isActive);
 
           type pathAsType = '/' | '/faq' | '/offer' | '/partnership';
-          const altPath: pathAsType = '/';
+          const altPath: pathAsType = '/faq';
 
           return (
             <li key={label}>
