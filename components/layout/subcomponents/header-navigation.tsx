@@ -53,7 +53,7 @@ export default function Navigation() {
               <PrimaryButtonUI
                 ariaId={AriaId.Performers}
                 ariaDescription={AriaDescription.Performers}
-                handleClick={() => router.push(path)}
+                handleClick={() => router.push('/offer')}
               >
                 {label}
               </PrimaryButtonUI>
