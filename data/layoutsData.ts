@@ -83,14 +83,14 @@ export const getFooterLinks = (): ILinks[] => {
       path: Paths.Promotions,
       label: MenuLinks.Promotions,
     },
-    // {
-    //   path: Paths.FAQ,
-    //   label: MenuLinks.FAQ,
-    // },
-    // {
-    //   path: Paths.Partnership,
-    //   label: MenuLinks.Partnership,
-    // },
+    {
+      path: Paths.FAQ,
+      label: MenuLinks.FAQ,
+    },
+    {
+      path: Paths.Partnership,
+      label: MenuLinks.Partnership,
+    },
   ];
 };
 
