@@ -33,7 +33,7 @@ export enum Paths {
   AboutUs = '/#about-us',
   Promotions = '/#promotions',
   Feedback = '/#feedback',
-  FAQ = '/faq',
+  FAQ = '/faqs',
   Offer = '/offer',
   Policy = '/policy',
   Partnership = '/partnership',
@@ -155,7 +155,7 @@ export enum OpenGraphType {
 
 export enum OpenGraphURL {
   HOME = 'https://academic-atlas.com',
-  FAQ = 'https://academic-atlas.com/faq',
+  FAQ = 'https://academic-atlas.com/faqs',
   PARTNERSHIP = 'https://academic-atlas.com/partnership',
   POLICY = 'https://academic-atlas.com/legal',
   NOT_FOUND = 'https://academic-atlas.com/',
