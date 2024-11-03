@@ -8,6 +8,8 @@ import { TelegramButton } from 'template';
 
 import { getPrimaryButtonStyles } from 'styles';
 
+const HREF_TO_BOT = 'https://t.me/AcademicAtlasBot?start=base64String';
+
 jest.mock('helpers', () => ({
   getAndEncodeDataObject: jest.fn(),
 }));
@@ -131,7 +133,7 @@ describe('TelegramButton Component', () => {
     expect(linkElement).toHaveAttribute('href', '#');
     fireEvent.click(linkElement);
 
-    expect(linkElement).toHaveAttribute('href', 'https://t.me/AcademicAtlasBot?start=base64String');
+    expect(linkElement).toHaveAttribute('href', HREF_TO_BOT);
   });
 
   it('should handle case when command is not provided', () => {
@@ -151,9 +153,9 @@ describe('TelegramButton Component', () => {
 
     const linkElement = getLinkElement();
     fireEvent.click(linkElement);
-    expect(linkElement).toHaveAttribute('href', 'https://t.me/AcademicAtlasBot?start=base64String');
+    expect(linkElement).toHaveAttribute('href', HREF_TO_BOT);
     fireEvent.click(linkElement);
-    expect(linkElement).toHaveAttribute('href', 'https://t.me/AcademicAtlasBot?start=base64String');
+    expect(linkElement).toHaveAttribute('href', HREF_TO_BOT);
   });
 
   it.each(testCasesForAriaSpan)(

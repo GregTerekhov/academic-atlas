@@ -4,6 +4,10 @@ import { useActiveLink } from 'context';
 import { useIntersectionObserver, useScrollResetTimeout } from 'hooks';
 import { useScrollController } from 'hooks/useScrollController';
 
+const CHANGED_SCROLL_POSITION = 1200;
+const DEFAULT_SCROLL_POSITION = 0;
+const MARGIN_BOTTOM = '16px';
+
 jest.mock('context', () => ({
   useActiveLink: jest.fn(),
 }));
@@ -82,10 +86,10 @@ describe('useScrollController hook', () => {
 
     const { result } = renderHook(() => useScrollController());
 
-    updateScrollPosition(1200);
+    updateScrollPosition(CHANGED_SCROLL_POSITION);
     expect(result.current.isVisible).toBe(true);
 
-    updateScrollPosition(0);
+    updateScrollPosition(DEFAULT_SCROLL_POSITION);
     expect(result.current.isVisible).toBe(false);
   });
 
@@ -103,14 +107,14 @@ describe('useScrollController hook', () => {
       });
     });
 
-    updateScrollPosition(1200);
+    updateScrollPosition(CHANGED_SCROLL_POSITION);
 
     act(() => {
       jest.runAllTimers();
       requestAnimationFrame(() => {
         expect(result.current.isVisible).toBe(true);
         expect(button.style.position).toBe('fixed');
-        expect(button.style.bottom).toBe('16px');
+        expect(button.style.bottom).toBe(MARGIN_BOTTOM);
       });
     });
 
@@ -136,7 +140,7 @@ describe('useScrollController hook', () => {
     act(() => {
       requestAnimationFrame(() => {
         expect(button.style.position).toBe('absolute');
-        expect(button.style.bottom).toBe('16px');
+        expect(button.style.bottom).toBe(MARGIN_BOTTOM);
       });
     });
   });
@@ -153,7 +157,7 @@ describe('useScrollController hook', () => {
     });
 
     expect(scrollToMock).toHaveBeenCalledWith({
-      top: 0,
+      top: DEFAULT_SCROLL_POSITION,
       behavior: 'smooth',
     });
 

@@ -89,91 +89,91 @@ export const getExpertiseArea = (): IDropdownData[] => {
       option: ExpertiseArea.SocialSciences,
     },
     {
-      typeId: 'area7',
+      typeId: 'area6',
       option: ExpertiseArea.Journalism,
     },
     {
-      typeId: 'area8',
+      typeId: 'area7',
       option: ExpertiseArea.Management,
     },
     {
-      typeId: 'area9',
+      typeId: 'area8',
       option: ExpertiseArea.Law,
     },
     {
-      typeId: 'area10',
+      typeId: 'area9',
       option: ExpertiseArea.Biology,
     },
     {
-      typeId: 'area11',
+      typeId: 'area10',
       option: ExpertiseArea.NaturalSciences,
     },
     {
-      typeId: 'area12',
+      typeId: 'area11',
       option: ExpertiseArea.FormalSciences,
     },
     {
-      typeId: 'area13',
+      typeId: 'area12',
       option: ExpertiseArea.IT,
     },
     {
-      typeId: 'area14',
+      typeId: 'area13',
       option: ExpertiseArea.MechanicalEngineering,
     },
     {
-      typeId: 'area15',
+      typeId: 'area14',
       option: ExpertiseArea.ElectricalEngineering,
     },
     {
-      typeId: 'area16',
+      typeId: 'area15',
       option: ExpertiseArea.AutomationAndInstrumentation,
     },
     {
-      typeId: 'area17',
+      typeId: 'area16',
       option: ExpertiseArea.ChemicalAndBioengineering,
     },
     {
-      typeId: 'area18',
+      typeId: 'area17',
       option: ExpertiseArea.ElectronicsAndTelecommunications,
     },
     {
-      typeId: 'area19',
+      typeId: 'area18',
       option: ExpertiseArea.ProductionAndTechnology,
     },
     {
-      typeId: 'area20',
+      typeId: 'area19',
       option: ExpertiseArea.ArchitectureAndConstruction,
     },
     {
-      typeId: 'area21',
+      typeId: 'area20',
       option: ExpertiseArea.AgriculturalSciences,
     },
     {
-      typeId: 'area22',
+      typeId: 'area21',
       option: ExpertiseArea.VeterinaryMedicine,
     },
     {
-      typeId: 'area23',
+      typeId: 'area22',
       option: ExpertiseArea.Healthcare,
     },
     {
-      typeId: 'area24',
+      typeId: 'area23',
       option: ExpertiseArea.SocialWork,
     },
     {
-      typeId: 'area25',
+      typeId: 'area24',
       option: ExpertiseArea.ServiceSector,
     },
     {
-      typeId: 'area26',
+      typeId: 'area25',
       option: ExpertiseArea.MilitarySciences,
     },
     {
-      typeId: 'area27',
+      typeId: 'area26',
       option: ExpertiseArea.CivilSecurity,
     },
     {
-      typeId: 'area28',
+      typeId: 'area27',
       option: ExpertiseArea.Transport,
     },
   ];

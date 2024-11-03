@@ -12,10 +12,15 @@ interface IActiveLinkContext {
   isScrollingWithButton: boolean;
   handleActivateLink: (path: string) => void;
   updateScrollWithButtonState: (isScrolling: boolean) => void;
-  updateActiveLink: (path: string) => void;
+  updateActiveLink: (path: Paths) => void;
 }
 
 const ActiveLinkContext = createContext<IActiveLinkContext | undefined>(undefined);
+
+const DESKTOP_THRESHOLD = 0.7;
+const MOBILE_THRESHOLD = 0.4;
+const SECTION_CHECK_INTERVAL = 200;
+const NAVIGATION_DELAY = 1500;
 
 export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const pathname = usePathname();
@@ -24,13 +29,15 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   const [activatedLink, setActivatedLink] = useState<string>(pathname);
   const [isScrollingWithButton, setIsScrollingWithButton] = useState(false);
   const [areSectionsReady, setAreSectionsReady] = useState(false);
+  const [prevScrollTop, setPrevScrollTop] = useState<number>(0);
+
   const isNavigating = useRef<boolean>(false);
   const navigationTimerId = useRef<NodeJS.Timeout | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const sectionRefs = useRef<Element[]>([]);
 
   const { isNavMenuOpen, toggleNavMenu } = useMenu();
 
-  const sectionRefs = useRef<Element[]>([]);
   const { sections, initialiseSections } = useInitialiseSection(
     sectionRefs.current,
     areSectionsReady,
@@ -48,7 +55,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       if (sectionRefs.current.length > 1) {
         setAreSectionsReady(true);
       } else {
-        timeoutRef.current = setTimeout(checkSections, 200);
+        timeoutRef.current = setTimeout(checkSections, SECTION_CHECK_INTERVAL);
       }
     };
 
@@ -63,6 +70,11 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
   const handleSectionIntersecting = useCallback(
     (entries: IntersectionObserverEntry[]) => {
+      const currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+      const isScrollingDown = currentScrollTop > prevScrollTop;
+
+      setPrevScrollTop(currentScrollTop);
+
       if (isNavigating.current || isScrollingWithButton) return;
 
       entries.forEach((entry) => {
@@ -71,6 +83,14 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
           if (id && sections?.current) {
             const section = sections.current.find((section) => section.id === id);
             if (section && activatedLink !== section.path) {
+              if (isScrollingDown && section.path === Paths.Main) {
+                return;
+              }
+
+              if (!isScrollingDown && section.path === Paths.Services) {
+                return;
+              }
+
               if (section.path === Paths.Main && !section.path.includes('#')) {
                 router.push(Paths.Main, { scroll: false });
               } else {
@@ -82,7 +102,7 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
         }
       });
     },
-    [isScrollingWithButton, sections, activatedLink, router],
+    [prevScrollTop, isScrollingWithButton, sections, activatedLink, router],
   );
 
   useEffect(() => {
@@ -92,13 +112,23 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
       if (pathname === Paths.Main && areSectionsReady) {
         initialiseSections();
 
-        observer = new IntersectionObserver(handleSectionIntersecting, {
-          root: null,
-          threshold: 0.6,
-        });
+        const sections = sectionRefs.current as HTMLElement[];
 
-        sectionRefs.current.forEach((ref) => {
-          if (ref) observer?.observe(ref);
+        sections.forEach((section) => {
+          if (section) {
+            const sectionHeight = section.offsetHeight;
+            const threshold =
+              sectionHeight > window.innerHeight ? MOBILE_THRESHOLD : DESKTOP_THRESHOLD;
+
+            observer = new IntersectionObserver(handleSectionIntersecting, {
+              root: null,
+              threshold,
+            });
+
+            sectionRefs.current.forEach((ref) => {
+              if (ref) observer?.observe(ref);
+            });
+          }
         });
       }
     };
@@ -130,13 +160,13 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
 
     navigationTimerId.current = setTimeout(() => {
       isNavigating.current = false;
-    }, 1500);
+    }, NAVIGATION_DELAY);
   };
 
   const updateScrollWithButtonState = (isScrolling: boolean) =>
     setIsScrollingWithButton(isScrolling);
 
-  const updateActiveLink = (path: string) => setActivatedLink(path);
+  const updateActiveLink = (path: Paths) => setActivatedLink(path);
 
   return (
     <ActiveLinkContext.Provider

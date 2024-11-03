@@ -21,7 +21,7 @@ export default function FAQList() {
             title={title}
             id={id}
           >
-            {id === 'Question 2' || id === 'Question 6' ? (
+            {id === 'Question_2' || id === 'Question_6' ? (
               <TextWithLink
                 order={TelegramScenario.Order}
                 text={answer}

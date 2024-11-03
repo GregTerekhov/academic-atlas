@@ -7,7 +7,7 @@ const nextConfig = {
   },
   // compiler: { //FIXME:--- before production
   //   removeConsole: {
-  //     exclude: ['error', 'warn'],
+  //     exclude: ['error', 'warn', 'info'],
   //   },
   // },
   images: {

@@ -31,7 +31,6 @@ jest.mock('data', () => ({
     notFound: {
       title: 'props.title',
       description: 'props.description',
-      keywords: 'props.keywords',
     },
   },
 }));
