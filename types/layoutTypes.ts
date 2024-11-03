@@ -39,6 +39,19 @@ export enum Paths {
   Partnership = '/partnership',
 }
 
+// export type Paths =
+//   | '/'
+//   | '/#services'
+//   | '/#cost'
+//   | '/#overview'
+//   | '/#about-us'
+//   | '/#promotions'
+//   | '/#feedback'
+//   | '/faq'
+//   | '/offer'
+//   | '/policy'
+//   | '/partnership';
+
 export enum SectionTitle {
   Hero = 'main',
   OurServices = 'our-services',
