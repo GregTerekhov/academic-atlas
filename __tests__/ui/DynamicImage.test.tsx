@@ -9,7 +9,7 @@ jest.mock('next/image', () => {
     <img
       {...props}
       alt={props.alt}
-      data-priority={props.priority} //FIXME: Received `true` for a non-boolean attribute `priority` and React does not recognize the `blurDataURL` prop on a DOM element.
+      data-priority={props.priority}
     />
   );
   MockImage.displayName = 'Image';
