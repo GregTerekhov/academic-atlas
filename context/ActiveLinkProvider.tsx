@@ -145,7 +145,6 @@ export const ActiveLinkProvider = ({ children }: IWithChildren) => {
   }, [pathname, initialiseSections, areSectionsReady, sectionRefs, handleSectionIntersecting]);
 
   const handleActivateLink = async (path: string) => {
-    console.log('path: ', path);
     isNavigating.current = true;
     setActivatedLink(path);
 
