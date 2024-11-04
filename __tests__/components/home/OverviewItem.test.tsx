@@ -42,7 +42,9 @@ describe('OverviewItem Component', () => {
   it('should render the circle and inner dot correctly', () => {
     const outerCircle = screen
       .getByRole('listitem')
-      .querySelector('.relative.flex.items-center.justify-center.rounded-full.bg-whiteBase\\/10');
+      .querySelector(
+        '.relative.flex.items-center.justify-center.rounded-full.bg-accentPrimary\\/10',
+      );
     expect(outerCircle).toHaveClass('size-[28px] lg:size-10');
     expect(outerCircle).toBeInTheDocument();
 

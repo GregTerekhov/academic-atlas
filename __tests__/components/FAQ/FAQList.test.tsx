@@ -6,17 +6,17 @@ import { FAQList } from 'components';
 
 jest.mock('data', () => ({
   getFAQQuestions: jest.fn(() => [
-    { id: 'Question 1', title: QuestionTitle.Issue1, answer: 'Answer for Question 1' },
+    { id: 'Question_1', title: QuestionTitle.Issue1, answer: 'Answer for Question 1' },
     {
-      id: 'Question 2',
+      id: 'Question_2',
       title: QuestionTitle.Issue2,
       answer: 'This is the answer with Telegram-бот for Question 2',
     },
-    { id: 'Question 3', title: QuestionTitle.Issue3, answer: 'Answer for Question 3' },
-    { id: 'Question 4', title: QuestionTitle.Issue4, answer: 'Answer for Question 4' },
-    { id: 'Question 5', title: QuestionTitle.Issue5, answer: 'Answer for Question 5' },
+    { id: 'Question_3', title: QuestionTitle.Issue3, answer: 'Answer for Question 3' },
+    { id: 'Question_4', title: QuestionTitle.Issue4, answer: 'Answer for Question 4' },
+    { id: 'Question_5', title: QuestionTitle.Issue5, answer: 'Answer for Question 5' },
     {
-      id: 'Question 6',
+      id: 'Question_6',
       title: QuestionTitle.Issue6,
       answer: 'This is the answer with Telegram-бот for Question 6',
     },
