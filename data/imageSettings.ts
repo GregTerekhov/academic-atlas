@@ -25,9 +25,9 @@ export const heroMatrixImageSettings = {
 
 export const imageSettings = {
   faqHero: {
-    src: '/images/faq-hero.png',
+    src: '/images/faq-hero-girl.webp',
     alt: 'Girl with a book and question marks symbolizing frequently asked questions and answers',
-    width: ImageSize.Medium192,
+    width: ImageSize.Medium200,
     height: ImageSize.Medium208,
     className:
       'max-md:mx-auto md:absolute md:right-10 md:top-1/2 md:h-[260px] md:w-[240px] md:-translate-y-1/2 lg:h-[584px] lg:w-[537px]',
