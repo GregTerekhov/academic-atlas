@@ -1,10 +1,14 @@
+'use client';
+
 import { ThemeVariants } from '../types';
 import { eraseCookie, getCookie, setCookie } from './cookiesHelper';
 
 export const applyPreference = (theme: string) => {
-  const root = document.firstElementChild;
-  root?.classList.remove(ThemeVariants.DARK, ThemeVariants.LIGHT);
-  root?.classList.add(theme);
+  if (typeof document !== 'undefined') {
+    const root = document.firstElementChild;
+    root?.classList.remove(ThemeVariants.DARK, ThemeVariants.LIGHT);
+    root?.classList.add(theme);
+  }
 };
 
 export const getPreference = (storageKey: string): string => {

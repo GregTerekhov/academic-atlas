@@ -18,7 +18,7 @@ interface IActiveLinkContext {
 const ActiveLinkContext = createContext<IActiveLinkContext | undefined>(undefined);
 
 const DESKTOP_THRESHOLD = 0.7;
-const MOBILE_THRESHOLD = 0.4;
+const MOBILE_THRESHOLD = 0.2;
 const SECTION_CHECK_INTERVAL = 200;
 const NAVIGATION_DELAY = 1500;
 
