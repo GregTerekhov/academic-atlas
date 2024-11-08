@@ -5,18 +5,17 @@ const nextConfig = {
     typedRoutes: true,
     scrollRestoration: true,
   },
-  // compiler: { //FIXME:--- before production
-  //   removeConsole: {
-  //     exclude: ['error', 'warn', 'info'],
-  //   },
-  // },
+  compiler: {
+    removeConsole: {
+      exclude: ['error', 'warn', 'info'],
+    },
+  },
   images: {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   async headers() {
-    //FIXME: turn on after checking of deletion unused styles functions
     return [
       {
         source: '/images/(.*)',

@@ -45,7 +45,7 @@ jest.mock('data', () => ({
   })),
   imageSettings: {
     faqHero: {
-      src: '/images/faq-hero.png',
+      src: '/images/faq-hero-girl.webp',
       alt: 'FAQ Hero Image',
       width: 537,
       height: 584,
@@ -69,7 +69,7 @@ describe('FAQ Hero Component', () => {
 
     expect(ImageUI).toHaveBeenCalledWith(
       expect.objectContaining({
-        src: '/images/faq-hero.png',
+        src: '/images/faq-hero-girl.webp',
         alt: 'FAQ Hero Image',
         width: 537,
         height: 584,
