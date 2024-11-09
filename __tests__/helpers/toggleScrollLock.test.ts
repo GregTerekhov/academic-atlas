@@ -48,6 +48,16 @@ describe('Utility ScrollLock Functions', () => {
       setBodyDimensions(800, 800);
       expect(hasScrollbar()).toBe(false);
     });
+
+    it('should return null if document is undefined (mocked)', () => {
+      const documentSpy = jest
+        .spyOn(globalThis, 'document', 'get')
+        .mockImplementation(() => undefined as unknown as Document);
+
+      expect(getScrollBarWidth()).toBeNull();
+
+      documentSpy.mockRestore();
+    });
   });
 
   describe('toggleScrollLock', () => {
