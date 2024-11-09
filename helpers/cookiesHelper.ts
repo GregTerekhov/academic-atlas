@@ -12,7 +12,6 @@ export const getCookie = (name: string): string | null => {
 };
 
 export const setCookie = (name: string, value: string, days: number): void => {
-  if (typeof document === 'undefined') return;
   let expires = '';
 
   if (days) {
@@ -21,7 +20,7 @@ export const setCookie = (name: string, value: string, days: number): void => {
     expires = `; expires=${date.toUTCString()}`;
   }
 
-  document.cookie = `${name}=${value}${expires}; path=/`;
+  document.cookie = typeof document !== 'undefined' ? `${name}=${value}${expires}; path=/` : '';
 };
 
 export const eraseCookie = (name: string): void => {
