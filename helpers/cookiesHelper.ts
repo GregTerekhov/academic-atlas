@@ -1,14 +1,18 @@
+'use client';
+
 const HOURS = 24;
 const MINUTES = 60;
 const SECONDS = 60;
 const MILLISECONDS = 1000;
 
 export const getCookie = (name: string): string | null => {
+  if (typeof document === 'undefined') return null;
   const matches = `; ${document.cookie}`.match(`;\\s*${name}=([^;]+)`);
   return matches ? matches[1] : null;
 };
 
 export const setCookie = (name: string, value: string, days: number): void => {
+  if (typeof document === 'undefined') return;
   let expires = '';
 
   if (days) {
