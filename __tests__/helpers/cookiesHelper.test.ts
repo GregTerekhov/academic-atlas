@@ -33,4 +33,15 @@ describe('Cookie utility functions', () => {
 
     expect(cookieValue).toBeNull();
   });
+
+  it('should return null if document is undefined (mocked)', () => {
+    const getCookieSpy = jest
+      .spyOn(globalThis, 'document', 'get')
+      .mockImplementation(() => undefined as unknown as Document);
+
+    expect(getCookie('anyCookie')).toBeNull();
+    expect(() => setCookie('anyCookie', 'anyValue', 1)).not.toThrow();
+
+    getCookieSpy.mockRestore();
+  });
 });

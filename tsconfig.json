@@ -9,7 +9,6 @@
 
     //Emit
     "noEmit": true,
-    // "removeComments": true,
 
     //Type checking
     "skipLibCheck": true,
@@ -22,7 +21,6 @@
     "noImplicitReturns": true,
     "useUnknownInCatchVariables": true,
     "downlevelIteration": true,
-    // "noFallthroughCasesInSwitch": true,
 
     //Modules
     "module": "esnext",

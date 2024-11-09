@@ -6,6 +6,7 @@ const SECONDS = 60;
 const MILLISECONDS = 1000;
 
 export const getCookie = (name: string): string | null => {
+  if (typeof document === 'undefined') return null;
   const matches = `; ${document.cookie}`.match(`;\\s*${name}=([^;]+)`);
   return matches ? matches[1] : null;
 };
@@ -19,7 +20,7 @@ export const setCookie = (name: string, value: string, days: number): void => {
     expires = `; expires=${date.toUTCString()}`;
   }
 
-  document.cookie = `${name}=${value}${expires}; path=/`;
+  document.cookie = typeof document !== 'undefined' ? `${name}=${value}${expires}; path=/` : '';
 };
 
 export const eraseCookie = (name: string): void => {

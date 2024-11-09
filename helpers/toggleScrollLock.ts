@@ -1,6 +1,8 @@
 'use client';
 
 export const getScrollBarWidth = () => {
+  if (typeof document === 'undefined') return null;
+
   const outer = document.createElement('div');
   outer.style.visibility = 'hidden';
   outer.style.width = '100px';
@@ -23,44 +25,46 @@ export const getScrollBarWidth = () => {
 };
 
 export const hasScrollbar = () => {
-  return document.body.scrollHeight > document.body.clientHeight;
+  return typeof document !== 'undefined' && document.body.scrollHeight > document.body.clientHeight;
 };
 
 export const toggleScrollLock = (isLocked: boolean) => {
-  const root = document.firstElementChild;
-  const body = document.body;
+  if (typeof document !== 'undefined') {
+    const root = document.firstElementChild;
+    const body = document.body;
 
-  if (isLocked) {
-    //Check on iPhone -->
-    const scrollPosition = window.scrollY;
-    sessionStorage.setItem('scrollPosition', scrollPosition.toString());
-    //Check on iPhone <--
+    if (isLocked) {
+      //Check on iPhone -->
+      const scrollPosition = window.scrollY;
+      sessionStorage.setItem('scrollPosition', scrollPosition.toString());
+      //Check on iPhone <--
 
-    body.ontouchmove = function (e) {
-      e.preventDefault();
-    };
-    body.style.top = `-${scrollPosition}px`;
-    body.classList.add('no-scroll');
-    root?.classList.add('no-scroll');
+      body.ontouchmove = function (e) {
+        e.preventDefault();
+      };
+      body.style.top = `-${scrollPosition}px`;
+      body.classList.add('no-scroll');
+      root?.classList.add('no-scroll');
 
-    if (hasScrollbar()) {
-      body.style.width = `calc(100% - ${getScrollBarWidth()}px)`;
+      if (hasScrollbar() && getScrollBarWidth() !== null) {
+        body.style.width = `calc(100% - ${getScrollBarWidth()}px)`;
+      } else {
+        body.style.width = '100%';
+      }
     } else {
-      body.style.width = '100%';
+      body.ontouchmove = null;
+      body.classList.remove('no-scroll');
+      root?.classList.remove('no-scroll');
+      //Check on iPhone --->
+      const savedScrollPosition = sessionStorage.getItem('scrollPosition');
+      if (savedScrollPosition) {
+        const scrollY = parseInt(savedScrollPosition, 10);
+        sessionStorage.removeItem('scrollPosition');
+        window.scrollTo(0, scrollY);
+      }
+      //Check on iPhone <---
+      body.style.top = '';
+      body.style.width = '';
     }
-  } else {
-    body.ontouchmove = null;
-    body.classList.remove('no-scroll');
-    root?.classList.remove('no-scroll');
-    //Check on iPhone --->
-    const savedScrollPosition = sessionStorage.getItem('scrollPosition');
-    if (savedScrollPosition) {
-      const scrollY = parseInt(savedScrollPosition, 10);
-      sessionStorage.removeItem('scrollPosition');
-      window.scrollTo(0, scrollY);
-    }
-    //Check on iPhone <---
-    body.style.top = '';
-    body.style.width = '';
   }
 };
