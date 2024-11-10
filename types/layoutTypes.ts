@@ -154,12 +154,12 @@ export enum OpenGraphType {
 }
 
 export enum OpenGraphURL {
-  HOME = 'https://academic-atlas.vercel.app',
-  FAQ = 'https://academic-atlas.vercel.app/faqs',
-  PARTNERSHIP = 'https://academic-atlas.vercel.app/partnership',
-  POLICY = 'https://academic-atlas.vercel.app/legal',
-  NOT_FOUND = 'https://academic-atlas.vercel.app/',
-  OFFER = 'https://academic-atlas.vercel.app/offer',
+  HOME = 'https://academic-atlas.com',
+  FAQ = 'https://academic-atlas.com/faqs',
+  PARTNERSHIP = 'https://academic-atlas.com/partnership',
+  POLICY = 'https://academic-atlas.com/legal',
+  NOT_FOUND = 'https://academic-atlas.com/',
+  OFFER = 'https://academic-atlas.com/offer',
 }
 
 export enum OpenGraphImageURL {

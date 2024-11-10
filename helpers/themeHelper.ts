@@ -18,9 +18,12 @@ export const getPreference = (storageKey: string): string => {
     return cookie;
   }
 
-  return window?.matchMedia(`(prefers-color-scheme: ${ThemeVariants.DARK})`).matches
-    ? ThemeVariants.DARK
-    : ThemeVariants.LIGHT;
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    return window?.matchMedia(`(prefers-color-scheme: ${ThemeVariants.DARK})`).matches
+      ? ThemeVariants.DARK
+      : ThemeVariants.LIGHT;
+  }
+  return ThemeVariants.LIGHT;
 };
 
 export const setPreference = (storageKey: string, theme: string) => {

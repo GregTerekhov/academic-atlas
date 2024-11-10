@@ -25,11 +25,15 @@ export const getScrollBarWidth = () => {
 };
 
 export const hasScrollbar = () => {
-  return typeof document !== 'undefined' && document.body.scrollHeight > document.body.clientHeight;
+  return (
+    typeof document !== 'undefined' &&
+    typeof window !== 'undefined' &&
+    document.body.scrollHeight > document.body.clientHeight
+  );
 };
 
 export const toggleScrollLock = (isLocked: boolean) => {
-  if (typeof document !== 'undefined') {
+  if (typeof document !== 'undefined' && typeof window !== 'undefined') {
     const root = document.firstElementChild;
     const body = document.body;
 
