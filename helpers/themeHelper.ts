@@ -18,7 +18,7 @@ export const getPreference = (storageKey: string): string => {
     return cookie;
   }
 
-  return window.matchMedia(`(prefers-color-scheme: ${ThemeVariants.DARK})`).matches
+  return window?.matchMedia(`(prefers-color-scheme: ${ThemeVariants.DARK})`).matches
     ? ThemeVariants.DARK
     : ThemeVariants.LIGHT;
 };
